@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\moagi\\OneDrive\\Desktop\\KoosMatliWebsite\\KoosMatliWebsite\\KoosMatliWebsite.csproj",
+      "projectUniqueName": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\KoosMatliWebsite.csproj",
       "projectName": "KoosMatliWebsite",
-      "projectPath": "C:\\Users\\moagi\\OneDrive\\Desktop\\KoosMatliWebsite\\KoosMatliWebsite\\KoosMatliWebsite.csproj",
+      "projectPath": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\KoosMatliWebsite.csproj",
       "packagesPath": "C:\\Users\\moagi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\moagi\\OneDrive\\Desktop\\KoosMatliWebsite\\KoosMatliWebsite\\obj\\",
+      "outputPath": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

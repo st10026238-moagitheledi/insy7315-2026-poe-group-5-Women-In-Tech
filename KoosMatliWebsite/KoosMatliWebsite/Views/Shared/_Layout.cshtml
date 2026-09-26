@@ -3,48 +3,286 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - KoosMatliWebsite</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/KoosMatliWebsite.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">KoosMatliWebsite</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - KoosMatliWebsite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <title>@ViewData["Title"] - Koos Matli Primary School</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="site-header">
+
+        <div class="navbar">
+
+            <!-- LOGO -->
+            <a class="school-logo" asp-controller="Home" asp-action="Index">
+
+                <div class="logo-placeholder">
+                    KM
+                </div>
+
+                <div class="school-name">
+                    <strong>KOOS MATLI</strong>
+                    <span>PRIMARY SCHOOL</span>
+                </div>
+
+            </a>
+
+
+            <!-- DESKTOP NAVIGATION -->
+
+            <nav class="desktop-nav">
+
+                <a asp-controller="Home"
+                   asp-action="Index">
+                    HOME
+                </a>
+
+                <a asp-controller="About"
+                   asp-action="Index">
+                    ABOUT US
+                </a>
+
+                <a asp-controller="Staff"
+                   asp-action="Index">
+                    OUR STAFF
+                </a>
+
+                <a asp-controller="Admissions"
+                   asp-action="Index">
+                    ADMISSIONS
+                </a>
+
+                <a asp-controller="News"
+                   asp-action="Index">
+                    NEWS & ANNOUNCEMENTS
+                </a>
+
+                <div class="nav-dropdown">
+
+                    <button type="button">
+                        MORE
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <div class="dropdown-menu">
+
+                        <a asp-controller="Gallery"
+                           asp-action="Index">
+                            School Gallery
+                        </a>
+
+                        <a asp-controller="Contact"
+                           asp-action="Index">
+                            Find Us / Contact
+                        </a>
+
+                        <a asp-controller="Calendar"
+                           asp-action="Index">
+                            School Calendar
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <a class="nav-contact"
+                   asp-controller="Contact"
+                   asp-action="Index">
+
+                    CONTACT US
+
+                </a>
+
+            </nav>
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button class="mobile-menu-button"
+                    id="mobileMenuButton">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
         </div>
+
+
+        <!-- MOBILE NAVIGATION -->
+
+        <nav class="mobile-nav" id="mobileNav">
+
+            <a asp-controller="Home"
+               asp-action="Index">
+                HOME
+            </a>
+
+            <a asp-controller="About"
+               asp-action="Index">
+                ABOUT US
+            </a>
+
+            <a asp-controller="Staff"
+               asp-action="Index">
+                OUR STAFF
+            </a>
+
+            <a asp-controller="Admissions"
+               asp-action="Index">
+                ADMISSIONS
+            </a>
+
+            <a asp-controller="News"
+               asp-action="Index">
+                NEWS & ANNOUNCEMENTS
+            </a>
+
+            <a asp-controller="Gallery"
+               asp-action="Index">
+                SCHOOL GALLERY
+            </a>
+
+            <a asp-controller="Contact"
+               asp-action="Index">
+                FIND US / CONTACT
+            </a>
+
+            <a asp-controller="Calendar"
+               asp-action="Index">
+                SCHOOL CALENDAR
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= PAGE CONTENT ================= -->
+
+    <main>
+
+        @RenderBody()
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+
+                <div class="footer-logo">
+                    KM
+                </div>
+
+                <div>
+                    <strong>KOOS MATLI</strong>
+                    <span>PRIMARY SCHOOL</span>
+                </div>
+
+            </div>
+
+            <p>
+                Where education lights the way,<br />
+                for a brighter future.
+            </p>
+
+        </div>
+
+
+        <div class="footer-columns">
+
+            <div>
+
+                <h4>Quick Links</h4>
+
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-controller="About" asp-action="Index">About Us</a>
+                <a asp-controller="Staff" asp-action="Index">Our Staff</a>
+                <a asp-controller="Admissions" asp-action="Index">Admissions</a>
+                <a asp-controller="News" asp-action="Index">News & Announcements</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Explore</h4>
+
+                <a asp-controller="Gallery" asp-action="Index">
+                    School Gallery
+                </a>
+
+                <a asp-controller="Contact" asp-action="Index">
+                    Find Us / Contact
+                </a>
+
+                <a asp-controller="Calendar" asp-action="Index">
+                    School Calendar
+                </a>
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+                <a href="#">
+                    Terms & Conditions
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Contact Info</h4>
+
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    123 Thuto Street<br />
+                    Mamelodi, Pretoria, 0122
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    012 345 6789
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-envelope"></i>
+                    info@koosmatli.co.za
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            © 2026 Koos Matli Primary School.
+            All rights reserved.
+
+        </div>
+
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <script src="~/js/site.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
