@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KoosMatliWebsite")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+96b5ae582a9ebf691b333bcca15952c709270207")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+891414f1314b5118e26f6bd53c365c48a338f8a3")]
 [assembly: System.Reflection.AssemblyProductAttribute("KoosMatliWebsite")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KoosMatliWebsite")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
