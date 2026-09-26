@@ -11,12 +11,12 @@
       "RelativeMoniker": "D:0:0:{F39D4C4E-642F-9F66-8CA5-83C563262EC4}|KoosMatliWebsite\\KoosMatliWebsite.csproj|solutionrelative:koosmatliwebsite\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F39D4C4E-642F-9F66-8CA5-83C563262EC4}|KoosMatliWebsite\\KoosMatliWebsite.csproj|c:\\users\\moagi\\onedrive\\documents\\github\\insy7315-2026-poe-task-2-group-5-women-in-tech\\koosmatliwebsite\\koosmatliwebsite\\views\\news\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F39D4C4E-642F-9F66-8CA5-83C563262EC4}|KoosMatliWebsite\\KoosMatliWebsite.csproj|solutionrelative:koosmatliwebsite\\views\\news\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F39D4C4E-642F-9F66-8CA5-83C563262EC4}|KoosMatliWebsite\\KoosMatliWebsite.csproj|c:\\users\\moagi\\onedrive\\documents\\github\\insy7315-2026-poe-task-2-group-5-women-in-tech\\koosmatliwebsite\\koosmatliwebsite\\views\\gallery\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F39D4C4E-642F-9F66-8CA5-83C563262EC4}|KoosMatliWebsite\\KoosMatliWebsite.csproj|solutionrelative:koosmatliwebsite\\views\\gallery\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F39D4C4E-642F-9F66-8CA5-83C563262EC4}|KoosMatliWebsite\\KoosMatliWebsite.csproj|c:\\users\\moagi\\onedrive\\documents\\github\\insy7315-2026-poe-task-2-group-5-women-in-tech\\koosmatliwebsite\\koosmatliwebsite\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F39D4C4E-642F-9F66-8CA5-83C563262EC4}|KoosMatliWebsite\\KoosMatliWebsite.csproj|solutionrelative:koosmatliwebsite\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F39D4C4E-642F-9F66-8CA5-83C563262EC4}|KoosMatliWebsite\\KoosMatliWebsite.csproj|c:\\users\\moagi\\onedrive\\documents\\github\\insy7315-2026-poe-task-2-group-5-women-in-tech\\koosmatliwebsite\\koosmatliwebsite\\controllers\\gallerycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F39D4C4E-642F-9F66-8CA5-83C563262EC4}|KoosMatliWebsite\\KoosMatliWebsite.csproj|solutionrelative:koosmatliwebsite\\controllers\\gallerycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,8 +26,34 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\Views\\Gallery\\Index.cshtml",
+              "RelativeDocumentMoniker": "KoosMatliWebsite\\Views\\Gallery\\Index.cshtml",
+              "ToolTip": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\Views\\Gallery\\Index.cshtml",
+              "RelativeToolTip": "KoosMatliWebsite\\Views\\Gallery\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPYBAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-26T12:59:56.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GalleryController.cs",
+              "DocumentMoniker": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\Controllers\\GalleryController.cs",
+              "RelativeDocumentMoniker": "KoosMatliWebsite\\Controllers\\GalleryController.cs",
+              "ToolTip": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\Controllers\\GalleryController.cs",
+              "RelativeToolTip": "KoosMatliWebsite\\Controllers\\GalleryController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-26T12:57:47.229Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -36,35 +62,9 @@
               "RelativeDocumentMoniker": "KoosMatliWebsite\\wwwroot\\js\\site.js",
               "ToolTip": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\wwwroot\\js\\site.js",
               "RelativeToolTip": "KoosMatliWebsite\\wwwroot\\js\\site.js",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAAwE8AAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAABMBAAAAAAAAAAAAAEoCAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-09-26T12:29:04.743Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\Views\\News\\Index.cshtml",
-              "RelativeDocumentMoniker": "KoosMatliWebsite\\Views\\News\\Index.cshtml",
-              "ToolTip": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\Views\\News\\Index.cshtml",
-              "RelativeToolTip": "KoosMatliWebsite\\Views\\News\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-09-26T12:24:57.685Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NewsController.cs",
-              "DocumentMoniker": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\Controllers\\NewsController.cs",
-              "RelativeDocumentMoniker": "KoosMatliWebsite\\Controllers\\NewsController.cs",
-              "ToolTip": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\Controllers\\NewsController.cs",
-              "RelativeToolTip": "KoosMatliWebsite\\Controllers\\NewsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-26T12:23:58.129Z",
               "EditorCaption": ""
             },
             {
@@ -75,7 +75,7 @@
               "RelativeDocumentMoniker": "KoosMatliWebsite\\wwwroot\\css\\site.css",
               "ToolTip": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliWebsite\\KoosMatliWebsite\\wwwroot\\css\\site.css",
               "RelativeToolTip": "KoosMatliWebsite\\wwwroot\\css\\site.css",
-              "ViewState": "AgIAAJ4GAAAAAAAAAAAAALYIAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAPMKAAAAAAAAAAAAAPoKAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2026-09-26T10:44:07.945Z",
               "EditorCaption": ""

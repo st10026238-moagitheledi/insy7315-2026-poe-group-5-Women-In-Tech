@@ -1,6 +1,4 @@
-wwwroot\css\site.css
 wwwroot\favicon.ico
-wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
@@ -61,6 +59,8 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\css\site.css
+wwwroot\js\site.js
 C:\Users\moagi\OneDrive\Documents\GitHub\insy7315-2026-poe-task-2-group-5-Women-In-Tech\KoosMatliWebsite\KoosMatliWebsite\wwwroot\favicon.ico
 C:\Users\moagi\OneDrive\Documents\GitHub\insy7315-2026-poe-task-2-group-5-Women-In-Tech\KoosMatliWebsite\KoosMatliWebsite\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 C:\Users\moagi\OneDrive\Documents\GitHub\insy7315-2026-poe-task-2-group-5-Women-In-Tech\KoosMatliWebsite\KoosMatliWebsite\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
