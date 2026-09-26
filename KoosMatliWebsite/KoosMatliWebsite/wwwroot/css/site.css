@@ -947,3 +947,267 @@ select {
         padding: 25px 20px;
     }
 }
+
+/* =========================================================
+   OUR STAFF PAGE
+   ========================================================= */
+
+
+/* =========================
+   STAFF HERO
+   ========================= */
+
+.staff-hero {
+    background: var(--navy);
+    color: white;
+    overflow: hidden;
+}
+
+
+.staff-hero-container {
+    min-height: 300px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    align-items: stretch;
+}
+
+
+/* =========================
+   HERO TEXT
+   ========================= */
+
+.staff-hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 45px 30px 45px 0;
+}
+
+
+    .staff-hero-text h1 {
+        font-size: 38px;
+        line-height: 1;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+
+    .staff-hero-text h2 {
+        color: var(--gold);
+        font-size: 17px;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+
+    .staff-hero-text p {
+        color: #dce3ec;
+        font-size: 11px;
+        line-height: 1.7;
+        max-width: 350px;
+    }
+
+
+/* =========================
+   HERO IMAGE
+   ========================= */
+
+.staff-hero-image {
+    height: 300px;
+    overflow: hidden;
+}
+
+
+    .staff-hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+/* =========================
+   DIRECTORY
+   ========================= */
+
+.staff-directory {
+    background: #f7f8fa;
+    padding: 25px 0 60px;
+}
+
+
+/* =========================
+   FILTER BUTTONS
+   ========================= */
+
+.staff-filters {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+
+.staff-filter {
+    border: 1px solid #e0e3e8;
+    background: white;
+    color: #596273;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+
+    .staff-filter:hover {
+        border-color: var(--gold);
+        color: var(--navy);
+    }
+
+
+    .staff-filter.active {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--navy);
+        font-weight: 700;
+    }
+
+
+/* =========================
+   STAFF GRID
+   ========================= */
+
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+
+/* =========================
+   STAFF CARD
+   ========================= */
+
+.staff-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e9ebef;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+
+    .staff-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0,0,0,.09);
+    }
+
+
+/* =========================
+   STAFF PHOTO
+   ========================= */
+
+.staff-photo {
+    height: 190px;
+    background: #eef1f5;
+    overflow: hidden;
+}
+
+
+    .staff-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+/* =========================
+   STAFF INFORMATION
+   ========================= */
+
+.staff-details {
+    text-align: center;
+    padding: 12px 8px 15px;
+}
+
+
+    .staff-details h3 {
+        color: var(--navy);
+        font-size: 11px;
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+
+
+    .staff-details p {
+        color: var(--muted);
+        font-size: 8px;
+        line-height: 1.4;
+    }
+
+
+/* =========================================================
+   STAFF RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .staff-hero-container {
+        grid-template-columns: 1fr;
+    }
+
+
+    .staff-hero-text {
+        padding: 45px 0 30px;
+    }
+
+
+    .staff-hero-image {
+        height: 300px;
+    }
+
+
+    .staff-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .staff-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+
+    .staff-photo {
+        height: 180px;
+    }
+
+
+    .staff-hero-text h1 {
+        font-size: 32px;
+    }
+}
+
+
+@media (max-width: 430px) {
+
+    .staff-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .staff-photo {
+        height: 250px;
+    }
+
+
+    .staff-filter {
+        padding: 7px 13px;
+        font-size: 8px;
+    }
+}

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<KoosMatliWebsite.Models.StaffMember>
+
+@{
+    ViewData["Title"] = "Our Staff";
+}
+
+
+<!-- =====================================================
+     STAFF HERO
+     ===================================================== -->
+
+<section class="staff-hero">
+
+    <div class="container staff-hero-container">
+
+        <div class="staff-hero-text">
+
+            <h1>OUR STAFF</h1>
+
+            <h2>
+                Dedicated. Experienced. Passionate.
+            </h2>
+
+            <p>
+                Our educators and support staff are committed
+                to empowering every learner to achieve their
+                full potential.
+            </p>
+
+        </div>
+
+
+        <div class="staff-hero-image">
+
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=80"
+                 alt="Koos Matli staff team" />
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STAFF DIRECTORY
+     ===================================================== -->
+
+<section class="staff-directory">
+
+    <div class="container">
+
+        <!-- FILTERS -->
+
+        <div class="staff-filters">
+
+            <button class="staff-filter active"
+                    data-filter="all">
+                ALL STAFF
+            </button>
+
+            <button class="staff-filter"
+                    data-filter="Management">
+                MANAGEMENT
+            </button>
+
+            <button class="staff-filter"
+                    data-filter="Teachers">
+                TEACHERS
+            </button>
+
+            <button class="staff-filter"
+                    data-filter="Support Staff">
+                SUPPORT STAFF
+            </button>
+
+        </div>
+
+
+        <!-- STAFF -->
+
+        <div class="staff-grid"
+             id="staffGrid">
+
+            @foreach (var member in Model)
+            {
+                <article class="staff-card"
+                         data-category="@member.Category">
+
+                    <div class="staff-photo">
+
+                        <img src="@member.ImageUrl"
+                             alt="@member.Name" />
+
+                    </div>
+
+                    <div class="staff-details">
+
+                        <h3>
+                            @member.Name
+                        </h3>
+
+                        <p>
+                            @member.Role
+                        </p>
+
+                    </div>
+
+                </article>
+            }
+
+        </div>
+
+    </div>
+
+</section>
