@@ -585,3 +585,331 @@ document.addEventListener(
 
     }
 );
+
+// =========================================================
+// SCHOOL CALENDAR
+// =========================================================
+
+const calendarDays =
+    document.getElementById("calendarDays");
+
+const calendarMonth =
+    document.getElementById("calendarMonth");
+
+const previousMonth =
+    document.getElementById("previousMonth");
+
+const nextMonth =
+    document.getElementById("nextMonth");
+
+
+if (
+    calendarDays &&
+    calendarMonth &&
+    previousMonth &&
+    nextMonth
+) {
+
+    let currentDate =
+        new Date(2026, 8, 1);
+
+
+    /*
+     * School events.
+     *
+     * These dates should eventually come
+     * from the database.
+     */
+
+    const calendarEvents = {
+
+        "2026-09-01": "Term Begins",
+
+        "2026-09-10": "Parents Meeting",
+
+        "2026-09-18": "Sports Day",
+
+        "2026-09-24": "Heritage Day",
+
+        "2026-09-28": "Term Assessments"
+
+    };
+
+
+    function formatDate(year, month, day) {
+
+        const monthNumber =
+            String(month + 1).padStart(2, "0");
+
+        const dayNumber =
+            String(day).padStart(2, "0");
+
+        return `${year}-${monthNumber}-${dayNumber}`;
+    }
+
+
+    function renderCalendar() {
+
+        calendarDays.innerHTML = "";
+
+
+        const year =
+            currentDate.getFullYear();
+
+        const month =
+            currentDate.getMonth();
+
+
+        const monthName =
+            currentDate.toLocaleString(
+                "default",
+                {
+                    month: "long"
+                }
+            );
+
+
+        calendarMonth.textContent =
+            `${monthName} ${year}`;
+
+
+        /*
+         * JavaScript Sunday = 0.
+         *
+         * Our calendar starts on Monday,
+         * so we adjust the value.
+         */
+
+        let firstDay =
+            new Date(year, month, 1).getDay();
+
+
+        firstDay =
+            firstDay === 0
+                ? 6
+                : firstDay - 1;
+
+
+        const daysInMonth =
+            new Date(
+                year,
+                month + 1,
+                0
+            ).getDate();
+
+
+        const daysInPreviousMonth =
+            new Date(
+                year,
+                month,
+                0
+            ).getDate();
+
+
+        /*
+         * Previous month's days
+         */
+
+        for (
+            let i = firstDay - 1;
+            i >= 0;
+            i--
+        ) {
+
+            const day =
+                daysInPreviousMonth - i;
+
+
+            const cell =
+                createDayCell(
+                    day,
+                    true,
+                    year,
+                    month - 1
+                );
+
+
+            calendarDays.appendChild(cell);
+        }
+
+
+        /*
+         * Current month's days
+         */
+
+        for (
+            let day = 1;
+            day <= daysInMonth;
+            day++
+        ) {
+
+            const cell =
+                createDayCell(
+                    day,
+                    false,
+                    year,
+                    month
+                );
+
+
+            calendarDays.appendChild(cell);
+        }
+
+
+        /*
+         * Fill remaining cells.
+         */
+
+        const totalCells =
+            calendarDays.children.length;
+
+
+        const remainingCells =
+            42 - totalCells;
+
+
+        for (
+            let day = 1;
+            day <= remainingCells;
+            day++
+        ) {
+
+            const cell =
+                createDayCell(
+                    day,
+                    true,
+                    year,
+                    month + 1
+                );
+
+
+            calendarDays.appendChild(cell);
+        }
+
+    }
+
+
+    function createDayCell(
+        day,
+        isOtherMonth,
+        year,
+        month
+    ) {
+
+        const cell =
+            document.createElement("div");
+
+
+        cell.className =
+            "calendar-day";
+
+
+        if (isOtherMonth) {
+
+            cell.classList.add(
+                "other-month"
+            );
+
+        }
+
+
+        const date =
+            formatDate(
+                year,
+                month,
+                day
+            );
+
+
+        const number =
+            document.createElement("span");
+
+
+        number.className =
+            "calendar-day-number";
+
+
+        number.textContent =
+            day;
+
+
+        cell.appendChild(number);
+
+
+        /*
+         * Check if this day
+         * has an event.
+         */
+
+        if (calendarEvents[date]) {
+
+            cell.classList.add(
+                "has-event"
+            );
+
+
+            const event =
+                document.createElement("span");
+
+
+            event.className =
+                "calendar-event";
+
+
+            event.textContent =
+                calendarEvents[date];
+
+
+            cell.appendChild(event);
+
+        }
+
+
+        return cell;
+
+    }
+
+
+    /*
+     * Previous month
+     */
+
+    previousMonth.addEventListener(
+        "click",
+        function () {
+
+            currentDate.setMonth(
+                currentDate.getMonth() - 1
+            );
+
+            renderCalendar();
+
+        }
+    );
+
+
+    /*
+     * Next month
+     */
+
+    nextMonth.addEventListener(
+        "click",
+        function () {
+
+            currentDate.setMonth(
+                currentDate.getMonth() + 1
+            );
+
+            renderCalendar();
+
+        }
+    );
+
+
+    /*
+     * Initial calendar.
+     */
+
+    renderCalendar();
+
+}
