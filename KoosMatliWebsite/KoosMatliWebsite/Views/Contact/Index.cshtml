@@ -1,0 +1,282 @@
+﻿@model KoosMatliWebsite.Models.ContactMessage
+
+@{
+    ViewData["Title"] = "Find Us / Contact";
+}
+
+
+<!-- =====================================================
+     CONTACT PAGE
+     ===================================================== -->
+
+<section class="contact-page">
+
+    <div class="container">
+
+        <div class="contact-page-heading">
+
+            <span>GET IN TOUCH</span>
+
+            <h1>Find Us / Contact</h1>
+
+            <p>
+                We'd love to hear from you. Get in touch with
+                Koos Matli Primary School using the information
+                below or send us a message.
+            </p>
+
+        </div>
+
+
+        <div class="contact-layout">
+
+
+            <!-- =================================================
+                 CONTACT INFORMATION
+                 ================================================= -->
+
+            <div class="contact-information">
+
+                <h2>CONTACT US</h2>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Address</h3>
+
+                        <p>
+                            123 Thuto Street<br />
+                            Mamelodi, Pretoria, 0122
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Phone</h3>
+
+                        <p>
+                            012 345 6789
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Email</h3>
+
+                        <p>
+                            info@koosmatli.co.za
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>School Hours</h3>
+
+                        <p>
+                            Monday – Friday<br />
+                            08:00 – 13:00
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 MESSAGE FORM
+                 ================================================= -->
+
+            <div class="contact-form-container">
+
+                <h2>SEND US A MESSAGE</h2>
+
+
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="contact-success">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        @TempData["SuccessMessage"]
+
+                    </div>
+                }
+
+
+                <form asp-controller="Contact"
+                      asp-action="SendMessage"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label asp-for="Name">
+                                Your Name
+                            </label>
+
+                            <input asp-for="Name"
+                                   placeholder="Your Name" />
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label asp-for="Email">
+                                Your Email
+                            </label>
+
+                            <input asp-for="Email"
+                                   type="email"
+                                   placeholder="Your Email" />
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label asp-for="Subject">
+                            Subject
+                        </label>
+
+                        <input asp-for="Subject"
+                               placeholder="Subject" />
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label asp-for="Message">
+                            Your Message
+                        </label>
+
+                        <textarea asp-for="Message"
+                                  rows="6"
+                                  placeholder="Your Message"></textarea>
+
+                    </div>
+
+
+                    <button type="submit"
+                            class="btn btn-primary contact-submit">
+
+                        SEND MESSAGE
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOCATION
+                 ================================================= -->
+
+            <div class="contact-location">
+
+                <h2>OUR LOCATION</h2>
+
+
+                <div class="map-container">
+
+                    <div class="fake-map">
+
+                        <div class="map-road road-one"></div>
+
+                        <div class="map-road road-two"></div>
+
+                        <div class="map-road road-three"></div>
+
+
+                        <div class="map-block block-one"></div>
+
+                        <div class="map-block block-two"></div>
+
+                        <div class="map-block block-three"></div>
+
+                        <div class="map-block block-four"></div>
+
+
+                        <div class="map-marker">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </div>
+
+
+                        <div class="map-school-label">
+
+                            <strong>Koos Matli</strong>
+
+                            <span>Primary School</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <a href="#"
+                   class="btn btn-primary directions-button">
+
+                    <i class="fa-solid fa-diamond-turn-right"></i>
+
+                    GET DIRECTIONS
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
