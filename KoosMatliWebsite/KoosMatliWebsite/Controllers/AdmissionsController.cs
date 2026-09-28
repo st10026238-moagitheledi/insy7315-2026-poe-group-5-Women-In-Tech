@@ -8,5 +8,10 @@ namespace KoosMatliWebsite.Controllers
         {
             return View();
         }
+
+        public IActionResult Apply()
+        {
+            return View();
+        }
     }
 }
