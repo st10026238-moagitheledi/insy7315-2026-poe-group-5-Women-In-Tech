@@ -1,7 +1,8 @@
-﻿@{
+﻿@model KoosMatliWebsite.DTOs.SchoolInformationDto
+
+@{
     ViewData["Title"] = "About Us";
 }
-
 
 <!-- =====================================================
      ABOUT US HERO
@@ -17,9 +18,15 @@
 
             <div class="about-heading">
 
-                <h1>ABOUT US</h1>
+                <h1>
+                    ABOUT US
+                </h1>
 
-                <h2>Where Education Is Light</h2>
+                <h2>
+                    @(string.IsNullOrWhiteSpace(Model?.Motto)
+                        ? "Where Education Is Light"
+                        : Model.Motto)
+                </h2>
 
                 <div class="heading-line"></div>
 
@@ -27,19 +34,17 @@
 
 
             <p>
-                Our school is a community-focused primary school
-                in Mamelodi committed to providing quality
-                education in a safe, inclusive, and nurturing
-                environment.
+                @(string.IsNullOrWhiteSpace(Model?.Description)
+                    ? "Our school is a community-focused primary school in Mamelodi committed to providing quality education in a safe, inclusive, and nurturing environment."
+                    : Model.Description)
             </p>
 
-            <p>
-                We believe that every learner has the potential
-                to shine, and through education, support, and
-                meaningful opportunities, we empower our learners
-                to grow into confident individuals who can make
-                a positive difference in their communities.
-            </p>
+            @if (!string.IsNullOrWhiteSpace(Model?.History))
+            {
+                <p>
+                    @Model.History
+                </p>
+            }
 
         </div>
 
@@ -49,7 +54,7 @@
         <div class="about-image-wrapper">
 
             <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80"
-                 alt="Koos Matli learners"
+                 alt="@(Model?.SchoolName ?? "Koos Matli") learners"
                  class="about-main-image" />
 
         </div>
@@ -80,12 +85,14 @@
 
             <div>
 
-                <h3>Our Vision</h3>
+                <h3>
+                    Our Vision
+                </h3>
 
                 <p>
-                    To be a leading primary school that inspires
-                    learners to become confident, responsible and
-                    future-ready citizens.
+                    @(string.IsNullOrWhiteSpace(Model?.Vision)
+                        ? "To be a leading primary school that inspires learners to become confident, responsible and future-ready citizens."
+                        : Model.Vision)
                 </p>
 
             </div>
@@ -105,12 +112,14 @@
 
             <div>
 
-                <h3>Our Mission</h3>
+                <h3>
+                    Our Mission
+                </h3>
 
                 <p>
-                    To provide holistic education in a nurturing
-                    environment through dedicated teaching and
-                    strong community partnerships.
+                    @(string.IsNullOrWhiteSpace(Model?.Mission)
+                        ? "To provide holistic education in a nurturing environment through dedicated teaching and strong community partnerships."
+                        : Model.Mission)
                 </p>
 
             </div>
@@ -130,19 +139,31 @@
 
             <div>
 
-                <h3>Our Values</h3>
+                <h3>
+                    Our Values
+                </h3>
 
                 <ul>
 
-                    <li>Respect</li>
+                    <li>
+                        Respect
+                    </li>
 
-                    <li>Integrity</li>
+                    <li>
+                        Integrity
+                    </li>
 
-                    <li>Excellence</li>
+                    <li>
+                        Excellence
+                    </li>
 
-                    <li>Responsibility</li>
+                    <li>
+                        Responsibility
+                    </li>
 
-                    <li>Ubuntu</li>
+                    <li>
+                        Ubuntu
+                    </li>
 
                 </ul>
 

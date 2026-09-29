@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KoosMatliWebsite.Models.StaffMember>
+﻿@model IEnumerable<KoosMatliWebsite.DTOs.StaffMemberDto>
 
 @{
     ViewData["Title"] = "Our Staff";
@@ -54,24 +54,36 @@
 
         <div class="staff-filters">
 
-            <button class="staff-filter active"
+            <button type="button"
+                    class="staff-filter active"
                     data-filter="all">
+
                 ALL STAFF
+
             </button>
 
-            <button class="staff-filter"
+            <button type="button"
+                    class="staff-filter"
                     data-filter="Management">
+
                 MANAGEMENT
+
             </button>
 
-            <button class="staff-filter"
+            <button type="button"
+                    class="staff-filter"
                     data-filter="Teachers">
+
                 TEACHERS
+
             </button>
 
-            <button class="staff-filter"
+            <button type="button"
+                    class="staff-filter"
                     data-filter="Support Staff">
+
                 SUPPORT STAFF
+
             </button>
 
         </div>
@@ -82,34 +94,67 @@
         <div class="staff-grid"
              id="staffGrid">
 
-            @foreach (var member in Model)
+            @if (Model != null && Model.Any())
             {
-                <article class="staff-card"
-                         data-category="@member.Category">
+                foreach (var member in Model.Where(s => s.IsActive))
+                {
+                    <article class="staff-card"
+                             data-category="@member.Department">
 
-                    <div class="staff-photo">
+                        <div class="staff-photo">
 
-                        <img src="@member.ImageUrl"
-                             alt="@member.Name" />
+                            @if (!string.IsNullOrWhiteSpace(member.ImageUrl))
+                            {
+                                <img src="@member.ImageUrl"
+                                     alt="@member.FullName" />
+                            }
+                            else
+                            {
+                                <div class="staff-photo-placeholder">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                            }
 
-                    </div>
+                        </div>
 
-                    <div class="staff-details">
 
-                        <h3>
-                            @member.Name
-                        </h3>
+                        <div class="staff-details">
 
-                        <p>
-                            @member.Role
-                        </p>
+                            <h3>
+                                @member.FullName
+                            </h3>
 
-                    </div>
+                            <p>
+                                @member.Position
+                            </p>
 
-                </article>
+                        </div>
+
+                    </article>
+                }
             }
 
         </div>
+
+
+        <!-- NO STAFF MESSAGE -->
+        @if (Model == null || !Model.Any(s => s.IsActive))
+        {
+            <div class="staff-empty">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h3>
+                    No staff members found
+                </h3>
+
+                <p>
+                    There are currently no active staff members
+                    available.
+                </p>
+
+            </div>
+        }
 
     </div>
 

@@ -16,6 +16,7 @@ namespace KoosMatliWebsiteAPI.Controllers
             _context = context;
         }
 
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<News>>> GetNews()
         {
@@ -25,12 +26,16 @@ namespace KoosMatliWebsiteAPI.Controllers
                 .ToListAsync();
         }
 
+
         [HttpGet("{id}")]
         public async Task<ActionResult<News>> GetNews(int id)
         {
-            var news = await _context.News.FindAsync(id);
+            var news = await _context.News
+                .FirstOrDefaultAsync(n =>
+                    n.Id == id &&
+                    n.IsPublished);
 
-            if (news == null || !news.IsPublished)
+            if (news == null)
             {
                 return NotFound();
             }
@@ -48,6 +53,13 @@ namespace KoosMatliWebsiteAPI.Controllers
                 news.PublishedDate = DateTime.UtcNow;
             }
 
+            if (string.IsNullOrWhiteSpace(news.Category))
+            {
+                news.Category = "general";
+            }
+
+            news.Category = news.Category.ToLower();
+
             _context.News.Add(news);
 
             await _context.SaveChangesAsync();
@@ -57,6 +69,7 @@ namespace KoosMatliWebsiteAPI.Controllers
                 new { id = news.Id },
                 news);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateNews(
@@ -68,10 +81,29 @@ namespace KoosMatliWebsiteAPI.Controllers
                 return BadRequest();
             }
 
+            if (string.IsNullOrWhiteSpace(news.Category))
+            {
+                news.Category = "general";
+            }
+
+            news.Category = news.Category.ToLower();
+
             _context.Entry(news).State =
                 EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!NewsExists(id))
+                {
+                    return NotFound();
+                }
+
+                throw;
+            }
 
             return NoContent();
         }
@@ -91,6 +123,11 @@ namespace KoosMatliWebsiteAPI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        private bool NewsExists(int id)
+        {
+            return _context.News.Any(e => e.Id == id);
         }
     }
 }

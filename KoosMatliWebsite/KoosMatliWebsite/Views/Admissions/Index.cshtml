@@ -1,5 +1,10 @@
-﻿@{
+﻿@model IEnumerable<KoosMatliWebsite.DTOs.AdmissionDto>
+
+@{
     ViewData["Title"] = "Admissions";
+
+    var admission = Model?
+        .FirstOrDefault(a => a.IsActive);
 }
 
 <!-- =========================================================
@@ -28,19 +33,9 @@
 
             </div>
 
-
             <p class="admissions-intro">
-
-                We welcome families who are looking for a
-                nurturing, supportive, and engaging environment
-                where every learner has the opportunity to grow,
-                learn, and shine.
-
-                Our admissions process is designed to be simple
-                and transparent, making it easy for families to
-                take the first step toward joining our school
-                community.
-
+                @(admission?.Description ??
+                    "We welcome families who are looking for a nurturing, supportive, and engaging environment where every learner has the opportunity to grow, learn, and shine.")
             </p>
 
         </div>
@@ -65,7 +60,6 @@
 </section>
 
 
-
 <!-- =========================================================
      HOW TO APPLY
      ========================================================= -->
@@ -85,8 +79,8 @@
             </h2>
 
             <p>
-                Follow these simple steps to begin your child's
-                journey with Koos Matli Primary School.
+                @(admission?.ApplicationInstructions ??
+                    "Follow these simple steps to begin your child's journey with Koos Matli Primary School.")
             </p>
 
         </div>
@@ -240,22 +234,37 @@
 
         <div class="admissions-apply">
 
-            <a asp-controller="Admissions"
-               asp-action="Apply"
-               class="btn btn-primary">
+            @if (!string.IsNullOrWhiteSpace(admission?.ApplicationLink))
+            {
+                <a href="@admission.ApplicationLink"
+                   target="_blank"
+                   rel="noopener"
+                   class="btn btn-primary">
 
-                APPLY NOW
+                    APPLY NOW
 
-                <i class="fa-solid fa-arrow-right"></i>
+                    <i class="fa-solid fa-arrow-right"></i>
 
-            </a>
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Admissions"
+                   asp-action="Apply"
+                   class="btn btn-primary">
+
+                    APPLY NOW
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+            }
 
         </div>
 
     </div>
 
 </section>
-
 
 
 <!-- =========================================================
@@ -286,115 +295,142 @@
 
         <div class="requirements-grid">
 
-            <!-- REQUIREMENT 1 -->
+            @if (!string.IsNullOrWhiteSpace(admission?.Requirements))
+            {
+                var requirements = admission.Requirements
+                    .Split(
+                        new[] { '\r', '\n' },
+                        StringSplitOptions.RemoveEmptyEntries
+                    );
 
-            <div class="requirement-card">
+                foreach (var requirement in requirements)
+                {
+                    <div class="requirement-card">
 
-                <div class="requirement-icon">
+                        <div class="requirement-icon">
 
-                    <i class="fa-solid fa-id-card"></i>
+                            <i class="fa-solid fa-file-lines"></i>
 
-                </div>
+                        </div>
 
-                <div>
+                        <div>
 
-                    <h3>
-                        Learner Information
-                    </h3>
+                            <h3>
+                                Requirement
+                            </h3>
 
-                    <p>
-                        Basic personal and educational
-                        information about the learner.
-                    </p>
+                            <p>
+                                @requirement
+                            </p>
 
-                </div>
+                        </div>
 
-            </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="requirement-card">
 
+                    <div class="requirement-icon">
 
-            <!-- REQUIREMENT 2 -->
+                        <i class="fa-solid fa-id-card"></i>
 
-            <div class="requirement-card">
+                    </div>
 
-                <div class="requirement-icon">
+                    <div>
 
-                    <i class="fa-solid fa-user"></i>
+                        <h3>
+                            Learner Information
+                        </h3>
 
-                </div>
+                        <p>
+                            Basic personal and educational
+                            information about the learner.
+                        </p>
 
-                <div>
-
-                    <h3>
-                        Parent / Guardian Details
-                    </h3>
-
-                    <p>
-                        Contact information for the parent
-                        or legal guardian.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- REQUIREMENT 3 -->
-
-            <div class="requirement-card">
-
-                <div class="requirement-icon">
-
-                    <i class="fa-solid fa-file-lines"></i>
+                    </div>
 
                 </div>
 
-                <div>
 
-                    <h3>
-                        Supporting Documents
-                    </h3>
+                <div class="requirement-card">
 
-                    <p>
-                        Have the required supporting
-                        documentation ready.
-                    </p>
+                    <div class="requirement-icon">
 
-                </div>
+                        <i class="fa-solid fa-user"></i>
 
-            </div>
+                    </div>
 
+                    <div>
 
-            <!-- REQUIREMENT 4 -->
+                        <h3>
+                            Parent / Guardian Details
+                        </h3>
 
-            <div class="requirement-card">
+                        <p>
+                            Contact information for the parent
+                            or legal guardian.
+                        </p>
 
-                <div class="requirement-icon">
-
-                    <i class="fa-solid fa-school"></i>
+                    </div>
 
                 </div>
 
-                <div>
 
-                    <h3>
-                        Previous School Details
-                    </h3>
+                <div class="requirement-card">
 
-                    <p>
-                        Information about the learner's
-                        previous school where applicable.
-                    </p>
+                    <div class="requirement-icon">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Supporting Documents
+                        </h3>
+
+                        <p>
+                            Have the required supporting
+                            documentation ready.
+                        </p>
+
+                    </div>
 
                 </div>
 
-            </div>
+
+                <div class="requirement-card">
+
+                    <div class="requirement-icon">
+
+                        <i class="fa-solid fa-school"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Previous School Details
+                        </h3>
+
+                        <p>
+                            Information about the learner's
+                            previous school where applicable.
+                        </p>
+
+                    </div>
+
+                </div>
+            }
 
         </div>
 
     </div>
 
 </section>
-
 
 
 <!-- =========================================================
@@ -425,13 +461,27 @@
 
         <div class="admissions-cta-buttons">
 
-            <a asp-controller="Admissions"
-               asp-action="Apply"
-               class="btn btn-primary">
+            @if (!string.IsNullOrWhiteSpace(admission?.ApplicationLink))
+            {
+                <a href="@admission.ApplicationLink"
+                   target="_blank"
+                   rel="noopener"
+                   class="btn btn-primary">
 
-                APPLY NOW
+                    APPLY NOW
 
-            </a>
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Admissions"
+                   asp-action="Apply"
+                   class="btn btn-primary">
+
+                    APPLY NOW
+
+                </a>
+            }
 
 
             <a asp-controller="Contact"

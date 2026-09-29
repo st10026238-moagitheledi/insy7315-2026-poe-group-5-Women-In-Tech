@@ -12,6 +12,8 @@
 
         public DateTime DateAdded { get; set; }
 
+        public string Category { get; set; } = "";
+
         public bool IsPublished { get; set; }
     }
 }

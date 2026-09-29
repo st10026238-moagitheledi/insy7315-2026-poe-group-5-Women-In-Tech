@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<KoosMatliWebsite.DTOs.GalleryItemDto>
+
+@{
     ViewData["Title"] = "School Gallery";
 }
 
@@ -52,7 +54,6 @@
 
             </button>
 
-
             <button type="button"
                     class="gallery-filter"
                     data-gallery-filter="academics">
@@ -60,7 +61,6 @@
                 ACADEMICS
 
             </button>
-
 
             <button type="button"
                     class="gallery-filter"
@@ -70,7 +70,6 @@
 
             </button>
 
-
             <button type="button"
                     class="gallery-filter"
                     data-gallery-filter="events">
@@ -79,7 +78,6 @@
 
             </button>
 
-
             <button type="button"
                     class="gallery-filter"
                     data-gallery-filter="culture">
@@ -87,7 +85,6 @@
                 CULTURE
 
             </button>
-
 
             <button type="button"
                     class="gallery-filter"
@@ -105,286 +102,49 @@
              GALLERY GRID
              ================================================= -->
 
-        <div class="gallery-grid">
+        <div class="gallery-grid"
+             id="galleryGrid">
 
+            @if (Model != null)
+            {
+                foreach (var photo in Model.Where(g => g.IsPublished))
+                {
+                    var category = string.IsNullOrWhiteSpace(photo.Category)
+                        ? "general"
+                        : photo.Category.ToLower();
 
-            <!-- =================================================
-                 IMAGE 1
-                 ================================================= -->
+                    <button type="button"
+                            class="gallery-card"
+                            data-gallery-category="@category"
+                            data-gallery-image="@photo.ImageUrl"
+                            data-gallery-title="@photo.Title"
+                            data-gallery-description="@photo.Description">
 
-            <button type="button"
-                    class="gallery-card"
-                    data-gallery-category="academics"
-                    data-gallery-image="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1400&q=90"
-                    data-gallery-title="Learning Together">
+                        <img src="@photo.ImageUrl"
+                             alt="@photo.Title"
+                             loading="lazy" />
 
-                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=85"
-                     alt="Learners participating in a classroom lesson" />
+                        <span class="gallery-overlay">
 
-                <span class="gallery-overlay">
+                            <span class="gallery-overlay-content">
 
-                    <span class="gallery-overlay-content">
+                                <span class="gallery-category">
+                                    @category.ToUpper()
+                                </span>
 
-                        <span class="gallery-category">
-                            ACADEMICS
+                                <strong>
+                                    @photo.Title
+                                </strong>
+
+                                <i class="fa-solid fa-expand"></i>
+
+                            </span>
+
                         </span>
 
-                        <strong>
-                            Learning Together
-                        </strong>
-
-                        <i class="fa-solid fa-expand"></i>
-
-                    </span>
-
-                </span>
-
-            </button>
-
-
-
-            <!-- =================================================
-                 IMAGE 2
-                 ================================================= -->
-
-            <button type="button"
-                    class="gallery-card"
-                    data-gallery-category="sports"
-                    data-gallery-image="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1400&q=90"
-                    data-gallery-title="School Sports">
-
-                <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=85"
-                     alt="Learners participating in sports" />
-
-                <span class="gallery-overlay">
-
-                    <span class="gallery-overlay-content">
-
-                        <span class="gallery-category">
-                            SPORTS
-                        </span>
-
-                        <strong>
-                            School Sports
-                        </strong>
-
-                        <i class="fa-solid fa-expand"></i>
-
-                    </span>
-
-                </span>
-
-            </button>
-
-
-
-            <!-- =================================================
-                 IMAGE 3
-                 ================================================= -->
-
-            <button type="button"
-                    class="gallery-card"
-                    data-gallery-category="events"
-                    data-gallery-image="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1400&q=90"
-                    data-gallery-title="School Events">
-
-                <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=800&q=85"
-                     alt="Learners and teachers at a school event" />
-
-                <span class="gallery-overlay">
-
-                    <span class="gallery-overlay-content">
-
-                        <span class="gallery-category">
-                            EVENTS
-                        </span>
-
-                        <strong>
-                            School Events
-                        </strong>
-
-                        <i class="fa-solid fa-expand"></i>
-
-                    </span>
-
-                </span>
-
-            </button>
-
-
-
-            <!-- =================================================
-                 IMAGE 4
-                 ================================================= -->
-
-            <button type="button"
-                    class="gallery-card"
-                    data-gallery-category="culture"
-                    data-gallery-image="https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=1400&q=90"
-                    data-gallery-title="Reading Together">
-
-                <img src="https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=800&q=85"
-                     alt="Learners reading together" />
-
-                <span class="gallery-overlay">
-
-                    <span class="gallery-overlay-content">
-
-                        <span class="gallery-category">
-                            CULTURE
-                        </span>
-
-                        <strong>
-                            Reading Together
-                        </strong>
-
-                        <i class="fa-solid fa-expand"></i>
-
-                    </span>
-
-                </span>
-
-            </button>
-
-
-
-            <!-- =================================================
-                 IMAGE 5
-                 ================================================= -->
-
-            <button type="button"
-                    class="gallery-card"
-                    data-gallery-category="culture"
-                    data-gallery-image="https://images.unsplash.com/photo-1504150558240-0b4fd8946624?auto=format&fit=crop&w=1400&q=90"
-                    data-gallery-title="Celebrating Our Culture">
-
-                <img src="https://images.unsplash.com/photo-1504150558240-0b4fd8946624?auto=format&fit=crop&w=800&q=85"
-                     alt="Learners celebrating school culture" />
-
-                <span class="gallery-overlay">
-
-                    <span class="gallery-overlay-content">
-
-                        <span class="gallery-category">
-                            CULTURE
-                        </span>
-
-                        <strong>
-                            Celebrating Our Culture
-                        </strong>
-
-                        <i class="fa-solid fa-expand"></i>
-
-                    </span>
-
-                </span>
-
-            </button>
-
-
-
-            <!-- =================================================
-                 IMAGE 6
-                 ================================================= -->
-
-            <button type="button"
-                    class="gallery-card"
-                    data-gallery-category="events"
-                    data-gallery-image="https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=1400&q=90"
-                    data-gallery-title="Making Memories">
-
-                <img src="https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=800&q=85"
-                     alt="Learners enjoying a school activity" />
-
-                <span class="gallery-overlay">
-
-                    <span class="gallery-overlay-content">
-
-                        <span class="gallery-category">
-                            EVENTS
-                        </span>
-
-                        <strong>
-                            Making Memories
-                        </strong>
-
-                        <i class="fa-solid fa-expand"></i>
-
-                    </span>
-
-                </span>
-
-            </button>
-
-
-
-            <!-- =================================================
-                 IMAGE 7
-                 ================================================= -->
-
-            <button type="button"
-                    class="gallery-card"
-                    data-gallery-category="achievements"
-                    data-gallery-image="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1400&q=90"
-                    data-gallery-title="Celebrating Achievement">
-
-                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=85"
-                     alt="Learners celebrating an achievement" />
-
-                <span class="gallery-overlay">
-
-                    <span class="gallery-overlay-content">
-
-                        <span class="gallery-category">
-                            ACHIEVEMENTS
-                        </span>
-
-                        <strong>
-                            Celebrating Achievement
-                        </strong>
-
-                        <i class="fa-solid fa-expand"></i>
-
-                    </span>
-
-                </span>
-
-            </button>
-
-
-
-            <!-- =================================================
-                 IMAGE 8
-                 ================================================= -->
-
-            <button type="button"
-                    class="gallery-card"
-                    data-gallery-category="achievements"
-                    data-gallery-image="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1400&q=90"
-                    data-gallery-title="Our Proud Moments">
-
-                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=85"
-                     alt="Learners celebrating a school achievement" />
-
-                <span class="gallery-overlay">
-
-                    <span class="gallery-overlay-content">
-
-                        <span class="gallery-category">
-                            ACHIEVEMENTS
-                        </span>
-
-                        <strong>
-                            Our Proud Moments
-                        </strong>
-
-                        <i class="fa-solid fa-expand"></i>
-
-                    </span>
-
-                </span>
-
-            </button>
+                    </button>
+                }
+            }
 
         </div>
 

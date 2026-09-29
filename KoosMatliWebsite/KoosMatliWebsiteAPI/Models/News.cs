@@ -13,5 +13,7 @@
         public DateTime PublishedDate { get; set; }
 
         public bool IsPublished { get; set; } = true;
+
+        public string Category { get; set; } = "general";
     }
 }

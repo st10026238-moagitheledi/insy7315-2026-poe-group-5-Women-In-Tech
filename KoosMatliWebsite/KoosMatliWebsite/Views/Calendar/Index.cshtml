@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KoosMatliWebsite.Models.SchoolEvent>
+﻿@model IEnumerable<KoosMatliWebsite.DTOs.SchoolEventDto>
 
 @{
     ViewData["Title"] = "School Calendar";
@@ -111,58 +111,82 @@
 
                 <div class="events-list">
 
-                    @foreach (var schoolEvent in Model.OrderBy(e => e.Date))
+                    @if (Model != null && Model.Any())
                     {
-                        <article class="event-card">
+                        foreach (var schoolEvent in Model
+                            .Where(e => e.IsPublished)
+                            .OrderBy(e => e.Date))
+                        {
+                            <article class="event-card"
+                                     data-event-id="@schoolEvent.Id"
+                                     data-event-category="@schoolEvent.Category">
 
-                            <div class="event-date">
+                                <div class="event-date">
 
-                                <strong>
-                                    @schoolEvent.Date.ToString("dd")
-                                </strong>
-
-                                <span>
-                                    @schoolEvent.Date.ToString("MMM")
-                                </span>
-
-                            </div>
-
-
-                            <div class="event-information">
-
-                                <h3>
-                                    @schoolEvent.Title
-                                </h3>
-
-                                <p>
-                                    @schoolEvent.Description
-                                </p>
-
-
-                                <div class="event-meta">
+                                    <strong>
+                                        @schoolEvent.Date.ToString("dd")
+                                    </strong>
 
                                     <span>
-
-                                        <i class="fa-regular fa-clock"></i>
-
-                                        @schoolEvent.Time
-
-                                    </span>
-
-
-                                    <span>
-
-                                        <i class="fa-solid fa-location-dot"></i>
-
-                                        @schoolEvent.Location
-
+                                        @schoolEvent.Date.ToString("MMM")
                                     </span>
 
                                 </div>
 
-                            </div>
 
-                        </article>
+                                <div class="event-information">
+
+                                    <h3>
+                                        @schoolEvent.Title
+                                    </h3>
+
+                                    <p>
+                                        @schoolEvent.Description
+                                    </p>
+
+
+                                    <div class="event-meta">
+
+                                        <span>
+
+                                            <i class="fa-regular fa-clock"></i>
+
+                                            @schoolEvent.Time
+
+                                        </span>
+
+
+                                        <span>
+
+                                            <i class="fa-solid fa-location-dot"></i>
+
+                                            @schoolEvent.Location
+
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </article>
+                        }
+                    }
+                    else
+                    {
+                        <div class="events-empty">
+
+                            <i class="fa-regular fa-calendar-xmark"></i>
+
+                            <h3>
+                                No upcoming events
+                            </h3>
+
+                            <p>
+                                There are currently no published
+                                events on the school calendar.
+                            </p>
+
+                        </div>
                     }
 
                 </div>

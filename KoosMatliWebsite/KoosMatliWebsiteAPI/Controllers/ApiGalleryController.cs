@@ -16,6 +16,11 @@ namespace KoosMatliWebsiteAPI.Controllers
             _context = context;
         }
 
+
+        // =========================================================
+        // GET: api/gallery
+        // =========================================================
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GalleryItem>>> GetGallery()
         {
@@ -25,18 +30,31 @@ namespace KoosMatliWebsiteAPI.Controllers
                 .ToListAsync();
         }
 
+
+        // =========================================================
+        // GET: api/gallery/{id}
+        // =========================================================
+
         [HttpGet("{id}")]
         public async Task<ActionResult<GalleryItem>> GetGalleryItem(int id)
         {
-            var item = await _context.GalleryItems.FindAsync(id);
+            var item = await _context.GalleryItems
+                .FirstOrDefaultAsync(g =>
+                    g.Id == id &&
+                    g.IsPublished);
 
-            if (item == null || !item.IsPublished)
+            if (item == null)
             {
                 return NotFound();
             }
 
             return item;
         }
+
+
+        // =========================================================
+        // POST: api/gallery
+        // =========================================================
 
         [HttpPost]
         public async Task<ActionResult<GalleryItem>> CreateGalleryItem(
@@ -49,6 +67,13 @@ namespace KoosMatliWebsiteAPI.Controllers
                 item.DateAdded = DateTime.UtcNow;
             }
 
+            if (string.IsNullOrWhiteSpace(item.Category))
+            {
+                item.Category = "general";
+            }
+
+            item.Category = item.Category.ToLower();
+
             _context.GalleryItems.Add(item);
 
             await _context.SaveChangesAsync();
@@ -58,6 +83,11 @@ namespace KoosMatliWebsiteAPI.Controllers
                 new { id = item.Id },
                 item);
         }
+
+
+        // =========================================================
+        // PUT: api/gallery/{id}
+        // =========================================================
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateGalleryItem(
@@ -69,13 +99,37 @@ namespace KoosMatliWebsiteAPI.Controllers
                 return BadRequest();
             }
 
+            if (string.IsNullOrWhiteSpace(item.Category))
+            {
+                item.Category = "general";
+            }
+
+            item.Category = item.Category.ToLower();
+
             _context.Entry(item).State =
                 EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!GalleryItemExists(id))
+                {
+                    return NotFound();
+                }
+
+                throw;
+            }
 
             return NoContent();
         }
+
+
+        // =========================================================
+        // DELETE: api/gallery/{id}
+        // =========================================================
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGalleryItem(int id)
@@ -92,6 +146,16 @@ namespace KoosMatliWebsiteAPI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+
+        // =========================================================
+        // CHECK IF GALLERY ITEM EXISTS
+        // =========================================================
+
+        private bool GalleryItemExists(int id)
+        {
+            return _context.GalleryItems.Any(e => e.Id == id);
         }
     }
 }

@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KoosMatlilWebsite.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KoosMatliWebsite.Controllers
 {
     public class GalleryController : Controller
     {
-        public IActionResult Index()
+        private readonly WebsiteApiService _apiService;
+
+        public GalleryController(WebsiteApiService apiService)
         {
-            return View();
+            _apiService = apiService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var gallery = await _apiService.GetGalleryAsync();
+
+            return View(gallery);
         }
     }
 }

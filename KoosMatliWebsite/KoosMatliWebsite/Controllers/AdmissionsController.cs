@@ -1,17 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KoosMatlilWebsite.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KoosMatliWebsite.Controllers
 {
     public class AdmissionsController : Controller
     {
-        public IActionResult Index()
+        private readonly WebsiteApiService _apiService;
+
+        public AdmissionsController(WebsiteApiService apiService)
         {
-            return View();
+            _apiService = apiService;
         }
 
-        public IActionResult Apply()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var admissions = await _apiService.GetAdmissionsAsync();
+
+            return View(admissions);
         }
     }
 }
