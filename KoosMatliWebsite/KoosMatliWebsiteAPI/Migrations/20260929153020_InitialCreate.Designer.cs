@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KoosMatliWebsiteAPI.Migrations
 {
-    [DbContext(typeof(SchoolDbContext))]
+    [DbContext(typeof(WebsiteDbContext))]
     [Migration("20260929153020_InitialCreate")]
     partial class InitialCreate
     {
