@@ -3,10 +3,7 @@ using KoosMatliWebsite.Models;
 
 namespace KoosMatliWebsite.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-
-    public class NewsController : ControllerBase
+    public class NewsController : Controller
     {
         private static readonly List<SchoolEvent> NewsItems = new()
         {
@@ -59,34 +56,28 @@ namespace KoosMatliWebsite.Controllers
             }
         };
 
-        // GET: api/news
-        [HttpGet]
-        public IActionResult GetAllNews()
+        // GET: /News
+        public IActionResult Index()
         {
-            return Ok(NewsItems);
+            return View(NewsItems);
         }
 
-        // GET: api/news/title/Grade%205%20Learners%20Excel%20in%20District%20Quiz
-        [HttpGet("title/{title}")]
-        public IActionResult GetNewsByTitle(string title)
+        // GET: /News/Details?title=...
+        public IActionResult Details(string title)
         {
             var news = NewsItems.FirstOrDefault(n =>
                 n.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
 
             if (news == null)
             {
-                return NotFound(new
-                {
-                    message = "News item not found."
-                });
+                return NotFound();
             }
 
-            return Ok(news);
+            return View(news);
         }
 
-        // GET: api/news/category/event
-        [HttpGet("category/{category}")]
-        public IActionResult GetNewsByCategory(string category)
+        // GET: /News/Category?category=event
+        public IActionResult Category(string category)
         {
             var news = NewsItems
                 .Where(n => n.Category.Equals(
@@ -94,7 +85,7 @@ namespace KoosMatliWebsite.Controllers
                     StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
-            return Ok(news);
+            return View(news);
         }
     }
 }
