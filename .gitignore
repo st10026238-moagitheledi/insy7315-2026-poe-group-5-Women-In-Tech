@@ -1,0 +1,18 @@
+# Visual Studio
+.vs/
+**/.vs/
+*.user
+*.suo
+
+# .NET build output
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Build artifacts
+artifacts/
+
+# OS junk
+Thumbs.db
+.DS_Store
