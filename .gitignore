@@ -1,0 +1,30 @@
+# Visual Studio
+.vs/
+**/.vs/
+
+# Build output
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Visual Studio user files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+# Visual Studio indexes/cache
+*.vsidx
+*.dtbcache.v2
+*.futdcache.v2
+
+# Visual Studio workspace metadata
+*.bin
+DocumentLayout.json
+DocumentLayout.backup.json
+
+# ASP.NET generated local configuration
+applicationhost.config
+
+# Logs
+*.log

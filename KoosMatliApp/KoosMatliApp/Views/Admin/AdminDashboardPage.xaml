@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.AdminDashboardPage"
+    Title="Dashboard">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- HEADER -->
+            <VerticalStackLayout Spacing="4">
+                <Label
+                    Text="Admin Dashboard"
+                    FontSize="28"
+                    FontAttributes="Bold" />
+
+                <Label
+                    Text="Koos Matli Primary School"
+                    FontSize="15"
+                    TextColor="Gray" />
+            </VerticalStackLayout>
+
+            <!-- SCHOOL OVERVIEW -->
+            <Label
+                Text="School Overview"
+                FontSize="20"
+                FontAttributes="Bold" />
+
+            <Grid
+                ColumnDefinitions="*,*"
+                RowDefinitions="Auto,Auto"
+                ColumnSpacing="12"
+                RowSpacing="12">
+
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Padding="20"
+                    Stroke="#DDDDDD"
+                    StrokeShape="RoundRectangle 12">
+
+                    <VerticalStackLayout>
+                        <Label
+                            Text="450"
+                            FontSize="26"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center" />
+
+                        <Label
+                            Text="Learners"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="20"
+                    Stroke="#DDDDDD"
+                    StrokeShape="RoundRectangle 12">
+
+                    <VerticalStackLayout>
+                        <Label
+                            Text="25"
+                            FontSize="26"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center" />
+
+                        <Label
+                            Text="Teachers"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Padding="20"
+                    Stroke="#DDDDDD"
+                    StrokeShape="RoundRectangle 12">
+
+                    <VerticalStackLayout>
+                        <Label
+                            Text="320"
+                            FontSize="26"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center" />
+
+                        <Label
+                            Text="Parents"
+                            HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                </Border>
+
+            </Grid>
+
+            <!-- TODAY'S SUMMARY -->
+            <Label
+                Text="Today's Summary"
+                FontSize="20"
+                FontAttributes="Bold" />
+
+            <Border
+                Padding="18"
+                Stroke="#DDDDDD"
+                StrokeShape="RoundRectangle 12">
+
+                <VerticalStackLayout Spacing="14">
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="New Applications" />
+                        <Label
+                            Grid.Column="1"
+                            Text="4"
+                            FontAttributes="Bold" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Pending Applications" />
+                        <Label
+                            Grid.Column="1"
+                            Text="12"
+                            FontAttributes="Bold" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Announcements Sent" />
+                        <Label
+                            Grid.Column="1"
+                            Text="2"
+                            FontAttributes="Bold" />
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- QUICK ACTIONS -->
+            <Label
+                Text="Quick Actions"
+                FontSize="20"
+                FontAttributes="Bold" />
+
+            <Grid
+                ColumnDefinitions="*,*"
+                RowDefinitions="Auto,Auto"
+                ColumnSpacing="10"
+                RowSpacing="10">
+
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="School Details"
+                    HeightRequest="60" />
+
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="School Dates"
+                    HeightRequest="60" />
+
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="School Calendar"
+                    HeightRequest="60" />
+
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="Documents"
+                    HeightRequest="60" />
+
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

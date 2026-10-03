@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.Applicationsdetailspage"
+    Title="Application Details">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="18">
+
+            <Label
+                Text="Application Details"
+                FontSize="28"
+                FontAttributes="Bold" />
+
+            <Border
+                Padding="15"
+                Stroke="#DDDDDD"
+                StrokeShape="RoundRectangle 10">
+
+                <VerticalStackLayout Spacing="8">
+
+                    <Label
+                        Text="Application Number"
+                        FontSize="12"
+                        TextColor="Gray" />
+
+                    <Label
+                        Text="APP-2026-001"
+                        FontSize="18"
+                        FontAttributes="Bold" />
+
+                    <Label
+                        Text="Status: Pending"
+                        TextColor="Orange" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- LEARNER -->
+            <Label
+                Text="Learner Information"
+                FontSize="20"
+                FontAttributes="Bold" />
+
+            <Border
+                Padding="15"
+                Stroke="#DDDDDD"
+                StrokeShape="RoundRectangle 10">
+
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Name: Learner Name" />
+                    <Label Text="Date of Birth: 01 January 2018" />
+                    <Label Text="Grade Applying For: Grade 3" />
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- GUARDIAN -->
+            <Label
+                Text="Parent / Guardian Information"
+                FontSize="20"
+                FontAttributes="Bold" />
+
+            <Border
+                Padding="15"
+                Stroke="#DDDDDD"
+                StrokeShape="RoundRectangle 10">
+
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Name: Parent Name" />
+                    <Label Text="Email: parent@example.com" />
+                    <Label Text="Phone: 000 000 0000" />
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- ACTIONS -->
+            <Label
+                Text="Application Decision"
+                FontSize="20"
+                FontAttributes="Bold" />
+
+            <Button Text="Approve Application" />
+
+            <Button Text="Reject Application" />
+
+            <Button Text="Mark as Pending" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.Documentspage"
+    Title="Documents">
+
+    <Grid
+        Padding="20"
+        RowDefinitions="Auto,Auto,*"
+        RowSpacing="15">
+
+        <VerticalStackLayout>
+
+            <Label
+                Text="School Documents"
+                FontSize="28"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="Manage school documentation"
+                TextColor="Gray" />
+
+        </VerticalStackLayout>
+
+        <Button
+            Grid.Row="1"
+            Text="+ Upload Document"
+            HorizontalOptions="Start" />
+
+        <CollectionView Grid.Row="2">
+
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>School Policy.pdf</x:String>
+                    <x:String>Admissions Guide.pdf</x:String>
+                    <x:String>School Rules.pdf</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border
+                        Padding="15"
+                        Margin="0,5"
+                        Stroke="#DDDDDD"
+                        StrokeShape="RoundRectangle 10">
+
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+
+                            <Label
+                                Text="📄"
+                                FontSize="24"
+                                VerticalOptions="Center" />
+
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Margin="12,0">
+
+                                <Label
+                                    Text="{Binding .}"
+                                    FontAttributes="Bold" />
+
+                                <Label
+                                    Text="PDF Document"
+                                    FontSize="12"
+                                    TextColor="Gray" />
+
+                            </VerticalStackLayout>
+
+                            <Button
+                                Grid.Column="2"
+                                Text="View"
+                                VerticalOptions="Center" />
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

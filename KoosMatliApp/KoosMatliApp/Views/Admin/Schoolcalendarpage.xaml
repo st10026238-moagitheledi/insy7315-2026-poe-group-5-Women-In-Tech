@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.Schoolcalendarpage"
+    Title="School Calendar">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="20">
+
+            <Label
+                Text="School Calendar"
+                FontSize="28"
+                FontAttributes="Bold" />
+
+            <DatePicker
+                HorizontalOptions="Fill" />
+
+            <Button
+                Text="+ Add Calendar Event"
+                HorizontalOptions="Start" />
+
+            <Label
+                Text="Upcoming Events"
+                FontSize="20"
+                FontAttributes="Bold" />
+
+            <Border
+                Padding="15"
+                Stroke="#DDDDDD"
+                StrokeShape="RoundRectangle 10">
+
+                <VerticalStackLayout>
+                    <Label
+                        Text="Parent Meeting"
+                        FontAttributes="Bold" />
+
+                    <Label
+                        Text="15 October 2026 • 17:00"
+                        TextColor="Gray" />
+                </VerticalStackLayout>
+
+            </Border>
+
+            <Border
+                Padding="15"
+                Stroke="#DDDDDD"
+                StrokeShape="RoundRectangle 10">
+
+                <VerticalStackLayout>
+                    <Label
+                        Text="Sports Day"
+                        FontAttributes="Bold" />
+
+                    <Label
+                        Text="24 October 2026 • 08:00"
+                        TextColor="Gray" />
+                </VerticalStackLayout>
+
+            </Border>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.ProfilePage"
+    Title="Profile">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="20">
+
+            <Label
+                Text="Profile"
+                FontSize="28"
+                FontAttributes="Bold" />
+
+            <VerticalStackLayout
+                HorizontalOptions="Center"
+                Spacing="8">
+
+                <Border
+                    WidthRequest="90"
+                    HeightRequest="90"
+                    StrokeShape="RoundRectangle 45"
+                    BackgroundColor="#EEEEEE">
+
+                    <Label
+                        Text="A"
+                        FontSize="35"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                </Border>
+
+                <Label
+                    Text="Administrator"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="admin@koosmatli.co.za"
+                    TextColor="Gray"
+                    HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+
+            <Label
+                Text="Account Settings"
+                FontSize="20"
+                FontAttributes="Bold" />
+
+            <Entry
+                Placeholder="Full Name"
+                Text="Administrator" />
+
+            <Entry
+                Placeholder="Email Address"
+                Text="admin@koosmatli.co.za"
+                Keyboard="Email" />
+
+            <Button Text="Save Changes" />
+
+            <Button Text="Change Password" />
+
+            <Button Text="Sign Out" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.SchoolDatesPage"
+    Title="School Dates">
+
+    <Grid
+        Padding="20"
+        RowDefinitions="Auto,Auto,*"
+        RowSpacing="15">
+
+        <VerticalStackLayout>
+
+            <Label
+                Text="School Dates"
+                FontSize="28"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="Manage important academic dates"
+                TextColor="Gray" />
+
+        </VerticalStackLayout>
+
+        <Button
+            Grid.Row="1"
+            Text="+ Add School Date"
+            HorizontalOptions="Start" />
+
+        <CollectionView Grid.Row="2">
+
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Term 1 Begins</x:String>
+                    <x:String>Parent Meeting</x:String>
+                    <x:String>School Holiday</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border
+                        Padding="15"
+                        Margin="0,5"
+                        Stroke="#DDDDDD"
+                        StrokeShape="RoundRectangle 10">
+
+                        <Grid ColumnDefinitions="Auto,*">
+
+                            <Border
+                                Padding="10"
+                                StrokeShape="RoundRectangle 8"
+                                BackgroundColor="#EEEEEE">
+
+                                <Label
+                                    Text="10 JAN"
+                                    FontAttributes="Bold" />
+
+                            </Border>
+
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Margin="15,0">
+
+                                <Label
+                                    Text="{Binding .}"
+                                    FontAttributes="Bold" />
+
+                                <Label
+                                    Text="School Event"
+                                    TextColor="Gray"
+                                    FontSize="13" />
+
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

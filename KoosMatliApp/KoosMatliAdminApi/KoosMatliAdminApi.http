@@ -1,0 +1,6 @@
+@KoosMatliAdminApi_HostAddress = http://localhost:5037
+
+GET {{KoosMatliAdminApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
