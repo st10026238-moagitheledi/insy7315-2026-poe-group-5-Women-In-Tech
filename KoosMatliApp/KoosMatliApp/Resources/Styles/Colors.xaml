@@ -1,44 +1,182 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ResourceDictionary 
+
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
-    <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <!-- Main Brand Colours -->
+    <Color x:Key="PrimaryBlue">#0D2B56</Color>
+    <Color x:Key="SunshineGold">#F4B400</Color>
+    <Color x:Key="GrowthGreen">#2E7D32</Color>
+    <Color x:Key="SkyBlue">#E6F0FA</Color>
+    <Color x:Key="LightGray">#F4F6F8</Color>
+    <Color x:Key="Charcoal">#333333</Color>
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
 
-    <Color x:Key="White">White</Color>
-    <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#D600AA</Color>
-    <Color x:Key="MidnightBlue">#190649</Color>
-    <Color x:Key="OffBlack">#1f1f1f</Color>
 
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
-    <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
+    <!-- Main page background -->
+    <Color x:Key="PageBackground">#F4F6F8</Color>
+
+    <!-- Normal white cards -->
+    <Color x:Key="CardSurface">#FFFFFF</Color>
+
+    <!-- Primary white surface -->
+    <Color x:Key="PrimarySurface">#FFFFFF</Color>
+
+    <!-- Slightly raised / elevated surface -->
+    <Color x:Key="ElevatedSurface">#FAFBFD</Color>
+
+
+    <Color x:Key="Primary">#0D2B56</Color>
+
+    <!-- Used where a darker primary colour is required -->
+    <Color x:Key="PrimaryDark">#0D2B56</Color>
+
+    <!-- Text displayed on light backgrounds -->
+    <Color x:Key="PrimaryDarkText">#333333</Color>
+
+    <!-- Secondary / soft informational colour -->
+    <Color x:Key="Secondary">#E6F0FA</Color>
+
+    <!-- Dark text used with Secondary -->
+    <Color x:Key="SecondaryDarkText">#0D2B56</Color>
+
+    <!-- Accent colour -->
+    <Color x:Key="Tertiary">#F4B400</Color>
+
+
+    <Color x:Key="Magenta">#F4B400</Color>
+    <Color x:Key="MidnightBlue">#0D2B56</Color>
+    <Color x:Key="OffBlack">#333333</Color>
+
+
+    <Color x:Key="Gray50">#FAFBFD</Color>
+    <Color x:Key="Gray100">#F4F6F8</Color>
+    <Color x:Key="Gray200">#E6E9ED</Color>
+    <Color x:Key="Gray300">#D1D5DB</Color>
+    <Color x:Key="Gray400">#9CA3AF</Color>
+    <Color x:Key="Gray500">#6B7280</Color>
+    <Color x:Key="Gray600">#4B5563</Color>
+    <Color x:Key="Gray700">#374151</Color>
+    <Color x:Key="Gray800">#333333</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
 
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
-    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
-    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
-    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
-    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
 
-    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
-    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
-    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}"/>
-    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}"/>
-    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}"/>
-    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
-    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
-    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+    <!-- Success / Approved / Completed -->
+    <Color x:Key="Success">#2E7D32</Color>
+
+    <!-- Informational backgrounds -->
+    <Color x:Key="InfoBackground">#E6F0FA</Color>
+
+    <!-- Warning / Upcoming / Pending -->
+    <Color x:Key="Warning">#F4B400</Color>
+
+    <!-- Brand Brushes -->
+    <SolidColorBrush
+        x:Key="PrimaryBlueBrush"
+        Color="{StaticResource PrimaryBlue}" />
+
+    <SolidColorBrush
+        x:Key="SunshineGoldBrush"
+        Color="{StaticResource SunshineGold}" />
+
+    <SolidColorBrush
+        x:Key="GrowthGreenBrush"
+        Color="{StaticResource GrowthGreen}" />
+
+    <SolidColorBrush
+        x:Key="SkyBlueBrush"
+        Color="{StaticResource SkyBlue}" />
+
+    <SolidColorBrush
+        x:Key="LightGrayBrush"
+        Color="{StaticResource LightGray}" />
+
+    <SolidColorBrush
+        x:Key="CharcoalBrush"
+        Color="{StaticResource Charcoal}" />
+
+    <SolidColorBrush
+        x:Key="PageBackgroundBrush"
+        Color="{StaticResource PageBackground}" />
+
+    <SolidColorBrush
+        x:Key="CardSurfaceBrush"
+        Color="{StaticResource CardSurface}" />
+
+    <SolidColorBrush
+        x:Key="ElevatedSurfaceBrush"
+        Color="{StaticResource ElevatedSurface}" />
+
+
+    <!-- Existing MAUI Brushes -->
+    <SolidColorBrush
+        x:Key="PrimaryBrush"
+        Color="{StaticResource Primary}" />
+
+    <SolidColorBrush
+        x:Key="SecondaryBrush"
+        Color="{StaticResource Secondary}" />
+
+    <SolidColorBrush
+        x:Key="TertiaryBrush"
+        Color="{StaticResource Tertiary}" />
+
+    <SolidColorBrush
+        x:Key="WhiteBrush"
+        Color="{StaticResource White}" />
+
+    <SolidColorBrush
+        x:Key="BlackBrush"
+        Color="{StaticResource Black}" />
+
+
+    <!-- Gray Brushes -->
+    <SolidColorBrush
+        x:Key="Gray50Brush"
+        Color="{StaticResource Gray50}" />
+
+    <SolidColorBrush
+        x:Key="Gray100Brush"
+        Color="{StaticResource Gray100}" />
+
+    <SolidColorBrush
+        x:Key="Gray200Brush"
+        Color="{StaticResource Gray200}" />
+
+    <SolidColorBrush
+        x:Key="Gray300Brush"
+        Color="{StaticResource Gray300}" />
+
+    <SolidColorBrush
+        x:Key="Gray400Brush"
+        Color="{StaticResource Gray400}" />
+
+    <SolidColorBrush
+        x:Key="Gray500Brush"
+        Color="{StaticResource Gray500}" />
+
+    <SolidColorBrush
+        x:Key="Gray600Brush"
+        Color="{StaticResource Gray600}" />
+
+    <SolidColorBrush
+        x:Key="Gray700Brush"
+        Color="{StaticResource Gray700}" />
+
+    <SolidColorBrush
+        x:Key="Gray800Brush"
+        Color="{StaticResource Gray800}" />
+
+    <SolidColorBrush
+        x:Key="Gray900Brush"
+        Color="{StaticResource Gray900}" />
+
+    <SolidColorBrush
+        x:Key="Gray950Brush"
+        Color="{StaticResource Gray950}" />
+
 </ResourceDictionary>
