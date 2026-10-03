@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.ClassDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Class Details"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="12,10,12,24"
+            Spacing="10">
+
+
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="10">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Grid
+                    ColumnDefinitions="32,*,40"
+                    ColumnSpacing="8">
+
+                    <!-- Back Arrow -->
+                    <Label
+                        Grid.Column="0"
+                        Text="‹"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnBackTapped" />
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+
+                    <!-- Class Heading -->
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Spacing="1"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="{Binding Grade}"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource SunshineGold}" />
+
+                        <Label
+                            Text="{Binding Subject}"
+                            FontSize="10"
+                            TextColor="{StaticResource White}" />
+
+                    </VerticalStackLayout>
+
+
+                    <!-- Temporary School Crest -->
+                    <Border
+                        Grid.Column="2"
+                        WidthRequest="36"
+                        HeightRequest="36"
+                        BackgroundColor="{StaticResource White}"
+                        StrokeThickness="0"
+                        VerticalOptions="Center">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="6" />
+                        </Border.StrokeShape>
+
+                        <Label
+                            Text="TKL"
+                            FontSize="9"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+
+                    </Border>
+
+                </Grid>
+
+            </Border>
+
+
+            <Grid
+                ColumnDefinitions="*,*,*,*"
+                ColumnSpacing="2"
+                Margin="0,2,0,0">
+
+                <!-- Overview -->
+                <VerticalStackLayout
+                    Grid.Column="0"
+                    Spacing="5">
+
+                    <Label
+                        Text="Overview"
+                        FontSize="9"
+                        TextColor="{StaticResource SunshineGold}"
+                        HorizontalTextAlignment="Center" />
+
+                    <BoxView
+                        HeightRequest="2"
+                        BackgroundColor="{StaticResource SunshineGold}" />
+
+                </VerticalStackLayout>
+
+
+                <Label
+                    Grid.Column="1"
+                    Text="Learners"
+                    FontSize="9"
+                    TextColor="{StaticResource PrimaryBlue}"
+                    HorizontalTextAlignment="Center" />
+
+
+                <Label
+                    Grid.Column="2"
+                    Text="Resources"
+                    FontSize="9"
+                    TextColor="{StaticResource PrimaryBlue}"
+                    HorizontalTextAlignment="Center" />
+
+
+                <Label
+                    Grid.Column="3"
+                    Text="Attendance"
+                    FontSize="9"
+                    TextColor="{StaticResource PrimaryBlue}"
+                    HorizontalTextAlignment="Center" />
+
+            </Grid>
+
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlueSoft}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="7">
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <Label
+                            Text="Class Timetable"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Label
+                            Grid.Column="1"
+                            Text="View full timetable ›"
+                            FontSize="9"
+                            TextColor="{StaticResource PrimaryBlue}"
+                            VerticalOptions="Center" />
+
+                    </Grid>
+
+
+                    <VerticalStackLayout
+                        Spacing="5"
+                        BindableLayout.ItemsSource="{Binding Timetable}">
+
+                        <BindableLayout.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Grid
+                                    ColumnDefinitions="60,*,Auto"
+                                    ColumnSpacing="8">
+
+                                    <Label
+                                        Text="{Binding Day}"
+                                        FontSize="9"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Time}"
+                                        FontSize="9"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+                                    <Label
+                                        Grid.Column="2"
+                                        Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Subject}"
+                                        FontSize="9"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+                                </Grid>
+
+                            </DataTemplate>
+
+                        </BindableLayout.ItemTemplate>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Border
+                BackgroundColor="{StaticResource GrowthGreenSoft}"
+                Stroke="{StaticResource GrowthGreen}"
+                StrokeThickness="1"
+                Padding="10">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+
+
+                <VerticalStackLayout Spacing="8">
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <Label
+                            Text="Homework"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Label
+                            Grid.Column="1"
+                            Text="View all"
+                            FontSize="9"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                    </Grid>
+
+
+                    <VerticalStackLayout
+                        Spacing="6"
+                        BindableLayout.ItemsSource="{Binding Homework}">
+
+                        <BindableLayout.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+                                    BackgroundColor="{StaticResource White}"
+                                    Stroke="{StaticResource Gray200}"
+                                    StrokeThickness="1"
+                                    Padding="8">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="6" />
+                                    </Border.StrokeShape>
+
+
+                                    <Grid
+                                        ColumnDefinitions="30,*,Auto"
+                                        ColumnSpacing="8">
+
+                                        <!-- Homework icon -->
+                                        <Label
+                                            Text="▣"
+                                            FontSize="16"
+                                            TextColor="{StaticResource GrowthGreen}"
+                                            VerticalOptions="Center" />
+
+
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            Spacing="1">
+
+                                            <Label
+                                                Text="{Binding Title}"
+                                                FontSize="9"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource PrimaryBlue}" />
+
+                                            <Label
+                                                Text="{Binding DueDate}"
+                                                FontSize="8"
+                                                TextColor="{StaticResource Gray500}" />
+
+                                        </VerticalStackLayout>
+
+
+                                        <Label
+                                            Grid.Column="2"
+                                            Text="{Binding Status}"
+                                            FontSize="8"
+                                            TextColor="{StaticResource GrowthGreen}"
+                                            VerticalOptions="Center" />
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </BindableLayout.ItemTemplate>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <Label
+                Text="Classes Summary"
+                FontSize="12"
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryBlue}" />
+
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlueSoft}"
+                StrokeThickness="0"
+                Padding="10">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+
+                <Grid
+                    ColumnDefinitions="*,*,*,*"
+                    ColumnSpacing="6">
+
+
+                    <!-- Learners -->
+                    <VerticalStackLayout
+                        Grid.Column="0"
+                        Spacing="2"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="{Binding LearnerCount}"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="Learners"
+                            FontSize="7"
+                            TextColor="{StaticResource Gray500}"
+                            HorizontalTextAlignment="Center" />
+
+                    </VerticalStackLayout>
+
+
+                    <!-- Present -->
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Spacing="2"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="{Binding PresentToday}"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="Present&#10;Today"
+                            FontSize="7"
+                            TextColor="{StaticResource Gray500}"
+                            HorizontalTextAlignment="Center" />
+
+                    </VerticalStackLayout>
+
+
+                    <!-- Absent -->
+                    <VerticalStackLayout
+                        Grid.Column="2"
+                        Spacing="2"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="{Binding AbsentToday}"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="Absent&#10;Today"
+                            FontSize="7"
+                            TextColor="{StaticResource Gray500}"
+                            HorizontalTextAlignment="Center" />
+
+                    </VerticalStackLayout>
+
+
+                    <!-- Average -->
+                    <VerticalStackLayout
+                        Grid.Column="3"
+                        Spacing="2"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="{Binding AverageAttendance}"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="Average&#10;Attendance"
+                            FontSize="7"
+                            TextColor="{StaticResource Gray500}"
+                            HorizontalTextAlignment="Center" />
+
+                    </VerticalStackLayout>
+
+                </Grid>
+
+            </Border>
+
+
+            <Border
+                BackgroundColor="{StaticResource SunshineGoldSoft}"
+                Stroke="{StaticResource SunshineGold}"
+                StrokeThickness="1"
+                Padding="10">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+
+
+                <VerticalStackLayout Spacing="8">
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <Label
+                            Text="Announcements"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Label
+                            Grid.Column="1"
+                            Text="View all"
+                            FontSize="9"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                    </Grid>
+
+
+                    <VerticalStackLayout
+                        Spacing="6"
+                        BindableLayout.ItemsSource="{Binding Announcements}">
+
+                        <BindableLayout.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+                                    BackgroundColor="{StaticResource White}"
+                                    Stroke="{StaticResource SunshineGold}"
+                                    StrokeThickness="1"
+                                    Padding="8">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="6" />
+                                    </Border.StrokeShape>
+
+
+                                    <Grid
+                                        ColumnDefinitions="30,*,Auto"
+                                        ColumnSpacing="8">
+
+                                        <Label
+                                            Text="!"
+                                            FontSize="16"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource SunshineGold}"
+                                            VerticalOptions="Center"
+                                            HorizontalTextAlignment="Center" />
+
+
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            Spacing="2">
+
+                                            <Label
+                                                Text="{Binding Title}"
+                                                FontSize="9"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource PrimaryBlue}" />
+
+                                            <Label
+                                                Text="{Binding Message}"
+                                                FontSize="8"
+                                                TextColor="{StaticResource Gray500}"
+                                                LineBreakMode="WordWrap" />
+
+                                        </VerticalStackLayout>
+
+
+                                        <Label
+                                            Grid.Column="2"
+                                            Text="›"
+                                            FontSize="22"
+                                            TextColor="{StaticResource PrimaryBlue}"
+                                            VerticalOptions="Center" />
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </BindableLayout.ItemTemplate>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Button
+                Text="Take Attendance"
+                BackgroundColor="{StaticResource SunshineGold}"
+                TextColor="{StaticResource PrimaryBlue}"
+                FontAttributes="Bold"
+                FontSize="11"
+                CornerRadius="8"
+                HeightRequest="44" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

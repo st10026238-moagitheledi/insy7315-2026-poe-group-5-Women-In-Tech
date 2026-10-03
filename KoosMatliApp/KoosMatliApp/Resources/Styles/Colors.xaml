@@ -14,6 +14,9 @@
     <Color x:Key="Charcoal">#333333</Color>
     <Color x:Key="White">#FFFFFF</Color>
     <Color x:Key="Black">#000000</Color>
+    <Color x:Key="PrimaryBlueSoft">#EEF3F8</Color>
+    <Color x:Key="GrowthGreenSoft">#EAF5EB</Color>
+    <Color x:Key="SunshineGoldSoft">#FFF6D9</Color>
 
 
     <!-- Main page background -->

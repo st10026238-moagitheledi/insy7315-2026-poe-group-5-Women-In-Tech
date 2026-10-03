@@ -110,4 +110,14 @@
 
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <MauiXaml Update="Features\Teacher\Views\ClassDetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Features\Teacher\Views\ClassesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

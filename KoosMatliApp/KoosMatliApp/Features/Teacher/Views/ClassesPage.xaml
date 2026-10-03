@@ -90,8 +90,7 @@
             ColumnDefinitions="*,*"
             ColumnSpacing="0">
 
-
-            <!-- My classes tab -->
+            <!-- My Classes Tab -->
             <VerticalStackLayout
                 Grid.Column="0"
                 Spacing="6">
@@ -112,7 +111,7 @@
             </VerticalStackLayout>
 
 
-            <!-- All classes tab -->
+            <!-- All Classes Tab -->
             <VerticalStackLayout
                 Grid.Column="1"
                 Spacing="6">
@@ -140,7 +139,6 @@
             Margin="16,12,16,16">
 
 
-            <!-- My classes list -->
             <CollectionView
                 ItemsSource="{Binding MyClasses}"
                 IsVisible="{Binding IsMyClassesSelected}"
@@ -159,14 +157,27 @@
 
                     <DataTemplate>
 
+
                         <Border
                             BackgroundColor="{StaticResource CardSurface}"
                             Stroke="{StaticResource Gray200}"
                             StrokeThickness="1"
                             Padding="12">
 
+                            <!-- Makes the whole class card clickable -->
+                            <Border.GestureRecognizers>
+
+                                <TapGestureRecognizer
+                                    Tapped="OnClassTapped" />
+
+                            </Border.GestureRecognizers>
+
+
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="8" />
+
+                                <RoundRectangle
+                                    CornerRadius="8" />
+
                             </Border.StrokeShape>
 
 
@@ -184,7 +195,10 @@
                                     VerticalOptions="Start">
 
                                     <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="20" />
+
+                                        <RoundRectangle
+                                            CornerRadius="20" />
+
                                     </Border.StrokeShape>
 
                                     <Label
@@ -222,7 +236,8 @@
                                                     Text="{Binding LearnerCount}"
                                                     FontAttributes="Bold" />
 
-                                                <Span Text=" learners" />
+                                                <Span
+                                                    Text=" learners" />
 
                                             </FormattedString>
 
@@ -271,7 +286,7 @@
             </CollectionView>
 
 
-            <!-- All classes list -->
+
             <CollectionView
                 ItemsSource="{Binding AllClasses}"
                 IsVisible="{Binding IsAllClassesSelected}"
@@ -290,14 +305,27 @@
 
                     <DataTemplate>
 
+                        <!-- Clickable class card -->
                         <Border
                             BackgroundColor="{StaticResource CardSurface}"
                             Stroke="{StaticResource Gray200}"
                             StrokeThickness="1"
                             Padding="12">
 
+                            <!-- Same navigation as My Classes -->
+                            <Border.GestureRecognizers>
+
+                                <TapGestureRecognizer
+                                    Tapped="OnClassTapped" />
+
+                            </Border.GestureRecognizers>
+
+
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="8" />
+
+                                <RoundRectangle
+                                    CornerRadius="8" />
+
                             </Border.StrokeShape>
 
 
@@ -306,6 +334,7 @@
                                 ColumnSpacing="12">
 
 
+                                <!-- Class Icon -->
                                 <Border
                                     WidthRequest="40"
                                     HeightRequest="40"
@@ -314,7 +343,10 @@
                                     VerticalOptions="Start">
 
                                     <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="20" />
+
+                                        <RoundRectangle
+                                            CornerRadius="20" />
+
                                     </Border.StrokeShape>
 
                                     <Label
@@ -328,6 +360,7 @@
                                 </Border>
 
 
+                                <!-- Class Information -->
                                 <VerticalStackLayout
                                     Grid.Column="1"
                                     Spacing="3">
@@ -351,7 +384,8 @@
                                                     Text="{Binding LearnerCount}"
                                                     FontAttributes="Bold" />
 
-                                                <Span Text=" learners" />
+                                                <Span
+                                                    Text=" learners" />
 
                                             </FormattedString>
 
@@ -381,6 +415,7 @@
                                 </VerticalStackLayout>
 
 
+                                <!-- Arrow -->
                                 <Label
                                     Grid.Column="2"
                                     Text="›"

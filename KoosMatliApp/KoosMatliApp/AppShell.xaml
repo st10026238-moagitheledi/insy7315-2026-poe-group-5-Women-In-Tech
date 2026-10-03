@@ -18,29 +18,34 @@
     <TabBar>
 
         <ShellContent
-            Title="Home"
-            Route="TeacherHome"
-            ContentTemplate="{DataTemplate teacher:TeacherHomePage}" />
+        Title="Home"
+        Icon="nav_home.svg"
+        Route="TeacherHome"
+        ContentTemplate="{DataTemplate teacher:TeacherHomePage}" />
 
         <ShellContent
-            Title="Classes"
-            Route="TeacherClasses"
-            ContentTemplate="{DataTemplate teacher:ClassesPage}" />
+        Title="Classes"
+        Icon="nav_classes.svg"
+        Route="TeacherClasses"
+        ContentTemplate="{DataTemplate teacher:ClassesPage}" />
 
         <ShellContent
-            Title="Updates"
-            Route="TeacherUpdates"
-            ContentTemplate="{DataTemplate teacher:UpdatesPage}" />
+        Title="Updates"
+        Icon="nav_updates.svg"
+        Route="TeacherUpdates"
+        ContentTemplate="{DataTemplate teacher:UpdatesPage}" />
 
         <ShellContent
-            Title="Schedule"
-            Route="TeacherSchedule"
-            ContentTemplate="{DataTemplate teacher:SchedulePage}" />
+        Title="Schedule"
+        Icon="nav_schedule.svg"
+        Route="TeacherSchedule"
+        ContentTemplate="{DataTemplate teacher:SchedulePage}" />
 
         <ShellContent
-            Title="Profile"
-            Route="TeacherProfile"
-            ContentTemplate="{DataTemplate teacher:ProfilePage}" />
+        Title="Profile"
+        Icon="nav_profile.svg"
+        Route="TeacherProfile"
+        ContentTemplate="{DataTemplate teacher:ProfilePage}" />
 
     </TabBar>
 
