@@ -13,6 +13,7 @@ obj/
 *.suo
 *.userosscache
 *.sln.docstates
+
 # Visual Studio indexes/cache
 *.vsidx
 *.dtbcache.v2
