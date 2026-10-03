@@ -4,11 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:KoosMatliApp"
+    xmlns:admin="clr-namespace:KoosMatliApp.Views.Admin"
     Title="KoosMatliApp">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <!-- Main Admin navigation: Home | Users | Apps | Staff | Profile -->
+    <TabBar>
+        <ShellContent Title="Home" Route="admin/dashboard" ContentTemplate="{DataTemplate admin:AdminDashboardPage}" />
+        <ShellContent Title="Users" Route="admin/users" ContentTemplate="{DataTemplate admin:UserPage}" />
+        <ShellContent Title="Apps" Route="admin/apps" ContentTemplate="{DataTemplate admin:applicationspage}" />
+        <ShellContent Title="Staff" Route="admin/staff" ContentTemplate="{DataTemplate admin:StaffPage}" />
+        <ShellContent Title="Profile" Route="admin/profile" ContentTemplate="{DataTemplate admin:ProfilePage}" />
+    </TabBar>
 
 </Shell>

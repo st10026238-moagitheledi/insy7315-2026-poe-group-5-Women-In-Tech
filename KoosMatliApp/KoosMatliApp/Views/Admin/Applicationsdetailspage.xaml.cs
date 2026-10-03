@@ -9,5 +9,11 @@ public partial class Applicationsdetailspage : ContentPage
 	public Applicationsdetailspage()
 	{
         InitializeComponent();
+        try
+        {
+            var services = App.Services;
+            BindingContext = services?.GetService(typeof(KoosMatliApp.ViewModels.ApplicationsViewModel)) as KoosMatliApp.ViewModels.ApplicationsViewModel;
+        }
+        catch { }
     }
 }

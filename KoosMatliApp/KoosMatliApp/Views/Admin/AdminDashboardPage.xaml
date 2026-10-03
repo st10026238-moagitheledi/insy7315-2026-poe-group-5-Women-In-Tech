@@ -12,7 +12,7 @@
             <!-- HEADER -->
             <VerticalStackLayout Spacing="4">
                 <Label
-                    Text="Admin Dashboard"
+                    Text="{Binding Title}"
                     FontSize="28"
                     FontAttributes="Bold" />
 
@@ -43,7 +43,7 @@
 
                     <VerticalStackLayout>
                         <Label
-                            Text="450"
+                            Text="{Binding Dashboard.TotalLearners}"
                             FontSize="26"
                             FontAttributes="Bold"
                             HorizontalOptions="Center" />
@@ -64,7 +64,7 @@
 
                     <VerticalStackLayout>
                         <Label
-                            Text="25"
+                            Text="{Binding Dashboard.TotalTeachers}"
                             FontSize="26"
                             FontAttributes="Bold"
                             HorizontalOptions="Center" />
@@ -85,7 +85,7 @@
 
                     <VerticalStackLayout>
                         <Label
-                            Text="320"
+                            Text="{Binding Dashboard.TotalParents}"
                             FontSize="26"
                             FontAttributes="Bold"
                             HorizontalOptions="Center" />
@@ -116,7 +116,7 @@
                         <Label Text="New Applications" />
                         <Label
                             Grid.Column="1"
-                            Text="4"
+                            Text="{Binding Dashboard.NewApplications}"
                             FontAttributes="Bold" />
                     </Grid>
 
@@ -124,7 +124,7 @@
                         <Label Text="Pending Applications" />
                         <Label
                             Grid.Column="1"
-                            Text="12"
+                            Text="{Binding Dashboard.PendingApplications}"
                             FontAttributes="Bold" />
                     </Grid>
 
@@ -132,7 +132,7 @@
                         <Label Text="Announcements Sent" />
                         <Label
                             Grid.Column="1"
-                            Text="2"
+                            Text="{Binding Dashboard.AnnouncementsSent}"
                             FontAttributes="Bold" />
                     </Grid>
 
@@ -153,24 +153,28 @@
                 RowSpacing="10">
 
                 <Button
+                    x:Name="btnSchoolDetails"
                     Grid.Row="0"
                     Grid.Column="0"
                     Text="School Details"
                     HeightRequest="60" />
 
                 <Button
+                    x:Name="btnSchoolDates"
                     Grid.Row="0"
                     Grid.Column="1"
                     Text="School Dates"
                     HeightRequest="60" />
 
                 <Button
+                    x:Name="btnSchoolCalendar"
                     Grid.Row="1"
                     Grid.Column="0"
                     Text="School Calendar"
                     HeightRequest="60" />
 
                 <Button
+                    x:Name="btnDocuments"
                     Grid.Row="1"
                     Grid.Column="1"
                     Text="Documents"

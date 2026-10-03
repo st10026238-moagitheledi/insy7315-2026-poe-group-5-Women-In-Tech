@@ -24,6 +24,8 @@ namespace KoosMatliAdminApi.Data
 
         public DbSet<SchoolDate> SchoolDates { get; set; }
 
+        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+
         public DbSet<SchoolDocument> SchoolDocuments { get; set; }
     }
 }

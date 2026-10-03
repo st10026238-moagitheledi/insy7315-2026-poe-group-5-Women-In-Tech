@@ -49,18 +49,7 @@
         </Grid>
 
         <!-- USERS -->
-        <CollectionView Grid.Row="3">
-
-            <CollectionView.ItemsSource>
-
-                <!-- TEMPORARY DATA -->
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Parent Example</x:String>
-                    <x:String>Teacher Example</x:String>
-                    <x:String>Learner Example</x:String>
-                </x:Array>
-
-            </CollectionView.ItemsSource>
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Users}">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -75,12 +64,12 @@
 
                             <VerticalStackLayout>
                                 <Label
-                                    Text="{Binding .}"
+                                    Text="{Binding FullName}"
                                     FontSize="16"
                                     FontAttributes="Bold" />
 
                                 <Label
-                                    Text="User details"
+                                    Text="{Binding Role}"
                                     FontSize="13"
                                     TextColor="Gray" />
                             </VerticalStackLayout>
