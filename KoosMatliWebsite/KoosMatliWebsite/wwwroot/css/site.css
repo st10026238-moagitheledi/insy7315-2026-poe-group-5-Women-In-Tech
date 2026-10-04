@@ -202,13 +202,19 @@ select {
         display: flex;
         align-items: center;
         gap: 5px;
+        cursor: pointer;
     }
 
 
     .nav-dropdown i {
         font-size: 8px;
+        transition: transform 0.2s ease;
     }
 
+
+/* =========================
+   DROPDOWN MENU
+   ========================= */
 
 .dropdown-menu {
     position: absolute;
@@ -220,27 +226,71 @@ select {
     border-radius: 8px;
     box-shadow: var(--shadow);
     padding: 8px;
-    display: none;
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    /* Small movement animation */
+    transform: translateY(-5px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    /* Keeps the dropdown above other content */
+    z-index: 1000;
 }
 
+
+/* =========================
+   OPEN ON HOVER
+   ========================= */
 
 .nav-dropdown:hover .dropdown-menu {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
+
+/* Rotate arrow when hovering */
+.nav-dropdown:hover i {
+    transform: rotate(180deg);
+}
+
+
+/* =========================
+   OPEN WHEN CLICKED
+   ========================= */
+
+.nav-dropdown.is-open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+
+/* Rotate arrow when clicked */
+.nav-dropdown.is-open i {
+    transform: rotate(180deg);
+}
+
+
+/* =========================
+   DROPDOWN LINKS
+   ========================= */
 
 .dropdown-menu a {
     display: block;
     padding: 10px 12px;
     font-size: 12px;
     border-radius: 5px;
+    text-decoration: none;
 }
 
 
-    .dropdown-menu a:hover {
-        background: #f4f5f7;
-        color: var(--navy);
-    }
+.dropdown-menu a:hover {
+    background: #f4f5f7;
+    color: var(--navy);
+}
 
 
 /* =========================

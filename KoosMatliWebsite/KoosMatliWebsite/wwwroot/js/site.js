@@ -1,4 +1,69 @@
-﻿// =========================================================
+﻿/* =========================
+   NAV DROPDOWN
+   ========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dropdown = document.querySelector(".nav-dropdown");
+
+    if (!dropdown) {
+        return;
+    }
+
+    const button = dropdown.querySelector("button");
+
+    if (!button) {
+        return;
+    }
+
+
+    /* =========================
+       CLICK TO OPEN / CLOSE
+       ========================= */
+
+    button.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        dropdown.classList.toggle("is-open");
+
+    });
+
+
+    /* =========================
+       CLOSE WHEN CLICKING OUTSIDE
+       ========================= */
+
+    document.addEventListener("click", function (event) {
+
+        if (!dropdown.contains(event.target)) {
+
+            dropdown.classList.remove("is-open");
+
+        }
+
+    });
+
+
+    /* =========================
+       CLOSE AFTER SELECTING LINK
+       ========================= */
+
+    const dropdownLinks = dropdown.querySelectorAll(".dropdown-menu a");
+
+    dropdownLinks.forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            dropdown.classList.remove("is-open");
+
+        });
+
+    });
+
+});
+
+// =========================================================
 // MOBILE NAVIGATION
 // =========================================================
 const mobileMenuButton =
