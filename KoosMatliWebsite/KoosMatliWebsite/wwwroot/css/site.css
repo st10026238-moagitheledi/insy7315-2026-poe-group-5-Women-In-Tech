@@ -115,9 +115,6 @@ select {
 .logo-placeholder {
     width: 40px;
     height: 46px;
-    background: var(--gold);
-    color: var(--navy);
-    clip-path: polygon( 50% 0%, 92% 15%, 85% 80%, 50% 100%, 15% 80%, 8% 15% );
     display: flex;
     align-items: center;
     justify-content: center;
@@ -551,7 +548,7 @@ select {
 .home-hero {
     min-height: 520px;
     position: relative;
-    background: linear-gradient( 90deg, rgba(4, 25, 58, .97) 0%, rgba(4, 25, 58, .88) 40%, rgba(4, 25, 58, .30) 75%, rgba(4, 25, 58, .10) 100% ), url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=80") center/cover;
+    background: linear-gradient( 90deg, rgba(4, 25, 58, .97) 0%, rgba(4, 25, 58, .88) 40%, rgba(4, 25, 58, .30) 75%, rgba(4, 25, 58, .10) 100% ), url("../images/school/learners.jpg") center/cover;
     display: flex;
     align-items: center;
 }
