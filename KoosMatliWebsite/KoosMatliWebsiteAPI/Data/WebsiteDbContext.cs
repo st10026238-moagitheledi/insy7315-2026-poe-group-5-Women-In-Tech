@@ -319,6 +319,203 @@ namespace KoosMatliWebsiteAPI.Data
                     Category = "general"
                 }
             );
+
+
+            // =====================================================
+            // GALLERY ITEMS
+            // =====================================================
+
+            modelBuilder.Entity<GalleryItem>().HasData(
+
+                // =========================
+                // ACADEMICS
+                // =========================
+
+                new GalleryItem
+                {
+                    Id = 1,
+                    Title = "Learner Tutor",
+                    Description = "A learner receiving academic support from a fellow learner tutor.",
+                    ImageUrl = "/images/gallery/academics/tutor.jpg",
+                    DateAdded = new DateTime(2026, 1, 15),
+                    Category = "academics",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 2,
+                    Title = "Teacher and Learners",
+                    Description = "A teacher engaging with learners during an academic activity.",
+                    ImageUrl = "/images/gallery/academics/teacher.jpg",
+                    DateAdded = new DateTime(2026, 2, 10),
+                    Category = "academics",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 3,
+                    Title = "Parents",
+                    Description = "Parents and guardians participating in the school community.",
+                    ImageUrl = "/images/gallery/academics/parents.jpg",
+                    DateAdded = new DateTime(2026, 2, 20),
+                    Category = "academics",
+                    IsPublished = true
+                },
+
+
+                // =========================
+                // SPORTS
+                // =========================
+
+                new GalleryItem
+                {
+                    Id = 4,
+                    Title = "Ziplining",
+                    Description = "Learners enjoying an exciting ziplining activity.",
+                    ImageUrl = "/images/gallery/sports/cable.jpg",
+                    DateAdded = new DateTime(2026, 3, 5),
+                    Category = "sports",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 5,
+                    Title = "Athletics",
+                    Description = "Learners taking part in an athletics activity.",
+                    ImageUrl = "/images/gallery/sports/athletics.jpg",
+                    DateAdded = new DateTime(2026, 3, 15),
+                    Category = "sports",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 6,
+                    Title = "Swimming Activity",
+                    Description = "A learner participating in a school swimming activity.",
+                    ImageUrl = "/images/gallery/sports/swim.jpg",
+                    DateAdded = new DateTime(2026, 3, 25),
+                    Category = "sports",
+                    IsPublished = true
+                },
+
+
+                // =========================
+                // EVENTS
+                // =========================
+
+                new GalleryItem
+                {
+                    Id = 7,
+                    Title = "Breast Cancer Awareness",
+                    Description = "The school community participating in a breast cancer awareness initiative.",
+                    ImageUrl = "/images/gallery/events/cancer.jpg",
+                    DateAdded = new DateTime(2026, 4, 10),
+                    Category = "events",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 8,
+                    Title = "Fun Day",
+                    Description = "Learners and members of the school community enjoying a fun day.",
+                    ImageUrl = "/images/gallery/events/fun.jpg",
+                    DateAdded = new DateTime(2026, 5, 10),
+                    Category = "events",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 9,
+                    Title = "Market Day",
+                    Description = "Learners participating in the school's Market Day activities.",
+                    ImageUrl = "/images/gallery/events/market.jpg",
+                    DateAdded = new DateTime(2026, 5, 20),
+                    Category = "events",
+                    IsPublished = true
+                },
+
+
+                // =========================
+                // CULTURE
+                // =========================
+
+                new GalleryItem
+                {
+                    Id = 10,
+                    Title = "Heritage Day",
+                    Description = "Learners celebrating South African heritage and cultural diversity.",
+                    ImageUrl = "/images/gallery/culture/heritage.jpg",
+                    DateAdded = new DateTime(2026, 9, 24),
+                    Category = "culture",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 11,
+                    Title = "Literacy Day",
+                    Description = "Learners taking part in activities promoting literacy and reading.",
+                    ImageUrl = "/images/gallery/culture/literacy.jpg",
+                    DateAdded = new DateTime(2026, 7, 15),
+                    Category = "culture",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 12,
+                    Title = "Careers Day",
+                    Description = "Learners exploring different career opportunities and professions.",
+                    ImageUrl = "/images/gallery/culture/careers.jpg",
+                    DateAdded = new DateTime(2026, 8, 15),
+                    Category = "culture",
+                    IsPublished = true
+                },
+
+
+                // =========================
+                // ACHIEVEMENTS
+                // =========================
+
+                new GalleryItem
+                {
+                    Id = 13,
+                    Title = "Top Achievers",
+                    Description = "Celebrating learners who achieved outstanding academic results.",
+                    ImageUrl = "/images/gallery/achievements/top.jpg",
+                    DateAdded = new DateTime(2026, 6, 20),
+                    Category = "achievements",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 14,
+                    Title = "Top Student",
+                    Description = "Recognising a learner for outstanding academic achievement.",
+                    ImageUrl = "/images/gallery/achievements/achiever.jpg",
+                    DateAdded = new DateTime(2026, 6, 20),
+                    Category = "achievements",
+                    IsPublished = true
+                },
+
+                new GalleryItem
+                {
+                    Id = 15,
+                    Title = "Principal Receives Certificate",
+                    Description = "The school principal receiving a certificate in recognition of the school's achievements.",
+                    ImageUrl = "/images/gallery/achievements/principal.jpg",
+                    DateAdded = new DateTime(2026, 6, 25),
+                    Category = "achievements",
+                    IsPublished = true
+                }
+            );
         }
     }
 }

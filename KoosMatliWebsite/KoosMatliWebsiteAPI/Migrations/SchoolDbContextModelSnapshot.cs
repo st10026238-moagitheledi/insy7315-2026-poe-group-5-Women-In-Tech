@@ -193,6 +193,158 @@ namespace KoosMatliWebsiteAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GalleryItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "academics",
+                            DateAdded = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A learner receiving academic support from a fellow learner tutor.",
+                            ImageUrl = "/images/gallery/academics/tutor.jpg",
+                            IsPublished = true,
+                            Title = "Learner Tutor"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = "academics",
+                            DateAdded = new DateTime(2026, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A teacher engaging with learners during an academic activity.",
+                            ImageUrl = "/images/gallery/academics/teacher.jpg",
+                            IsPublished = true,
+                            Title = "Teacher and Learners"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = "academics",
+                            DateAdded = new DateTime(2026, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Parents and guardians participating in the school community.",
+                            ImageUrl = "/images/gallery/academics/parents.jpg",
+                            IsPublished = true,
+                            Title = "Parents"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Category = "sports",
+                            DateAdded = new DateTime(2026, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Learners enjoying an exciting ziplining activity.",
+                            ImageUrl = "/images/gallery/sports/cable.jpg",
+                            IsPublished = true,
+                            Title = "Ziplining"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Category = "sports",
+                            DateAdded = new DateTime(2026, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Learners taking part in an athletics activity.",
+                            ImageUrl = "/images/gallery/sports/athletics.jpg",
+                            IsPublished = true,
+                            Title = "Athletics"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Category = "sports",
+                            DateAdded = new DateTime(2026, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A learner participating in a school swimming activity.",
+                            ImageUrl = "/images/gallery/sports/swim.jpg",
+                            IsPublished = true,
+                            Title = "Swimming Activity"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Category = "events",
+                            DateAdded = new DateTime(2026, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The school community participating in a breast cancer awareness initiative.",
+                            ImageUrl = "/images/gallery/events/cancer.jpg",
+                            IsPublished = true,
+                            Title = "Breast Cancer Awareness"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Category = "events",
+                            DateAdded = new DateTime(2026, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Learners and members of the school community enjoying a fun day.",
+                            ImageUrl = "/images/gallery/events/fun.jpg",
+                            IsPublished = true,
+                            Title = "Fun Day"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Category = "events",
+                            DateAdded = new DateTime(2026, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Learners participating in the school's Market Day activities.",
+                            ImageUrl = "/images/gallery/events/market.jpg",
+                            IsPublished = true,
+                            Title = "Market Day"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Category = "culture",
+                            DateAdded = new DateTime(2026, 9, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Learners celebrating South African heritage and cultural diversity.",
+                            ImageUrl = "/images/gallery/culture/heritage.jpg",
+                            IsPublished = true,
+                            Title = "Heritage Day"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Category = "culture",
+                            DateAdded = new DateTime(2026, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Learners taking part in activities promoting literacy and reading.",
+                            ImageUrl = "/images/gallery/culture/literacy.jpg",
+                            IsPublished = true,
+                            Title = "Literacy Day"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Category = "culture",
+                            DateAdded = new DateTime(2026, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Learners exploring different career opportunities and professions.",
+                            ImageUrl = "/images/gallery/culture/careers.jpg",
+                            IsPublished = true,
+                            Title = "Careers Day"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Category = "achievements",
+                            DateAdded = new DateTime(2026, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Celebrating learners who achieved outstanding academic results.",
+                            ImageUrl = "/images/gallery/achievements/top.jpg",
+                            IsPublished = true,
+                            Title = "Top Achievers"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Category = "achievements",
+                            DateAdded = new DateTime(2026, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Recognising a learner for outstanding academic achievement.",
+                            ImageUrl = "/images/gallery/achievements/achiever.jpg",
+                            IsPublished = true,
+                            Title = "Top Student"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Category = "achievements",
+                            DateAdded = new DateTime(2026, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "The school principal receiving a certificate in recognition of the school's achievements.",
+                            ImageUrl = "/images/gallery/achievements/principal.jpg",
+                            IsPublished = true,
+                            Title = "Principal Receives Certificate"
+                        });
                 });
 
             modelBuilder.Entity("KoosMatliWebsiteAPI.Models.News", b =>
