@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aH8GjWqgdyo=",
+  "dgSpecHash": "SZhu+jxxIZA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\moagi\\OneDrive\\Desktop\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp.csproj",
+  "projectFilePath": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\moagi\\.nuget\\packages\\googlegson\\2.13.1.1\\googlegson.2.13.1.1.nupkg.sha512",
     "C:\\Users\\moagi\\.nuget\\packages\\microsoft.extensions.configuration\\10.0.0\\microsoft.extensions.configuration.10.0.0.nupkg.sha512",
