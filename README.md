@@ -795,3 +795,10 @@ The current website establishes the foundation for this ecosystem.
 The final **.NET MAUI application** will build on that foundation by providing a dedicated mobile experience while continuing to use the existing backend and cloud infrastructure.
 
 This approach allows the system to evolve from a public school website into a **scalable, maintainable and integrated school management and communication platform**.
+
+# 🎓 YouTube link
+This link takes you to a video that demonstrates the functionality of the website:
+YouTube: https://youtu.be/H__yAlGE8Gg 
+
+If the video is blurry, use this canva link to view the video:
+Canva: https://canva.link/g1wh8bxtdopiysw 
