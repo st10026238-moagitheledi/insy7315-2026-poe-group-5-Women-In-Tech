@@ -68,5 +68,14 @@ namespace KoosMatlilWebsite.Services
 
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> SubmitApplicationAsync(ApplicationDto application)
+        {
+            var response = await _httpClient.PostAsJsonAsync(
+                "api/Applications",
+                application);
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }

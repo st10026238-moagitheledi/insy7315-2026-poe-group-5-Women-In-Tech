@@ -20,6 +20,8 @@ namespace KoosMatliWebsiteAPI.Data
 
         public DbSet<Admission> Admissions { get; set; }
 
+        public DbSet<Application> Applications { get; set; }
+
         public DbSet<SchoolInformation> SchoolInformation { get; set; }
 
         public DbSet<ContactMessage> ContactMessages { get; set; }

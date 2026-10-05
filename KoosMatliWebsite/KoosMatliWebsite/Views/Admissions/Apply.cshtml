@@ -1,0 +1,502 @@
+﻿@model KoosMatliWebsite.DTOs.ApplicationDto
+
+@{
+    ViewData["Title"] = "Apply Online";
+}
+
+<!-- =====================================================
+     APPLICATION HERO
+     ===================================================== -->
+
+<section class="application-hero">
+
+    <div class="container">
+
+        <div class="application-hero-content">
+
+            <span class="application-eyebrow">
+                KOOS MATLI PRIMARY SCHOOL
+            </span>
+
+            <h1>
+                APPLY ONLINE
+            </h1>
+
+            <p>
+                Complete the application form below to apply
+                for admission to Koos Matli Primary School.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     APPLICATION FORM
+     ===================================================== -->
+
+<section class="application-section">
+
+    <div class="container">
+
+        <div class="application-layout">
+
+            <!-- =================================================
+                 FORM
+                 ================================================= -->
+
+            <div class="application-card">
+
+                <div class="application-card-header">
+
+                    <h2>
+                        Learner Application
+                    </h2>
+
+                    <p>
+                        Please provide accurate information.
+                    </p>
+
+                </div>
+
+
+                <form asp-controller="Admissions"
+                      asp-action="Apply"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="validation-summary">
+                    </div>
+
+
+                    <!-- =========================================
+                         PARENT / GUARDIAN INFORMATION
+                         ========================================= -->
+
+                    <div class="application-form-section">
+
+                        <h3>
+                            Parent / Guardian Information
+                        </h3>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label asp-for="ParentFirstName">
+                                    First Name
+                                </label>
+
+                                <input asp-for="ParentFirstName"
+                                       class="form-control"
+                                       placeholder="Enter first name" />
+
+                                <span asp-validation-for="ParentFirstName"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label asp-for="ParentLastName">
+                                    Last Name
+                                </label>
+
+                                <input asp-for="ParentLastName"
+                                       class="form-control"
+                                       placeholder="Enter last name" />
+
+                                <span asp-validation-for="ParentLastName"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label asp-for="ParentEmail">
+                                    Email Address
+                                </label>
+
+                                <input asp-for="ParentEmail"
+                                       type="email"
+                                       class="form-control"
+                                       placeholder="example@email.com" />
+
+                                <span asp-validation-for="ParentEmail"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label asp-for="ParentPhone">
+                                    Phone Number
+                                </label>
+
+                                <input asp-for="ParentPhone"
+                                       type="tel"
+                                       class="form-control"
+                                       placeholder="e.g. 071 234 5678" />
+
+                                <span asp-validation-for="ParentPhone"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label asp-for="RelationshipToLearner">
+                                    Relationship to Learner
+                                </label>
+
+                                <select asp-for="RelationshipToLearner"
+                                        class="form-control">
+
+                                    <option value="">
+                                        Select relationship
+                                    </option>
+
+                                    <option value="Parent">
+                                        Parent
+                                    </option>
+
+                                    <option value="Guardian">
+                                        Guardian
+                                    </option>
+
+                                    <option value="Grandparent">
+                                        Grandparent
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                                <span asp-validation-for="RelationshipToLearner"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         LEARNER INFORMATION
+                         ========================================= -->
+
+                    <div class="application-form-section">
+
+                        <h3>
+                            Learner Information
+                        </h3>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label asp-for="LearnerFirstName">
+                                    First Name
+                                </label>
+
+                                <input asp-for="LearnerFirstName"
+                                       class="form-control"
+                                       placeholder="Enter learner's first name" />
+
+                                <span asp-validation-for="LearnerFirstName"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label asp-for="LearnerLastName">
+                                    Last Name
+                                </label>
+
+                                <input asp-for="LearnerLastName"
+                                       class="form-control"
+                                       placeholder="Enter learner's last name" />
+
+                                <span asp-validation-for="LearnerLastName"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label asp-for="LearnerDateOfBirth">
+                                    Date of Birth
+                                </label>
+
+                                <input asp-for="LearnerDateOfBirth"
+                                       type="date"
+                                       class="form-control" />
+
+                                <span asp-validation-for="LearnerDateOfBirth"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label asp-for="GradeApplyingFor">
+                                    Grade Applying For
+                                </label>
+
+                                <select asp-for="GradeApplyingFor"
+                                        class="form-control">
+
+                                    <option value="">
+                                        Select grade
+                                    </option>
+
+                                    <option value="Grade R">
+                                        Grade R
+                                    </option>
+
+                                    <option value="Grade 1">
+                                        Grade 1
+                                    </option>
+
+                                    <option value="Grade 2">
+                                        Grade 2
+                                    </option>
+
+                                    <option value="Grade 3">
+                                        Grade 3
+                                    </option>
+
+                                    <option value="Grade 4">
+                                        Grade 4
+                                    </option>
+
+                                    <option value="Grade 5">
+                                        Grade 5
+                                    </option>
+
+                                    <option value="Grade 6">
+                                        Grade 6
+                                    </option>
+
+                                    <option value="Grade 7">
+                                        Grade 7
+                                    </option>
+
+                                </select>
+
+                                <span asp-validation-for="GradeApplyingFor"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group form-group-full">
+
+                                <label asp-for="PreviousSchool">
+                                    Previous School
+                                </label>
+
+                                <input asp-for="PreviousSchool"
+                                       class="form-control"
+                                       placeholder="Enter previous school" />
+
+                                <span asp-validation-for="PreviousSchool"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         HOME ADDRESS
+                         ========================================= -->
+
+                    <div class="application-form-section">
+
+                        <h3>
+                            Home Address
+                        </h3>
+
+                        <div class="form-group">
+
+                            <label asp-for="HomeAddress">
+                                Residential Address
+                            </label>
+
+                            <textarea asp-for="HomeAddress"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Enter your residential address"></textarea>
+
+                            <span asp-validation-for="HomeAddress"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         ADDITIONAL INFORMATION
+                         ========================================= -->
+
+                    <div class="application-form-section">
+
+                        <h3>
+                            Additional Information
+                        </h3>
+
+                        <div class="form-group">
+
+                            <label asp-for="AdditionalInformation">
+                                Additional Information
+                            </label>
+
+                            <textarea asp-for="AdditionalInformation"
+                                      class="form-control"
+                                      rows="5"
+                                      placeholder="Provide any additional information you would like the school to know."></textarea>
+
+                            <span asp-validation-for="AdditionalInformation"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         SUBMIT
+                         ========================================= -->
+
+                    <div class="application-submit-area">
+
+                        <p>
+                            By submitting this application,
+                            you confirm that the information
+                            provided is accurate.
+                        </p>
+
+                        <button type="submit"
+                                class="application-submit">
+
+                            SUBMIT APPLICATION
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 SIDEBAR
+                 ================================================= -->
+
+            <aside class="application-sidebar">
+
+                <div class="application-sidebar-card">
+
+                    <div class="sidebar-icon">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+
+                    <h3>
+                        Before You Apply
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Make sure all information is correct.
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Use a valid parent or guardian
+                            contact number.
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Select the correct grade.
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-check"></i>
+                            Complete all required fields.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div class="application-sidebar-card application-help">
+
+                    <div class="sidebar-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+
+                    <h3>
+                        Need Help?
+                    </h3>
+
+                    <p>
+                        If you have questions about the
+                        application process, please contact
+                        the school.
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}
