@@ -796,7 +796,7 @@ The final **.NET MAUI application** will build on that foundation by providing a
 
 This approach allows the system to evolve from a public school website into a **scalable, maintainable and integrated school management and communication platform**.
 
-# 🎓 YouTube link
+# 📹 YouTube link
 This link takes you to a video that demonstrates the functionality of the website:
 YouTube: https://youtu.be/H__yAlGE8Gg 
 
