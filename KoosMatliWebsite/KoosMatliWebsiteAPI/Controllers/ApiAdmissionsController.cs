@@ -1,52 +1,112 @@
-﻿using KoosMatliWebsiteAPI.Data;
+﻿using Google.Cloud.Firestore;
 using KoosMatliWebsiteAPI.Models;
+using KoosMatliWebsiteAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KoosMatliWebsiteAPI.Controllers
 {
+    [Route("api/admissions")]
     [ApiController]
-    [Route("api/[controller]")]
     public class AdmissionsController : ControllerBase
     {
-        private readonly WebsiteDbContext _context;
+        private readonly FirebaseService _firebaseService;
 
-        public AdmissionsController(WebsiteDbContext context)
+        public AdmissionsController(
+            FirebaseService firebaseService)
         {
-            _context = context;
+            _firebaseService = firebaseService;
         }
+
+
+        // =====================================================
+        // GET ALL ACTIVE ADMISSIONS
+        // GET: api/admissions
+        // =====================================================
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Admission>>> GetAdmissions()
+        public async Task<IActionResult> GetAdmissions()
         {
-            return await _context.Admissions
-                .Where(a => a.IsActive)
-                .ToListAsync();
+            var database = _firebaseService.Database;
+
+            var snapshot = await database
+                .Collection("admissions")
+                .WhereEqualTo("IsActive", true)
+                .OrderBy("Id")
+                .GetSnapshotAsync();
+
+            var admissions = snapshot.Documents
+                .Select(MapAdmission)
+                .ToList();
+
+            return Ok(admissions);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Admission>> GetAdmission(int id)
-        {
-            var admission =
-                await _context.Admissions.FindAsync(id);
 
-            if (admission == null || !admission.IsActive)
+        // =====================================================
+        // GET ADMISSION BY ID
+        // GET: api/admissions/{id}
+        // =====================================================
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetAdmission(int id)
+        {
+            var database = _firebaseService.Database;
+
+            var documentReference = database
+                .Collection("admissions")
+                .Document(id.ToString());
+
+            var snapshot = await documentReference
+                .GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"Admission with ID {id} was not found.");
             }
 
-            return admission;
+            var admission = MapAdmission(snapshot);
+
+            if (!admission.IsActive)
+            {
+                return NotFound(
+                    $"Admission with ID {id} is not active.");
+            }
+
+            return Ok(admission);
         }
 
+
+        // =====================================================
+        // CREATE ADMISSION
+        // POST: api/admissions
+        // =====================================================
+
         [HttpPost]
-        public async Task<ActionResult<Admission>> CreateAdmission(
+        public async Task<IActionResult> CreateAdmission(
             Admission admission)
         {
-            admission.Id = 0;
+            var database = _firebaseService.Database;
 
-            _context.Admissions.Add(admission);
+            // Generate the next numeric ID.
+            var snapshot = await database
+                .Collection("admissions")
+                .GetSnapshotAsync();
 
-            await _context.SaveChangesAsync();
+            var nextId = snapshot.Documents
+                .Select(document => GetInt(document, "Id"))
+                .DefaultIfEmpty(0)
+                .Max() + 1;
+
+            admission.Id = nextId;
+
+            var documentReference = database
+                .Collection("admissions")
+                .Document(admission.Id.ToString());
+
+            var data = AdmissionToDictionary(admission);
+
+            await documentReference.SetAsync(data);
 
             return CreatedAtAction(
                 nameof(GetAdmission),
@@ -54,40 +114,184 @@ namespace KoosMatliWebsiteAPI.Controllers
                 admission);
         }
 
-        [HttpPut("{id}")]
+
+        // =====================================================
+        // UPDATE ADMISSION
+        // PUT: api/admissions/{id}
+        // =====================================================
+
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateAdmission(
             int id,
             Admission admission)
         {
             if (id != admission.Id)
             {
-                return BadRequest();
+                return BadRequest(
+                    "The ID in the URL does not match the ID in the request.");
             }
 
-            _context.Entry(admission).State =
-                EntityState.Modified;
+            var database = _firebaseService.Database;
 
-            await _context.SaveChangesAsync();
+            var documentReference = database
+                .Collection("admissions")
+                .Document(id.ToString());
 
-            return NoContent();
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
+            {
+                return NotFound(
+                    $"Admission with ID {id} was not found.");
+            }
+
+            var data = AdmissionToDictionary(admission);
+
+            await documentReference.SetAsync(
+                data,
+                SetOptions.Overwrite);
+
+            return Ok(new
+            {
+                message = "Admission updated successfully.",
+                admission
+            });
         }
 
-        [HttpDelete("{id}")]
+
+        // =====================================================
+        // DELETE ADMISSION
+        // DELETE: api/admissions/{id}
+        // =====================================================
+
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAdmission(int id)
         {
-            var admission =
-                await _context.Admissions.FindAsync(id);
+            var database = _firebaseService.Database;
 
-            if (admission == null)
+            var documentReference = database
+                .Collection("admissions")
+                .Document(id.ToString());
+
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"Admission with ID {id} was not found.");
             }
 
-            _context.Admissions.Remove(admission);
+            await documentReference.DeleteAsync();
 
-            await _context.SaveChangesAsync();
+            return Ok(new
+            {
+                message = "Admission deleted successfully."
+            });
+        }
 
-            return NoContent();
+
+        // =====================================================
+        // FIRESTORE → ADMISSION MODEL
+        // =====================================================
+
+        private static Admission MapAdmission(
+            DocumentSnapshot document)
+        {
+            return new Admission
+            {
+                Id = GetInt(
+                    document,
+                    "Id"),
+
+                Title = GetString(
+                    document,
+                    "Title"),
+
+                Description = GetString(
+                    document,
+                    "Description"),
+
+                Requirements = GetString(
+                    document,
+                    "Requirements"),
+
+                ApplicationInstructions = GetString(
+                    document,
+                    "ApplicationInstructions"),
+
+                ApplicationLink = GetString(
+                    document,
+                    "ApplicationLink"),
+
+                IsActive = GetBool(
+                    document,
+                    "IsActive")
+            };
+        }
+
+
+        // =====================================================
+        // ADMISSION MODEL → FIRESTORE
+        // =====================================================
+
+        private static Dictionary<string, object> AdmissionToDictionary(
+            Admission admission)
+        {
+            return new Dictionary<string, object>
+            {
+                { "Id", admission.Id },
+                { "Title", admission.Title },
+                { "Description", admission.Description },
+                { "Requirements", admission.Requirements },
+                { "ApplicationInstructions", admission.ApplicationInstructions },
+                { "ApplicationLink", admission.ApplicationLink },
+                { "IsActive", admission.IsActive }
+            };
+        }
+
+
+        // =====================================================
+        // FIRESTORE FIELD HELPERS
+        // =====================================================
+
+        private static string GetString(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return "";
+            }
+
+            return document.GetValue<string>(field) ?? "";
+        }
+
+
+        private static int GetInt(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return 0;
+            }
+
+            return document.GetValue<int>(field);
+        }
+
+
+        private static bool GetBool(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return true;
+            }
+
+            return document.GetValue<bool>(field);
         }
     }
 }

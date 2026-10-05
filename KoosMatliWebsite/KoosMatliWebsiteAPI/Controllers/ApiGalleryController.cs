@@ -1,161 +1,313 @@
-﻿using KoosMatliWebsiteAPI.Data;
+﻿using Google.Cloud.Firestore;
 using KoosMatliWebsiteAPI.Models;
+using KoosMatliWebsiteAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KoosMatliWebsiteAPI.Controllers
 {
+    [Route("api/gallery")]
     [ApiController]
-    [Route("api/[controller]")]
     public class GalleryController : ControllerBase
     {
-        private readonly WebsiteDbContext _context;
+        private readonly FirebaseService _firebaseService;
 
-        public GalleryController(WebsiteDbContext context)
+        public GalleryController(FirebaseService firebaseService)
         {
-            _context = context;
+            _firebaseService = firebaseService;
         }
 
 
-        // =========================================================
+        // =====================================================
+        // GET ALL GALLERY ITEMS
         // GET: api/gallery
-        // =========================================================
+        // =====================================================
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GalleryItem>>> GetGallery()
+        public async Task<IActionResult> GetGallery()
         {
-            return await _context.GalleryItems
-                .Where(g => g.IsPublished)
-                .OrderByDescending(g => g.DateAdded)
-                .ToListAsync();
+            var database = _firebaseService.Database;
+
+            var snapshot = await database
+                .Collection("gallery")
+                .OrderByDescending("DateAdded")
+                .GetSnapshotAsync();
+
+            var galleryItems = snapshot.Documents
+                .Select(MapGalleryItem)
+                .ToList();
+
+            return Ok(galleryItems);
         }
 
 
-        // =========================================================
+        // =====================================================
+        // GET GALLERY ITEM BY ID
         // GET: api/gallery/{id}
-        // =========================================================
+        // =====================================================
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<GalleryItem>> GetGalleryItem(int id)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetGalleryItem(int id)
         {
-            var item = await _context.GalleryItems
-                .FirstOrDefaultAsync(g =>
-                    g.Id == id &&
-                    g.IsPublished);
+            var database = _firebaseService.Database;
 
-            if (item == null)
+            var documentReference = database
+                .Collection("gallery")
+                .Document(id.ToString());
+
+            var snapshot = await documentReference
+                .GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"Gallery item with ID {id} was not found.");
             }
 
-            return item;
+            var galleryItem = MapGalleryItem(snapshot);
+
+            return Ok(galleryItem);
         }
 
 
-        // =========================================================
+        // =====================================================
+        // CREATE GALLERY ITEM
         // POST: api/gallery
-        // =========================================================
+        // =====================================================
 
         [HttpPost]
-        public async Task<ActionResult<GalleryItem>> CreateGalleryItem(
-            GalleryItem item)
+        public async Task<IActionResult> CreateGalleryItem(
+            GalleryItem galleryItem)
         {
-            item.Id = 0;
+            var database = _firebaseService.Database;
 
-            if (item.DateAdded == default)
+            var documentReference = database
+                .Collection("gallery")
+                .Document(galleryItem.Id.ToString());
+
+            var existingSnapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (existingSnapshot.Exists)
             {
-                item.DateAdded = DateTime.UtcNow;
+                return Conflict(
+                    $"A gallery item with ID {galleryItem.Id} already exists.");
             }
 
-            if (string.IsNullOrWhiteSpace(item.Category))
-            {
-                item.Category = "general";
-            }
+            var data = GalleryItemToDictionary(galleryItem);
 
-            item.Category = item.Category.ToLower();
-
-            _context.GalleryItems.Add(item);
-
-            await _context.SaveChangesAsync();
+            await documentReference.SetAsync(data);
 
             return CreatedAtAction(
                 nameof(GetGalleryItem),
-                new { id = item.Id },
-                item);
+                new { id = galleryItem.Id },
+                galleryItem);
         }
 
 
-        // =========================================================
+        // =====================================================
+        // UPDATE GALLERY ITEM
         // PUT: api/gallery/{id}
-        // =========================================================
+        // =====================================================
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateGalleryItem(
             int id,
-            GalleryItem item)
+            GalleryItem updatedGalleryItem)
         {
-            if (id != item.Id)
+            if (id != updatedGalleryItem.Id)
             {
-                return BadRequest();
+                return BadRequest(
+                    "The ID in the URL does not match the ID in the request.");
             }
 
-            if (string.IsNullOrWhiteSpace(item.Category))
+            var database = _firebaseService.Database;
+
+            var documentReference = database
+                .Collection("gallery")
+                .Document(id.ToString());
+
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                item.Category = "general";
+                return NotFound(
+                    $"Gallery item with ID {id} was not found.");
             }
 
-            item.Category = item.Category.ToLower();
+            var data = GalleryItemToDictionary(
+                updatedGalleryItem);
 
-            _context.Entry(item).State =
-                EntityState.Modified;
+            await documentReference.SetAsync(
+                data,
+                SetOptions.Overwrite);
 
-            try
+            return Ok(new
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GalleryItemExists(id))
-                {
-                    return NotFound();
-                }
-
-                throw;
-            }
-
-            return NoContent();
+                message = "Gallery item updated successfully.",
+                galleryItem = updatedGalleryItem
+            });
         }
 
 
-        // =========================================================
+        // =====================================================
+        // DELETE GALLERY ITEM
         // DELETE: api/gallery/{id}
-        // =========================================================
+        // =====================================================
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteGalleryItem(int id)
         {
-            var item = await _context.GalleryItems.FindAsync(id);
+            var database = _firebaseService.Database;
 
-            if (item == null)
+            var documentReference = database
+                .Collection("gallery")
+                .Document(id.ToString());
+
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"Gallery item with ID {id} was not found.");
             }
 
-            _context.GalleryItems.Remove(item);
+            await documentReference.DeleteAsync();
 
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(new
+            {
+                message = "Gallery item deleted successfully."
+            });
         }
 
 
-        // =========================================================
-        // CHECK IF GALLERY ITEM EXISTS
-        // =========================================================
+        // =====================================================
+        // FIRESTORE → GALLERY ITEM MODEL
+        // =====================================================
 
-        private bool GalleryItemExists(int id)
+        private static GalleryItem MapGalleryItem(
+            DocumentSnapshot document)
         {
-            return _context.GalleryItems.Any(e => e.Id == id);
+            return new GalleryItem
+            {
+                Id = GetInt(
+                    document,
+                    "Id"),
+
+                Title = GetString(
+                    document,
+                    "Title"),
+
+                Description = GetString(
+                    document,
+                    "Description"),
+
+                ImageUrl = GetString(
+                    document,
+                    "ImageUrl"),
+
+                DateAdded = GetDateTime(
+                    document,
+                    "DateAdded"),
+
+                Category = GetString(
+                    document,
+                    "Category"),
+
+                IsPublished = GetBool(
+                    document,
+                    "IsPublished")
+            };
+        }
+
+
+        // =====================================================
+        // GALLERY ITEM MODEL → FIRESTORE
+        // =====================================================
+
+        private static Dictionary<string, object> GalleryItemToDictionary(
+            GalleryItem galleryItem)
+        {
+            return new Dictionary<string, object>
+            {
+                { "Id", galleryItem.Id },
+
+                { "Title", galleryItem.Title },
+
+                { "Description", galleryItem.Description },
+
+                { "ImageUrl", galleryItem.ImageUrl },
+
+                {
+                    "DateAdded",
+                    Timestamp.FromDateTime(
+                        galleryItem.DateAdded.ToUniversalTime())
+                },
+
+                { "Category", galleryItem.Category },
+
+                { "IsPublished", galleryItem.IsPublished }
+            };
+        }
+
+
+        // =====================================================
+        // FIRESTORE FIELD HELPERS
+        // =====================================================
+
+        private static string GetString(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return "";
+            }
+
+            return document.GetValue<string>(field) ?? "";
+        }
+
+
+        private static int GetInt(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return 0;
+            }
+
+            return document.GetValue<int>(field);
+        }
+
+
+        private static bool GetBool(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return true;
+            }
+
+            return document.GetValue<bool>(field);
+        }
+
+
+        private static DateTime GetDateTime(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return DateTime.MinValue;
+            }
+
+            var timestamp =
+                document.GetValue<Timestamp>(field);
+
+            return timestamp.ToDateTime();
         }
     }
 }

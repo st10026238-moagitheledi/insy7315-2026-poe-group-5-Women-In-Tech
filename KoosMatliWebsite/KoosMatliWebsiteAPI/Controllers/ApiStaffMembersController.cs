@@ -1,49 +1,95 @@
-﻿using KoosMatliWebsiteAPI.Data;
+﻿using Google.Cloud.Firestore;
 using KoosMatliWebsiteAPI.Models;
+using KoosMatliWebsiteAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KoosMatliWebsiteAPI.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class StaffMembersController : ControllerBase
     {
-        private readonly WebsiteDbContext _context;
+        private readonly FirebaseService _firebaseService;
 
-        public StaffMembersController(WebsiteDbContext context)
+        public StaffMembersController(FirebaseService firebaseService)
         {
-            _context = context;
+            _firebaseService = firebaseService;
         }
+
+        // =========================================================
+        // GET: api/staffmembers
+        // =========================================================
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StaffMember>>> GetStaffMembers()
+        public async Task<IActionResult> GetStaffMembers()
         {
-            return await _context.StaffMembers
-                .Where(s => s.IsActive)
-                .ToListAsync();
+            var database = _firebaseService.Database;
+
+            var snapshot = await database
+                .Collection("staffMembers")
+                .OrderBy("Id")
+                .GetSnapshotAsync();
+
+            var staffMembers = snapshot.Documents
+                .Select(MapStaffMember)
+                .ToList();
+
+            return Ok(staffMembers);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<StaffMember>> GetStaffMember(int id)
-        {
-            var staffMember = await _context.StaffMembers.FindAsync(id);
+        // =========================================================
+        // GET: api/staffmembers/{id}
+        // =========================================================
 
-            if (staffMember == null || !staffMember.IsActive)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetStaffMember(int id)
+        {
+            var database = _firebaseService.Database;
+
+            var documentReference = database
+                .Collection("staffMembers")
+                .Document(id.ToString());
+
+            var snapshot = await documentReference
+                .GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"Staff member with ID {id} was not found.");
             }
 
-            return staffMember;
+            var staffMember = MapStaffMember(snapshot);
+
+            return Ok(staffMember);
         }
 
+        // =========================================================
+        // POST: api/staffmembers
+        // =========================================================
+
         [HttpPost]
-        public async Task<ActionResult<StaffMember>> CreateStaffMember(
+        public async Task<IActionResult> CreateStaffMember(
             StaffMember staffMember)
         {
-            _context.StaffMembers.Add(staffMember);
+            var database = _firebaseService.Database;
 
-            await _context.SaveChangesAsync();
+            var documentReference = database
+                .Collection("staffMembers")
+                .Document(staffMember.Id.ToString());
+
+            var existingSnapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (existingSnapshot.Exists)
+            {
+                return Conflict(
+                    $"A staff member with ID {staffMember.Id} already exists.");
+            }
+
+            var data = StaffMemberToDictionary(staffMember);
+
+            await documentReference.SetAsync(data);
 
             return CreatedAtAction(
                 nameof(GetStaffMember),
@@ -51,40 +97,159 @@ namespace KoosMatliWebsiteAPI.Controllers
                 staffMember);
         }
 
-        [HttpPut("{id}")]
+        // =========================================================
+        // PUT: api/staffmembers/{id}
+        // =========================================================
+
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateStaffMember(
             int id,
-            StaffMember staffMember)
+            StaffMember updatedStaffMember)
         {
-            if (id != staffMember.Id)
+            if (id != updatedStaffMember.Id)
             {
-                return BadRequest();
+                return BadRequest(
+                    "The ID in the URL does not match the ID in the request.");
             }
 
-            _context.Entry(staffMember).State =
-                EntityState.Modified;
+            var database = _firebaseService.Database;
 
-            await _context.SaveChangesAsync();
+            var documentReference = database
+                .Collection("staffMembers")
+                .Document(id.ToString());
 
-            return NoContent();
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
+            {
+                return NotFound(
+                    $"Staff member with ID {id} was not found.");
+            }
+
+            var data = StaffMemberToDictionary(updatedStaffMember);
+
+            await documentReference.SetAsync(
+                data,
+                SetOptions.Overwrite);
+
+            return Ok(new
+            {
+                message = "Staff member updated successfully.",
+                staffMember = updatedStaffMember
+            });
         }
 
-        [HttpDelete("{id}")]
+        // =========================================================
+        // DELETE: api/staffmembers/{id}
+        // =========================================================
+
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteStaffMember(int id)
         {
-            var staffMember =
-                await _context.StaffMembers.FindAsync(id);
+            var database = _firebaseService.Database;
 
-            if (staffMember == null)
+            var documentReference = database
+                .Collection("staffMembers")
+                .Document(id.ToString());
+
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"Staff member with ID {id} was not found.");
             }
 
-            _context.StaffMembers.Remove(staffMember);
+            await documentReference.DeleteAsync();
 
-            await _context.SaveChangesAsync();
+            return Ok(new
+            {
+                message = "Staff member deleted successfully."
+            });
+        }
 
-            return NoContent();
+        // =========================================================
+        // Helper: Convert Firestore document to StaffMember
+        // =========================================================
+
+        private static StaffMember MapStaffMember(
+            DocumentSnapshot document)
+        {
+            return new StaffMember
+            {
+                Id = GetInt(document, "Id"),
+                FullName = GetString(document, "FullName"),
+                Position = GetString(document, "Position"),
+                Department = GetString(document, "Department"),
+                Category = GetString(document, "Category"),
+                Biography = GetString(document, "Biography"),
+                ImageUrl = GetString(document, "ImageUrl"),
+                Email = GetString(document, "Email"),
+                IsActive = GetBool(document, "IsActive")
+            };
+        }
+
+        // =========================================================
+        // Helper: Convert StaffMember to Firestore dictionary
+        // =========================================================
+
+        private static Dictionary<string, object> StaffMemberToDictionary(
+            StaffMember staffMember)
+        {
+            return new Dictionary<string, object>
+            {
+                { "Id", staffMember.Id },
+                { "FullName", staffMember.FullName },
+                { "Position", staffMember.Position },
+                { "Department", staffMember.Department },
+                { "Category", staffMember.Category },
+                { "Biography", staffMember.Biography },
+                { "ImageUrl", staffMember.ImageUrl },
+                { "Email", staffMember.Email },
+                { "IsActive", staffMember.IsActive }
+            };
+        }
+
+        // =========================================================
+        // Firestore Helper Methods
+        // =========================================================
+
+        private static string GetString(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return "";
+            }
+
+            return document.GetValue<string>(field) ?? "";
+        }
+
+        private static int GetInt(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return 0;
+            }
+
+            return document.GetValue<int>(field);
+        }
+
+        private static bool GetBool(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return true;
+            }
+
+            return document.GetValue<bool>(field);
         }
     }
 }

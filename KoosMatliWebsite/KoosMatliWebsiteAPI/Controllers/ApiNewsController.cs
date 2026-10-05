@@ -1,133 +1,298 @@
-﻿using KoosMatliWebsiteAPI.Data;
+﻿using Google.Cloud.Firestore;
 using KoosMatliWebsiteAPI.Models;
+using KoosMatliWebsiteAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KoosMatliWebsiteAPI.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class NewsController : ControllerBase
     {
-        private readonly WebsiteDbContext _context;
+        private readonly FirebaseService _firebaseService;
 
-        public NewsController(WebsiteDbContext context)
+        public NewsController(FirebaseService firebaseService)
         {
-            _context = context;
+            _firebaseService = firebaseService;
         }
 
+        // =====================================================
+        // GET ALL NEWS
+        // GET: api/news
+        // =====================================================
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<News>>> GetNews()
+        public async Task<IActionResult> GetNews()
         {
-            return await _context.News
-                .Where(n => n.IsPublished)
-                .OrderByDescending(n => n.PublishedDate)
-                .ToListAsync();
+            var database = _firebaseService.Database;
+
+            var snapshot = await database
+                .Collection("news")
+                .OrderByDescending("PublishedDate")
+                .GetSnapshotAsync();
+
+            var news = snapshot.Documents
+                .Select(MapNews)
+                .ToList();
+
+            return Ok(news);
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<News>> GetNews(int id)
-        {
-            var news = await _context.News
-                .FirstOrDefaultAsync(n =>
-                    n.Id == id &&
-                    n.IsPublished);
+        // =====================================================
+        // GET NEWS BY ID
+        // GET: api/news/{id}
+        // =====================================================
 
-            if (news == null)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetNewsById(int id)
+        {
+            var database = _firebaseService.Database;
+
+            var documentReference = database
+                .Collection("news")
+                .Document(id.ToString());
+
+            var snapshot = await documentReference
+                .GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"News article with ID {id} was not found.");
             }
 
-            return news;
+            var news = MapNews(snapshot);
+
+            return Ok(news);
         }
+
+
+        // =====================================================
+        // CREATE NEWS
+        // POST: api/news
+        // =====================================================
 
         [HttpPost]
-        public async Task<ActionResult<News>> CreateNews(News news)
+        public async Task<IActionResult> CreateNews(News news)
         {
-            news.Id = 0;
+            var database = _firebaseService.Database;
 
-            if (news.PublishedDate == default)
+            var documentReference = database
+                .Collection("news")
+                .Document(news.Id.ToString());
+
+            var existingSnapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (existingSnapshot.Exists)
             {
-                news.PublishedDate = DateTime.UtcNow;
+                return Conflict(
+                    $"A news article with ID {news.Id} already exists.");
             }
 
-            if (string.IsNullOrWhiteSpace(news.Category))
-            {
-                news.Category = "general";
-            }
+            var data = NewsToDictionary(news);
 
-            news.Category = news.Category.ToLower();
-
-            _context.News.Add(news);
-
-            await _context.SaveChangesAsync();
+            await documentReference.SetAsync(data);
 
             return CreatedAtAction(
-                nameof(GetNews),
+                nameof(GetNewsById),
                 new { id = news.Id },
                 news);
         }
 
 
-        [HttpPut("{id}")]
+        // =====================================================
+        // UPDATE NEWS
+        // PUT: api/news/{id}
+        // =====================================================
+
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateNews(
             int id,
-            News news)
+            News updatedNews)
         {
-            if (id != news.Id)
+            if (id != updatedNews.Id)
             {
-                return BadRequest();
+                return BadRequest(
+                    "The ID in the URL does not match the ID in the request.");
             }
 
-            if (string.IsNullOrWhiteSpace(news.Category))
+            var database = _firebaseService.Database;
+
+            var documentReference = database
+                .Collection("news")
+                .Document(id.ToString());
+
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                news.Category = "general";
+                return NotFound(
+                    $"News article with ID {id} was not found.");
             }
 
-            news.Category = news.Category.ToLower();
+            var data = NewsToDictionary(updatedNews);
 
-            _context.Entry(news).State =
-                EntityState.Modified;
+            await documentReference.SetAsync(
+                data,
+                SetOptions.Overwrite);
 
-            try
+            return Ok(new
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NewsExists(id))
-                {
-                    return NotFound();
-                }
-
-                throw;
-            }
-
-            return NoContent();
+                message = "News article updated successfully.",
+                news = updatedNews
+            });
         }
 
-        [HttpDelete("{id}")]
+
+        // =====================================================
+        // DELETE NEWS
+        // DELETE: api/news/{id}
+        // =====================================================
+
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteNews(int id)
         {
-            var news = await _context.News.FindAsync(id);
+            var database = _firebaseService.Database;
 
-            if (news == null)
+            var documentReference = database
+                .Collection("news")
+                .Document(id.ToString());
+
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"News article with ID {id} was not found.");
             }
 
-            _context.News.Remove(news);
+            await documentReference.DeleteAsync();
 
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(new
+            {
+                message = "News article deleted successfully."
+            });
         }
 
-        private bool NewsExists(int id)
+
+        // =====================================================
+        // FIRESTORE → NEWS MODEL
+        // =====================================================
+
+        private static News MapNews(
+            DocumentSnapshot document)
         {
-            return _context.News.Any(e => e.Id == id);
+            return new News
+            {
+                Id = GetInt(document, "Id"),
+
+                Title = GetString(
+                    document,
+                    "Title"),
+
+                Content = GetString(
+                    document,
+                    "Content"),
+
+                ImageUrl = GetString(
+                    document,
+                    "ImageUrl"),
+
+                PublishedDate = GetDateTime(
+                    document,
+                    "PublishedDate"),
+
+                IsPublished = GetBool(
+                    document,
+                    "IsPublished"),
+
+                Category = GetString(
+                    document,
+                    "Category")
+            };
+        }
+
+
+        // =====================================================
+        // NEWS MODEL → FIRESTORE
+        // =====================================================
+
+        private static Dictionary<string, object> NewsToDictionary(
+            News news)
+        {
+            return new Dictionary<string, object>
+            {
+                { "Id", news.Id },
+                { "Title", news.Title },
+                { "Content", news.Content },
+                { "ImageUrl", news.ImageUrl },
+                { "PublishedDate", Timestamp.FromDateTime(
+                    news.PublishedDate.ToUniversalTime()) },
+                { "IsPublished", news.IsPublished },
+                { "Category", news.Category }
+            };
+        }
+
+        // =====================================================
+        // FIRESTORE FIELD HELPERS
+        // =====================================================
+
+        private static string GetString(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return "";
+            }
+
+            return document.GetValue<string>(field) ?? "";
+        }
+
+
+        private static int GetInt(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return 0;
+            }
+
+            return document.GetValue<int>(field);
+        }
+
+
+        private static bool GetBool(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return true;
+            }
+
+            return document.GetValue<bool>(field);
+        }
+
+
+        private static DateTime GetDateTime(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return DateTime.MinValue;
+            }
+
+            var timestamp =
+                document.GetValue<Timestamp>(field);
+
+            return timestamp.ToDateTime();
         }
     }
 }

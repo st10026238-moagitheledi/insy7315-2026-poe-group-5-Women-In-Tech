@@ -1,19 +1,20 @@
-﻿using KoosMatliWebsiteAPI.Data;
+﻿using Google.Cloud.Firestore;
 using KoosMatliWebsiteAPI.Models;
+using KoosMatliWebsiteAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KoosMatliWebsiteAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/Applications")]
     public class ApplicationsController : ControllerBase
     {
-        private readonly WebsiteDbContext _context;
+        private readonly FirebaseService _firebaseService;
 
-        public ApplicationsController(WebsiteDbContext context)
+        public ApplicationsController(
+            FirebaseService firebaseService)
         {
-            _context = context;
+            _firebaseService = firebaseService;
         }
 
         // =====================================================
@@ -22,34 +23,49 @@ namespace KoosMatliWebsiteAPI.Controllers
         // =====================================================
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Application>>> GetApplications()
+        public async Task<IActionResult> GetApplications()
         {
-            var applications = await _context.Applications
+            var database = _firebaseService.Database;
+
+            var snapshot = await database
+                .Collection("applications")
+                .GetSnapshotAsync();
+
+            var applications = snapshot.Documents
+                .Select(MapApplication)
                 .OrderByDescending(a => a.DateSubmitted)
-                .ToListAsync();
+                .ToList();
 
             return Ok(applications);
         }
 
 
         // =====================================================
-        // GET: api/Applications/
+        // GET: api/Applications/{id}
         // Get one application by ID
         // =====================================================
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Application>> GetApplication(int id)
+        public async Task<IActionResult> GetApplication(int id)
         {
-            var application = await _context.Applications
-                .FindAsync(id);
+            var database = _firebaseService.Database;
 
-            if (application == null)
+            var documentReference = database
+                .Collection("applications")
+                .Document(id.ToString());
+
+            var snapshot = await documentReference
+                .GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
                 return NotFound(new
                 {
                     message = "Application not found."
                 });
             }
+
+            var application = MapApplication(snapshot);
 
             return Ok(application);
         }
@@ -61,17 +77,35 @@ namespace KoosMatliWebsiteAPI.Controllers
         // =====================================================
 
         [HttpPost]
-        public async Task<ActionResult<Application>> CreateApplication(
+        public async Task<IActionResult> CreateApplication(
             Application application)
         {
+            var database = _firebaseService.Database;
+
             // Make sure the API controls these values
-            application.Id = 0;
             application.Status = "Pending";
             application.DateSubmitted = DateTime.UtcNow;
 
-            _context.Applications.Add(application);
+            // Generate the next numeric ID
+            var snapshot = await database
+                .Collection("applications")
+                .GetSnapshotAsync();
 
-            await _context.SaveChangesAsync();
+            var nextId = snapshot.Documents
+                .Select(document => GetInt(document, "Id"))
+                .DefaultIfEmpty(0)
+                .Max() + 1;
+
+            application.Id = nextId;
+
+            // Create Firestore document
+            var documentReference = database
+                .Collection("applications")
+                .Document(application.Id.ToString());
+
+            var data = ApplicationToDictionary(application);
+
+            await documentReference.SetAsync(data);
 
             return CreatedAtAction(
                 nameof(GetApplication),
@@ -81,7 +115,7 @@ namespace KoosMatliWebsiteAPI.Controllers
 
 
         // =====================================================
-        // PUT: api/Applications/
+        // PUT: api/Applications/{id}
         // Update an existing application
         // =====================================================
 
@@ -95,14 +129,21 @@ namespace KoosMatliWebsiteAPI.Controllers
             {
                 return BadRequest(new
                 {
-                    message = "The ID in the URL does not match the ID in the request."
+                    message =
+                        "The ID in the URL does not match the ID in the request."
                 });
             }
 
-            var existingApplication =
-                await _context.Applications.FindAsync(id);
+            var database = _firebaseService.Database;
 
-            if (existingApplication == null)
+            var documentReference = database
+                .Collection("applications")
+                .Document(id.ToString());
+
+            var snapshot = await documentReference
+                .GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
                 return NotFound(new
                 {
@@ -110,6 +151,8 @@ namespace KoosMatliWebsiteAPI.Controllers
                 });
             }
 
+            // Get the existing application
+            var existingApplication = MapApplication(snapshot);
 
             // =================================================
             // Parent / Guardian Information
@@ -175,24 +218,39 @@ namespace KoosMatliWebsiteAPI.Controllers
                 application.Status;
 
 
-            await _context.SaveChangesAsync();
+            // Keep the original ID and submission date
+            existingApplication.Id = id;
+
+
+            var data = ApplicationToDictionary(
+                existingApplication);
+
+            await documentReference.SetAsync(
+                data,
+                SetOptions.Overwrite);
 
             return NoContent();
         }
 
 
         // =====================================================
-        // DELETE: api/Applications/
+        // DELETE: api/Applications/{id}
         // Delete an application
         // =====================================================
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteApplication(int id)
         {
-            var application =
-                await _context.Applications.FindAsync(id);
+            var database = _firebaseService.Database;
 
-            if (application == null)
+            var documentReference = database
+                .Collection("applications")
+                .Document(id.ToString());
+
+            var snapshot = await documentReference
+                .GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
                 return NotFound(new
                 {
@@ -200,11 +258,208 @@ namespace KoosMatliWebsiteAPI.Controllers
                 });
             }
 
-            _context.Applications.Remove(application);
-
-            await _context.SaveChangesAsync();
+            await documentReference.DeleteAsync();
 
             return NoContent();
+        }
+
+
+        // =====================================================
+        // Map Firestore document → Application
+        // =====================================================
+
+        private static Application MapApplication(
+            DocumentSnapshot document)
+        {
+            return new Application
+            {
+                Id = GetInt(document, "Id"),
+
+                ParentFirstName =
+                    GetString(document, "ParentFirstName"),
+
+                ParentLastName =
+                    GetString(document, "ParentLastName"),
+
+                ParentEmail =
+                    GetString(document, "ParentEmail"),
+
+                ParentPhone =
+                    GetString(document, "ParentPhone"),
+
+                RelationshipToLearner =
+                    GetString(document, "RelationshipToLearner"),
+
+                LearnerFirstName =
+                    GetString(document, "LearnerFirstName"),
+
+                LearnerLastName =
+                    GetString(document, "LearnerLastName"),
+
+                LearnerDateOfBirth =
+                    GetDateTime(
+                        document,
+                        "LearnerDateOfBirth"),
+
+                GradeApplyingFor =
+                    GetString(document, "GradeApplyingFor"),
+
+                PreviousSchool =
+                    GetString(document, "PreviousSchool"),
+
+                HomeAddress =
+                    GetString(document, "HomeAddress"),
+
+                AdditionalInformation =
+                    GetString(
+                        document,
+                        "AdditionalInformation"),
+
+                Status =
+                    GetString(document, "Status"),
+
+                DateSubmitted =
+                    GetDateTime(
+                        document,
+                        "DateSubmitted")
+            };
+        }
+
+
+        // =====================================================
+        // Map Application → Firestore dictionary
+        // =====================================================
+
+        private static Dictionary<string, object>
+            ApplicationToDictionary(
+                Application application)
+        {
+            return new Dictionary<string, object>
+            {
+                {
+                    "Id",
+                    application.Id
+                },
+
+                {
+                    "ParentFirstName",
+                    application.ParentFirstName
+                },
+
+                {
+                    "ParentLastName",
+                    application.ParentLastName
+                },
+
+                {
+                    "ParentEmail",
+                    application.ParentEmail
+                },
+
+                {
+                    "ParentPhone",
+                    application.ParentPhone
+                },
+
+                {
+                    "RelationshipToLearner",
+                    application.RelationshipToLearner
+                },
+
+                {
+                    "LearnerFirstName",
+                    application.LearnerFirstName
+                },
+
+                {
+                    "LearnerLastName",
+                    application.LearnerLastName
+                },
+
+                {
+                    "LearnerDateOfBirth",
+                    Timestamp.FromDateTime(
+                        application.LearnerDateOfBirth
+                            .ToUniversalTime())
+                },
+
+                {
+                    "GradeApplyingFor",
+                    application.GradeApplyingFor
+                },
+
+                {
+                    "PreviousSchool",
+                    application.PreviousSchool
+                },
+
+                {
+                    "HomeAddress",
+                    application.HomeAddress
+                },
+
+                {
+                    "AdditionalInformation",
+                    application.AdditionalInformation
+                },
+
+                {
+                    "Status",
+                    application.Status
+                },
+
+                {
+                    "DateSubmitted",
+                    Timestamp.FromDateTime(
+                        application.DateSubmitted
+                            .ToUniversalTime())
+                }
+            };
+        }
+
+
+        // =====================================================
+        // Firestore helper methods
+        // =====================================================
+
+        private static string GetString(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return "";
+            }
+
+            return document.GetValue<string>(field) ?? "";
+        }
+
+
+        private static int GetInt(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return 0;
+            }
+
+            return document.GetValue<int>(field);
+        }
+
+
+        private static DateTime GetDateTime(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return DateTime.MinValue;
+            }
+
+            return document
+                .GetValue<Timestamp>(field)
+                .ToDateTime();
         }
     }
 }

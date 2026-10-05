@@ -1,88 +1,187 @@
-﻿using KoosMatliWebsiteAPI.Data;
+﻿using Google.Cloud.Firestore;
 using KoosMatliWebsiteAPI.Models;
+using KoosMatliWebsiteAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KoosMatliWebsiteAPI.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class AboutController : ControllerBase
     {
-        private readonly WebsiteDbContext _context;
+        private readonly FirebaseService _firebaseService;
 
-        public AboutController(WebsiteDbContext context)
+        public AboutController(FirebaseService firebaseService)
         {
-            _context = context;
+            _firebaseService = firebaseService;
         }
 
-        // GET: api/About
-        [HttpGet]
-        public async Task<ActionResult<SchoolInformation>> GetSchoolInformation()
-        {
-            var information =
-                await _context.SchoolInformation.FirstOrDefaultAsync();
+        // =========================================================
+        // GET: api/about
+        // =========================================================
 
-            if (information == null)
+        [HttpGet]
+        public async Task<IActionResult> GetSchoolInformation()
+        {
+            var database = _firebaseService.Database;
+
+            var documentReference = database
+                .Collection("schoolInformation")
+                .Document("main");
+
+            var snapshot = await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound("School information was not found.");
             }
 
-            return Ok(information);
+            var schoolInformation = new SchoolInformation
+            {
+                Id = GetInt(snapshot, "Id"),
+                SchoolName = GetString(snapshot, "SchoolName"),
+                Motto = GetString(snapshot, "Motto"),
+                Description = GetString(snapshot, "Description"),
+                History = GetString(snapshot, "History"),
+                Mission = GetString(snapshot, "Mission"),
+                Vision = GetString(snapshot, "Vision"),
+                Address = GetString(snapshot, "Address"),
+                Phone = GetString(snapshot, "Phone"),
+                Email = GetString(snapshot, "Email"),
+                PrincipalName = GetString(snapshot, "PrincipalName")
+            };
+
+            return Ok(schoolInformation);
         }
 
+        // =========================================================
+        // POST: api/about
+        // =========================================================
 
-        // POST: api/About
         [HttpPost]
-        public async Task<ActionResult<SchoolInformation>> CreateSchoolInformation(
-            SchoolInformation information)
+        public async Task<IActionResult> CreateSchoolInformation(
+            SchoolInformation schoolInformation)
         {
-            information.Id = 0;
+            var database = _firebaseService.Database;
 
-            _context.SchoolInformation.Add(information);
+            var documentReference = database
+                .Collection("schoolInformation")
+                .Document("main");
 
-            await _context.SaveChangesAsync();
+            var existingSnapshot =
+                await documentReference.GetSnapshotAsync();
 
-            return CreatedAtAction(
-                nameof(GetSchoolInformation),
-                new { id = information.Id },
-                information);
+            if (existingSnapshot.Exists)
+            {
+                return Conflict(
+                    "School information already exists. Use PUT to update it.");
+            }
+
+            var data = new Dictionary<string, object>
+            {
+                { "Id", schoolInformation.Id },
+                { "SchoolName", schoolInformation.SchoolName },
+                { "Motto", schoolInformation.Motto },
+                { "Description", schoolInformation.Description },
+                { "History", schoolInformation.History },
+                { "Mission", schoolInformation.Mission },
+                { "Vision", schoolInformation.Vision },
+                { "Address", schoolInformation.Address },
+                { "Phone", schoolInformation.Phone },
+                { "Email", schoolInformation.Email },
+                { "PrincipalName", schoolInformation.PrincipalName }
+            };
+
+            await documentReference.SetAsync(data);
+
+            return Ok(new
+            {
+                message = "School information created successfully.",
+                schoolInformation
+            });
         }
 
+        // =========================================================
+        // PUT: api/about/{id}
+        // =========================================================
 
-        // PUT: api/About/1
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateSchoolInformation(
             int id,
-            SchoolInformation information)
+            SchoolInformation updatedInformation)
         {
-            if (id != information.Id)
+            if (id != updatedInformation.Id)
             {
-                return BadRequest("The ID in the URL does not match the ID in the request.");
+                return BadRequest(
+                    "The ID in the URL does not match the ID in the request.");
             }
 
-            var existingInformation =
-                await _context.SchoolInformation.FindAsync(id);
+            var database = _firebaseService.Database;
 
-            if (existingInformation == null)
+            var documentReference = database
+                .Collection("schoolInformation")
+                .Document("main");
+
+            var snapshot = await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    "School information was not found.");
             }
 
-            existingInformation.SchoolName = information.SchoolName;
-            existingInformation.Motto = information.Motto;
-            existingInformation.Description = information.Description;
-            existingInformation.History = information.History;
-            existingInformation.Mission = information.Mission;
-            existingInformation.Vision = information.Vision;
-            existingInformation.Address = information.Address;
-            existingInformation.Phone = information.Phone;
-            existingInformation.Email = information.Email;
-            existingInformation.PrincipalName = information.PrincipalName;
+            var data = new Dictionary<string, object>
+            {
+                { "Id", id },
+                { "SchoolName", updatedInformation.SchoolName },
+                { "Motto", updatedInformation.Motto },
+                { "Description", updatedInformation.Description },
+                { "History", updatedInformation.History },
+                { "Mission", updatedInformation.Mission },
+                { "Vision", updatedInformation.Vision },
+                { "Address", updatedInformation.Address },
+                { "Phone", updatedInformation.Phone },
+                { "Email", updatedInformation.Email },
+                { "PrincipalName", updatedInformation.PrincipalName }
+            };
 
-            await _context.SaveChangesAsync();
+            await documentReference.SetAsync(
+                data,
+                SetOptions.Overwrite);
 
-            return NoContent();
+            return Ok(new
+            {
+                message = "School information updated successfully.",
+                schoolInformation = updatedInformation
+            });
+        }
+
+        // =========================================================
+        // Helper Methods
+        // =========================================================
+
+        private static string GetString(
+            DocumentSnapshot snapshot,
+            string field)
+        {
+            if (!snapshot.ContainsField(field))
+            {
+                return "";
+            }
+
+            return snapshot.GetValue<string>(field) ?? "";
+        }
+
+        private static int GetInt(
+            DocumentSnapshot snapshot,
+            string field)
+        {
+            if (!snapshot.ContainsField(field))
+            {
+                return 0;
+            }
+
+            return snapshot.GetValue<int>(field);
         }
     }
 }

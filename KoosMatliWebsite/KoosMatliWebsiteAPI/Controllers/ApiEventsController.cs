@@ -1,53 +1,101 @@
-﻿using KoosMatliWebsiteAPI.Data;
+﻿using Google.Cloud.Firestore;
 using KoosMatliWebsiteAPI.Models;
+using KoosMatliWebsiteAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KoosMatliWebsiteAPI.Controllers
 {
+    [Route("api/events")]
     [ApiController]
-    [Route("api/[controller]")]
-    public class EventsController : ControllerBase
+    public class SchoolEventsController : ControllerBase
     {
-        private readonly WebsiteDbContext _context;
+        private readonly FirebaseService _firebaseService;
 
-        public EventsController(WebsiteDbContext context)
+        public SchoolEventsController(FirebaseService firebaseService)
         {
-            _context = context;
+            _firebaseService = firebaseService;
         }
+
+
+        // =====================================================
+        // GET ALL EVENTS
+        // GET: api/events
+        // =====================================================
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SchoolEvent>>> GetEvents()
+        public async Task<IActionResult> GetEvents()
         {
-            return await _context.SchoolEvents
-                .Where(e => e.IsPublished)
-                .OrderBy(e => e.Date)
-                .ToListAsync();
+            var database = _firebaseService.Database;
+
+            var snapshot = await database
+                .Collection("events")
+                .OrderBy("Date")
+                .GetSnapshotAsync();
+
+            var events = snapshot.Documents
+                .Select(MapSchoolEvent)
+                .ToList();
+
+            return Ok(events);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SchoolEvent>> GetEvent(int id)
-        {
-            var schoolEvent =
-                await _context.SchoolEvents.FindAsync(id);
 
-            if (schoolEvent == null || !schoolEvent.IsPublished)
+        // =====================================================
+        // GET EVENT BY ID
+        // GET: api/events/{id}
+        // =====================================================
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetEvent(int id)
+        {
+            var database = _firebaseService.Database;
+
+            var documentReference = database
+                .Collection("events")
+                .Document(id.ToString());
+
+            var snapshot = await documentReference
+                .GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"School event with ID {id} was not found.");
             }
 
-            return schoolEvent;
+            var schoolEvent = MapSchoolEvent(snapshot);
+
+            return Ok(schoolEvent);
         }
 
+
+        // =====================================================
+        // CREATE EVENT
+        // POST: api/events
+        // =====================================================
+
         [HttpPost]
-        public async Task<ActionResult<SchoolEvent>> CreateEvent(
+        public async Task<IActionResult> CreateEvent(
             SchoolEvent schoolEvent)
         {
-            schoolEvent.Id = 0;
+            var database = _firebaseService.Database;
 
-            _context.SchoolEvents.Add(schoolEvent);
+            var documentReference = database
+                .Collection("events")
+                .Document(schoolEvent.Id.ToString());
 
-            await _context.SaveChangesAsync();
+            var existingSnapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (existingSnapshot.Exists)
+            {
+                return Conflict(
+                    $"A school event with ID {schoolEvent.Id} already exists.");
+            }
+
+            var data = SchoolEventToDictionary(schoolEvent);
+
+            await documentReference.SetAsync(data);
 
             return CreatedAtAction(
                 nameof(GetEvent),
@@ -55,40 +103,216 @@ namespace KoosMatliWebsiteAPI.Controllers
                 schoolEvent);
         }
 
-        [HttpPut("{id}")]
+
+        // =====================================================
+        // UPDATE EVENT
+        // PUT: api/events/{id}
+        // =====================================================
+
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateEvent(
             int id,
-            SchoolEvent schoolEvent)
+            SchoolEvent updatedEvent)
         {
-            if (id != schoolEvent.Id)
+            if (id != updatedEvent.Id)
             {
-                return BadRequest();
+                return BadRequest(
+                    "The ID in the URL does not match the ID in the request.");
             }
 
-            _context.Entry(schoolEvent).State =
-                EntityState.Modified;
+            var database = _firebaseService.Database;
 
-            await _context.SaveChangesAsync();
+            var documentReference = database
+                .Collection("events")
+                .Document(id.ToString());
 
-            return NoContent();
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
+            {
+                return NotFound(
+                    $"School event with ID {id} was not found.");
+            }
+
+            var data = SchoolEventToDictionary(updatedEvent);
+
+            await documentReference.SetAsync(
+                data,
+                SetOptions.Overwrite);
+
+            return Ok(new
+            {
+                message = "School event updated successfully.",
+                schoolEvent = updatedEvent
+            });
         }
 
-        [HttpDelete("{id}")]
+
+        // =====================================================
+        // DELETE EVENT
+        // DELETE: api/events/{id}
+        // =====================================================
+
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteEvent(int id)
         {
-            var schoolEvent =
-                await _context.SchoolEvents.FindAsync(id);
+            var database = _firebaseService.Database;
 
-            if (schoolEvent == null)
+            var documentReference = database
+                .Collection("events")
+                .Document(id.ToString());
+
+            var snapshot =
+                await documentReference.GetSnapshotAsync();
+
+            if (!snapshot.Exists)
             {
-                return NotFound();
+                return NotFound(
+                    $"School event with ID {id} was not found.");
             }
 
-            _context.SchoolEvents.Remove(schoolEvent);
+            await documentReference.DeleteAsync();
 
-            await _context.SaveChangesAsync();
+            return Ok(new
+            {
+                message = "School event deleted successfully."
+            });
+        }
 
-            return NoContent();
+
+        // =====================================================
+        // FIRESTORE → SCHOOL EVENT MODEL
+        // =====================================================
+
+        private static SchoolEvent MapSchoolEvent(
+            DocumentSnapshot document)
+        {
+            return new SchoolEvent
+            {
+                Id = GetInt(
+                    document,
+                    "Id"),
+
+                Title = GetString(
+                    document,
+                    "Title"),
+
+                Description = GetString(
+                    document,
+                    "Description"),
+
+                Date = GetDateTime(
+                    document,
+                    "Date"),
+
+                Category = GetString(
+                    document,
+                    "Category"),
+
+                Time = GetString(
+                    document,
+                    "Time"),
+
+                Location = GetString(
+                    document,
+                    "Location"),
+
+                IsPublished = GetBool(
+                    document,
+                    "IsPublished")
+            };
+        }
+
+
+        // =====================================================
+        // SCHOOL EVENT MODEL → FIRESTORE
+        // =====================================================
+
+        private static Dictionary<string, object> SchoolEventToDictionary(
+            SchoolEvent schoolEvent)
+        {
+            return new Dictionary<string, object>
+            {
+                { "Id", schoolEvent.Id },
+
+                { "Title", schoolEvent.Title },
+
+                { "Description", schoolEvent.Description },
+
+                {
+                    "Date",
+                    Timestamp.FromDateTime(
+                        schoolEvent.Date.ToUniversalTime())
+                },
+
+                { "Category", schoolEvent.Category },
+
+                { "Time", schoolEvent.Time },
+
+                { "Location", schoolEvent.Location },
+
+                { "IsPublished", schoolEvent.IsPublished }
+            };
+        }
+
+
+        // =====================================================
+        // FIRESTORE FIELD HELPERS
+        // =====================================================
+
+        private static string GetString(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return "";
+            }
+
+            return document.GetValue<string>(field) ?? "";
+        }
+
+
+        private static int GetInt(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return 0;
+            }
+
+            return document.GetValue<int>(field);
+        }
+
+
+        private static bool GetBool(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return true;
+            }
+
+            return document.GetValue<bool>(field);
+        }
+
+
+        private static DateTime GetDateTime(
+            DocumentSnapshot document,
+            string field)
+        {
+            if (!document.ContainsField(field))
+            {
+                return DateTime.MinValue;
+            }
+
+            var timestamp =
+                document.GetValue<Timestamp>(field);
+
+            return timestamp.ToDateTime();
         }
     }
 }

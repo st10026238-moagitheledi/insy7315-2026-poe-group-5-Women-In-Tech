@@ -1,13 +1,15 @@
-using KoosMatliWebsiteAPI.Data;
-using Microsoft.EntityFrameworkCore;
+using KoosMatliWebsiteAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<WebsiteDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Firebase
+builder.Services.AddSingleton<FirebaseService>();
 
 var app = builder.Build();
 
