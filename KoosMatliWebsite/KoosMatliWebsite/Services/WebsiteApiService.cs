@@ -60,7 +60,8 @@ namespace KoosMatlilWebsite.Services
             );
         }
 
-        public async Task<bool> SubmitContactMessageAsync(ContactMessageDto message)
+        public async Task<bool> SendContactMessageAsync(
+            ContactMessageDto message)
         {
             var response = await _httpClient.PostAsJsonAsync(
                 "api/contact",
@@ -69,7 +70,14 @@ namespace KoosMatlilWebsite.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> SubmitApplicationAsync(ApplicationDto application)
+        public async Task<bool> SubmitContactMessageAsync(
+            ContactMessageDto message)
+        {
+            return await SendContactMessageAsync(message);
+        }
+
+        public async Task<bool> SubmitApplicationAsync(
+            ApplicationDto application)
         {
             var response = await _httpClient.PostAsJsonAsync(
                 "api/Applications",

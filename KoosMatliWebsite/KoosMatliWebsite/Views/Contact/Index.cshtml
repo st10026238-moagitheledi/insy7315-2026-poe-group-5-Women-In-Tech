@@ -1,7 +1,22 @@
-﻿@model KoosMatliWebsite.Models.ContactMessage
+﻿@model KoosMatliWebsite.ViewModels.ContactViewModel
 
 @{
     ViewData["Title"] = "Find Us / Contact";
+
+    var school = Model.SchoolInformation;
+
+    var address = school?.Address ?? "";
+    var phone = school?.Phone ?? "";
+    var email = school?.Email ?? "";
+
+    var encodedAddress =
+        Uri.EscapeDataString(address);
+
+    var googleMapsUrl =
+        $"https://www.google.com/maps/search/?api=1&query={encodedAddress}";
+
+    var googleMapsEmbedUrl =
+        $"https://www.google.com/maps?q={encodedAddress}&output=embed";
 }
 
 
@@ -40,6 +55,8 @@
                 <h2>CONTACT US</h2>
 
 
+                <!-- ADDRESS -->
+
                 <div class="contact-item">
 
                     <div class="contact-icon">
@@ -50,15 +67,25 @@
 
                         <h3>Address</h3>
 
-                        <p>
-                            123 Thuto Street<br />
-                            Mamelodi, Pretoria, 0122
-                        </p>
+                        @if (!string.IsNullOrWhiteSpace(address))
+                        {
+                            <p>
+                                @address
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                Address unavailable.
+                            </p>
+                        }
 
                     </div>
 
                 </div>
 
+
+                <!-- PHONE -->
 
                 <div class="contact-item">
 
@@ -70,14 +97,27 @@
 
                         <h3>Phone</h3>
 
-                        <p>
-                            012 345 6789
-                        </p>
+                        @if (!string.IsNullOrWhiteSpace(phone))
+                        {
+                            <p>
+                                <a href="tel:@phone">
+                                    @phone
+                                </a>
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                Phone number unavailable.
+                            </p>
+                        }
 
                     </div>
 
                 </div>
 
+
+                <!-- EMAIL -->
 
                 <div class="contact-item">
 
@@ -89,14 +129,27 @@
 
                         <h3>Email</h3>
 
-                        <p>
-                            info@koosmatli.co.za
-                        </p>
+                        @if (!string.IsNullOrWhiteSpace(email))
+                        {
+                            <p>
+                                <a href="mailto:@email">
+                                    @email
+                                </a>
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                Email unavailable.
+                            </p>
+                        }
 
                     </div>
 
                 </div>
 
+
+                <!-- SCHOOL HOURS -->
 
                 <div class="contact-item">
 
@@ -148,59 +201,88 @@
                     @Html.AntiForgeryToken()
 
 
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger">
+                    </div>
+
+
+                    <!-- NAME + EMAIL -->
+
                     <div class="form-row">
 
                         <div class="form-group">
 
-                            <label asp-for="Name">
+                            <label asp-for="ContactMessage.Name">
                                 Your Name
                             </label>
 
-                            <input asp-for="Name"
+                            <input asp-for="ContactMessage.Name"
                                    placeholder="Your Name" />
+
+                            <span asp-validation-for="ContactMessage.Name"
+                                  class="text-danger">
+                            </span>
 
                         </div>
 
 
                         <div class="form-group">
 
-                            <label asp-for="Email">
+                            <label asp-for="ContactMessage.Email">
                                 Your Email
                             </label>
 
-                            <input asp-for="Email"
+                            <input asp-for="ContactMessage.Email"
                                    type="email"
                                    placeholder="Your Email" />
+
+                            <span asp-validation-for="ContactMessage.Email"
+                                  class="text-danger">
+                            </span>
 
                         </div>
 
                     </div>
 
 
+                    <!-- SUBJECT -->
+
                     <div class="form-group">
 
-                        <label asp-for="Subject">
+                        <label asp-for="ContactMessage.Subject">
                             Subject
                         </label>
 
-                        <input asp-for="Subject"
+                        <input asp-for="ContactMessage.Subject"
                                placeholder="Subject" />
+
+                        <span asp-validation-for="ContactMessage.Subject"
+                              class="text-danger">
+                        </span>
 
                     </div>
 
+
+                    <!-- MESSAGE -->
 
                     <div class="form-group">
 
-                        <label asp-for="Message">
+                        <label asp-for="ContactMessage.Message">
                             Your Message
                         </label>
 
-                        <textarea asp-for="Message"
+                        <textarea asp-for="ContactMessage.Message"
                                   rows="6"
                                   placeholder="Your Message"></textarea>
 
+                        <span asp-validation-for="ContactMessage.Message"
+                              class="text-danger">
+                        </span>
+
                     </div>
 
+
+                    <!-- SUBMIT -->
 
                     <button type="submit"
                             class="btn btn-primary contact-submit">
@@ -225,52 +307,49 @@
 
                 <div class="map-container">
 
-                    <div class="fake-map">
+                    @if (!string.IsNullOrWhiteSpace(address))
+                    {
+                        <iframe
+                            src="@googleMapsEmbedUrl"
+                            width="100%"
+                            height="450"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    }
+                    else
+                    {
+                        <div class="map-unavailable">
 
-                        <div class="map-road road-one"></div>
+                            <i class="fa-solid fa-map-location-dot"></i>
 
-                        <div class="map-road road-two"></div>
-
-                        <div class="map-road road-three"></div>
-
-
-                        <div class="map-block block-one"></div>
-
-                        <div class="map-block block-two"></div>
-
-                        <div class="map-block block-three"></div>
-
-                        <div class="map-block block-four"></div>
-
-
-                        <div class="map-marker">
-
-                            <i class="fa-solid fa-location-dot"></i>
-
-                        </div>
-
-
-                        <div class="map-school-label">
-
-                            <strong>Koos Matli</strong>
-
-                            <span>Primary School</span>
+                            <p>
+                                Location information is currently unavailable.
+                            </p>
 
                         </div>
-
-                    </div>
+                    }
 
                 </div>
 
 
-                <a href="#"
-                   class="btn btn-primary directions-button">
+                <!-- GOOGLE MAPS DIRECTIONS -->
 
-                    <i class="fa-solid fa-diamond-turn-right"></i>
+                @if (!string.IsNullOrWhiteSpace(address))
+                {
+                    <a href="@googleMapsUrl"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-primary directions-button">
 
-                    GET DIRECTIONS
+                        <i class="fa-solid fa-diamond-turn-right"></i>
 
-                </a>
+                        GET DIRECTIONS
+
+                    </a>
+                }
 
             </div>
 
@@ -280,3 +359,10 @@
     </div>
 
 </section>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KoosMatliWebsiteAPI.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class ContactController : ControllerBase
     {
         private readonly WebsiteDbContext _context;
@@ -16,12 +16,14 @@ namespace KoosMatliWebsiteAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ContactMessage>> SubmitMessage(
-            ContactMessage message)
+        public async Task<IActionResult> SendMessage(ContactMessage message)
         {
-            message.Id = 0;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             message.SubmittedAt = DateTime.UtcNow;
-            message.IsRead = false;
 
             _context.ContactMessages.Add(message);
 
@@ -29,7 +31,7 @@ namespace KoosMatliWebsiteAPI.Controllers
 
             return Ok(new
             {
-                message = "Your message has been received."
+                message = "Your message has been sent successfully."
             });
         }
     }

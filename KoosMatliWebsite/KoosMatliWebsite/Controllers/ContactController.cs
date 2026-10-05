@@ -1,29 +1,74 @@
-﻿using KoosMatliWebsite.Models;
+﻿using KoosMatlilWebsite.Services;
+using KoosMatliWebsite.DTOs;
+using KoosMatliWebsite.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KoosMatliWebsite.Controllers
 {
     public class ContactController : Controller
     {
-        [HttpGet]
-        public IActionResult Index()
+        private readonly WebsiteApiService _apiService;
+
+        public ContactController(WebsiteApiService apiService)
         {
-            return View();
+            _apiService = apiService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var schoolInformation =
+                await _apiService.GetSchoolInformationAsync();
+
+            var viewModel = new ContactViewModel
+            {
+                SchoolInformation = schoolInformation,
+                ContactMessage = new Models.ContactMessage()
+            };
+
+            return View(viewModel);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SendMessage(ContactMessage model)
+        public async Task<IActionResult> SendMessage(
+            ContactViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View("Index", model);
+                viewModel.SchoolInformation =
+                    await _apiService.GetSchoolInformationAsync();
+
+                return View("Index", viewModel);
             }
 
-            // We will connect this to the database later.
+            var contactMessageDto = new ContactMessageDto
+            {
+                Name = viewModel.ContactMessage.Name,
+                Email = viewModel.ContactMessage.Email,
+                Subject = viewModel.ContactMessage.Subject,
+                Message = viewModel.ContactMessage.Message
+            };
 
-            TempData["SuccessMessage"] = "Thank you! Your message has been received.";
+            var success =
+                await _apiService.SendContactMessageAsync(
+                    contactMessageDto);
+
+            if (!success)
+            {
+                ModelState.AddModelError(
+                    "",
+                    "We could not send your message. Please try again."
+                );
+
+                viewModel.SchoolInformation =
+                    await _apiService.GetSchoolInformationAsync();
+
+                return View("Index", viewModel);
+            }
+
+            TempData["SuccessMessage"] =
+                "Your message has been sent successfully. Thank you for contacting us!";
 
             return RedirectToAction(nameof(Index));
         }
