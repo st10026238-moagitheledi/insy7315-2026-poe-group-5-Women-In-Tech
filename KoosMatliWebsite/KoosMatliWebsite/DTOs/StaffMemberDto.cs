@@ -10,6 +10,8 @@
 
         public string Department { get; set; } = "";
 
+        public string Category { get; set; } = "";
+
         public string Biography { get; set; } = "";
 
         public string ImageUrl { get; set; } = "";

@@ -267,6 +267,10 @@ namespace KoosMatliWebsiteAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Department")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -293,6 +297,128 @@ namespace KoosMatliWebsiteAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StaffMembers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Biography = "Ms. Mokoena is dedicated to creating a supportive learning environment where every learner is encouraged to reach their full potential.",
+                            Category = "Management",
+                            Department = "School Management",
+                            Email = "principal@koosmatliprimary.co.za",
+                            FullName = "Ms. Thandi Mokoena",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Principal"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Biography = "Mr. Mthembu supports the school's academic and administrative programmes and works closely with staff, learners and parents.",
+                            Category = "Management",
+                            Department = "School Management",
+                            Email = "k.mthembu@koosmatliprimary.co.za",
+                            FullName = "Mr. Kabelo Mthembu",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Deputy Principal"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Biography = "Mrs. Nkosi is passionate about helping learners develop strong academic foundations and confidence in their abilities.",
+                            Category = "Teachers",
+                            Department = "Intermediate & Senior Phase",
+                            Email = "l.nkosi@koosmatliprimary.co.za",
+                            FullName = "Mrs. Lerato Nkosi",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Grade 7 Teacher"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Biography = "Mr. Dlamini encourages active learning and aims to make the classroom a positive and engaging environment for all learners.",
+                            Category = "Teachers",
+                            Department = "Intermediate Phase",
+                            Email = "s.dlamini@koosmatliprimary.co.za",
+                            FullName = "Mr. Sipho Dlamini",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Grade 6 Teacher"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Biography = "Ms. Molefe is committed to supporting learners academically while encouraging creativity, curiosity and responsible citizenship.",
+                            Category = "Teachers",
+                            Department = "Intermediate Phase",
+                            Email = "n.molefe@koosmatliprimary.co.za",
+                            FullName = "Ms. Naledi Molefe",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Grade 5 Teacher"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Biography = "Mrs. Mokoena focuses on creating a nurturing classroom environment that helps learners develop confidence and independence.",
+                            Category = "Teachers",
+                            Department = "Intermediate Phase",
+                            Email = "p.mokoena@koosmatliprimary.co.za",
+                            FullName = "Mrs. Precious Mokoena",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Grade 4 Teacher"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Biography = "Mr. Seema enjoys helping young learners build essential literacy, numeracy and social skills through engaging classroom activities.",
+                            Category = "Teachers",
+                            Department = "Foundation Phase",
+                            Email = "t.seema@koosmatliprimary.co.za",
+                            FullName = "Mr. Tumelo Seema",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Grade 3 Teacher"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Biography = "Ms. Ndlovu is passionate about early childhood education and creating positive learning experiences for young learners.",
+                            Category = "Teachers",
+                            Department = "Foundation Phase",
+                            Email = "p.ndlovu@koosmatliprimary.co.za",
+                            FullName = "Ms. Palesa Ndlovu",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Grade 2 Teacher"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Biography = "Mrs. Mahlangu helps young learners develop confidence, communication skills and a strong foundation for their educational journey.",
+                            Category = "Teachers",
+                            Department = "Foundation Phase",
+                            Email = "a.mahlangu@koosmatliprimary.co.za",
+                            FullName = "Mrs. Amanda Mahlangu",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Grade 1 Teacher"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Biography = "Ms. Maseko assists with the school's administrative activities and provides support to learners, parents and staff.",
+                            Category = "Support Staff",
+                            Department = "Administration",
+                            Email = "admin@koosmatliprimary.co.za",
+                            FullName = "Ms. Refilwe Maseko",
+                            ImageUrl = "/images/staff/placeholder.png",
+                            IsActive = true,
+                            Position = "Administrative Officer"
+                        });
                 });
 #pragma warning restore 612, 618
         }

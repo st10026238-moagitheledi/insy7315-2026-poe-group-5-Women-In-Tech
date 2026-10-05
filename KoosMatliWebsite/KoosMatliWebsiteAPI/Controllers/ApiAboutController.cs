@@ -16,6 +16,7 @@ namespace KoosMatliWebsiteAPI.Controllers
             _context = context;
         }
 
+        // GET: api/About
         [HttpGet]
         public async Task<ActionResult<SchoolInformation>> GetSchoolInformation()
         {
@@ -27,9 +28,11 @@ namespace KoosMatliWebsiteAPI.Controllers
                 return NotFound();
             }
 
-            return information;
+            return Ok(information);
         }
 
+
+        // POST: api/About
         [HttpPost]
         public async Task<ActionResult<SchoolInformation>> CreateSchoolInformation(
             SchoolInformation information)
@@ -46,6 +49,8 @@ namespace KoosMatliWebsiteAPI.Controllers
                 information);
         }
 
+
+        // PUT: api/About/1
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSchoolInformation(
             int id,
@@ -53,11 +58,27 @@ namespace KoosMatliWebsiteAPI.Controllers
         {
             if (id != information.Id)
             {
-                return BadRequest();
+                return BadRequest("The ID in the URL does not match the ID in the request.");
             }
 
-            _context.Entry(information).State =
-                EntityState.Modified;
+            var existingInformation =
+                await _context.SchoolInformation.FindAsync(id);
+
+            if (existingInformation == null)
+            {
+                return NotFound();
+            }
+
+            existingInformation.SchoolName = information.SchoolName;
+            existingInformation.Motto = information.Motto;
+            existingInformation.Description = information.Description;
+            existingInformation.History = information.History;
+            existingInformation.Mission = information.Mission;
+            existingInformation.Vision = information.Vision;
+            existingInformation.Address = information.Address;
+            existingInformation.Phone = information.Phone;
+            existingInformation.Email = information.Email;
+            existingInformation.PrincipalName = information.PrincipalName;
 
             await _context.SaveChangesAsync();
 

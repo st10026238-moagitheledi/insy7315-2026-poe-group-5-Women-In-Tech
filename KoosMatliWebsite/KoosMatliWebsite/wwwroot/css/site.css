@@ -832,7 +832,10 @@ select {
 
 .about-info-section {
     background: var(--navy);
-    padding-bottom: 60px;
+    position: relative;
+    margin-top: -55px;
+    padding-bottom: 70px;
+    z-index: 5;
 }
 
 
@@ -843,6 +846,8 @@ select {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     overflow: hidden;
+    position: relative;
+    z-index: 5;
 }
 
 

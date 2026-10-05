@@ -32,7 +32,7 @@
 
         <div class="staff-hero-image">
 
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=80"
+            <img src="../images/staff/staff.jpg"
                  alt="Koos Matli staff team" />
 
         </div>
@@ -50,7 +50,9 @@
 
     <div class="container">
 
-        <!-- FILTERS -->
+        <!-- =================================================
+             FILTERS
+             ================================================= -->
 
         <div class="staff-filters">
 
@@ -62,6 +64,7 @@
 
             </button>
 
+
             <button type="button"
                     class="staff-filter"
                     data-filter="Management">
@@ -70,6 +73,7 @@
 
             </button>
 
+
             <button type="button"
                     class="staff-filter"
                     data-filter="Teachers">
@@ -77,6 +81,7 @@
                 TEACHERS
 
             </button>
+
 
             <button type="button"
                     class="staff-filter"
@@ -89,7 +94,9 @@
         </div>
 
 
-        <!-- STAFF -->
+        <!-- =================================================
+             STAFF GRID
+             ================================================= -->
 
         <div class="staff-grid"
              id="staffGrid">
@@ -99,7 +106,9 @@
                 foreach (var member in Model.Where(s => s.IsActive))
                 {
                     <article class="staff-card"
-                             data-category="@member.Department">
+                             data-category="@member.Category">
+
+                        <!-- STAFF PHOTO -->
 
                         <div class="staff-photo">
 
@@ -111,12 +120,16 @@
                             else
                             {
                                 <div class="staff-photo-placeholder">
+
                                     <i class="fa-solid fa-user"></i>
+
                                 </div>
                             }
 
                         </div>
 
+
+                        <!-- STAFF DETAILS -->
 
                         <div class="staff-details">
 
@@ -137,7 +150,10 @@
         </div>
 
 
-        <!-- NO STAFF MESSAGE -->
+        <!-- =================================================
+             NO STAFF MESSAGE
+             ================================================= -->
+
         @if (Model == null || !Model.Any(s => s.IsActive))
         {
             <div class="staff-empty">
