@@ -521,6 +521,63 @@ namespace KoosMatliWebsiteAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SchoolEvents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "Academic",
+                            Date = new DateTime(2026, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Revision classes begin to help learners prepare for the upcoming end-of-year examinations.",
+                            IsPublished = true,
+                            Location = "Koos Matli Primary School",
+                            Time = "14:00 - 15:30",
+                            Title = "Term 4 Revision Classes Begin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = "Meeting",
+                            Date = new DateTime(2026, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Parents and guardians are invited to discuss learner progress, Term 4 revision support and examination preparation.",
+                            IsPublished = true,
+                            Location = "School Hall",
+                            Time = "17:00 - 18:00",
+                            Title = "Parent Information Meeting"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = "Event",
+                            Date = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A fun-filled school day with games, activities and entertainment for learners and staff.",
+                            IsPublished = true,
+                            Location = "School Grounds",
+                            Time = "09:00 - 14:00",
+                            Title = "School Fun Day"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Category = "Academic",
+                            Date = new DateTime(2026, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Focused revision sessions continue across subjects as learners prepare for the end-of-year examinations.",
+                            IsPublished = true,
+                            Location = "Classrooms",
+                            Time = "14:00 - 15:30",
+                            Title = "Term 4 Revision Week"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Category = "Examination",
+                            Date = new DateTime(2026, 10, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "End-of-year examinations commence. Learners are encouraged to arrive on time and bring all required examination materials.",
+                            IsPublished = true,
+                            Location = "Classrooms",
+                            Time = "08:00",
+                            Title = "Term 4 Examinations Begin"
+                        });
                 });
 
             modelBuilder.Entity("KoosMatliWebsiteAPI.Models.SchoolInformation", b =>

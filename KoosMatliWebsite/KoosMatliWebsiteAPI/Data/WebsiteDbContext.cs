@@ -516,6 +516,98 @@ namespace KoosMatliWebsiteAPI.Data
                     IsPublished = true
                 }
             );
+
+
+            // =====================================================
+            // SCHOOL EVENTS - OCTOBER 2026
+            // =====================================================
+
+            modelBuilder.Entity<SchoolEvent>().HasData(
+
+                // =========================
+                // REVISION
+                // =========================
+
+                new SchoolEvent
+                {
+                    Id = 1,
+                    Title = "Term 4 Revision Classes Begin",
+                    Description = "Revision classes begin to help learners prepare for the upcoming end-of-year examinations.",
+                    Date = new DateTime(2026, 10, 5),
+                    Category = "Academic",
+                    Time = "14:00 - 15:30",
+                    Location = "Koos Matli Primary School",
+                    IsPublished = true
+                },
+
+
+                // =========================
+                // PARENT MEETING
+                // =========================
+
+                new SchoolEvent
+                {
+                    Id = 2,
+                    Title = "Parent Information Meeting",
+                    Description = "Parents and guardians are invited to discuss learner progress, Term 4 revision support and examination preparation.",
+                    Date = new DateTime(2026, 10, 7),
+                    Category = "Meeting",
+                    Time = "17:00 - 18:00",
+                    Location = "School Hall",
+                    IsPublished = true
+                },
+
+
+                // =========================
+                // FUN DAY
+                // =========================
+
+                new SchoolEvent
+                {
+                    Id = 3,
+                    Title = "School Fun Day",
+                    Description = "A fun-filled school day with games, activities and entertainment for learners and staff.",
+                    Date = new DateTime(2026, 10, 9),
+                    Category = "Event",
+                    Time = "09:00 - 14:00",
+                    Location = "School Grounds",
+                    IsPublished = true
+                },
+
+
+                // =========================
+                // REVISION WEEK
+                // =========================
+
+                new SchoolEvent
+                {
+                    Id = 4,
+                    Title = "Term 4 Revision Week",
+                    Description = "Focused revision sessions continue across subjects as learners prepare for the end-of-year examinations.",
+                    Date = new DateTime(2026, 10, 19),
+                    Category = "Academic",
+                    Time = "14:00 - 15:30",
+                    Location = "Classrooms",
+                    IsPublished = true
+                },
+
+
+                // =========================
+                // EXAMINATIONS
+                // =========================
+
+                new SchoolEvent
+                {
+                    Id = 5,
+                    Title = "Term 4 Examinations Begin",
+                    Description = "End-of-year examinations commence. Learners are encouraged to arrive on time and bring all required examination materials.",
+                    Date = new DateTime(2026, 10, 26),
+                    Category = "Examination",
+                    Time = "08:00",
+                    Location = "Classrooms",
+                    IsPublished = true
+                }
+            );
         }
     }
 }
