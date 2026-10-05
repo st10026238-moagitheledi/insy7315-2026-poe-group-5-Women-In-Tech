@@ -228,6 +228,108 @@ namespace KoosMatliWebsiteAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("News");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Category = "announcements",
+                            Content = "We warmly welcome all our learners, parents and guardians back to Koos Matli Primary School. We look forward to another successful term filled with learning, growth and exciting opportunities.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Welcome Back to Koos Matli Primary School"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = "announcements",
+                            Content = "Parents and guardians are kindly reminded to ensure that learners arrive at school wearing the correct school uniform. A neat and complete uniform helps promote pride, discipline and a strong sense of belonging.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "School Uniform Reminder"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = "events",
+                            Content = "Learners are invited to participate in our annual Sports Day. The day will include athletics, team activities and fun sporting events. Parents and guardians are encouraged to come and support our young athletes.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Annual Sports Day"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Category = "events",
+                            Content = "Parents and guardians are invited to attend our upcoming parents meeting. The meeting will provide an opportunity to discuss learner progress, school activities and important information for the term.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Parents and Guardians Meeting"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Category = "events",
+                            Content = "Our school community will come together for a special Cultural Celebration Day. Learners will have the opportunity to celebrate South Africa's diverse cultures through music, storytelling, performances and traditional activities.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Cultural Celebration Day"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Category = "achievements",
+                            Content = "We are proud to celebrate our learners who represented Koos Matli Primary School in a recent academic competition. Their dedication, preparation and commitment to learning are an inspiration to the entire school community.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Our Learners Shine in Academic Competition"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Category = "achievements",
+                            Content = "Congratulations to our reading champions who have demonstrated outstanding dedication to developing their reading skills. We encourage all learners to continue discovering the joy of reading and learning.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Celebrating Our Reading Champions"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Category = "achievements",
+                            Content = "We are delighted to recognise learners who have shown exceptional effort in academics, sport, leadership and positive behaviour. Their achievements demonstrate the values of commitment, perseverance and excellence.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Celebrating Learner Excellence"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Category = "general",
+                            Content = "At Koos Matli Primary School, we believe that every learner deserves a safe, welcoming and supportive environment. Our teachers and staff continue working together to create an environment where learners can learn, grow and reach their full potential.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Creating a Positive Learning Environment"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Category = "general",
+                            Content = "Regular school attendance plays an important role in learner success. We encourage parents and guardians to support learners by ensuring they attend school consistently and arrive on time each day.",
+                            ImageUrl = "/images/news/placeholder.png",
+                            IsPublished = true,
+                            PublishedDate = new DateTime(2026, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Importance of Regular Attendance"
+                        });
                 });
 
             modelBuilder.Entity("KoosMatliWebsiteAPI.Models.SchoolEvent", b =>

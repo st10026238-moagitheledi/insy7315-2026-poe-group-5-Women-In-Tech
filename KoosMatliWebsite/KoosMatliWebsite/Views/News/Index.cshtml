@@ -4,7 +4,6 @@
     ViewData["Title"] = "News & Announcements";
 }
 
-
 <!-- =========================================================
      NEWS HERO
      ========================================================= -->
@@ -12,8 +11,6 @@
 <section class="news-hero">
 
     <div class="container news-hero-container">
-
-        <!-- HERO TEXT -->
 
         <div class="news-hero-content">
 
@@ -33,9 +30,6 @@
 
         </div>
 
-
-        <!-- HERO ICON -->
-
         <div class="news-hero-icon">
 
             <i class="fa-solid fa-bullhorn"></i>
@@ -51,7 +45,6 @@
 </section>
 
 
-
 <!-- =========================================================
      NEWS CONTENT
      ========================================================= -->
@@ -59,7 +52,6 @@
 <section class="news-section">
 
     <div class="container">
-
 
         <!-- =================================================
              FILTERS
@@ -75,33 +67,29 @@
 
             </button>
 
-
             <button type="button"
                     class="news-filter"
-                    data-news-filter="announcement">
+                    data-news-filter="announcements">
 
                 ANNOUNCEMENTS
 
             </button>
 
-
             <button type="button"
                     class="news-filter"
-                    data-news-filter="event">
+                    data-news-filter="events">
 
                 EVENTS
 
             </button>
 
-
             <button type="button"
                     class="news-filter"
-                    data-news-filter="achievement">
+                    data-news-filter="achievements">
 
                 ACHIEVEMENTS
 
             </button>
-
 
             <button type="button"
                     class="news-filter"
@@ -114,26 +102,43 @@
         </div>
 
 
-
         <!-- =================================================
              NEWS LIST
              ================================================= -->
 
         <div class="news-list">
 
-            @if (Model != null && Model.Any())
+            @if (Model != null && Model.Any(n => n.IsPublished))
             {
                 foreach (var news in Model.Where(n => n.IsPublished))
                 {
                     var category = string.IsNullOrWhiteSpace(news.Category)
                         ? "general"
-                        : news.Category.ToLower();
+                        : news.Category.Trim().ToLower();
+
+                    var badgeClass = category switch
+                    {
+                        "announcements" => "announcement",
+                        "events" => "event",
+                        "achievements" => "achievement",
+                        _ => "general"
+                    };
+
+                    var badgeText = category switch
+                    {
+                        "announcements" => "ANNOUNCEMENT",
+                        "events" => "EVENT",
+                        "achievements" => "ACHIEVEMENT",
+                        _ => "GENERAL"
+                    };
 
                     <article class="news-item"
                              data-news-category="@category"
                              data-news-id="@news.Id">
 
-                        <!-- NEWS IMAGE -->
+                        <!-- =================================
+                             NEWS IMAGE
+                             ================================= -->
 
                         <div class="news-thumbnail">
 
@@ -144,14 +149,16 @@
                             }
                             else
                             {
-                                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=700&q=80"
+                                <img src="/images/news/placeholder.jpg"
                                      alt="@news.Title" />
                             }
 
                         </div>
 
 
-                        <!-- NEWS CONTENT -->
+                        <!-- =================================
+                             NEWS CONTENT
+                             ================================= -->
 
                         <div class="news-item-content">
 
@@ -168,14 +175,22 @@
                             </div>
 
 
+                            <!-- =================================
+                                 CATEGORY
+                                 ================================= -->
+
                             <div class="news-meta">
 
-                                <span class="news-badge @category">
-                                    @category
+                                <span class="news-badge @badgeClass">
+                                    @badgeText
                                 </span>
 
                             </div>
 
+
+                            <!-- =================================
+                                 DESCRIPTION
+                                 ================================= -->
 
                             <p>
                                 @news.Content
@@ -190,14 +205,12 @@
         </div>
 
 
-
         <!-- =================================================
-             NO RESULTS MESSAGE
+             EMPTY STATE
              ================================================= -->
 
         <div class="news-empty"
-             id="newsEmpty"
-             style="display: @(Model == null || !Model.Any(n => n.IsPublished) ? "block" : "none");">
+             id="newsEmpty">
 
             <i class="fa-regular fa-newspaper"></i>
 
@@ -212,9 +225,8 @@
         </div>
 
 
-
         <!-- =================================================
-             VIEW ALL BUTTON
+             VIEW ALL
              ================================================= -->
 
         <div class="news-view-all">
@@ -234,3 +246,160 @@
     </div>
 
 </section>
+
+
+<!-- =========================================================
+     NEWS FILTER JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const filters =
+            document.querySelectorAll(".news-filter");
+
+        const newsItems =
+            document.querySelectorAll(".news-item");
+
+        const newsEmpty =
+            document.getElementById("newsEmpty");
+
+        const viewAllButton =
+            document.getElementById("viewAllNews");
+
+
+        /* =====================================================
+           FILTER NEWS
+           ===================================================== */
+
+        filters.forEach(function (filter) {
+
+            filter.addEventListener("click", function () {
+
+                const selectedCategory =
+                    this.getAttribute("data-news-filter");
+
+
+                /*
+                 * Remove active class
+                 * from all filter buttons.
+                 */
+
+                filters.forEach(function (button) {
+
+                    button.classList.remove("active");
+
+                });
+
+
+                /*
+                 * Add active class
+                 * to selected button.
+                 */
+
+                this.classList.add("active");
+
+
+                let visibleCount = 0;
+
+
+                /*
+                 * Loop through every article.
+                 */
+
+                newsItems.forEach(function (item) {
+
+                    const articleCategory =
+                        item.getAttribute("data-news-category");
+
+
+                    /*
+                     * ALL shows every article.
+                     */
+
+                    if (
+                        selectedCategory === "all" ||
+                        articleCategory === selectedCategory
+                    ) {
+
+                        item.style.display = "grid";
+
+                        visibleCount++;
+
+                    }
+                    else {
+
+                        item.style.display = "none";
+
+                    }
+
+                });
+
+
+                /*
+                 * Display empty state
+                 * when no articles match.
+                 */
+
+                if (visibleCount === 0) {
+
+                    newsEmpty.classList.add("visible");
+
+                }
+                else {
+
+                    newsEmpty.classList.remove("visible");
+
+                }
+
+            });
+
+        });
+
+
+        /* =====================================================
+           VIEW ALL NEWS
+           ===================================================== */
+
+        if (viewAllButton) {
+
+            viewAllButton.addEventListener("click", function () {
+
+                const allFilter =
+                    document.querySelector(
+                        '[data-news-filter="all"]'
+                    );
+
+
+                if (allFilter) {
+
+                    allFilter.click();
+
+                }
+
+
+                /*
+                 * Scroll back to news list.
+                 */
+
+                const newsList =
+                    document.querySelector(".news-list");
+
+
+                if (newsList) {
+
+                    newsList.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+
+            });
+
+        }
+
+    });
+
+</script>
