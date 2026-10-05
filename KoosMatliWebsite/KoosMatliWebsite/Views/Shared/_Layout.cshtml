@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Koos Matli Primary School</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="site-header">
+
+        <div class="navbar">
+
+            <!-- LOGO -->
+            <a class="school-logo" asp-controller="Home" asp-action="Index">
+
+                <img src="~/images/school/logo.png"
+                     alt="Koos Matli Primary School Logo"
+                     class="logo-placeholder">
+
+                <div class="school-name">
+                    <strong>KOOS MATLI</strong>
+                    <span>PRIMARY SCHOOL</span>
+                </div>
+
+            </a>
+
+
+            <!-- DESKTOP NAVIGATION -->
+
+            <nav class="desktop-nav">
+
+                <a asp-controller="Home"
+                   asp-action="Index">
+                    HOME
+                </a>
+
+                <a asp-controller="About"
+                   asp-action="Index">
+                    ABOUT US
+                </a>
+
+                <a asp-controller="Staff"
+                   asp-action="Index">
+                    OUR STAFF
+                </a>
+
+                <a asp-controller="Admissions"
+                   asp-action="Index">
+                    ADMISSIONS
+                </a>
+
+                <a asp-controller="News"
+                   asp-action="Index">
+                    NEWS & ANNOUNCEMENTS
+                </a>
+
+                <div class="nav-dropdown">
+
+                    <button type="button">
+                        MORE
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <div class="dropdown-menu">
+
+                        <a asp-controller="Gallery"
+                           asp-action="Index">
+                            School Gallery
+                        </a>
+
+                        <a asp-controller="Contact"
+                           asp-action="Index">
+                            Find Us / Contact
+                        </a>
+
+                        <a asp-controller="Calendar"
+                           asp-action="Index">
+                            School Calendar
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <a class="nav-contact"
+                   asp-controller="Contact"
+                   asp-action="Index">
+
+                    CONTACT US
+
+                </a>
+
+            </nav>
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button class="mobile-menu-button"
+                    id="mobileMenuButton">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- MOBILE NAVIGATION -->
+
+        <nav class="mobile-nav" id="mobileNav">
+
+            <a asp-controller="Home"
+               asp-action="Index">
+                HOME
+            </a>
+
+            <a asp-controller="About"
+               asp-action="Index">
+                ABOUT US
+            </a>
+
+            <a asp-controller="Staff"
+               asp-action="Index">
+                OUR STAFF
+            </a>
+
+            <a asp-controller="Admissions"
+               asp-action="Index">
+                ADMISSIONS
+            </a>
+
+            <a asp-controller="News"
+               asp-action="Index">
+                NEWS & ANNOUNCEMENTS
+            </a>
+
+            <a asp-controller="Gallery"
+               asp-action="Index">
+                SCHOOL GALLERY
+            </a>
+
+            <a asp-controller="Contact"
+               asp-action="Index">
+                FIND US / CONTACT
+            </a>
+
+            <a asp-controller="Calendar"
+               asp-action="Index">
+                SCHOOL CALENDAR
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= PAGE CONTENT ================= -->
+
+    <main>
+
+        @RenderBody()
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+
+                <img src="~/images/school/logo.png"
+                     alt="Koos Matli Primary School Logo"
+                     class="logo-placeholder">
+
+                <div>
+                    <strong>KOOS MATLI</strong>
+                    <span>PRIMARY SCHOOL</span>
+                </div>
+
+            </div>
+
+            <p>
+                Where education lights the way,<br />
+                for a brighter future.
+            </p>
+
+        </div>
+
+
+        <div class="footer-columns">
+
+            <div>
+
+                <h4>Quick Links</h4>
+
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-controller="About" asp-action="Index">About Us</a>
+                <a asp-controller="Staff" asp-action="Index">Our Staff</a>
+                <a asp-controller="Admissions" asp-action="Index">Admissions</a>
+                <a asp-controller="News" asp-action="Index">News & Announcements</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Explore</h4>
+
+                <a asp-controller="Gallery" asp-action="Index">
+                    School Gallery
+                </a>
+
+                <a asp-controller="Contact" asp-action="Index">
+                    Find Us / Contact
+                </a>
+
+                <a asp-controller="Calendar" asp-action="Index">
+                    School Calendar
+                </a>
+
+            </div>
+
+
+            <div>
+
+                @await Component.InvokeAsync("SchoolContact")
+
+           </div>  
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            © 2026 Koos Matli Primary School.
+            All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <script src="~/js/site.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

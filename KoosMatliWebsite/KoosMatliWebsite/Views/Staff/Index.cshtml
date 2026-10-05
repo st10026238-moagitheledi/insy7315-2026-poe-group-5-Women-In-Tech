@@ -1,0 +1,177 @@
+﻿@model IEnumerable<KoosMatliWebsite.DTOs.StaffMemberDto>
+
+@{
+    ViewData["Title"] = "Our Staff";
+}
+
+
+<!-- =====================================================
+     STAFF HERO
+     ===================================================== -->
+
+<section class="staff-hero">
+
+    <div class="container staff-hero-container">
+
+        <div class="staff-hero-text">
+
+            <h1>OUR STAFF</h1>
+
+            <h2>
+                Dedicated. Experienced. Passionate.
+            </h2>
+
+            <p>
+                Our educators and support staff are committed
+                to empowering every learner to achieve their
+                full potential.
+            </p>
+
+        </div>
+
+
+        <div class="staff-hero-image">
+
+            <img src="../images/staff/staff.jpg"
+                 alt="Koos Matli staff team" />
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STAFF DIRECTORY
+     ===================================================== -->
+
+<section class="staff-directory">
+
+    <div class="container">
+
+        <!-- =================================================
+             FILTERS
+             ================================================= -->
+
+        <div class="staff-filters">
+
+            <button type="button"
+                    class="staff-filter active"
+                    data-filter="all">
+
+                ALL STAFF
+
+            </button>
+
+
+            <button type="button"
+                    class="staff-filter"
+                    data-filter="Management">
+
+                MANAGEMENT
+
+            </button>
+
+
+            <button type="button"
+                    class="staff-filter"
+                    data-filter="Teachers">
+
+                TEACHERS
+
+            </button>
+
+
+            <button type="button"
+                    class="staff-filter"
+                    data-filter="Support Staff">
+
+                SUPPORT STAFF
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             STAFF GRID
+             ================================================= -->
+
+        <div class="staff-grid"
+             id="staffGrid">
+
+            @if (Model != null && Model.Any())
+            {
+                foreach (var member in Model.Where(s => s.IsActive))
+                {
+                    <article class="staff-card"
+                             data-category="@member.Category">
+
+                        <!-- STAFF PHOTO -->
+
+                        <div class="staff-photo">
+
+                            @if (!string.IsNullOrWhiteSpace(member.ImageUrl))
+                            {
+                                <img src="@member.ImageUrl"
+                                     alt="@member.FullName" />
+                            }
+                            else
+                            {
+                                <div class="staff-photo-placeholder">
+
+                                    <i class="fa-solid fa-user"></i>
+
+                                </div>
+                            }
+
+                        </div>
+
+
+                        <!-- STAFF DETAILS -->
+
+                        <div class="staff-details">
+
+                            <h3>
+                                @member.FullName
+                            </h3>
+
+                            <p>
+                                @member.Position
+                            </p>
+
+                        </div>
+
+                    </article>
+                }
+            }
+
+        </div>
+
+
+        <!-- =================================================
+             NO STAFF MESSAGE
+             ================================================= -->
+
+        @if (Model == null || !Model.Any(s => s.IsActive))
+        {
+            <div class="staff-empty">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h3>
+                    No staff members found
+                </h3>
+
+                <p>
+                    There are currently no active staff members
+                    available.
+                </p>
+
+            </div>
+        }
+
+    </div>
+
+</section>

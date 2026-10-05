@@ -1,0 +1,177 @@
+﻿@model KoosMatliWebsite.DTOs.SchoolInformationDto
+
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<!-- =====================================================
+     ABOUT US HERO
+     ===================================================== -->
+
+<section class="about-hero">
+
+    <div class="container about-hero-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="about-intro">
+
+            <div class="about-heading">
+
+                <h1>
+                    ABOUT US
+                </h1>
+
+                <h2>
+                    @(string.IsNullOrWhiteSpace(Model?.Motto)
+                        ? "Where Education Is Light"
+                        : Model.Motto)
+                </h2>
+
+                <div class="heading-line"></div>
+
+            </div>
+
+
+            <p>
+                @(string.IsNullOrWhiteSpace(Model?.Description)
+                    ? "Our school is a community-focused primary school in Mamelodi committed to providing quality education in a safe, inclusive, and nurturing environment."
+                    : Model.Description)
+            </p>
+
+            @if (!string.IsNullOrWhiteSpace(Model?.History))
+            {
+                <p>
+                    @Model.History
+                </p>
+            }
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="about-image-wrapper">
+
+            <img src="../images/school/learners-sitting.jpg"
+                 alt="@(Model?.SchoolName ?? "Koos Matli") learners"
+                 class="about-main-image" />
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     VISION / MISSION / VALUES
+     ===================================================== -->
+
+<section class="about-info-section">
+
+    <div class="container about-info-grid">
+
+
+        <!-- VISION -->
+
+        <article class="about-info-card">
+
+            <div class="about-card-icon">
+
+                <i class="fa-regular fa-eye"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    Our Vision
+                </h3>
+
+                <p>
+                    @(string.IsNullOrWhiteSpace(Model?.Vision)
+                        ? "To be a leading primary school that inspires learners to become confident, responsible and future-ready citizens."
+                        : Model.Vision)
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- MISSION -->
+
+        <article class="about-info-card">
+
+            <div class="about-card-icon">
+
+                <i class="fa-solid fa-bullseye"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    Our Mission
+                </h3>
+
+                <p>
+                    @(string.IsNullOrWhiteSpace(Model?.Mission)
+                        ? "To provide holistic education in a nurturing environment through dedicated teaching and strong community partnerships."
+                        : Model.Mission)
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- VALUES -->
+
+        <article class="about-info-card">
+
+            <div class="about-card-icon">
+
+                <i class="fa-regular fa-heart"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    Our Values
+                </h3>
+
+                <ul>
+
+                    <li>
+                        Respect
+                    </li>
+
+                    <li>
+                        Integrity
+                    </li>
+
+                    <li>
+                        Excellence
+                    </li>
+
+                    <li>
+                        Responsibility
+                    </li>
+
+                    <li>
+                        Ubuntu
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>

@@ -1,0 +1,27 @@
+﻿@model KoosMatliWebsite.DTOs.SchoolInformationDto
+
+<h4>Contact Info</h4>
+
+@if (Model != null)
+{
+    <p>
+        <i class="fa-solid fa-location-dot"></i>
+        @Model.Address
+    </p>
+
+    <p>
+        <i class="fa-solid fa-phone"></i>
+        @Model.Phone
+    </p>
+
+    <p>
+        <i class="fa-solid fa-envelope"></i>
+        @Model.Email
+    </p>
+}
+else
+{
+    <p>
+        Contact information unavailable.
+    </p>
+}

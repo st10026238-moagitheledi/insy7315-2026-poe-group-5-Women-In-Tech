@@ -1,0 +1,368 @@
+﻿@model KoosMatliWebsite.ViewModels.ContactViewModel
+
+@{
+    ViewData["Title"] = "Find Us / Contact";
+
+    var school = Model.SchoolInformation;
+
+    var address = school?.Address ?? "";
+    var phone = school?.Phone ?? "";
+    var email = school?.Email ?? "";
+
+    var encodedAddress =
+        Uri.EscapeDataString(address);
+
+    var googleMapsUrl =
+        $"https://www.google.com/maps/search/?api=1&query={encodedAddress}";
+
+    var googleMapsEmbedUrl =
+        $"https://www.google.com/maps?q={encodedAddress}&output=embed";
+}
+
+
+<!-- =====================================================
+     CONTACT PAGE
+     ===================================================== -->
+
+<section class="contact-page">
+
+    <div class="container">
+
+        <div class="contact-page-heading">
+
+            <span>GET IN TOUCH</span>
+
+            <h1>Find Us / Contact</h1>
+
+            <p>
+                We'd love to hear from you. Get in touch with
+                Koos Matli Primary School using the information
+                below or send us a message.
+            </p>
+
+        </div>
+
+
+        <div class="contact-layout">
+
+
+            <!-- =================================================
+                 CONTACT INFORMATION
+                 ================================================= -->
+
+            <div class="contact-information">
+
+                <h2>CONTACT US</h2>
+
+
+                <!-- ADDRESS -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Address</h3>
+
+                        @if (!string.IsNullOrWhiteSpace(address))
+                        {
+                            <p>
+                                @address
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                Address unavailable.
+                            </p>
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Phone</h3>
+
+                        @if (!string.IsNullOrWhiteSpace(phone))
+                        {
+                            <p>
+                                <a href="tel:@phone">
+                                    @phone
+                                </a>
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                Phone number unavailable.
+                            </p>
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Email</h3>
+
+                        @if (!string.IsNullOrWhiteSpace(email))
+                        {
+                            <p>
+                                <a href="mailto:@email">
+                                    @email
+                                </a>
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                Email unavailable.
+                            </p>
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <!-- SCHOOL HOURS -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>School Hours</h3>
+
+                        <p>
+                            Monday – Friday<br />
+                            08:00 – 13:00
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 MESSAGE FORM
+                 ================================================= -->
+
+            <div class="contact-form-container">
+
+                <h2>SEND US A MESSAGE</h2>
+
+
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="contact-success">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        @TempData["SuccessMessage"]
+
+                    </div>
+                }
+
+
+                <form asp-controller="Contact"
+                      asp-action="SendMessage"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger">
+                    </div>
+
+
+                    <!-- NAME + EMAIL -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label asp-for="ContactMessage.Name">
+                                Your Name
+                            </label>
+
+                            <input asp-for="ContactMessage.Name"
+                                   placeholder="Your Name" />
+
+                            <span asp-validation-for="ContactMessage.Name"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label asp-for="ContactMessage.Email">
+                                Your Email
+                            </label>
+
+                            <input asp-for="ContactMessage.Email"
+                                   type="email"
+                                   placeholder="Your Email" />
+
+                            <span asp-validation-for="ContactMessage.Email"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBJECT -->
+
+                    <div class="form-group">
+
+                        <label asp-for="ContactMessage.Subject">
+                            Subject
+                        </label>
+
+                        <input asp-for="ContactMessage.Subject"
+                               placeholder="Subject" />
+
+                        <span asp-validation-for="ContactMessage.Subject"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div class="form-group">
+
+                        <label asp-for="ContactMessage.Message">
+                            Your Message
+                        </label>
+
+                        <textarea asp-for="ContactMessage.Message"
+                                  rows="6"
+                                  placeholder="Your Message"></textarea>
+
+                        <span asp-validation-for="ContactMessage.Message"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button type="submit"
+                            class="btn btn-primary contact-submit">
+
+                        SEND MESSAGE
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOCATION
+                 ================================================= -->
+
+            <div class="contact-location">
+
+                <h2>OUR LOCATION</h2>
+
+
+                <div class="map-container">
+
+                    @if (!string.IsNullOrWhiteSpace(address))
+                    {
+                        <iframe
+                            src="@googleMapsEmbedUrl"
+                            width="100%"
+                            height="450"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    }
+                    else
+                    {
+                        <div class="map-unavailable">
+
+                            <i class="fa-solid fa-map-location-dot"></i>
+
+                            <p>
+                                Location information is currently unavailable.
+                            </p>
+
+                        </div>
+                    }
+
+                </div>
+
+
+                <!-- GOOGLE MAPS DIRECTIONS -->
+
+                @if (!string.IsNullOrWhiteSpace(address))
+                {
+                    <a href="@googleMapsUrl"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-primary directions-button">
+
+                        <i class="fa-solid fa-diamond-turn-right"></i>
+
+                        GET DIRECTIONS
+
+                    </a>
+                }
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

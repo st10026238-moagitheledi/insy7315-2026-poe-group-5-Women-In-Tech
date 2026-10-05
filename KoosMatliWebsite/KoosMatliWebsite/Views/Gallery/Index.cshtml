@@ -1,0 +1,263 @@
+﻿@model IEnumerable<KoosMatliWebsite.DTOs.GalleryItemDto>
+
+@{
+    ViewData["Title"] = "School Gallery";
+}
+
+
+<!-- =========================================================
+     SCHOOL GALLERY HERO
+     ========================================================= -->
+
+<section class="gallery-hero">
+
+    <div class="container gallery-hero-container">
+
+        <div class="gallery-hero-content">
+
+            <h1>
+                SCHOOL GALLERY
+            </h1>
+
+            <h2>
+                Moments that make us proud.
+            </h2>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     GALLERY
+     ========================================================= -->
+
+<section class="gallery-section">
+
+    <div class="container">
+
+
+        <!-- =================================================
+             GALLERY FILTERS
+             ================================================= -->
+
+        <div class="gallery-filters">
+
+            <button type="button"
+                    class="gallery-filter active"
+                    data-gallery-filter="all">
+
+                ALL
+
+            </button>
+
+            <button type="button"
+                    class="gallery-filter"
+                    data-gallery-filter="academics">
+
+                ACADEMICS
+
+            </button>
+
+            <button type="button"
+                    class="gallery-filter"
+                    data-gallery-filter="sports">
+
+                SPORTS
+
+            </button>
+
+            <button type="button"
+                    class="gallery-filter"
+                    data-gallery-filter="events">
+
+                EVENTS
+
+            </button>
+
+            <button type="button"
+                    class="gallery-filter"
+                    data-gallery-filter="culture">
+
+                CULTURE
+
+            </button>
+
+            <button type="button"
+                    class="gallery-filter"
+                    data-gallery-filter="achievements">
+
+                ACHIEVEMENTS
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             GALLERY GRID
+             ================================================= -->
+
+        <div class="gallery-grid"
+             id="galleryGrid">
+
+            @if (Model != null)
+            {
+                foreach (var photo in Model.Where(g => g.IsPublished))
+                {
+                    var category = string.IsNullOrWhiteSpace(photo.Category)
+                        ? "general"
+                        : photo.Category.ToLower();
+
+                    <button type="button"
+                            class="gallery-card"
+                            data-gallery-category="@category"
+                            data-gallery-image="@photo.ImageUrl"
+                            data-gallery-title="@photo.Title"
+                            data-gallery-description="@photo.Description">
+
+                        <img src="@photo.ImageUrl"
+                             alt="@photo.Title"
+                             loading="lazy" />
+
+                        <span class="gallery-overlay">
+
+                            <span class="gallery-overlay-content">
+
+                                <span class="gallery-category">
+                                    @category.ToUpper()
+                                </span>
+
+                                <strong>
+                                    @photo.Title
+                                </strong>
+
+                                <i class="fa-solid fa-expand"></i>
+
+                            </span>
+
+                        </span>
+
+                    </button>
+                }
+            }
+
+        </div>
+
+
+
+        <!-- =================================================
+             EMPTY STATE
+             ================================================= -->
+
+        <div class="gallery-empty"
+             id="galleryEmpty">
+
+            <i class="fa-regular fa-images"></i>
+
+            <h3>
+                No photos found
+            </h3>
+
+            <p>
+                There are currently no photos in this category.
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             VIEW MORE
+             ================================================= -->
+
+        <div class="gallery-more">
+
+            <button type="button"
+                    class="btn btn-primary"
+                    id="viewMoreGallery">
+
+                VIEW MORE PHOTOS
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     IMAGE LIGHTBOX
+     ========================================================= -->
+
+<div class="gallery-lightbox"
+     id="galleryLightbox"
+     aria-hidden="true">
+
+    <div class="gallery-lightbox-backdrop"></div>
+
+
+    <div class="gallery-lightbox-content"
+         role="dialog"
+         aria-modal="true"
+         aria-label="Gallery image viewer">
+
+        <button type="button"
+                class="gallery-lightbox-close"
+                id="galleryLightboxClose"
+                aria-label="Close image">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <button type="button"
+                class="gallery-lightbox-prev"
+                id="galleryLightboxPrev"
+                aria-label="Previous image">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+
+        <img id="galleryLightboxImage"
+             src=""
+             alt="" />
+
+
+        <button type="button"
+                class="gallery-lightbox-next"
+                id="galleryLightboxNext"
+                aria-label="Next image">
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+
+        <div class="gallery-lightbox-caption">
+
+            <span id="galleryLightboxCategory">
+                GALLERY
+            </span>
+
+            <h3 id="galleryLightboxTitle">
+                School Gallery
+            </h3>
+
+        </div>
+
+    </div>
+
+</div>

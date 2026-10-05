@@ -1,0 +1,22 @@
+# Visual Studio temporary files
+.vs/
+**/.vs/
+
+# Build output
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Visual Studio user-specific files
+*.suo
+*.user
+
+# Firebase credentials
+koosmatliprimaryschoolsystem-firebase-adminsdk-fbsvc-2305470039.json
+
+# User secrets
+secrets.json
+
+# Environment files
+.env
