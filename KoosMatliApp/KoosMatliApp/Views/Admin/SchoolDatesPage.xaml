@@ -6,12 +6,18 @@
     x:Class="KoosMatliApp.Views.Admin.SchoolDatesPage"
     Title="School Dates">
 
-    <Grid
-        Padding="20"
-        RowDefinitions="Auto,Auto,*"
-        RowSpacing="15">
+    <Grid Padding="20"
+          RowDefinitions="Auto,*"
+          RowSpacing="15">
 
-        <VerticalStackLayout>
+        <VerticalStackLayout Spacing="12">
+
+            <Button
+                Text="← Back to Dashboard"
+                HorizontalOptions="Start"
+                BackgroundColor="Transparent"
+                TextColor="Black"
+                Clicked="BackButton_Clicked" />
 
             <Label
                 Text="School Dates"
@@ -22,22 +28,106 @@
                 Text="Manage important academic dates"
                 TextColor="Gray" />
 
+            <Button
+                Text="+ Add School Date"
+                HorizontalOptions="Start"
+                Command="{Binding ShowAddFormCommand}" />
+
+            <Border
+                IsVisible="{Binding IsAddFormVisible}"
+                Padding="15"
+                Stroke="#DDDDDD"
+                StrokeShape="RoundRectangle 10">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="Add a School Date"
+                        FontSize="20"
+                        FontAttributes="Bold" />
+
+                    <Label Text="Title" />
+
+                    <Entry
+                        Placeholder="e.g. Parent Meeting"
+                        Text="{Binding NewTitle}" />
+
+                    <Label Text="Date" />
+
+                    <DatePicker
+                        Date="{Binding NewDate}"
+                        Format="dd MMMM yyyy" />
+
+                    <Label Text="Description (optional)" />
+
+                    <Editor
+                        Placeholder="Enter additional details"
+                        Text="{Binding NewDescription}"
+                        AutoSize="TextChanges"
+                        HeightRequest="80" />
+
+                    <Label
+                        Text="{Binding ErrorMessage}"
+                        TextColor="Red"
+                        IsVisible="{Binding HasError}" />
+
+                    <ActivityIndicator
+                        IsRunning="{Binding IsBusy}"
+                        IsVisible="{Binding IsBusy}" />
+
+                    <HorizontalStackLayout Spacing="10">
+
+                        <Button
+                            Text="Save Date"
+                            Command="{Binding SaveDateCommand}"
+                            IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" />
+
+                        <Button
+                            Text="Cancel"
+                            Command="{Binding CancelAddCommand}"
+                            BackgroundColor="Gray" />
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <Label
+                Text="Upcoming School Dates"
+                FontSize="20"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="{Binding ErrorMessage}"
+                TextColor="Red"
+                IsVisible="{Binding HasError}" />
+
         </VerticalStackLayout>
 
-        <Button
+        <CollectionView
             Grid.Row="1"
-            Text="+ Add School Date"
-            HorizontalOptions="Start" />
+            ItemsSource="{Binding SchoolDates}"
+            SelectionMode="None">
 
-        <CollectionView Grid.Row="2">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout
+                    Padding="20"
+                    Spacing="8"
+                    HorizontalOptions="Center">
 
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Term 1 Begins</x:String>
-                    <x:String>Parent Meeting</x:String>
-                    <x:String>School Holiday</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
+                    <Label
+                        Text="No school dates found."
+                        FontAttributes="Bold"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Add a school date to get started."
+                        TextColor="Gray"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -48,31 +138,47 @@
                         Stroke="#DDDDDD"
                         StrokeShape="RoundRectangle 10">
 
-                        <Grid ColumnDefinitions="Auto,*">
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="15">
 
                             <Border
                                 Padding="10"
+                                BackgroundColor="#EEEEEE"
                                 StrokeShape="RoundRectangle 8"
-                                BackgroundColor="#EEEEEE">
+                                VerticalOptions="Start">
 
-                                <Label
-                                    Text="10 JAN"
-                                    FontAttributes="Bold" />
+                                <VerticalStackLayout Spacing="2">
+                                    <Label
+                                        Text="{Binding DayNumber}"
+                                        FontSize="22"
+                                        FontAttributes="Bold"
+                                        HorizontalTextAlignment="Center" />
+
+                                    <Label
+                                        Text="{Binding MonthName}"
+                                        FontAttributes="Bold"
+                                        HorizontalTextAlignment="Center" />
+                                </VerticalStackLayout>
 
                             </Border>
 
                             <VerticalStackLayout
                                 Grid.Column="1"
-                                Margin="15,0">
+                                Spacing="5">
 
                                 <Label
-                                    Text="{Binding .}"
-                                    FontAttributes="Bold" />
+                                    Text="{Binding Title}"
+                                    FontAttributes="Bold"
+                                    FontSize="17" />
 
                                 <Label
-                                    Text="School Event"
+                                    Text="{Binding FormattedDate}"
                                     TextColor="Gray"
                                     FontSize="13" />
+
+                                <Label
+                                    Text="{Binding Description}"
+                                    FontSize="14" />
 
                             </VerticalStackLayout>
 

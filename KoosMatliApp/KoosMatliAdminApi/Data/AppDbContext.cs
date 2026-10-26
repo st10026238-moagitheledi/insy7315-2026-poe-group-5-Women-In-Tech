@@ -1,6 +1,5 @@
 ﻿using KoosMatliAdminApi.Models;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace KoosMatliAdminApi.Data
 {
@@ -13,7 +12,7 @@ namespace KoosMatliAdminApi.Data
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Application> Applications { get; set; }
+        public DbSet<KoosMatliAdminApi.Models.AdmissionApplication> Applications { get; set; }
 
         public DbSet<StaffMember> StaffMembers { get; set; }
 

@@ -17,7 +17,9 @@ namespace KoosMatliApp.WinUI
         public App()
         {
             this.InitializeComponent();
+
         }
+        public static IServiceProvider? Services { get; set; }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
     }

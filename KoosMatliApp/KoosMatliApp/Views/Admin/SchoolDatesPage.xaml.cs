@@ -6,4 +6,9 @@ public partial class SchoolDatesPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private async void BackButton_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//admin/dashboard");
+    }
 }
