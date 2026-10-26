@@ -41,15 +41,7 @@
 
         </Grid>
 
-        <CollectionView Grid.Row="2">
-
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Ms N. Teacher</x:String>
-                    <x:String>Mr T. Teacher</x:String>
-                    <x:String>Ms K. Teacher</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Staff}">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -63,16 +55,16 @@
                         <VerticalStackLayout Spacing="5">
 
                             <Label
-                                Text="{Binding .}"
+                                Text="{Binding FullName}"
                                 FontAttributes="Bold"
                                 FontSize="16" />
 
                             <Label
-                                Text="Class: Grade 5A"
+                                Text="{Binding Position, StringFormat='Position: {0}'}"
                                 FontSize="13" />
 
                             <Label
-                                Text="Subjects: Mathematics, Natural Sciences"
+                                Text="{Binding Subjects}"
                                 FontSize="13"
                                 TextColor="Gray" />
 

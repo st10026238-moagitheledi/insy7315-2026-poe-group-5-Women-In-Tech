@@ -12,7 +12,7 @@ namespace KoosMatliAdminApi.Data
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<KoosMatliAdminApi.Models.AdmissionApplication> Applications { get; set; }
+        public DbSet<AdmissionApplication> Applications { get; set; }
 
         public DbSet<StaffMember> StaffMembers { get; set; }
 
@@ -23,6 +23,8 @@ namespace KoosMatliAdminApi.Data
         public DbSet<SchoolDetails> SchoolDetails { get; set; }
 
         public DbSet<SchoolDate> SchoolDates { get; set; }
+
+        public DbSet<CalendarEvent> CalendarEvents { get; set; }
 
         public DbSet<SchoolDocument> SchoolDocuments { get; set; }
     }

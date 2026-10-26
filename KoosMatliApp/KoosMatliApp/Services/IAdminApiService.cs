@@ -1,13 +1,23 @@
-﻿using KoosMatliApp.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using KoosMatliApp.Models;
 
-namespace KoosMatliApp.Services
+namespace KoosMatliApp.Services;
+
+public interface IAdminApiService
 {
-    public interface IAdminApiService
-    {
-        Task<List<SchoolDate>> GetSchoolDatesAsync();
+    Task<AdminDashboard?> GetDashboardAsync();
 
-        Task<SchoolDate?> AddSchoolDateAsync(SchoolDate schoolDate);
-    }
+    Task<List<User>> GetUsersAsync(string? role = null);
+
+    Task<List<AdmissionApplication>> GetApplicationsAsync();
+    Task<AdmissionApplication?> GetApplicationAsync(int id);
+    Task UpdateApplicationStatusAsync(int id, string status);
+
+    Task<List<StaffMember>> GetStaffAsync();
+
+    Task<SchoolDetails?> GetSchoolDetailsAsync();
+    Task<List<SchoolDate>> GetSchoolDatesAsync();
+    Task<SchoolDate?> AddSchoolDateAsync(SchoolDate schoolDate);
+    Task<List<CalendarEvent>> GetCalendarEventsAsync();
+
+    Task<List<SchoolDocument>> GetDocumentsAsync();
 }

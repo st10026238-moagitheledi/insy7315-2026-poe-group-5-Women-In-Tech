@@ -43,15 +43,7 @@
         </ScrollView>
 
         <!-- APPLICATION LIST -->
-        <CollectionView Grid.Row="3">
-
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>APP-2026-001</x:String>
-                    <x:String>APP-2026-002</x:String>
-                    <x:String>APP-2026-003</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Applications}">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -67,16 +59,16 @@
                             <VerticalStackLayout Spacing="4">
 
                                 <Label
-                                    Text="{Binding .}"
+                                    Text="{Binding ApplicationNumber}"
                                     FontAttributes="Bold"
                                     FontSize="16" />
 
                                 <Label
-                                    Text="Learner Name"
+                                    Text="{Binding LearnerFullName}"
                                     FontSize="14" />
 
                                 <Label
-                                    Text="Pending"
+                                    Text="{Binding Status}"
                                     FontSize="13"
                                     TextColor="Orange" />
 
