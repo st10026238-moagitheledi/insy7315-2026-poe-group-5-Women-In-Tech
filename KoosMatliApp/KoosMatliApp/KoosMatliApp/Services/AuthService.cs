@@ -1,5 +1,4 @@
-﻿
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using KoosMatliApp.Models;
@@ -105,6 +104,46 @@ public class AuthService
                 "An unexpected error occurred during registration.");
         }
     }
+
+
+    // FORGOT PASSWORD
+    public async Task<AuthResponse> ForgotPasswordAsync(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            return CreateFailure("Please enter your email address.");
+        }
+
+        try
+        {
+            var request = new
+            {
+                Email = email.Trim()
+            };
+
+            var response = await _httpClient.PostAsJsonAsync(
+                "/api/auth/forgot-password",
+                request);
+
+            return await ProcessAuthResponseAsync(response);
+        }
+        catch (TaskCanceledException)
+        {
+            return CreateFailure(
+                "The request timed out. Please try again.");
+        }
+        catch (HttpRequestException)
+        {
+            return CreateFailure(
+                "Unable to connect to the server. Check your connection.");
+        }
+        catch (Exception)
+        {
+            return CreateFailure(
+                "An unexpected error occurred. Please try again.");
+        }
+    }
+
 
     // GET CURRENT USER
     public async Task<AuthResponse> GetCurrentUserAsync()

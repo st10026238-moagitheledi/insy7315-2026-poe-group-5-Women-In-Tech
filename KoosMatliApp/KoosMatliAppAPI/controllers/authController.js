@@ -217,6 +217,86 @@ async function login(req, res) {
     }
 }
 
+//POST /api/auth/forgot-password
+async function forgotPassword(req, res) {
+    try {
+        const { email } = req.body;
+
+        if (typeof email !== "string" || !email.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Email address is required."
+            });
+        }
+
+        const cleanEmail = email.trim().toLowerCase();
+        const apiKey = process.env.FIREBASE_WEB_API_KEY;
+
+        if (!apiKey) {
+            console.error("FIREBASE_WEB_API_KEY is not configured.");
+
+            return res.status(500).json({
+                success: false,
+                message: "Password reset is currently unavailable."
+            });
+        }
+
+        const firebaseResponse = await fetch(
+            `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${apiKey}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    requestType: "PASSWORD_RESET",
+                    email: cleanEmail
+                })
+            }
+        );
+
+        const data = await firebaseResponse.json();
+
+        if (!firebaseResponse.ok) {
+            const errorCode = data?.error?.message;
+
+            // Do not reveal whether an account exists.
+            if (
+                errorCode === "EMAIL_NOT_FOUND" ||
+                errorCode === "INVALID_EMAIL"
+            ) {
+                return res.status(200).json({
+                    success: true,
+                    message:
+                        "If an account exists for that email, password reset instructions will be sent."
+                });
+            }
+
+            console.error("Password reset error:", errorCode);
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Unable to process the password reset request. Please try again later."
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message:
+                "If an account exists for that email, password reset instructions will be sent."
+        });
+    } catch (error) {
+        console.error("Forgot password error:", error.message);
+
+        return res.status(500).json({
+            success: false,
+            message:
+                "Unable to process the password reset request. Please try again later."
+        });
+    }
+}
+
 // GET /api/auth/me
 function getCurrentUser(req, res) {
     return res.status(200).json({
@@ -228,5 +308,6 @@ function getCurrentUser(req, res) {
 module.exports = {
     registerParent,
     login,
+    forgotPassword,
     getCurrentUser
 };
