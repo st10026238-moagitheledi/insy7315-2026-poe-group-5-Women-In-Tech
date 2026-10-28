@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using KoosMatliApp.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace KoosMatliApp
 {
@@ -7,11 +8,13 @@ namespace KoosMatliApp
         public App()
         {
             InitializeComponent();
-        }
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
+            // Initialize local DB in background
+            // Source: Initialize DB in background to avoid blocking UI thread (async pattern) [2] (2026)
+            _ = Task.Run(async () => await UserRepository.InitializeAsync());
+
+            // Start with the loading page which will transition to onboarding
+            MainPage = new KoosMatliApp.MainPage();
         }
     }
 }
