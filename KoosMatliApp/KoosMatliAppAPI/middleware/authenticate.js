@@ -7,46 +7,65 @@ async function authenticate(req, res, next) {
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             return res.status(401).json({
                 success: false,
-                message: "Authentication token is required."
+                message: "A valid authentication token is required."
             });
         }
 
-        const token = authHeader.split(" ")[1];
+        const token = authHeader.substring(7).trim();
 
-        const decodedToken = await auth.verifyIdToken(token);
-        const userDoc = await db.collection("users").doc(decodedToken.uid).get();
+        if (!token) {
+            return res.status(401).json({
+                success: false,
+                message: "A valid authentication token is required."
+            });
+        }
+
+        // true also checks whether the token has been revoked.
+        const decodedToken = await auth.verifyIdToken(token, true);
+
+        const userDoc = await db
+            .collection("users")
+            .doc(decodedToken.uid)
+            .get();
 
         if (!userDoc.exists) {
             return res.status(403).json({
                 success: false,
-                message: "User profile has not been configured."
+                message: "Your user profile has not been configured."
             });
         }
 
-        const userData = userDoc.data();
+        const profile = userDoc.data();
 
-        if (userData.isActive === false) {
+        if (profile.isActive === false) {
             return res.status(403).json({
                 success: false,
                 message: "Your account has been deactivated."
             });
         }
 
+        if (!["parent", "teacher", "admin"].includes(profile.role)) {
+            return res.status(403).json({
+                success: false,
+                message: "Your account has an invalid role."
+            });
+        }
+
         req.user = {
             uid: decodedToken.uid,
-            email: decodedToken.email || null,
-            role: userData.role,
-            displayName: userData.displayName || "",
-            isActive: userData.isActive !== false
+            email: profile.email || decodedToken.email || null,
+            displayName: profile.displayName || "",
+            role: profile.role,
+            isActive: profile.isActive !== false
         };
 
-        next();
+        return next();
     } catch (error) {
         console.error("Authentication error:", error.message);
 
         return res.status(401).json({
             success: false,
-            message: "Invalid or expired authentication token."
+            message: "Invalid, expired or revoked authentication token."
         });
     }
 }

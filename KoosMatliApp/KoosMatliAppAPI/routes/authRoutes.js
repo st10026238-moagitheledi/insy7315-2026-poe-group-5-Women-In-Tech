@@ -1,15 +1,15 @@
 const express = require("express");
+const {
+    registerParent,
+    login,
+    getCurrentUser
+} = require("../controllers/authController");
 const authenticate = require("../middleware/authenticate");
 
 const router = express.Router();
 
-// GET /api/auth/me
-// Returns the authenticated user's profile.
-router.get("/me", authenticate, (req, res) => {
-    return res.status(200).json({
-        success: true,
-        user: req.user
-    });
-});
+router.post("/register-parent", registerParent);
+router.post("/login", login);
+router.get("/me", authenticate, getCurrentUser);
 
 module.exports = router;

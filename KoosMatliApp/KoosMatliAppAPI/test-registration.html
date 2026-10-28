@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Koos Matli Primary School - Authentication Test</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f8ff;
+            color: #102b5c;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 26px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #526581;
+            margin-bottom: 24px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            background: #e2eaff;
+            color: #102b5c;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tab.active {
+            background: #1239c9;
+            color: white;
+        }
+
+        form, .profile-card {
+            display: grid;
+            gap: 12px;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(16, 43, 92, 0.08);
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+        }
+
+        input {
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        input:focus {
+            outline: 2px solid #9cb5ff;
+            border-color: #1239c9;
+        }
+
+        .submit-button {
+            background: #1239c9;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .secondary-button {
+            background: #e2eaff;
+            color: #102b5c;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 14px;
+            background: white;
+            border-radius: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .status h2 {
+            font-size: 18px;
+            margin-top: 0;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            font-size: 13px;
+        }
+
+        .success {
+            color: #167044;
+        }
+
+        .error {
+            color: #b42318;
+        }
+
+        .note {
+            color: #526581;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Koos Matli Primary School</h1>
+    <p class="subtitle">Parent Authentication Test</p>
+
+    <div class="tabs">
+        <button type="button" class="tab active" id="loginTab">
+            Sign In
+        </button>
+
+        <button type="button" class="tab" id="registerTab">
+            Register
+        </button>
+    </div>
+
+    <!-- SIGN IN FORM -->
+    <form id="loginForm">
+        <h2>Welcome Back</h2>
+
+        <label for="loginEmail">Email address</label>
+        <input
+            id="loginEmail"
+            type="email"
+            autocomplete="email"
+            required
+            placeholder="Enter your email"
+        >
+
+        <label for="loginPassword">Password</label>
+        <input
+            id="loginPassword"
+            type="password"
+            autocomplete="current-password"
+            required
+            placeholder="Enter your password"
+        >
+
+        <button type="submit" class="submit-button" id="loginButton">
+            Sign In
+        </button>
+    </form>
+
+    <!-- REGISTRATION FORM -->
+    <form id="registrationForm" class="hidden">
+        <h2>Create Parent Account</h2>
+
+        <label for="displayName">Full name</label>
+        <input
+            id="displayName"
+            type="text"
+            autocomplete="name"
+            required
+            placeholder="Enter your full name"
+        >
+
+        <label for="registerEmail">Email address</label>
+        <input
+            id="registerEmail"
+            type="email"
+            autocomplete="email"
+            required
+            placeholder="Enter your email"
+        >
+
+        <label for="registerPassword">Password</label>
+        <input
+            id="registerPassword"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            required
+            placeholder="At least 8 characters"
+        >
+
+        <button type="submit" class="submit-button" id="registerButton">
+            Register Parent
+        </button>
+    </form>
+
+    <!-- SIGNED-IN PROFILE -->
+    <section id="profileCard" class="profile-card hidden">
+        <h2 class="success">You are signed in!</h2>
+        <p id="profileDetails"></p>
+
+        <button type="button" class="submit-button" id="testProfileButton">
+            Test /api/auth/me
+        </button>
+
+        <button type="button" class="secondary-button" id="logoutButton">
+            Sign Out
+        </button>
+
+        <p class="note">
+            Signing out here clears this page's token. It does not revoke the
+            Firebase token or delete the Firebase account.
+        </p>
+    </section>
+
+    <!-- API RESPONSE -->
+    <section class="status">
+        <h2>API Response</h2>
+        <p id="statusMessage">Ready to test your API.</p>
+        <pre id="result">No request sent yet.</pre>
+    </section>
+
+    <script>
+        const API_URL = "http://localhost:5000/api/auth";
+
+        const loginTab = document.getElementById("loginTab");
+        const registerTab = document.getElementById("registerTab");
+
+        const loginForm = document.getElementById("loginForm");
+        const registrationForm = document.getElementById("registrationForm");
+
+        const profileCard = document.getElementById("profileCard");
+        const profileDetails = document.getElementById("profileDetails");
+
+        const statusMessage = document.getElementById("statusMessage");
+        const result = document.getElementById("result");
+
+        const loginButton = document.getElementById("loginButton");
+        const registerButton = document.getElementById("registerButton");
+
+        // Keep the token in page memory rather than browser localStorage.
+        let idToken = null;
+
+        function showResponse(message, data, isError = false) {
+            statusMessage.textContent = message;
+            statusMessage.className = isError ? "error" : "success";
+
+            result.textContent = typeof data === "string"
+                ? data
+                : JSON.stringify(data, null, 2);
+        }
+
+        function showLogin() {
+            loginTab.classList.add("active");
+            registerTab.classList.remove("active");
+
+            loginForm.classList.remove("hidden");
+            registrationForm.classList.add("hidden");
+            profileCard.classList.add("hidden");
+        }
+
+        function showRegistration() {
+            registerTab.classList.add("active");
+            loginTab.classList.remove("active");
+
+            registrationForm.classList.remove("hidden");
+            loginForm.classList.add("hidden");
+            profileCard.classList.add("hidden");
+        }
+
+        loginTab.addEventListener("click", showLogin);
+        registerTab.addEventListener("click", showRegistration);
+
+        async function sendRequest(url, options) {
+            const response = await fetch(url, options);
+
+            const data = await response.json().catch(() => ({
+                success: false,
+                message: "The server returned an unreadable response."
+            }));
+
+            return { response, data };
+        }
+
+        // REGISTER PARENT
+        registrationForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            registerButton.disabled = true;
+            registerButton.textContent = "Registering...";
+
+            showResponse("Registering parent account...", "");
+
+            const requestBody = {
+                displayName: document.getElementById("displayName").value.trim(),
+                email: document.getElementById("registerEmail").value.trim(),
+                password: document.getElementById("registerPassword").value
+            };
+
+            try {
+                const { response, data } = await sendRequest(
+                    `${API_URL}/register-parent`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(requestBody)
+                    }
+                );
+
+                showResponse(
+                    `HTTP Status: ${response.status}`,
+                    data,
+                    !response.ok
+                );
+
+                if (response.ok) {
+                    // Switch to sign in and prefill the email.
+                    document.getElementById("loginEmail").value =
+                        requestBody.email;
+
+                    document.getElementById("loginPassword").value = "";
+
+                    registrationForm.reset();
+                    showLogin();
+
+                    statusMessage.textContent =
+                        "Registration successful. Please sign in.";
+                    statusMessage.className = "success";
+                }
+            } catch (error) {
+                showResponse(
+                    "Could not connect to the API.",
+                    error.message + "\nCheck the server and CORS settings.",
+                    true
+                );
+            } finally {
+                registerButton.disabled = false;
+                registerButton.textContent = "Register Parent";
+            }
+        });
+
+        // SIGN IN
+        loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            loginButton.disabled = true;
+            loginButton.textContent = "Signing in...";
+
+            showResponse("Signing in...", "");
+
+            const requestBody = {
+                email: document.getElementById("loginEmail").value.trim(),
+                password: document.getElementById("loginPassword").value
+            };
+
+            try {
+                const { response, data } = await sendRequest(
+                    `${API_URL}/login`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(requestBody)
+                    }
+                );
+
+                if (!response.ok) {
+                    idToken = null;
+
+                    showResponse(
+                        `Sign in failed — HTTP ${response.status}`,
+                        data,
+                        true
+                    );
+                    return;
+                }
+
+                if (!data.idToken || !data.user) {
+                    idToken = null;
+
+                    showResponse(
+                        "Sign-in response is incomplete.",
+                        data,
+                        true
+                    );
+                    return;
+                }
+
+                idToken = data.idToken;
+
+                profileDetails.textContent =
+                    `Name: ${data.user.displayName}\n` +
+                    `Email: ${data.user.email}\n` +
+                    `Role: ${data.user.role}\n` +
+                    `UID: ${data.user.uid}`;
+
+                loginForm.classList.add("hidden");
+                registrationForm.classList.add("hidden");
+                loginTab.classList.remove("active");
+                registerTab.classList.remove("active");
+                profileCard.classList.remove("hidden");
+
+                showResponse(
+                    `Sign in successful — HTTP ${response.status}`,
+                    {
+                        success: data.success,
+                        message: data.message,
+                        user: data.user,
+                        tokenReceived: true
+                    }
+                );
+
+                // Don't display the token in the page.
+            } catch (error) {
+                idToken = null;
+
+                showResponse(
+                    "Could not connect to the API.",
+                    error.message + "\nCheck the server and CORS settings.",
+                    true
+                );
+            } finally {
+                loginButton.disabled = false;
+                loginButton.textContent = "Sign In";
+            }
+        });
+
+        // TEST PROTECTED PROFILE ENDPOINT
+        document.getElementById("testProfileButton")
+            .addEventListener("click", async () => {
+                if (!idToken) {
+                    showResponse(
+                        "No sign-in token is available.",
+                        "Please sign in again.",
+                        true
+                    );
+                    return;
+                }
+
+                showResponse("Testing authenticated profile...", "");
+
+                try {
+                    const { response, data } = await sendRequest(
+                        `${API_URL}/me`,
+                        {
+                            method: "GET",
+                            headers: {
+                                "Authorization": `Bearer ${idToken}`
+                            }
+                        }
+                    );
+
+                    showResponse(
+                        `GET /api/auth/me — HTTP ${response.status}`,
+                        data,
+                        !response.ok
+                    );
+                } catch (error) {
+                    showResponse(
+                        "Could not connect to the API.",
+                        error.message,
+                        true
+                    );
+                }
+            });
+
+        // SIGN OUT OF THIS TEST PAGE
+        document.getElementById("logoutButton")
+            .addEventListener("click", () => {
+                idToken = null;
+                loginForm.reset();
+
+                profileCard.classList.add("hidden");
+                showLogin();
+
+                showResponse(
+                    "Signed out of the test page.",
+                    "Your token has been cleared from this page's memory."
+                );
+            });
+    </script>
+</body>
+</html>
