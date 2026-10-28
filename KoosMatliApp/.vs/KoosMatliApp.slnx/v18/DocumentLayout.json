@@ -1,12 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\moagi\\OneDrive\\Documents\\GitHub\\insy7315-2026-poe-task-2-group-5-Women-In-Tech\\KoosMatliApp\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 1,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\Models\\User.cs",
+              "RelativeDocumentMoniker": "KoosMatliApp\\Models\\User.cs",
+              "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\Models\\User.cs",
+              "RelativeToolTip": "KoosMatliApp\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-28T07:53:36.145Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

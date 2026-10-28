@@ -1,0 +1,178 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.VerifyReferenceTrimCompatibility = 
+build_property.VerifyReferenceAotCompatibility = 
+build_property.MauiXamlNoWarn = 
+build_property.EnableMauiXamlDiagnostics = true
+build_property.MauiXamlLineInfo = 
+build_property.Configuration = Debug
+build_property.TargetFramework = net10.0-ios
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EntryPointFilePath = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = KoosMatliApp
+build_property.ProjectDir = C:\GitHub\insy7315-2026-poe-group-5-Women-In-Tech\KoosMatliApp\KoosMatliApp\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 10.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/MainPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.MainPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/ForgotPassword.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.ForgotPassword.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\ForgotPassword.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\ForgotPassword.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/LanguagePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.LanguagePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\LanguagePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\LanguagePage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/Login.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.Login.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\Login.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\Login.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/OnboardingPage1.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.OnboardingPage1.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\OnboardingPage1.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\OnboardingPage1.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/OnboardingPage2.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.OnboardingPage2.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\OnboardingPage2.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\OnboardingPage2.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/OnboardingPage3.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.OnboardingPage3.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\OnboardingPage3.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\OnboardingPage3.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/OnboardingPage4.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.OnboardingPage4.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\OnboardingPage4.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\OnboardingPage4.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/ResetPassword.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.ResetPassword.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\ResetPassword.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\ResetPassword.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/SignUp.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.SignUp.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\SignUp.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\SignUp.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Pages/VerifyPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Pages.VerifyPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\VerifyPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\VerifyPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Resources/Styles/Colors.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Resources.Styles.Colors.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/Resources/Styles/Styles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Resources.Styles.Styles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
