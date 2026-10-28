@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Authentication.LanguagePage"
+    BackgroundColor="#F5F7FC"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout
+                Padding="26,35,26,20"
+                Spacing="0">
+
+                <!-- Header -->
+                <Label
+                    Text="KOOS MATLI"
+                    FontSize="13"
+                    FontAttributes="Bold"
+                    TextColor="#061D45"
+                    CharacterSpacing="2"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="PRIMARY SCHOOL"
+                    FontSize="10"
+                    FontAttributes="Bold"
+                    TextColor="#B88600"
+                    CharacterSpacing="1.5"
+                    HorizontalTextAlignment="Center"
+                    Margin="0,3,0,35" />
+
+                <!-- Language icon -->
+                <Border
+                    WidthRequest="76"
+                    HeightRequest="76"
+                    BackgroundColor="#E7EDFA"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 24"
+                    HorizontalOptions="Center">
+
+                    <Label
+                        Text="文"
+                        FontSize="36"
+                        FontAttributes="Bold"
+                        TextColor="#1239C9"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Border>
+
+                <Label
+                    Text="Choose Your Language"
+                    FontSize="25"
+                    FontAttributes="Bold"
+                    TextColor="#061D45"
+                    HorizontalTextAlignment="Center"
+                    Margin="0,24,0,8" />
+
+                <Label
+                    Text="Kgetha Puo ya Gago / Tlhopha Puo ya Gago"
+                    FontSize="13"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center"
+                    Margin="0,0,0,30" />
+
+                <!-- English -->
+                <Border
+                    x:Name="EnglishCard"
+                    Stroke="#FFBF19"
+                    StrokeThickness="2"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16"
+                    Margin="0,0,0,12">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="OnEnglishSelected" />
+                    </Border.GestureRecognizers>
+
+                    <Grid ColumnDefinitions="Auto,*,Auto"
+                          ColumnSpacing="14">
+
+                        <Border
+                            WidthRequest="46"
+                            HeightRequest="46"
+                            BackgroundColor="#EEF2FF"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 12"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="EN"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#1239C9"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            Spacing="3">
+
+                            <Label
+                                Text="English"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="#061D45" />
+
+                            <Label
+                                Text="Continue in English"
+                                FontSize="12"
+                                TextColor="#64748B" />
+                        </VerticalStackLayout>
+
+                        <Label
+                            x:Name="EnglishCheck"
+                            Grid.Column="2"
+                            Text="✓"
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            TextColor="#1239C9"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- Sepedi -->
+                <Border
+                    x:Name="SepediCard"
+                    Stroke="#DCE3EF"
+                    StrokeThickness="1"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16"
+                    Margin="0,0,0,12">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="OnSepediSelected" />
+                    </Border.GestureRecognizers>
+
+                    <Grid ColumnDefinitions="Auto,*,Auto"
+                          ColumnSpacing="14">
+
+                        <Border
+                            WidthRequest="46"
+                            HeightRequest="46"
+                            BackgroundColor="#FFF5D9"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 12"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="SE"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#916600"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            Spacing="3">
+
+                            <Label
+                                Text="Sepedi"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="#061D45" />
+
+                            <Label
+                                Text="Tšwela pele ka Sepedi"
+                                FontSize="12"
+                                TextColor="#64748B" />
+                        </VerticalStackLayout>
+
+                        <Label
+                            x:Name="SepediCheck"
+                            Grid.Column="2"
+                            Text=""
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            TextColor="#1239C9"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- Setswana -->
+                <Border
+                    x:Name="SetswanaCard"
+                    Stroke="#DCE3EF"
+                    StrokeThickness="1"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16"
+                    Margin="0,0,0,10">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="OnSetswanaSelected" />
+                    </Border.GestureRecognizers>
+
+                    <Grid ColumnDefinitions="Auto,*,Auto"
+                          ColumnSpacing="14">
+
+                        <Border
+                            WidthRequest="46"
+                            HeightRequest="46"
+                            BackgroundColor="#E5F6EC"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 12"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="TN"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#167344"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            Spacing="3">
+
+                            <Label
+                                Text="Setswana"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="#061D45" />
+
+                            <Label
+                                Text="Tswelela ka Setswana"
+                                FontSize="12"
+                                TextColor="#64748B" />
+                        </VerticalStackLayout>
+
+                        <Label
+                            x:Name="SetswanaCheck"
+                            Grid.Column="2"
+                            Text=""
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            TextColor="#1239C9"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <Label
+                    Text="You can change your language later in Settings."
+                    FontSize="11"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center"
+                    Margin="0,14,0,0" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Continue button -->
+        <Grid
+            Grid.Row="1"
+            Padding="26,12,26,24"
+            BackgroundColor="#F5F7FC">
+
+            <Button
+                x:Name="ContinueButton"
+                Text="Continue"
+                FontSize="16"
+                FontAttributes="Bold"
+                TextColor="#061D45"
+                BackgroundColor="#FFBF19"
+                CornerRadius="14"
+                HeightRequest="54"
+                Clicked="OnContinueClicked" />
+        </Grid>
+
+    </Grid>
+</ContentPage>

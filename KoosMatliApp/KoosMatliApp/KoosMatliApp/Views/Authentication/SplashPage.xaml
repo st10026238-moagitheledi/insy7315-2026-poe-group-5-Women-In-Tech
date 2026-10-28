@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Authentication.SplashPage"
+    BackgroundColor="#061D45"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid
+        BackgroundColor="#061D45"
+        RowDefinitions="*,Auto"
+        IsClippedToBounds="True">
+
+        <!-- Main splash content -->
+        <VerticalStackLayout
+            Grid.Row="0"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Spacing="0"
+            Margin="20,35,20,0">
+
+            <!-- School crest -->
+            <Image
+                Source="koosmatli-logo.png"
+                WidthRequest="112"
+                HeightRequest="112"
+                Aspect="AspectFit"
+                HorizontalOptions="Center"
+                Margin="0,0,0,12" />
+
+            <!-- School name -->
+            <Label
+                Text="KOOS MATLI"
+                FontSize="25"
+                FontAttributes="Bold"
+                TextColor="White"
+                CharacterSpacing="0.5"
+                HorizontalTextAlignment="Center" />
+
+            <Label
+                Text="PRIMARY SCHOOL"
+                FontSize="11"
+                FontAttributes="Bold"
+                TextColor="#FFBF19"
+                CharacterSpacing="1.2"
+                HorizontalTextAlignment="Center"
+                Margin="0,2,0,0" />
+
+            <!-- School motto -->
+            <Label
+                Text="THUTO KE LESEDI"
+                FontSize="12"
+                FontAttributes="Bold"
+                TextColor="#FFBF19"
+                CharacterSpacing="0.4"
+                HorizontalTextAlignment="Center"
+                Margin="0,24,0,0" />
+
+            <Label
+                Text="Education is Light"
+                FontSize="10"
+                FontAttributes="Italic"
+                TextColor="White"
+                HorizontalTextAlignment="Center"
+                Margin="0,3,0,0" />
+
+            <!-- Loading indicator -->
+            <ActivityIndicator
+                IsRunning="True"
+                Color="#FFBF19"
+                WidthRequest="30"
+                HeightRequest="30"
+                HorizontalOptions="Center"
+                Margin="0,25,0,0" />
+
+        </VerticalStackLayout>
+
+        <!-- Decorative gold wave at the bottom -->
+        <Grid
+            Grid.RowSpan="2"
+            VerticalOptions="End"
+            HeightRequest="125"
+            InputTransparent="True">
+
+            <!-- Rear wave -->
+            <Ellipse
+                Fill="#EBA900"
+                WidthRequest="570"
+                HeightRequest="165"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                TranslationY="92"
+                TranslationX="-75" />
+
+            <!-- Front gold wave -->
+            <Ellipse
+                Fill="#FFBF19"
+                WidthRequest="500"
+                HeightRequest="145"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                TranslationY="108"
+                TranslationX="100" />
+
+        </Grid>
+
+    </Grid>
+</ContentPage>
