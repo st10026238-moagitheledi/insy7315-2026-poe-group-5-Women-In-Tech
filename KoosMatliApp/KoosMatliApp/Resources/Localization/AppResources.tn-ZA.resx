@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnSkip" xml:space="preserve">
+    <value>Tlola</value>
+  </data>
+  <data name="BtnNext" xml:space="preserve">
+    <value>Latelang</value>
+  </data>
+  <data name="BtnGetStarted" xml:space="preserve">
+    <value>Simolola</value>
+  </data>
+  <data name="TitleStayConnected" xml:space="preserve">
+    <value>Nna o Golagantswe</value>
+  </data>
+  <data name="DescStayConnected" xml:space="preserve">
+    <value>Amogela ditshepiso tše bohlokwa le melaetsa go tšwa sekolong ka nako ya gona.</value>
+  </data>
+  <data name="TitleAccessTimetables" xml:space="preserve">
+    <value>Phitlhelelo ya Mananeonako</value>
+  </data>
+  <data name="DescAccessTimetables" xml:space="preserve">
+    <value>Bona thulaganyo ya nako ya ngwana wa gago, ditiragalo tse di tlang le matlha a botlhokwa.</value>
+  </data>
+  <data name="TitleAccessOffline" xml:space="preserve">
+    <value>Phitlhelelo kwa ntle ga inthanete</value>
+  </data>
+  <data name="DescAccessOffline" xml:space="preserve">
+    <value>Fitlhelela tshedimosetso ya botlhokwa ya sekolo le fa o se mo inthaneteng.</value>
+  </data>
+  <data name="TitleDataSaver" xml:space="preserve">
+    <value>Seboloki sa tshedimosetso</value>
+  </data>
+  <data name="DescDataSaver" xml:space="preserve">
+    <value>Fokotsa tiriso ya tshedimosetso fa o ntse o na le kitso le go golagana.</value>
+  </data>
+  <data name="TxtWelcomeBack" xml:space="preserve">
+    <value>O amogelesega gape!</value>
+  </data>
+  <data name="PhEmailUsername" xml:space="preserve">
+    <value>Imeile kgotsa Leina la Modirisi</value>
+  </data>
+  <data name="PhPassword" xml:space="preserve">
+    <value>Khunololamoraba</value>
+  </data>
+  <data name="LblRememberMe" xml:space="preserve">
+    <value>Nkgopole</value>
+  </data>
+  <data name="BtnForgotPassword" xml:space="preserve">
+    <value>A o lebetse khunololamoraba?</value>
+  </data>
+  <data name="BtnLogIn" xml:space="preserve">
+    <value>Tsena</value>
+  </data>
+  <data name="LblNoAccount" xml:space="preserve">
+    <value>Ga o na akhaonto?</value>
+  </data>
+  <data name="BtnSignUp" xml:space="preserve">
+    <value>Ikwadise</value>
+  </data>
+  <data name="TxtCreateAccount" xml:space="preserve">
+    <value>Tlhama Akhaonto</value>
+  </data>
+  <data name="TxtParentGuardian" xml:space="preserve">
+    <value>Motswadi / Motlhokomedi</value>
+  </data>
+  <data name="PhFirstName" xml:space="preserve">
+    <value>Leina la Ntlha</value>
+  </data>
+  <data name="PhLastName" xml:space="preserve">
+    <value>Sefane</value>
+  </data>
+  <data name="PhEmailAddress" xml:space="preserve">
+    <value>Aterese ya Imeile</value>
+  </data>
+  <data name="PhPhoneNumber" xml:space="preserve">
+    <value>Nomoro ya Mogala</value>
+  </data>
+  <data name="PhConfirmPassword" xml:space="preserve">
+    <value>Tlhomamisa nomoro ya khunololamoraba</value>
+  </data>
+  <data name="TxtAgreeTo" xml:space="preserve">
+    <value>Dumela Go </value>
+  </data>
+  <data name="BtnTermsOfService" xml:space="preserve">
+    <value>Melawana ya tirelo</value>
+  </data>
+  <data name="TxtAnd" xml:space="preserve">
+    <value> le </value>
+  </data>
+  <data name="BtnPrivacyPolicy" xml:space="preserve">
+    <value>Pholisi ya Polokodiphiri</value>
+  </data>
+  <data name="LblHaveAccount" xml:space="preserve">
+    <value>A o na le akhaonto?</value>
+  </data>
+  <data name="TitleForgotPassword" xml:space="preserve">
+    <value>O Lebetse Khunololamoraba</value>
+  </data>
+  <data name="DescForgotPassword" xml:space="preserve">
+    <value>Tsenya imeile ya gago kgotsa leina la modirisi mme re tla go romela khoutu ya netefatso.
+</value>
+  </data>
+  <data name="BtnSendCode" xml:space="preserve">
+    <value>Romela Khoutu</value>
+  </data>
+  <data name="LblRememberPassword" xml:space="preserve">
+    <value>A o ka rata gore ke gakologelwe nomoro ya gago ya khunololamoraba?</value>
+  </data>
+  <data name="TitleVerifyCode" xml:space="preserve">
+    <value>Tlhomamisa Khoutu</value>
+  </data>
+  <data name="DescVerifyCode" xml:space="preserve">
+    <value>Tsweetswee tsenya khoutu ya netefatso ya dinomoroo di le 6</value>
+  </data>
+  <data name="BtnVerify" xml:space="preserve">
+    <value>Netefatsa</value>
+  </data>
+  <data name="LblDidNotReceive" xml:space="preserve">
+    <value>Ga o a amogela khoutu?</value>
+  </data>
+  <data name="BtnResendCode" xml:space="preserve">
+    <value>Romela Khoutu Gape</value>
+  </data>
+  <data name="TitleResetPassword" xml:space="preserve">
+    <value>Sete Khunololamoraba Gape </value>
+  </data>
+  <data name="DescResetPassword" xml:space="preserve">
+    <value>Khunololamorabae tshwanetse go nna le ditlhaka di le 8-60 mme e akaretse tse di latelang: ditlhakakgolo, ditlhakapotlana, nomoro, le letshwao.</value>
+  </data>
+  <data name="PhNewPassword" xml:space="preserve">
+    <value>Nomoro ya khunololamoraba e e ntšhwa</value>
+  </data>
+  <data name="BtnResetPassword" xml:space="preserve">
+    <value>Seta sešwa khunololamoraba</value>
+  </data>
+  <data name="TxtShow" xml:space="preserve">
+    <value>Ntsha</value>
+  </data>
+  <data name="TxtHide" xml:space="preserve">
+    <value>Fihla</value>
+  </data>
+  <data name="RoleParent" xml:space="preserve">
+    <value>Motswadi</value>
+  </data>
+  <data name="RoleTeacher" xml:space="preserve">
+    <value>Motlhokomedi</value>
+  </data>
+  <data name="Registering" xml:space="preserve">
+    <value>Ke rata go ikwadisa jaaka</value>
+  </data>
+</root>
