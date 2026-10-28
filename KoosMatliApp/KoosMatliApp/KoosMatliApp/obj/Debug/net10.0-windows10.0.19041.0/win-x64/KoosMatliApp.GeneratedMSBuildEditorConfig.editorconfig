@@ -168,3 +168,13 @@ build_metadata.AdditionalFiles.Inflator = SourceGen
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/KoosMatliApp/Views/Parent/TimetablePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Views.Parent.TimetablePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Parent\TimetablePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Parent\TimetablePage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 

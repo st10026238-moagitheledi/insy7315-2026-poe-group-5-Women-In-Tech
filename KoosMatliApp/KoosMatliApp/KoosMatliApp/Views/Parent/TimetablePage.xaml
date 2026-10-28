@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KoosMatliApp.Views.Parent.TimetablePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Timetables"
+    BackgroundColor="#F5F7FB">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              BackgroundColor="#172554"
+              Padding="22,25,22,22"
+              RowDefinitions="Auto,Auto"
+              RowSpacing="6">
+
+            <Label Grid.Row="0"
+                   Text="PARENT PORTAL"
+                   FontSize="11"
+                   FontAttributes="Bold"
+                   TextColor="#93C5FD"
+                   CharacterSpacing="2" />
+
+            <Label Grid.Row="1"
+                   Text="Timetables"
+                   FontSize="27"
+                   FontAttributes="Bold"
+                   TextColor="White" />
+        </Grid>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20"
+                                 Spacing="18">
+
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Class Schedule"
+                           FontSize="21"
+                           FontAttributes="Bold"
+                           TextColor="#172554" />
+
+                    <Label Text="View your child's weekly lessons and class times."
+                           FontSize="13"
+                           TextColor="#64748B" />
+                </VerticalStackLayout>
+
+                <!-- Learner Selector -->
+                <Border BackgroundColor="White"
+                        Stroke="#E2E8F0"
+                        StrokeThickness="1"
+                        Padding="14"
+                        StrokeShape="RoundRectangle 14">
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="SELECT LEARNER"
+                               FontSize="11"
+                               FontAttributes="Bold"
+                               TextColor="#64748B" />
+
+                        <Picker x:Name="LearnerPicker"
+                                Title="Choose a learner"
+                                TitleColor="#94A3B8"
+                                TextColor="#172554"
+                                SelectedIndexChanged="OnLearnerChanged" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Day Selector -->
+                <ScrollView Orientation="Horizontal"
+                            HorizontalScrollBarVisibility="Never">
+                    <HorizontalStackLayout Spacing="8">
+
+                        <Button x:Name="MondayButton"
+                                Text="Monday"
+                                CommandParameter="Monday"
+                                Clicked="OnDayClicked"
+                                BackgroundColor="#243B80"
+                                TextColor="White"
+                                CornerRadius="18"
+                                Padding="15,9"
+                                FontSize="12" />
+
+                        <Button x:Name="TuesdayButton"
+                                Text="Tuesday"
+                                CommandParameter="Tuesday"
+                                Clicked="OnDayClicked"
+                                BackgroundColor="White"
+                                TextColor="#334155"
+                                CornerRadius="18"
+                                Padding="15,9"
+                                FontSize="12" />
+
+                        <Button x:Name="WednesdayButton"
+                                Text="Wednesday"
+                                CommandParameter="Wednesday"
+                                Clicked="OnDayClicked"
+                                BackgroundColor="White"
+                                TextColor="#334155"
+                                CornerRadius="18"
+                                Padding="15,9"
+                                FontSize="12" />
+
+                        <Button x:Name="ThursdayButton"
+                                Text="Thursday"
+                                CommandParameter="Thursday"
+                                Clicked="OnDayClicked"
+                                BackgroundColor="White"
+                                TextColor="#334155"
+                                CornerRadius="18"
+                                Padding="15,9"
+                                FontSize="12" />
+
+                        <Button x:Name="FridayButton"
+                                Text="Friday"
+                                CommandParameter="Friday"
+                                Clicked="OnDayClicked"
+                                BackgroundColor="White"
+                                TextColor="#334155"
+                                CornerRadius="18"
+                                Padding="15,9"
+                                FontSize="12" />
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+                <!-- Selected Day -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label x:Name="SelectedDayLabel"
+                           Text="Monday's Lessons"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#172554"
+                           VerticalOptions="Center" />
+
+                    <Label x:Name="LessonCountLabel"
+                           Grid.Column="1"
+                           Text="0 lessons"
+                           FontSize="12"
+                           TextColor="#64748B"
+                           VerticalOptions="Center" />
+                </Grid>
+
+                <ActivityIndicator x:Name="LoadingIndicator"
+                                   IsVisible="False"
+                                   IsRunning="False"
+                                   Color="#4338CA"
+                                   HorizontalOptions="Center" />
+
+                <Border x:Name="StatusContainer"
+                        IsVisible="False"
+                        BackgroundColor="White"
+                        Stroke="#E2E8F0"
+                        StrokeThickness="1"
+                        Padding="16"
+                        StrokeShape="RoundRectangle 14">
+
+                    <Label x:Name="StatusLabel"
+                           Text=""
+                           FontSize="13"
+                           TextColor="#64748B"
+                           HorizontalTextAlignment="Center" />
+                </Border>
+
+                <!-- Lesson List -->
+                <CollectionView x:Name="TimetableCollectionView"
+                                ItemsSource="{Binding FilteredLessons}"
+                                SelectionMode="None">
+
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout Padding="20"
+                                             Spacing="8"
+                                             HorizontalOptions="Center">
+                            <Label Text="No lessons scheduled"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#334155"
+                                   HorizontalTextAlignment="Center" />
+
+                            <Label Text="There are no lessons available for this day."
+                                   FontSize="13"
+                                   TextColor="#64748B"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="White"
+                                    Stroke="#E2E8F0"
+                                    StrokeThickness="1"
+                                    Padding="14"
+                                    Margin="0,0,0,12"
+                                    StrokeShape="RoundRectangle 14">
+
+                                <Grid ColumnDefinitions="75,*"
+                                      ColumnSpacing="14">
+
+                                    <!-- Time -->
+                                    <VerticalStackLayout Grid.Column="0"
+                                                         Spacing="5"
+                                                         VerticalOptions="Center">
+
+                                        <Label Text="{Binding StartTime}"
+                                               FontSize="14"
+                                               FontAttributes="Bold"
+                                               TextColor="#243B80" />
+
+                                        <Label Text="{Binding EndTime}"
+                                               FontSize="12"
+                                               TextColor="#94A3B8" />
+                                    </VerticalStackLayout>
+
+                                    <!-- Lesson Details -->
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         Spacing="5">
+
+                                        <Label Text="{Binding Subject}"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="#172554" />
+
+                                        <Label Text="{Binding TeacherDisplay}"
+                                               FontSize="12"
+                                               TextColor="#64748B" />
+
+                                        <Label Text="{Binding VenueDisplay}"
+                                               FontSize="12"
+                                               TextColor="#64748B" />
+
+                                        <Border BackgroundColor="#EEF2FF"
+                                                StrokeThickness="0"
+                                                Padding="8,4"
+                                                HorizontalOptions="Start"
+                                                StrokeShape="RoundRectangle 8">
+
+                                            <Label Text="{Binding LessonType}"
+                                                   FontSize="10"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#4338CA" />
+                                        </Border>
+
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom Navigation -->
+        <Grid Grid.Row="2"
+              BackgroundColor="White"
+              Padding="6,10"
+              ColumnDefinitions="*,*,*,*,*">
+
+            <VerticalStackLayout Grid.Column="0"
+                                 Spacing="4"
+                                 HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="⌂"
+                       FontSize="23"
+                       TextColor="#94A3B8"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Home"
+                       FontSize="10"
+                       TextColor="#94A3B8" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1"
+                                 Spacing="4"
+                                 HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnScheduleTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="▦"
+                       FontSize="21"
+                       TextColor="#4338CA"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Timetable"
+                       FontSize="10"
+                       FontAttributes="Bold"
+                       TextColor="#4338CA" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="2"
+                                 Spacing="4"
+                                 HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnUpdatesTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="◉"
+                       FontSize="22"
+                       TextColor="#94A3B8"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Updates"
+                       FontSize="10"
+                       TextColor="#94A3B8" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="3"
+                                 Spacing="4"
+                                 HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnChildrenTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="♧"
+                       FontSize="22"
+                       TextColor="#94A3B8"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Children"
+                       FontSize="10"
+                       TextColor="#94A3B8" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="4"
+                                 Spacing="4"
+                                 HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnProfileTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="◎"
+                       FontSize="22"
+                       TextColor="#94A3B8"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Profile"
+                       FontSize="10"
+                       TextColor="#94A3B8" />
+            </VerticalStackLayout>
+
+        </Grid>
+    </Grid>
+</ContentPage>
