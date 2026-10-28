@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:KoosMatliApp.Resources.Localization"
+             x:Class="KoosMatliApp.Pages.SignUp"
+             BackgroundColor="#FFFFFF">
+    <ScrollView>
+        <StackLayout Padding="24" Spacing="12">
+            <Label x:Name="CreateLabel" Text="{x:Static loc:AppResources.TxtCreateAccount}" FontSize="20" HorizontalOptions="Center" FontAttributes="Bold" TextColor="#173665" />
+
+            <Entry x:Name="FirstNameEntry" Placeholder="{x:Static loc:AppResources.PhFirstName}" />
+            <Entry x:Name="LastNameEntry" Placeholder="{x:Static loc:AppResources.PhLastName}" />
+            <Entry x:Name="EmailEntry" Placeholder="{x:Static loc:AppResources.PhEmailAddress}" Keyboard="Email" />
+            <Entry x:Name="PhoneEntry" Placeholder="{x:Static loc:AppResources.PhPhoneNumber}" Keyboard="Telephone" />
+            
+            <Label  Text="{x:Static loc:AppResources.Registering}" FontAttributes="Bold" TextColor="#173665" />
+
+            <Picker x:Name="RolePicker" Title="{x:Static loc:AppResources.TxtParentGuardian}" SelectedIndex="0" BackgroundColor="#F2F4F8" TextColor="#173665">
+                <Picker.Items>
+                    <x:Static Member ="loc:AppResources.RoleParent" />
+                    <x:Static Member ="loc:AppResources.RoleTeacher" />
+                </Picker.Items>
+            </Picker>
+
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Entry x:Name="PasswordEntry" Placeholder="{x:Static loc:AppResources.PhPassword}" IsPassword="True" Grid.Column="0" />
+                <Button x:Name="SignUpTogglePwdBtn" Text="Show" Grid.Column="1" Clicked="SignUpTogglePwdBtn_Clicked" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Entry x:Name="ConfirmPasswordEntry" Placeholder="{x:Static loc:AppResources.PhConfirmPassword}" IsPassword="True" Grid.Column="0" />
+                <Button x:Name="ToggleConfirmBtn" Text="Show" Grid.Column="1" Clicked="ToggleConfirm_Clicked" />
+            </Grid>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Spacing="8">
+                <Grid ColumnDefinitions="Auto, *">
+                    <CheckBox x:Name="AgreeCheckbox" />
+                    <Label VerticalOptions="Center" Grid.Column="1" LineBreakMode="WordWrap" FontSize="13">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{x:Static loc:AppResources.TxtAgreeTo}" FontSize="12"  />
+                                <Span Text="{x:Static loc:AppResources.BtnTermsOfService}" FontSize="12" FontAttributes="Bold"/>
+                                <Span Text="{x:Static loc:AppResources.TxtAnd}" FontSize="12" />
+                                <Span Text="{x:Static loc:AppResources.BtnPrivacyPolicy}" FontSize="12" FontAttributes="Bold"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            </StackLayout>
+
+            <Button Text="{x:Static loc:AppResources.BtnSignUp}" BackgroundColor="#173665" TextColor="White" Clicked="SignUp_Clicked" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="{x:Static loc:AppResources.LblHaveAccount}" />
+                <Button Text="{x:Static loc:AppResources.BtnLogIn}" Clicked="GoToLogin_Clicked" BackgroundColor="Transparent" TextColor="#173665" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
