@@ -1,280 +1,386 @@
 using System.Text.Json;
 using KoosMatliApp.Services;
+using Microsoft.Maui.Controls;
 
 namespace KoosMatliApp.Views.Parent;
 
 public partial class ParentDashboardPage : ContentPage
 {
-    private readonly ParentApiService _parentApiService;
+    private readonly ParentApiService _parentApiService = new();
+
     private bool _isLoading;
 
     public ParentDashboardPage()
     {
         InitializeComponent();
-
-        _parentApiService =
-            Application.Current!.Handler!.MauiContext!
-                .Services.GetRequiredService<ParentApiService>();
-
-        Loaded += async (_, _) => await LoadDashboardAsync();
     }
 
-    private async void OnRefreshClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        await LoadDashboardAsync();
+        base.OnAppearing();
+
+        if (!_isLoading)
+            await LoadDashboardAsync();
     }
 
-    private async void OnRefreshing(object sender, EventArgs e)
-    {
-        await LoadDashboardAsync();
-    }
+    // =============================================
+    // LOAD DASHBOARD FROM THE PARENT API
+    // =============================================
 
     private async Task LoadDashboardAsync()
     {
         if (_isLoading)
             return;
 
-        _isLoading = true;
-        DashboardRefreshView.IsRefreshing = true;
-        LoadingOverlay.IsVisible = true;
-        StatusLabel.Text = "Loading your school information...";
-
         try
         {
-            using JsonDocument document =
+            _isLoading = true;
+
+            LoadingIndicator.IsVisible = true;
+            LoadingIndicator.IsRunning = true;
+
+            RefreshButton.IsEnabled = false;
+            StatusCard.IsVisible = false;
+
+            using JsonDocument dashboard =
                 await _parentApiService.GetDashboardAsync();
 
-            JsonElement root = document.RootElement;
+            JsonElement root = dashboard.RootElement;
 
-            if (root.TryGetProperty("success", out JsonElement success)
-                && success.ValueKind == JsonValueKind.False)
+            // Read common dashboard properties where available.
+            // The exact property names depend on your API response.
+
+            string? parentName = FindString(
+                root,
+                "displayName",
+                "parentName",
+                "fullName",
+                "name");
+
+            if (!string.IsNullOrWhiteSpace(parentName))
             {
-                throw new HttpRequestException(
-                    ReadString(root, "message") ??
-                    "Unable to load your dashboard.");
+                WelcomeLabel.Text = $"Welcome, {parentName}!";
             }
 
-            JsonElement parent = GetProperty(root, "parent");
+            string? schoolStatus = FindString(
+                root,
+                "schoolStatus",
+                "schoolStatusMessage");
 
-            string parentName =
-                ReadString(parent, "displayName") ??
-                ReadString(parent, "name") ??
-                "Parent";
+            if (!string.IsNullOrWhiteSpace(schoolStatus))
+            {
+                SchoolStatusLabel.Text = schoolStatus;
+            }
 
-            WelcomeLabel.Text = $"Welcome, {parentName}!";
+            string? nextClass = FindString(
+                root,
+                "nextClass",
+                "nextClassName",
+                "nextLesson");
 
-            RenderChildren(GetArray(root, "children"));
-            RenderAnnouncements(GetArray(root, "announcements"));
-            RenderEvents(GetArray(root, "upcomingEvents"));
+            if (!string.IsNullOrWhiteSpace(nextClass))
+            {
+                NextClassLabel.Text = nextClass;
+            }
 
-            StatusLabel.Text = "Your school information is up to date.";
+            string? nextClassTime = FindString(
+                root,
+                "nextClassTime",
+                "nextLessonTime",
+                "classTime");
+
+            if (!string.IsNullOrWhiteSpace(nextClassTime))
+            {
+                NextClassTimeLabel.Text = nextClassTime;
+            }
+
+            string? announcement = FindString(
+                root,
+                "latestAnnouncement",
+                "announcementTitle",
+                "latestNotice");
+
+            if (!string.IsNullOrWhiteSpace(announcement))
+            {
+                AnnouncementTitleLabel.Text = announcement;
+            }
+
+            string? announcementDate = FindString(
+                root,
+                "announcementDate",
+                "publishedDate",
+                "noticeDate");
+
+            if (!string.IsNullOrWhiteSpace(announcementDate))
+            {
+                AnnouncementDateLabel.Text = announcementDate;
+            }
+
+            string? upcomingEvent = FindString(
+                root,
+                "upcomingEvent",
+                "eventTitle",
+                "nextEvent");
+
+            if (!string.IsNullOrWhiteSpace(upcomingEvent))
+            {
+                UpcomingEventLabel.Text = upcomingEvent;
+            }
+
+            string? eventDate = FindString(
+                root,
+                "upcomingEventDate",
+                "eventDate",
+                "nextEventDate");
+
+            if (!string.IsNullOrWhiteSpace(eventDate))
+            {
+                UpcomingEventDateLabel.Text = eventDate;
+            }
+
+            string? homework = FindString(
+                root,
+                "pendingHomework",
+                "homeworkReminder",
+                "latestHomework");
+
+            if (!string.IsNullOrWhiteSpace(homework))
+            {
+                HomeworkLabel.Text = homework;
+            }
+
+            string? childrenSummary = FindString(
+                root,
+                "childrenSummary",
+                "childrenCount",
+                "numberOfChildren");
+
+            if (!string.IsNullOrWhiteSpace(childrenSummary))
+            {
+                ChildrenSummaryLabel.Text =
+                    $"Linked learners: {childrenSummary}";
+            }
+
+            System.Diagnostics.Debug.WriteLine(
+                "Parent dashboard loaded successfully.");
         }
         catch (UnauthorizedAccessException ex)
         {
-            StatusLabel.Text = ex.Message;
+            ShowStatus(
+                ex.Message +
+                " Please return to the login screen and sign in again.");
 
-            await DisplayAlertAsync(
-                "Session expired",
-                "Please log in again to access your dashboard.",
-                "OK");
-
-            // We will connect this to your existing login flow next.
+            System.Diagnostics.Debug.WriteLine(
+                $"Parent dashboard authorization error: {ex}");
         }
         catch (HttpRequestException ex)
         {
-            StatusLabel.Text = ex.Message;
+            ShowStatus(
+                "Unable to load the latest school information. " +
+                "Please check that the API is running and try again.");
+
+            System.Diagnostics.Debug.WriteLine(
+                $"Parent dashboard API error: {ex}");
         }
-        catch (TaskCanceledException)
+        catch (TaskCanceledException ex)
         {
-            StatusLabel.Text =
-                "The request timed out. Please try again.";
-        }
-        catch (JsonException)
-        {
-            StatusLabel.Text =
-                "The server returned data in an unexpected format.";
+            ShowStatus(
+                "The request timed out. Please try refreshing the dashboard.");
+
+            System.Diagnostics.Debug.WriteLine(
+                $"Parent dashboard timeout: {ex}");
         }
         catch (Exception ex)
         {
-            StatusLabel.Text =
-                $"Unable to load your dashboard: {ex.Message}";
+            ShowStatus(
+                "Something went wrong while loading the dashboard.");
+
+            System.Diagnostics.Debug.WriteLine(
+                $"Parent dashboard error: {ex}");
         }
         finally
         {
-            LoadingOverlay.IsVisible = false;
-            DashboardRefreshView.IsRefreshing = false;
+            LoadingIndicator.IsRunning = false;
+            LoadingIndicator.IsVisible = false;
+
+            RefreshButton.IsEnabled = true;
+
             _isLoading = false;
         }
     }
 
-    private void RenderChildren(JsonElement children)
+    // =============================================
+    // FLEXIBLE JSON PROPERTY READER
+    // =============================================
+
+    private static string? FindString(
+        JsonElement element,
+        params string[] propertyNames)
     {
-        ChildrenContainer.Clear();
-
-        if (children.ValueKind != JsonValueKind.Array ||
-            children.GetArrayLength() == 0)
+        if (element.ValueKind == JsonValueKind.Object)
         {
-            ChildrenContainer.Add(CreateCard(
-                "No linked children found",
-                "If you expect to see a child here, contact the school."));
-            return;
-        }
-
-        foreach (JsonElement child in children.EnumerateArray())
-        {
-            string name =
-                ReadString(child, "fullName") ??
-                ReadString(child, "name") ??
-                ReadString(child, "displayName") ??
-                "Learner";
-
-            string details = string.Join(
-                " • ",
-                new[]
-                {
-                    ReadString(child, "grade"),
-                    ReadString(child, "className")
-                }.Where(value => !string.IsNullOrWhiteSpace(value)));
-
-            ChildrenContainer.Add(CreateCard(
-                name,
-                string.IsNullOrWhiteSpace(details)
-                    ? "Linked learner"
-                    : details));
-        }
-    }
-
-    private void RenderAnnouncements(JsonElement announcements)
-    {
-        AnnouncementsContainer.Clear();
-
-        if (announcements.ValueKind != JsonValueKind.Array ||
-            announcements.GetArrayLength() == 0)
-        {
-            AnnouncementsContainer.Add(CreateCard(
-                "No announcements",
-                "There are no published announcements to display."));
-            return;
-        }
-
-        foreach (JsonElement announcement in
-                 announcements.EnumerateArray())
-        {
-            string title =
-                ReadString(announcement, "title") ??
-                "School announcement";
-
-            string message =
-                ReadString(announcement, "message") ??
-                ReadString(announcement, "description") ??
-                ReadString(announcement, "content") ??
-                "Open the school announcement for more information.";
-
-            AnnouncementsContainer.Add(CreateCard(title, message));
-        }
-    }
-
-    private void RenderEvents(JsonElement events)
-    {
-        EventsContainer.Clear();
-
-        if (events.ValueKind != JsonValueKind.Array ||
-            events.GetArrayLength() == 0)
-        {
-            EventsContainer.Add(CreateCard(
-                "No upcoming events",
-                "There are currently no upcoming events."));
-            return;
-        }
-
-        foreach (JsonElement schoolEvent in events.EnumerateArray())
-        {
-            string title =
-                ReadString(schoolEvent, "title") ??
-                ReadString(schoolEvent, "name") ??
-                "School event";
-
-            string date =
-                ReadString(schoolEvent, "date") ??
-                ReadString(schoolEvent, "startDate") ??
-                "Date to be confirmed";
-
-            EventsContainer.Add(CreateCard(title, date));
-        }
-    }
-
-
-    private static View CreateCard(string title, string description)
-    {
-        var titleLabel = new Label
-        {
-            Text = title,
-            FontSize = 16,
-            FontAttributes = FontAttributes.Bold,
-            TextColor = Color.FromArgb("#061D45")
-        };
-
-        var descriptionLabel = new Label
-        {
-            Text = description,
-            FontSize = 13,
-            TextColor = Color.FromArgb("#52627A")
-        };
-
-        var content = new VerticalStackLayout
-        {
-            Spacing = 6,
-            Children = { titleLabel, descriptionLabel }
-        };
-
-        return new Border
-        {
-            BackgroundColor = Colors.White,
-            Stroke = Color.FromArgb("#E0E7F1"),
-            StrokeThickness = 1,
-            Padding = new Thickness(15),
-            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle
+            foreach (JsonProperty property in element.EnumerateObject())
             {
-                CornerRadius = new CornerRadius(14)
-            },
-            Content = content
-        };
-    }
+                foreach (string propertyName in propertyNames)
+                {
+                    if (string.Equals(
+                        property.Name,
+                        propertyName,
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        string? value = ReadValue(property.Value);
 
+                        if (!string.IsNullOrWhiteSpace(value))
+                            return value;
+                    }
+                }
+            }
 
-    private static JsonElement GetProperty(
-        JsonElement element,
-        string propertyName)
-    {
-        return element.ValueKind == JsonValueKind.Object &&
-               element.TryGetProperty(propertyName, out JsonElement value)
-            ? value
-            : default;
-    }
+            // Search nested objects if the property isn't at the root.
+            foreach (JsonProperty property in element.EnumerateObject())
+            {
+                string? value = FindString(
+                    property.Value,
+                    propertyNames);
 
-    private static JsonElement GetArray(
-        JsonElement element,
-        string propertyName)
-    {
-        JsonElement value = GetProperty(element, propertyName);
+                if (!string.IsNullOrWhiteSpace(value))
+                    return value;
+            }
+        }
+        else if (element.ValueKind == JsonValueKind.Array)
+        {
+            foreach (JsonElement item in element.EnumerateArray())
+            {
+                string? value = FindString(item, propertyNames);
 
-        return value.ValueKind == JsonValueKind.Array
-            ? value
-            : default;
-    }
-
-    private static string? ReadString(
-        JsonElement element,
-        string propertyName)
-    {
-        JsonElement value = GetProperty(element, propertyName);
-
-        if (value.ValueKind == JsonValueKind.String)
-            return value.GetString();
-
-        if (value.ValueKind == JsonValueKind.Number)
-            return value.ToString();
+                if (!string.IsNullOrWhiteSpace(value))
+                    return value;
+            }
+        }
 
         return null;
+    }
+
+    private static string? ReadValue(JsonElement element)
+    {
+        switch (element.ValueKind)
+        {
+            case JsonValueKind.String:
+                return element.GetString();
+
+            case JsonValueKind.Number:
+                return element.ToString();
+
+            case JsonValueKind.True:
+                return "Yes";
+
+            case JsonValueKind.False:
+                return "No";
+
+            default:
+                return null;
+        }
+    }
+
+    // =============================================
+    // STATUS MESSAGE
+    // =============================================
+
+    private void ShowStatus(string message)
+    {
+        StatusLabel.Text = message;
+        StatusCard.IsVisible = true;
+    }
+
+    // =============================================
+    // REFRESH
+    // =============================================
+
+    private async void OnRefreshClicked(
+        object sender,
+        EventArgs e)
+    {
+        await LoadDashboardAsync();
+    }
+
+    // =============================================
+    // NAVIGATION
+    // =============================================
+
+    private async Task ShowComingSoonAsync(string pageName)
+    {
+        await DisplayAlertAsync(
+            pageName,
+            $"{pageName} will be connected when we build that view.",
+            "OK");
+    }
+
+    private async void OnHomeTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        // Already on the parent dashboard.
+        await Task.CompletedTask;
+    }
+
+    private async void OnChildrenTapped(
+        object sender,
+        EventArgs e)
+    {
+        await Navigation.PushAsync(new MyChildrenPage());
+    }
+
+    private async void OnAnnouncementsTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await ShowComingSoonAsync("Announcements");
+    }
+
+    private async void OnTimetableTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await ShowComingSoonAsync("Timetables");
+    }
+
+    private async void OnHomeworkTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await ShowComingSoonAsync(
+            "Homework & Learning Resources");
+    }
+
+    private async void OnCalendarTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await ShowComingSoonAsync(
+            "School Calendar & Events");
+    }
+
+    private async void OnAcademicsTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await ShowComingSoonAsync(
+            "Academic Information");
+    }
+
+    private async void OnFeesTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await ShowComingSoonAsync(
+            "School Fees & Payments");
+    }
+
+    private async void OnProfileTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await ShowComingSoonAsync(
+            "Parent Profile & Settings");
     }
 }

@@ -1,143 +1,770 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage
-    x:Class="KoosMatliApp.Views.Parent.ParentDashboardPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Parent Dashboard"
+    x:Class="KoosMatliApp.Views.Parent.ParentDashboardPage"
+    NavigationPage.HasNavigationBar="False"
     BackgroundColor="#F5F7FC">
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,*,Auto">
 
-        <!-- Header -->
+        <!-- ================= HEADER ================= -->
         <Grid
             Grid.Row="0"
-            Padding="22,18"
             BackgroundColor="#061D45"
+            Padding="20,18,20,22"
             ColumnDefinitions="*,Auto">
 
-            <VerticalStackLayout Spacing="4">
+            <VerticalStackLayout
+                Grid.Column="0"
+                Spacing="5"
+                VerticalOptions="Center">
+
                 <Label
                     Text="KOOS MATLI PRIMARY SCHOOL"
-                    FontSize="12"
+                    FontSize="10"
+                    CharacterSpacing="1.2"
                     FontAttributes="Bold"
                     TextColor="#FFBF19" />
 
                 <Label
-                    Text="Parent Dashboard"
+                    x:Name="WelcomeLabel"
+                    Text="Welcome, Parent!"
                     FontSize="23"
                     FontAttributes="Bold"
                     TextColor="White" />
 
                 <Label
-                    x:Name="WelcomeLabel"
-                    Text="Welcome!"
-                    FontSize="14"
-                    TextColor="#DCE6F7" />
+                    x:Name="HeaderSubtitleLabel"
+                    Text="Here's what's happening at school today."
+                    FontSize="12"
+                    TextColor="#D7E2F4" />
+
             </VerticalStackLayout>
 
-            <Button
+            <Border
                 Grid.Column="1"
-                Text="Refresh"
-                Clicked="OnRefreshClicked"
-                VerticalOptions="Center"
-                BackgroundColor="#FFBF19"
-                TextColor="#061D45"
-                CornerRadius="12"
-                Padding="14,8" />
+                WidthRequest="44"
+                HeightRequest="44"
+                BackgroundColor="#183660"
+                Stroke="#36527B"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 14"
+                VerticalOptions="Center">
+
+                <Grid>
+                    <Label
+                        Text="♧"
+                        FontSize="23"
+                        TextColor="White"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                    <Border
+                        BackgroundColor="#FFBF19"
+                        StrokeThickness="0"
+                        WidthRequest="9"
+                        HeightRequest="9"
+                        StrokeShape="RoundRectangle 5"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        Margin="0,7,7,0" />
+                </Grid>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="OnAnnouncementsTapped" />
+                </Border.GestureRecognizers>
+            </Border>
+
         </Grid>
 
-        <!-- Dashboard content -->
-        <RefreshView
-            x:Name="DashboardRefreshView"
-            Grid.Row="1"
-            Refreshing="OnRefreshing">
-
-            <ScrollView>
-                <VerticalStackLayout
-                    Padding="20"
-                    Spacing="20">
-
-                    <!-- Status -->
-                    <Label
-                        x:Name="StatusLabel"
-                        Text="Loading your school information..."
-                        FontSize="13"
-                        TextColor="#52627A" />
-
-                    <!-- Children -->
-                    <VerticalStackLayout Spacing="10">
-                        <Label
-                            Text="My Children"
-                            FontSize="20"
-                            FontAttributes="Bold"
-                            TextColor="#061D45" />
-
-                        <VerticalStackLayout
-                            x:Name="ChildrenContainer"
-                            Spacing="10" />
-                    </VerticalStackLayout>
-
-                    <!-- Announcements -->
-                    <VerticalStackLayout Spacing="10">
-                        <Label
-                            Text="Latest Announcements"
-                            FontSize="20"
-                            FontAttributes="Bold"
-                            TextColor="#061D45" />
-
-                        <VerticalStackLayout
-                            x:Name="AnnouncementsContainer"
-                            Spacing="10" />
-                    </VerticalStackLayout>
-
-                    <!-- Upcoming events -->
-                    <VerticalStackLayout Spacing="10">
-                        <Label
-                            Text="Upcoming Events"
-                            FontSize="20"
-                            FontAttributes="Bold"
-                            TextColor="#061D45" />
-
-                        <VerticalStackLayout
-                            x:Name="EventsContainer"
-                            Spacing="10" />
-                    </VerticalStackLayout>
-
-                    <Label
-                        Text="Thuto ke Lesedi • Education is Light"
-                        FontSize="12"
-                        HorizontalTextAlignment="Center"
-                        TextColor="#52627A"
-                        Margin="0,8,0,12" />
-
-                </VerticalStackLayout>
-            </ScrollView>
-        </RefreshView>
-
-        <!-- Loading overlay -->
-        <Grid
-            x:Name="LoadingOverlay"
-            Grid.RowSpan="2"
-            BackgroundColor="#80061D45"
-            IsVisible="False">
+        <!-- ================= DASHBOARD CONTENT ================= -->
+        <ScrollView Grid.Row="1">
 
             <VerticalStackLayout
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Spacing="12">
+                Padding="16,18,16,24"
+                Spacing="18">
+
+                <!-- API STATUS -->
+                <Border
+                    x:Name="StatusCard"
+                    IsVisible="False"
+                    BackgroundColor="#FFF4D6"
+                    Stroke="#F5D889"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="12">
+
+                    <Label
+                        x:Name="StatusLabel"
+                        Text=""
+                        FontSize="12"
+                        TextColor="#76520A"
+                        LineBreakMode="WordWrap" />
+                </Border>
+
+                <!-- SCHOOL STATUS -->
+                <Border
+                    BackgroundColor="#EAF6E9"
+                    Stroke="#D5EBD2"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 13"
+                    Padding="14,12">
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+
+                        <Label
+                            Grid.Column="0"
+                            Text="●"
+                            FontSize="14"
+                            TextColor="#32964B"
+                            VerticalOptions="Center" />
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="3">
+
+                            <Label
+                                Text="School Status"
+                                FontSize="10"
+                                TextColor="#527A51" />
+
+                            <Label
+                                x:Name="SchoolStatusLabel"
+                                Text="School Open Today"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="#216C32" />
+
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- TODAY'S HIGHLIGHTS -->
+                <VerticalStackLayout Spacing="10">
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label
+                            Grid.Column="0"
+                            Text="Today's Highlights"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#061D45" />
+
+                        <Label
+                            Grid.Column="1"
+                            Text="View all"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="#1239C9"
+                            VerticalOptions="Center">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnAnnouncementsTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <!-- NEXT CLASS -->
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#E1E7F0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 15"
+                        Padding="12">
+
+                        <Grid
+                            ColumnDefinitions="46,*"
+                            ColumnSpacing="12">
+
+                            <Border
+                                Grid.Column="0"
+                                BackgroundColor="#E8F2FC"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12"
+                                WidthRequest="44"
+                                HeightRequest="44">
+
+                                <Label
+                                    Text="▦"
+                                    FontSize="24"
+                                    TextColor="#17608F"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Spacing="4"
+                                VerticalOptions="Center">
+
+                                <Label
+                                    Text="Next Class"
+                                    FontSize="13"
+                                    FontAttributes="Bold"
+                                    TextColor="#14213D" />
+
+                                <Label
+                                    x:Name="NextClassLabel"
+                                    Text="No upcoming class available"
+                                    FontSize="12"
+                                    TextColor="#64748B" />
+
+                                <Label
+                                    x:Name="NextClassTimeLabel"
+                                    Text="Check your child's timetable"
+                                    FontSize="11"
+                                    TextColor="#94A3B8" />
+
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnTimetableTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- LATEST ANNOUNCEMENT -->
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#E1E7F0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 15"
+                        Padding="12">
+
+                        <Grid
+                            ColumnDefinitions="46,*"
+                            ColumnSpacing="12">
+
+                            <Border
+                                Grid.Column="0"
+                                BackgroundColor="#EAF0FF"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12"
+                                WidthRequest="44"
+                                HeightRequest="44">
+
+                                <Label
+                                    Text="◉"
+                                    FontSize="24"
+                                    TextColor="#2147B8"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Spacing="4"
+                                VerticalOptions="Center">
+
+                                <Label
+                                    Text="Latest Announcement"
+                                    FontSize="13"
+                                    FontAttributes="Bold"
+                                    TextColor="#14213D" />
+
+                                <Label
+                                    x:Name="AnnouncementTitleLabel"
+                                    Text="No new announcements"
+                                    FontSize="12"
+                                    TextColor="#64748B"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="2" />
+
+                                <Label
+                                    x:Name="AnnouncementDateLabel"
+                                    Text="School updates will appear here"
+                                    FontSize="11"
+                                    TextColor="#94A3B8" />
+
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnAnnouncementsTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- UPCOMING EVENT -->
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#E1E7F0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 15"
+                        Padding="12">
+
+                        <Grid
+                            ColumnDefinitions="46,*"
+                            ColumnSpacing="12">
+
+                            <Border
+                                Grid.Column="0"
+                                BackgroundColor="#F0EAFE"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12"
+                                WidthRequest="44"
+                                HeightRequest="44">
+
+                                <Label
+                                    Text="☆"
+                                    FontSize="25"
+                                    TextColor="#7552C7"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Spacing="4"
+                                VerticalOptions="Center">
+
+                                <Label
+                                    Text="Upcoming Event"
+                                    FontSize="13"
+                                    FontAttributes="Bold"
+                                    TextColor="#14213D" />
+
+                                <Label
+                                    x:Name="UpcomingEventLabel"
+                                    Text="No upcoming events available"
+                                    FontSize="12"
+                                    TextColor="#64748B"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="2" />
+
+                                <Label
+                                    x:Name="UpcomingEventDateLabel"
+                                    Text="Check the school calendar"
+                                    FontSize="11"
+                                    TextColor="#94A3B8" />
+
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnCalendarTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <!-- HOMEWORK -->
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#E1E7F0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 15"
+                        Padding="12">
+
+                        <Grid
+                            ColumnDefinitions="46,*"
+                            ColumnSpacing="12">
+
+                            <Border
+                                Grid.Column="0"
+                                BackgroundColor="#FFF2D9"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12"
+                                WidthRequest="44"
+                                HeightRequest="44">
+
+                                <Label
+                                    Text="!"
+                                    FontSize="25"
+                                    FontAttributes="Bold"
+                                    TextColor="#B77912"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Spacing="4"
+                                VerticalOptions="Center">
+
+                                <Label
+                                    Text="Homework Reminder"
+                                    FontSize="13"
+                                    FontAttributes="Bold"
+                                    TextColor="#14213D" />
+
+                                <Label
+                                    x:Name="HomeworkLabel"
+                                    Text="No pending homework information"
+                                    FontSize="12"
+                                    TextColor="#64748B"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="2" />
+
+                                <Label
+                                    Text="View learning resources"
+                                    FontSize="11"
+                                    TextColor="#94A3B8" />
+
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnHomeworkTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- QUICK ACCESS -->
+                <VerticalStackLayout Spacing="12">
+
+                    <Label
+                        Text="Quick Access"
+                        FontSize="17"
+                        FontAttributes="Bold"
+                        TextColor="#061D45" />
+
+                    <Grid
+                        ColumnDefinitions="*,*,*,*"
+                        ColumnSpacing="9">
+
+                        <!-- Timetable -->
+                        <VerticalStackLayout
+                            Grid.Column="0"
+                            Spacing="7"
+                            HorizontalOptions="Center">
+
+                            <Border
+                                BackgroundColor="#FFF2D9"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 13"
+                                WidthRequest="52"
+                                HeightRequest="48">
+
+                                <Label
+                                    Text="▦"
+                                    FontSize="25"
+                                    TextColor="#B77912"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <Label
+                                Text="Timetable"
+                                FontSize="10"
+                                TextColor="#334155"
+                                HorizontalTextAlignment="Center" />
+
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnTimetableTapped" />
+                            </VerticalStackLayout.GestureRecognizers>
+                        </VerticalStackLayout>
+
+                        <!-- School fees -->
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="7"
+                            HorizontalOptions="Center">
+
+                            <Border
+                                BackgroundColor="#E8F2FC"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 13"
+                                WidthRequest="52"
+                                HeightRequest="48">
+
+                                <Label
+                                    Text="R"
+                                    FontSize="23"
+                                    FontAttributes="Bold"
+                                    TextColor="#17608F"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <Label
+                                Text="School Fees"
+                                FontSize="10"
+                                TextColor="#334155"
+                                HorizontalTextAlignment="Center" />
+
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnFeesTapped" />
+                            </VerticalStackLayout.GestureRecognizers>
+                        </VerticalStackLayout>
+
+                        <!-- Academic information -->
+                        <VerticalStackLayout
+                            Grid.Column="2"
+                            Spacing="7"
+                            HorizontalOptions="Center">
+
+                            <Border
+                                BackgroundColor="#E8F7ED"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 13"
+                                WidthRequest="52"
+                                HeightRequest="48">
+
+                                <Label
+                                    Text="✓"
+                                    FontSize="25"
+                                    TextColor="#258344"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <Label
+                                Text="Academics"
+                                FontSize="10"
+                                TextColor="#334155"
+                                HorizontalTextAlignment="Center" />
+
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnAcademicsTapped" />
+                            </VerticalStackLayout.GestureRecognizers>
+                        </VerticalStackLayout>
+
+                        <!-- Homework -->
+                        <VerticalStackLayout
+                            Grid.Column="3"
+                            Spacing="7"
+                            HorizontalOptions="Center">
+
+                            <Border
+                                BackgroundColor="#F0EAFE"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 13"
+                                WidthRequest="52"
+                                HeightRequest="48">
+
+                                <Label
+                                    Text="▤"
+                                    FontSize="24"
+                                    TextColor="#7552C7"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <Label
+                                Text="Homework"
+                                FontSize="10"
+                                TextColor="#334155"
+                                HorizontalTextAlignment="Center" />
+
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnHomeworkTapped" />
+                            </VerticalStackLayout.GestureRecognizers>
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </VerticalStackLayout>
+
+                <!-- MY CHILDREN SUMMARY -->
+                <Border
+                    BackgroundColor="White"
+                    Stroke="#E1E7F0"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16">
+
+                    <Grid
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="12">
+
+                        <VerticalStackLayout
+                            Grid.Column="0"
+                            Spacing="5"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="My Children"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="#061D45" />
+
+                            <Label
+                                x:Name="ChildrenSummaryLabel"
+                                Text="View your linked learner profiles"
+                                FontSize="12"
+                                TextColor="#64748B" />
+
+                        </VerticalStackLayout>
+
+                        <Button
+                            Grid.Column="1"
+                            Text="View"
+                            BackgroundColor="#061D45"
+                            TextColor="White"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            CornerRadius="10"
+                            Padding="16,0"
+                            HeightRequest="40"
+                            Clicked="OnChildrenTapped"
+                            VerticalOptions="Center" />
+
+                    </Grid>
+                </Border>
+
+                <!-- REFRESH -->
+                <Button
+                    x:Name="RefreshButton"
+                    Text="Refresh Dashboard"
+                    BackgroundColor="White"
+                    TextColor="#061D45"
+                    BorderColor="#D8E0EC"
+                    BorderWidth="1"
+                    CornerRadius="12"
+                    HeightRequest="46"
+                    Clicked="OnRefreshClicked" />
 
                 <ActivityIndicator
-                    IsRunning="True"
-                    Color="#FFBF19"
-                    WidthRequest="45"
-                    HeightRequest="45" />
+                    x:Name="LoadingIndicator"
+                    IsVisible="False"
+                    IsRunning="False"
+                    Color="#1239C9"
+                    HorizontalOptions="Center" />
 
                 <Label
-                    Text="Loading dashboard..."
-                    TextColor="White"
-                    FontAttributes="Bold" />
-            </VerticalStackLayout>
-        </Grid>
+                    Text="KOOS MATLI PRIMARY SCHOOL • THUTO KE LESEDI"
+                    FontSize="9"
+                    CharacterSpacing="0.5"
+                    TextColor="#94A3B8"
+                    HorizontalTextAlignment="Center"
+                    Margin="0,4,0,0" />
 
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ================= BOTTOM NAVIGATION ================= -->
+        <Grid
+            Grid.Row="2"
+            BackgroundColor="White"
+            Padding="4,8,4,6"
+            ColumnDefinitions="*,*,*,*,*"
+            ColumnSpacing="2">
+
+            <VerticalStackLayout
+                Grid.Column="0"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="⌂"
+                    FontSize="23"
+                    TextColor="#1239C9"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Home"
+                    FontSize="10"
+                    FontAttributes="Bold"
+                    TextColor="#1239C9"
+                    HorizontalTextAlignment="Center" />
+
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="OnHomeTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Grid.Column="1"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="▦"
+                    FontSize="21"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Schedule"
+                    FontSize="10"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="OnTimetableTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Grid.Column="2"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="◉"
+                    FontSize="21"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Updates"
+                    FontSize="10"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="OnAnnouncementsTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Grid.Column="3"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="♙"
+                    FontSize="21"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Children"
+                    FontSize="10"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="OnChildrenTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Grid.Column="4"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="⚙"
+                    FontSize="21"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Profile"
+                    FontSize="10"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="OnProfileTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+        </Grid>
     </Grid>
 </ContentPage>
