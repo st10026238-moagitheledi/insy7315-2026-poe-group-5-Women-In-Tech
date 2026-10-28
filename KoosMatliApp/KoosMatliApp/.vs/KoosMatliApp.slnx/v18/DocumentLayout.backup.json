@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\views\\authentication\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\views\\authentication\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,12 +11,20 @@
       "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\views\\authentication\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\views\\authentication\\registerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\views\\authentication\\registerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\views\\authentication\\registerpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\views\\authentication\\registerpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\views\\authentication\\languagepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\views\\authentication\\languagepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\views\\authentication\\registerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\views\\authentication\\registerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\views\\authentication\\forgotpasswordpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -34,30 +38,43 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "RegisterPage.xaml.cs",
+              "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml.cs",
+              "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml.cs",
+              "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml.cs",
+              "RelativeToolTip": "KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFoAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-28T20:45:45.094Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "LanguagePage.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\LanguagePage.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\LanguagePage.xaml",
               "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\LanguagePage.xaml",
               "RelativeToolTip": "KoosMatliApp\\Views\\Authentication\\LanguagePage.xaml",
-              "ViewState": "AgIAAOIAAAAAAAAAAAAmwOwAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAmwOwAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-10-28T20:26:09.397Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "RegisterPage.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml",
               "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml",
               "RelativeToolTip": "KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKQAAAAAAAAAAAAAAMsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-10-28T20:24:07.686Z",
               "EditorCaption": ""
@@ -65,45 +82,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "ForgotPasswordPage.xaml",
-              "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
-              "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
-              "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
-              "RelativeToolTip": "KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-10-28T20:23:54.088Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Services\\AuthService.cs",
               "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Services\\AuthService.cs",
               "RelativeToolTip": "KoosMatliApp\\Services\\AuthService.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAwwFEAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-28T20:20:49.274Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "LoginPage.xaml.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\LoginPage.xaml.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\LoginPage.xaml.cs",
               "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\LoginPage.xaml.cs",
               "RelativeToolTip": "KoosMatliApp\\Views\\Authentication\\LoginPage.xaml.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAJAAAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAowJAAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-28T20:19:56.663Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "LoginPage.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\LoginPage.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\LoginPage.xaml",
@@ -113,6 +117,18 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-10-28T20:19:03.871Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ForgotPasswordPage.xaml",
+              "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
+              "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
+              "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
+              "RelativeToolTip": "KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-10-28T20:23:54.088Z"
             }
           ]
         }

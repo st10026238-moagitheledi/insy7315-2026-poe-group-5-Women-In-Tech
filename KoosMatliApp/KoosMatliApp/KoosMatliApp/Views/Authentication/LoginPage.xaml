@@ -232,7 +232,7 @@
                     <Button
                         Text="Create Parent Account"
                         Clicked="OnRegisterTapped"
-                        BackgroundColor="#FFF7DB"
+                        BackgroundColor="#FFBF19"
                         TextColor="#061D45"
                         BorderWidth="1"
                         CornerRadius="13"

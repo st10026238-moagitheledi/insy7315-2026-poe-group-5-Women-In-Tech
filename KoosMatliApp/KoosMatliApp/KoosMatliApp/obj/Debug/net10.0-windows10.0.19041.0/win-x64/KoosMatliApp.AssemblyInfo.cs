@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KoosMatliApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+537dd658c47083830fa3140853792ba2f596bf49")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+632d9965cecdc709f22d6fca7b596acb4189019f")]
 [assembly: System.Reflection.AssemblyProductAttribute("KoosMatliApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KoosMatliApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
