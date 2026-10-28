@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using KoosMatliApp.Services;
+using Microsoft.Extensions.Logging;
 
 namespace KoosMatliApp
 {
@@ -15,8 +16,11 @@ namespace KoosMatliApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddSingleton<ParentApiService>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

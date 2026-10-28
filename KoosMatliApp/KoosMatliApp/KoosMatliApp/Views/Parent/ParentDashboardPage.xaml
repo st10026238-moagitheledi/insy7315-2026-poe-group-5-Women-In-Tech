@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KoosMatliApp.Views.Parent.ParentDashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Parent Dashboard"
+    BackgroundColor="#F5F7FC">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid
+            Grid.Row="0"
+            Padding="22,18"
+            BackgroundColor="#061D45"
+            ColumnDefinitions="*,Auto">
+
+            <VerticalStackLayout Spacing="4">
+                <Label
+                    Text="KOOS MATLI PRIMARY SCHOOL"
+                    FontSize="12"
+                    FontAttributes="Bold"
+                    TextColor="#FFBF19" />
+
+                <Label
+                    Text="Parent Dashboard"
+                    FontSize="23"
+                    FontAttributes="Bold"
+                    TextColor="White" />
+
+                <Label
+                    x:Name="WelcomeLabel"
+                    Text="Welcome!"
+                    FontSize="14"
+                    TextColor="#DCE6F7" />
+            </VerticalStackLayout>
+
+            <Button
+                Grid.Column="1"
+                Text="Refresh"
+                Clicked="OnRefreshClicked"
+                VerticalOptions="Center"
+                BackgroundColor="#FFBF19"
+                TextColor="#061D45"
+                CornerRadius="12"
+                Padding="14,8" />
+        </Grid>
+
+        <!-- Dashboard content -->
+        <RefreshView
+            x:Name="DashboardRefreshView"
+            Grid.Row="1"
+            Refreshing="OnRefreshing">
+
+            <ScrollView>
+                <VerticalStackLayout
+                    Padding="20"
+                    Spacing="20">
+
+                    <!-- Status -->
+                    <Label
+                        x:Name="StatusLabel"
+                        Text="Loading your school information..."
+                        FontSize="13"
+                        TextColor="#52627A" />
+
+                    <!-- Children -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label
+                            Text="My Children"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#061D45" />
+
+                        <VerticalStackLayout
+                            x:Name="ChildrenContainer"
+                            Spacing="10" />
+                    </VerticalStackLayout>
+
+                    <!-- Announcements -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label
+                            Text="Latest Announcements"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#061D45" />
+
+                        <VerticalStackLayout
+                            x:Name="AnnouncementsContainer"
+                            Spacing="10" />
+                    </VerticalStackLayout>
+
+                    <!-- Upcoming events -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label
+                            Text="Upcoming Events"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#061D45" />
+
+                        <VerticalStackLayout
+                            x:Name="EventsContainer"
+                            Spacing="10" />
+                    </VerticalStackLayout>
+
+                    <Label
+                        Text="Thuto ke Lesedi • Education is Light"
+                        FontSize="12"
+                        HorizontalTextAlignment="Center"
+                        TextColor="#52627A"
+                        Margin="0,8,0,12" />
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <!-- Loading overlay -->
+        <Grid
+            x:Name="LoadingOverlay"
+            Grid.RowSpan="2"
+            BackgroundColor="#80061D45"
+            IsVisible="False">
+
+            <VerticalStackLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Spacing="12">
+
+                <ActivityIndicator
+                    IsRunning="True"
+                    Color="#FFBF19"
+                    WidthRequest="45"
+                    HeightRequest="45" />
+
+                <Label
+                    Text="Loading dashboard..."
+                    TextColor="White"
+                    FontAttributes="Bold" />
+            </VerticalStackLayout>
+        </Grid>
+
+    </Grid>
+</ContentPage>

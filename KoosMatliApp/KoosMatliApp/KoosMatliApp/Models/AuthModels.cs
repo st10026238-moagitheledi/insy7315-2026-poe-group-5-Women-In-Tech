@@ -1,10 +1,11 @@
-﻿namespace KoosMatliApp.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace KoosMatliApp.Models;
 
 // Information entered when a user logs in.
 public class LoginRequest
 {
     public string Email { get; set; } = string.Empty;
-
     public string Password { get; set; } = string.Empty;
 }
 
@@ -12,9 +13,7 @@ public class LoginRequest
 public class RegisterRequest
 {
     public string DisplayName { get; set; } = string.Empty;
-
     public string Email { get; set; } = string.Empty;
-
     public string Password { get; set; } = string.Empty;
 }
 
@@ -22,13 +21,9 @@ public class RegisterRequest
 public class AuthUser
 {
     public string Uid { get; set; } = string.Empty;
-
     public string Email { get; set; } = string.Empty;
-
     public string Role { get; set; } = string.Empty;
-
     public string DisplayName { get; set; } = string.Empty;
-
     public bool IsActive { get; set; }
 }
 
@@ -39,6 +34,8 @@ public class AuthResponse
 
     public string? Message { get; set; }
 
+    // The API sends "idToken", not "token".
+    [JsonPropertyName("idToken")]
     public string? Token { get; set; }
 
     public AuthUser? User { get; set; }

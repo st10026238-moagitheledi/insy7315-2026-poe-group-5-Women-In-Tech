@@ -1,4 +1,6 @@
 using KoosMatliApp.Services;
+using KoosMatliApp.Views.Parent;
+using Microsoft.Maui.Controls;
 
 namespace KoosMatliApp.Views.Authentication;
 
@@ -41,7 +43,6 @@ public partial class LoginPage : ContentPage
         {
             ShowMessage(
                 "Please enter both your email address and password.");
-
             return;
         }
 
@@ -70,7 +71,6 @@ public partial class LoginPage : ContentPage
                 ShowMessage(
                     response.Message ??
                     "Unable to sign in. Please check your details.");
-
                 return;
             }
 
@@ -78,7 +78,6 @@ public partial class LoginPage : ContentPage
             {
                 ShowMessage(
                     "Your account is inactive. Please contact the school.");
-
                 return;
             }
 
@@ -94,17 +93,16 @@ public partial class LoginPage : ContentPage
                         $"Welcome back, {response.User.DisplayName}!",
                         "Continue");
 
-                    await DisplayAlertAsync(
-                        "Parent Dashboard",
-                        "Your login was successful. The parent dashboard will be connected next.",
-                        "OK");
+                    // Open the parent dashboard.
+                    await Navigation.PushAsync(
+                        new ParentDashboardPage());
 
                     break;
 
                 case "teacher":
                     await DisplayAlertAsync(
-                        "Welcome",
-                        "You have signed in successfully as a teacher.",
+                        "Teacher Login",
+                        "You have signed in successfully. The teacher landing page has not been connected yet.",
                         "OK");
 
                     break;
@@ -112,8 +110,8 @@ public partial class LoginPage : ContentPage
                 case "admin":
                 case "administrator":
                     await DisplayAlertAsync(
-                        "Welcome",
-                        "You have signed in successfully as an administrator.",
+                        "Administrator Login",
+                        "You have signed in successfully. The administrator landing page has not been connected yet.",
                         "OK");
 
                     break;
@@ -121,12 +119,14 @@ public partial class LoginPage : ContentPage
                 default:
                     ShowMessage(
                         "Your account role is not recognised. Please contact the school.");
-
                     break;
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            System.Diagnostics.Debug.WriteLine(
+                $"Login error: {ex}");
+
             ShowMessage(
                 "Something went wrong while signing in. Please try again.");
         }
