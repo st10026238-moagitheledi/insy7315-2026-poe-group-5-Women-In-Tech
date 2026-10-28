@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\views\\parent\\timetablepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\views\\parent\\timetablepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\views\\parent\\timetablepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\views\\parent\\timetablepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|c:\\github\\insy7315-2026-poe-group-5-women-in-tech\\koosmatliapp\\koosmatliapp\\koosmatliapp\\views\\parent\\announcementspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{11AC9FF9-793F-F1C4-D1A9-885943F7B500}|KoosMatliApp\\KoosMatliApp.csproj|solutionrelative:koosmatliapp\\views\\parent\\announcementspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -95,6 +103,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TimetablePage.xaml.cs",
+              "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\TimetablePage.xaml.cs",
+              "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Parent\\TimetablePage.xaml.cs",
+              "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\TimetablePage.xaml.cs",
+              "RelativeToolTip": "KoosMatliApp\\Views\\Parent\\TimetablePage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-28T23:50:25.951Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TimetablePage.xaml",
+              "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\TimetablePage.xaml",
+              "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Parent\\TimetablePage.xaml",
+              "ToolTip": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\TimetablePage.xaml",
+              "RelativeToolTip": "KoosMatliApp\\Views\\Parent\\TimetablePage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFABAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-10-28T23:50:00.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "AnnouncementsPage.xaml.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\AnnouncementsPage.xaml.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Parent\\AnnouncementsPage.xaml.cs",
@@ -107,7 +141,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "AnnouncementsPage.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\AnnouncementsPage.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Parent\\AnnouncementsPage.xaml",
@@ -115,12 +149,11 @@
               "RelativeToolTip": "KoosMatliApp\\Views\\Parent\\AnnouncementsPage.xaml",
               "ViewState": "AgIAAEgAAAAAAAAAAAAAAEEBAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-10-28T23:46:00.075Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-28T23:46:00.075Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "MyChildren.xaml.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\MyChildren.xaml.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Parent\\MyChildren.xaml.cs",
@@ -128,12 +161,11 @@
               "RelativeToolTip": "KoosMatliApp\\Views\\Parent\\MyChildren.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-28T23:21:19.203Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-28T23:21:19.203Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "MyChildren.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\MyChildren.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Parent\\MyChildren.xaml",
@@ -145,7 +177,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "AuthModels.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Models\\AuthModels.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Models\\AuthModels.cs",
@@ -157,7 +189,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "ParentApiService.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Services\\ParentApiService.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Services\\ParentApiService.cs",
@@ -169,7 +201,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "ParentDashboardPage.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\ParentDashboardPage.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Parent\\ParentDashboardPage.xaml",
@@ -177,12 +209,11 @@
               "RelativeToolTip": "KoosMatliApp\\Views\\Parent\\ParentDashboardPage.xaml",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAA4AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-10-28T22:47:22.689Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-28T22:47:22.689Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "ParentDashboardPage.xaml.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Parent\\ParentDashboardPage.xaml.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Parent\\ParentDashboardPage.xaml.cs",
@@ -194,7 +225,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "LoginPage.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\LoginPage.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\LoginPage.xaml",
@@ -206,7 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "LoginPage.xaml.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\LoginPage.xaml.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\LoginPage.xaml.cs",
@@ -218,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Services\\AuthService.cs",
@@ -230,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\App.xaml.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\App.xaml.cs",
@@ -242,7 +273,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "AppShell.xaml.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\AppShell.xaml.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\AppShell.xaml.cs",
@@ -254,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\App.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\App.xaml",
@@ -262,12 +293,11 @@
               "RelativeToolTip": "KoosMatliApp\\App.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-10-28T22:45:29.588Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-28T22:45:29.588Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "MauiProgram.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\MauiProgram.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\MauiProgram.cs",
@@ -279,7 +309,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "ForgotPasswordPage.xaml.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml.cs",
@@ -291,7 +321,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "LanguagePage.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\LanguagePage.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\LanguagePage.xaml",
@@ -303,7 +333,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "RegisterPage.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml",
@@ -315,7 +345,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "ForgotPasswordPage.xaml",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\ForgotPasswordPage.xaml",
@@ -327,7 +357,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "RegisterPage.xaml.cs",
               "DocumentMoniker": "C:\\GitHub\\insy7315-2026-poe-group-5-Women-In-Tech\\KoosMatliApp\\KoosMatliApp\\KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml.cs",
               "RelativeDocumentMoniker": "KoosMatliApp\\Views\\Authentication\\RegisterPage.xaml.cs",
