@@ -21,7 +21,7 @@
 
             <!-- School crest -->
             <Image
-                Source="koosmatli-logo.png"
+                Source="koosmatli_logo.png"
                 WidthRequest="112"
                 HeightRequest="112"
                 Aspect="AspectFit"

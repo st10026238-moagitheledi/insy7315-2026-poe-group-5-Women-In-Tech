@@ -3101,7 +3101,7 @@ int drawable ic_mtrl_chip_checked_circle 0x7f07006e
 int drawable ic_mtrl_chip_close_circle 0x7f07006f
 int drawable ic_search_black_24 0x7f070070
 int drawable indeterminate_static 0x7f070071
-int drawable logo 0x7f070072
+int drawable koosmatli_logo 0x7f070072
 int drawable m3_avd_hide_password 0x7f070073
 int drawable m3_avd_show_password 0x7f070074
 int drawable m3_bottom_sheet_drag_handle 0x7f070075

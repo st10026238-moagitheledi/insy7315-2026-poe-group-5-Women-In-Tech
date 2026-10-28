@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Authentication.OnboardingPage"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#F5F7FC">
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          Padding="24,20,24,24">
+
+        <!-- School header -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,Auto">
+
+            <VerticalStackLayout Spacing="3">
+                <Label Text="KOOS MATLI"
+                       FontSize="19"
+                       FontAttributes="Bold"
+                       TextColor="#061D45" />
+
+                <Label Text="PRIMARY SCHOOL"
+                       FontSize="11"
+                       FontAttributes="Bold"
+                       CharacterSpacing="2"
+                       TextColor="#B8860B" />
+
+                <Label Text="Thuto ke Lesedi"
+                       FontSize="12"
+                       FontAttributes="Italic"
+                       TextColor="#64748B" />
+            </VerticalStackLayout>
+
+            <Button x:Name="SkipButton"
+                    Grid.Column="1"
+                    Text="Skip"
+                    Clicked="OnSkipClicked"
+                    BackgroundColor="Transparent"
+                    TextColor="#1239C9"
+                    FontAttributes="Bold"
+                    Padding="12,6"
+                    VerticalOptions="Start" />
+        </Grid>
+
+        <!-- Onboarding slide -->
+        <ScrollView Grid.Row="1"
+                    VerticalOptions="Fill">
+
+            <VerticalStackLayout
+                Spacing="18"
+                VerticalOptions="Center"
+                Padding="0,24,0,20">
+
+                <Label x:Name="SlideNumber"
+                       Text="01 / 04"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       TextColor="#1239C9"
+                       HorizontalTextAlignment="Center" />
+
+                <!-- Slide image -->
+                <Border
+                    BackgroundColor="White"
+                    Stroke="#E2E8F0"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 24"
+                    Padding="12"
+                    HeightRequest="250">
+
+                    <Image x:Name="SlideImage"
+                           Source="announcements.png"
+                           Aspect="AspectFit"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Fill" />
+                </Border>
+
+                <!-- Slide heading -->
+                <Label x:Name="SlideTitle"
+                       Text="Stay Connected"
+                       FontSize="25"
+                       FontAttributes="Bold"
+                       TextColor="#061D45"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Fill" />
+
+                <!-- Slide description -->
+                <Label x:Name="SlideDescription"
+                       Text="Stay connected with your child's school through important announcements, messages and updates."
+                       FontSize="15"
+                       TextColor="#64748B"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Fill"
+                       LineHeight="1.4" />
+
+                <!-- Slide indicators -->
+                <HorizontalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="9"
+                    Padding="0,8">
+
+                    <BoxView x:Name="Dot1"
+                             WidthRequest="22"
+                             HeightRequest="8"
+                             CornerRadius="4"
+                             Color="#1239C9" />
+
+                    <BoxView x:Name="Dot2"
+                             WidthRequest="8"
+                             HeightRequest="8"
+                             CornerRadius="4"
+                             Color="#CBD5E1" />
+
+                    <BoxView x:Name="Dot3"
+                             WidthRequest="8"
+                             HeightRequest="8"
+                             CornerRadius="4"
+                             Color="#CBD5E1" />
+
+                    <BoxView x:Name="Dot4"
+                             WidthRequest="8"
+                             HeightRequest="8"
+                             CornerRadius="4"
+                             Color="#CBD5E1" />
+
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom navigation -->
+        <Grid Grid.Row="2"
+              ColumnDefinitions="Auto,*"
+              ColumnSpacing="12">
+
+            <Button x:Name="BackButton"
+                    Grid.Column="0"
+                    Text="Back"
+                    Clicked="OnBackClicked"
+                    IsVisible="False"
+                    BackgroundColor="#E8EDF8"
+                    TextColor="#061D45"
+                    CornerRadius="14"
+                    Padding="20,14"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center" />
+
+            <Button x:Name="NextButton"
+                    Grid.Column="1"
+                    Text="Next"
+                    Clicked="OnNextClicked"
+                    BackgroundColor="#061D45"
+                    TextColor="#FFBF19"
+                    CornerRadius="14"
+                    Padding="20,14"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center" />
+
+        </Grid>
+
+    </Grid>
+</ContentPage>
