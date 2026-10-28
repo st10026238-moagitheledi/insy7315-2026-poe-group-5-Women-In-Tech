@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:KoosMatliApp.Resources.Localization"
+             x:Class="KoosMatliApp.Pages.Login"
+             BackgroundColor="#FFFFFF">
+    <ScrollView>
+        <StackLayout Padding="24" Spacing="12">
+            <Image Source="logo.png" WidthRequest="96" HeightRequest="96" HorizontalOptions="Center" />
+            <Label x:Name="WelcomeLabel" Text="{x:Static loc:AppResources.TxtWelcomeBack}" FontSize="22" HorizontalOptions="Center" FontAttributes="Bold" TextColor="#173665" />
+
+            <Entry x:Name="EmailOrUsernameEntry" Placeholder="{x:Static loc:AppResources.PhEmailUsername}" />
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Entry x:Name="LoginPasswordEntry" Placeholder="{x:Static loc:AppResources.PhPassword}" IsPassword="True" Grid.Column="0" />
+                <Button x:Name="LoginTogglePwdBtn" Text="Show" Grid.Column="1" Clicked="LoginTogglePwdBtn_Clicked" />
+            </Grid>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" VerticalOptions="Center" Spacing="12">
+                <CheckBox x:Name="RememberMeCheckbox" />
+                <Label Text="{x:Static loc:AppResources.LblRememberMe}" VerticalOptions="Center" />
+                <Button Text="{x:Static loc:AppResources.BtnForgotPassword}" BackgroundColor="Transparent" TextColor="#173665" HorizontalOptions="End" Clicked="ForgotPassword_Clicked" />
+            </StackLayout>
+
+            <Button Text="{x:Static loc:AppResources.BtnLogIn}" BackgroundColor="#173665" TextColor="White" Clicked="Login_Clicked" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="{x:Static loc:AppResources.LblNoAccount}" />
+                <Button Text="{x:Static loc:AppResources.BtnSignUp}" Clicked="GoToSignUp_Clicked" BackgroundColor="Transparent" TextColor="#173665" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
