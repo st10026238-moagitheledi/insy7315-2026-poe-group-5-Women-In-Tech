@@ -77,6 +77,16 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/KoosMatliApp/Views/Authentication/ForgotPasswordPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Views.Authentication.ForgotPasswordPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Authentication\ForgotPasswordPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Authentication\ForgotPasswordPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/KoosMatliApp/Views/Authentication/LanguagePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Views.Authentication.LanguagePage.xaml
@@ -87,11 +97,31 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/KoosMatliApp/Views/Authentication/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Views.Authentication.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Authentication\LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Authentication\LoginPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/KoosMatliApp/Views/Authentication/OnboardingPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Views.Authentication.OnboardingPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\Authentication\OnboardingPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\Authentication\OnboardingPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/GitHub/insy7315-2026-poe-group-5-Women-In-Tech/KoosMatliApp/KoosMatliApp/KoosMatliApp/Views/Authentication/RegisterPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KoosMatliApp.Views.Authentication.RegisterPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Authentication\RegisterPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Authentication\RegisterPage.xaml
 build_metadata.AdditionalFiles.Inflator = SourceGen
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 

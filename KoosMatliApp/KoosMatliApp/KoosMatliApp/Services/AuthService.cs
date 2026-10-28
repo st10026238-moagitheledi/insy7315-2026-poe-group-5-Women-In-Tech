@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using KoosMatliApp.Models;
@@ -12,23 +13,23 @@ public class AuthService
 
     private const string TokenKey = "auth_token";
 
-    // For Windows, use http://localhost:5000.
-    // For the Android emulator, use http://10.0.2.2:5000
-    // when your API is running on your development computer.
+    // Windows: http://localhost:5000
+    // Android emulator: http://10.0.2.2:5000
     private const string BaseUrl = "http://localhost:5000";
 
     private static readonly JsonSerializerOptions JsonOptions =
         new(JsonSerializerDefaults.Web);
 
-    public AuthService()
+    // One shared authentication service for the app.
+    public static AuthService Instance { get; } = new();
+
+    private AuthService()
     {
         _httpClient = new HttpClient
         {
             BaseAddress = new Uri(BaseUrl),
             Timeout = TimeSpan.FromSeconds(30)
         };
-
-        SetAuthorizationHeader();
     }
 
     // LOGIN
@@ -52,27 +53,18 @@ public class AuthService
         }
         catch (TaskCanceledException)
         {
-            return new AuthResponse
-            {
-                Success = false,
-                Message = "The request timed out. Please try again."
-            };
+            return CreateFailure(
+                "The request timed out. Please try again.");
         }
         catch (HttpRequestException)
         {
-            return new AuthResponse
-            {
-                Success = false,
-                Message = "Unable to connect to the server. Check your connection."
-            };
+            return CreateFailure(
+                "Unable to connect to the server. Check your connection.");
         }
         catch (Exception)
         {
-            return new AuthResponse
-            {
-                Success = false,
-                Message = "An unexpected error occurred during login."
-            };
+            return CreateFailure(
+                "An unexpected error occurred during login.");
         }
     }
 
@@ -92,34 +84,25 @@ public class AuthService
         try
         {
             var response = await _httpClient.PostAsJsonAsync(
-                "/api/auth/register",
+                "/api/auth/register-parent",
                 request);
 
             return await ProcessAuthResponseAsync(response);
         }
         catch (TaskCanceledException)
         {
-            return new AuthResponse
-            {
-                Success = false,
-                Message = "The request timed out. Please try again."
-            };
+            return CreateFailure(
+                "The request timed out. Please try again.");
         }
         catch (HttpRequestException)
         {
-            return new AuthResponse
-            {
-                Success = false,
-                Message = "Unable to connect to the server. Check your connection."
-            };
+            return CreateFailure(
+                "Unable to connect to the server. Check your connection.");
         }
         catch (Exception)
         {
-            return new AuthResponse
-            {
-                Success = false,
-                Message = "An unexpected error occurred during registration."
-            };
+            return CreateFailure(
+                "An unexpected error occurred during registration.");
         }
     }
 
@@ -128,7 +111,7 @@ public class AuthService
     {
         try
         {
-            SetAuthorizationHeader();
+            await RestoreAuthorizationHeaderAsync();
 
             var response = await _httpClient.GetAsync("/api/auth/me");
 
@@ -136,27 +119,18 @@ public class AuthService
         }
         catch (TaskCanceledException)
         {
-            return new AuthResponse
-            {
-                Success = false,
-                Message = "The request timed out. Please try again."
-            };
+            return CreateFailure(
+                "The request timed out. Please try again.");
         }
         catch (HttpRequestException)
         {
-            return new AuthResponse
-            {
-                Success = false,
-                Message = "Unable to connect to the server."
-            };
+            return CreateFailure(
+                "Unable to connect to the server.");
         }
         catch (Exception)
         {
-            return new AuthResponse
-            {
-                Success = false,
-                Message = "Unable to retrieve your account details."
-            };
+            return CreateFailure(
+                "Unable to retrieve your account details.");
         }
     }
 
@@ -164,72 +138,68 @@ public class AuthService
     private async Task<AuthResponse> ProcessAuthResponseAsync(
         HttpResponseMessage response)
     {
-        var responseBody = await response.Content.ReadAsStringAsync();
-
-        AuthResponse? result = null;
-
-        try
+        using (response)
         {
-            result = JsonSerializer.Deserialize<AuthResponse>(
-                responseBody,
-                JsonOptions);
-        }
-        catch (JsonException)
-        {
-            // The response may not be JSON.
-        }
+            string responseBody =
+                await response.Content.ReadAsStringAsync();
 
-        if (!response.IsSuccessStatusCode)
-        {
-            return new AuthResponse
+            AuthResponse? result = null;
+
+            try
             {
-                Success = false,
-                Message = result?.Message
-                    ?? $"Request failed ({(int)response.StatusCode})."
-            };
-        }
-
-        if (result == null)
-        {
-            return new AuthResponse
+                result = JsonSerializer.Deserialize<AuthResponse>(
+                    responseBody,
+                    JsonOptions);
+            }
+            catch (JsonException)
             {
-                Success = false,
-                Message = "The server returned an invalid response."
-            };
+                // The server response was not valid JSON.
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return CreateFailure(
+                    result?.Message ??
+                    $"Request failed ({(int)response.StatusCode}).");
+            }
+
+            if (result == null)
+            {
+                return CreateFailure(
+                    "The server returned an invalid response.");
+            }
+
+            if (result.Token is not null)
+            {
+                await SecureStorage.Default.SetAsync(
+                    TokenKey,
+                    result.Token);
+
+                await RestoreAuthorizationHeaderAsync();
+            }
+
+            return result;
         }
-
-        if (result.Token is not null)
-        {
-            await SecureStorage.Default.SetAsync(
-                TokenKey,
-                result.Token);
-
-            SetAuthorizationHeader();
-        }
-
-        return result;
     }
 
-    // RESTORE TOKEN FOR FUTURE API REQUESTS
-    private async void SetAuthorizationHeader()
+    // RESTORE SAVED TOKEN
+    private async Task RestoreAuthorizationHeaderAsync()
     {
         try
         {
-            var token = await SecureStorage.Default.GetAsync(TokenKey);
+            string? token =
+                await SecureStorage.Default.GetAsync(TokenKey);
 
-            if (!string.IsNullOrWhiteSpace(token))
-            {
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", token);
-            }
-            else
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = null;
-            }
+            _httpClient.DefaultRequestHeaders.Authorization =
+                string.IsNullOrWhiteSpace(token)
+                    ? null
+                    : new AuthenticationHeaderValue(
+                        "Bearer",
+                        token);
         }
         catch (Exception)
         {
-            // Secure storage may be unavailable on some platforms.
+            // Secure storage may be unavailable.
         }
     }
 
@@ -238,5 +208,14 @@ public class AuthService
     {
         SecureStorage.Default.Remove(TokenKey);
         _httpClient.DefaultRequestHeaders.Authorization = null;
+    }
+
+    private static AuthResponse CreateFailure(string message)
+    {
+        return new AuthResponse
+        {
+            Success = false,
+            Message = message
+        };
     }
 }

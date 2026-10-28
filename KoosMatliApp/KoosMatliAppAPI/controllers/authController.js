@@ -203,7 +203,8 @@ async function login(req, res) {
                 uid: data.localId,
                 email: profile.email || data.email,
                 displayName: profile.displayName || "",
-                role: profile.role
+                role: profile.role,
+                isActive: profile.isActive !== false
             }
         });
     } catch (error) {

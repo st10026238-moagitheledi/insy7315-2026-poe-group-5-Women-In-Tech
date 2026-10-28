@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Authentication.LoginPage"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#F5F7FC">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="28,24,28,30"
+            Spacing="22">
+
+            <!-- School branding -->
+            <VerticalStackLayout
+                Spacing="4"
+                HorizontalOptions="Center"
+                Margin="0,12,0,0">
+
+                <Border
+                    BackgroundColor="#061D45"
+                    Stroke="#FFBF19"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 22"
+                    WidthRequest="88"
+                    HeightRequest="88"
+                    Padding="12"
+                    HorizontalOptions="Center">
+
+                    <Image
+                        Source="koosmatli_logo.png"
+                        Aspect="AspectFit" />
+                </Border>
+
+                <Label
+                    Text="KOOS MATLI"
+                    FontSize="23"
+                    FontAttributes="Bold"
+                    TextColor="#061D45"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="PRIMARY SCHOOL"
+                    FontSize="12"
+                    FontAttributes="Bold"
+                    CharacterSpacing="3"
+                    TextColor="#B8860B"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Thuto ke Lesedi • Education is Light"
+                    FontSize="12"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center"
+                    Margin="0,4,0,0" />
+            </VerticalStackLayout>
+
+            <!-- Welcome text -->
+            <VerticalStackLayout Spacing="7">
+                <Label
+                    Text="Welcome Back!"
+                    FontSize="29"
+                    FontAttributes="Bold"
+                    TextColor="#061D45"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Sign in to stay connected with your child's school."
+                    FontSize="14"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center"
+                    LineHeight="1.3" />
+            </VerticalStackLayout>
+
+            <!-- Login form -->
+            <Border
+                BackgroundColor="White"
+                Stroke="#E2E8F0"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 22"
+                Padding="22">
+
+                <VerticalStackLayout Spacing="17">
+
+                    <Label
+                        Text="Sign In"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="#061D45" />
+
+                    <!-- Email -->
+                    <VerticalStackLayout Spacing="7">
+                        <Label
+                            Text="Email Address"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#334155" />
+
+                        <Border
+                            BackgroundColor="#F8FAFC"
+                            Stroke="#D8E0EC"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="12,2">
+
+                            <Entry
+                                x:Name="EmailEntry"
+                                Placeholder="Enter your email address"
+                                Keyboard="Email"
+                                TextColor="#061D45"
+                                PlaceholderColor="#94A3B8"
+                                FontSize="14"
+                                ClearButtonVisibility="WhileEditing"
+                                ReturnType="Next" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Password -->
+                    <VerticalStackLayout Spacing="7">
+                        <Label
+                            Text="Password"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#334155" />
+
+                        <Border
+                            BackgroundColor="#F8FAFC"
+                            Stroke="#D8E0EC"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="12,2">
+
+                            <Grid
+                                ColumnDefinitions="*,Auto"
+                                ColumnSpacing="8">
+
+                                <Entry
+                                    x:Name="PasswordEntry"
+                                    Grid.Column="0"
+                                    Placeholder="Enter your password"
+                                    IsPassword="True"
+                                    TextColor="#061D45"
+                                    PlaceholderColor="#94A3B8"
+                                    FontSize="14"
+                                    ReturnType="Go"
+                                    Completed="OnLoginClicked" />
+
+                                <Button
+                                    x:Name="PasswordVisibilityButton"
+                                    Grid.Column="1"
+                                    Text="Show"
+                                    Clicked="OnTogglePasswordVisibility"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#1239C9"
+                                    FontSize="12"
+                                    Padding="5,0"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Forgot password -->
+                    <Label
+                        Text="Forgot Password?"
+                        TextColor="#1239C9"
+                        FontAttributes="Bold"
+                        FontSize="13"
+                        HorizontalTextAlignment="End">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnForgotPasswordTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!-- Error or status message -->
+                    <Label
+                        x:Name="StatusLabel"
+                        IsVisible="False"
+                        TextColor="#B91C1C"
+                        FontSize="13"
+                        LineBreakMode="WordWrap" />
+
+                    <!-- Sign in button -->
+                    <Button
+                        x:Name="LoginButton"
+                        Text="Sign In"
+                        Clicked="OnLoginClicked"
+                        BackgroundColor="#061D45"
+                        TextColor="#FFBF19"
+                        CornerRadius="13"
+                        HeightRequest="52"
+                        FontAttributes="Bold"
+                        FontSize="16" />
+
+                    <ActivityIndicator
+                        x:Name="LoginActivityIndicator"
+                        IsVisible="False"
+                        IsRunning="False"
+                        Color="#1239C9"
+                        HorizontalOptions="Center" />
+
+                    <!-- Divider -->
+                    <Grid
+                        ColumnDefinitions="*,Auto,*"
+                        ColumnSpacing="12">
+
+                        <BoxView
+                            Grid.Column="0"
+                            HeightRequest="1"
+                            Color="#E2E8F0"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Grid.Column="1"
+                            Text="NEW TO THE APP?"
+                            FontSize="10"
+                            CharacterSpacing="1"
+                            TextColor="#94A3B8"
+                            VerticalOptions="Center" />
+
+                        <BoxView
+                            Grid.Column="2"
+                            HeightRequest="1"
+                            Color="#E2E8F0"
+                            VerticalOptions="Center" />
+
+                    </Grid>
+
+                    <!-- Parent registration -->
+                    <Button
+                        Text="Create Parent Account"
+                        Clicked="OnRegisterTapped"
+                        BackgroundColor="#FFF7DB"
+                        TextColor="#061D45"
+                        BorderWidth="1"
+                        CornerRadius="13"
+                        HeightRequest="49"
+                        FontAttributes="Bold"
+                        FontSize="14" />
+
+                    <Label
+                        Text="Teacher and administrator accounts are provided by the school."
+                        FontSize="12"
+                        TextColor="#64748B"
+                        HorizontalTextAlignment="Center"
+                        LineHeight="1.3" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Footer -->
+            <Label
+                Text="KOOS MATLI PRIMARY SCHOOL • THUTO KE LESEDI"
+                FontSize="10"
+                CharacterSpacing="0.5"
+                TextColor="#94A3B8"
+                HorizontalTextAlignment="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -103,6 +103,6 @@ public partial class OnboardingPage : ContentPage
 
     private async Task NavigateToLoginAsync()
     {
-       // await Navigation.PushAsync(new LoginPage());
+       await Navigation.PushAsync(new LoginPage());
     }
 }
