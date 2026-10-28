@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:KoosMatliApp.Resources.Localization"
+             x:Class="KoosMatliApp.Pages.OnboardingPage1"
+             BackgroundColor="#FFFFFF"
+             NavigationPage.HasNavigationBar="False"
+>
+
+    <Grid Padding="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Padding="24" RowDefinitions="Auto, *, Auto">
+
+            <!-- ROW 0: Fixed Quick Language Switcher Bar -->
+            <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,10">
+                <HorizontalStackLayout Grid.Column="0" Spacing="12" VerticalOptions="Center">
+                    <Button Text="EN" TextColor="#173665" FontSize="13" FontAttributes="Bold" BackgroundColor="Transparent" Padding="0" Clicked="ChangeLanguage_Clicked" CommandParameter="en" />
+                    <Label Text="|" TextColor="#CCCCCC" VerticalOptions="Center"/>
+                    <Button Text="NSO" TextColor="#173665" FontSize="13" FontAttributes="Bold" BackgroundColor="Transparent" Padding="0" Clicked="ChangeLanguage_Clicked" CommandParameter="nso-ZA" />
+                    <Label Text="|" TextColor="#CCCCCC" VerticalOptions="Center"/>
+                    <Button Text="TSN" TextColor="#173665" FontSize="13" FontAttributes="Bold" BackgroundColor="Transparent" Padding="0" Clicked="ChangeLanguage_Clicked" CommandParameter="tn-ZA" />
+                </HorizontalStackLayout>
+
+                <!-- Skip button top-right -->
+                <Button Text="{x:Static loc:AppResources.BtnSkip}" HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="#EFF5FF" TextColor="#173665" FontAttributes="Bold" Clicked="Skip_Clicked" />
+            </Grid>
+        </Grid>
+
+        <!-- Content -->
+        <StackLayout Grid.Row="1" Spacing="18" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+            <Image Source="logo.png" WidthRequest="96" HeightRequest="96" HorizontalOptions="Center" />
+
+            <Frame x:Name="OnboardFrame" WidthRequest="220" HeightRequest="220" CornerRadius="110" BackgroundColor="#DDE9FF" HasShadow="False" Padding="24" HorizontalOptions="Center">
+                <Image x:Name="OnboardImage" Source="announcement.png" Aspect="AspectFit" />
+            </Frame>
+
+            <Label Text="{x:Static loc:AppResources.TitleStayConnected}" FontSize="22" TextColor="#173665" HorizontalOptions="Center" FontAttributes="Bold" />
+            <Label Text="{x:Static loc:AppResources.DescStayConnected}" FontSize="14" TextColor="#666666" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+            <!-- Dots -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="8">
+                <BoxView WidthRequest="10" HeightRequest="10" CornerRadius="5" BackgroundColor="#173665" />
+                <BoxView WidthRequest="10" HeightRequest="10" CornerRadius="5" BackgroundColor="#DDDDDD" />
+                <BoxView WidthRequest="10" HeightRequest="10" CornerRadius="5" BackgroundColor="#DDDDDD" />
+                <BoxView WidthRequest="10" HeightRequest="10" CornerRadius="5" BackgroundColor="#DDDDDD" />
+            </StackLayout>
+        </StackLayout>
+
+        <!-- Next button -->
+        <Button Grid.Row="2" Text="{x:Static loc:AppResources.BtnNext}" HorizontalOptions="End" BackgroundColor="#FFFFFF" TextColor="#173665" Clicked="Next_Clicked" />
+
+    </Grid>
+</ContentPage>
+    
+<!--References-->
+<!--Microsoft Learn, 2026. Modeless page navigation with NavigationPage. [online] Available at:
+<https://learn.microsoft.com/en-us/dotnet/maui/user-interface/pages/navigationpage?view=net-maui-10.0>
+[Accessed 27 October 2026].-->  
