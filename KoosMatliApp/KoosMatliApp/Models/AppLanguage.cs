@@ -1,4 +1,4 @@
-﻿namespace KoosMatliApp.Maui.Models;
+﻿namespace KoosMatliApp.Models;
 
 public enum AppLanguage
 {
