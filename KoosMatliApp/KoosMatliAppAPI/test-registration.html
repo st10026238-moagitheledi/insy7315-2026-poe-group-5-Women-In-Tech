@@ -1,33 +1,60 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Koos Matli Primary School - Authentication Test</title>
+    <title>Koos Matli Primary School - API Test</title>
 
     <style>
-        * {
-            box-sizing: border-box;
+        :root {
+            --navy: #061D45;
+            --blue: #1239C9;
+            --gold: #FFBF19;
+            --background: #F5F8FF;
+            --muted: #526581;
+            --border: #CBD5E1;
+            --success: #167044;
+            --error: #B42318;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 50px auto;
+            max-width: 650px;
+            margin: 35px auto;
             padding: 20px;
-            background: #f5f8ff;
-            color: #102b5c;
+            background: var(--background);
+            color: var(--navy);
         }
 
         h1 {
             text-align: center;
-            font-size: 26px;
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        h2 { font-size: 20px; margin-top: 0; }
+        h3 { font-size: 16px; }
+
+        .school-mark {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--navy);
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 20px;
+            border: 3px solid var(--gold);
         }
 
         .subtitle {
             text-align: center;
-            color: #526581;
+            color: var(--muted);
             margin-bottom: 24px;
         }
 
@@ -40,8 +67,8 @@
         .tab {
             flex: 1;
             padding: 12px;
-            background: #e2eaff;
-            color: #102b5c;
+            background: #E2EAFF;
+            color: var(--navy);
             border: none;
             border-radius: 7px;
             cursor: pointer;
@@ -49,17 +76,18 @@
         }
 
         .tab.active {
-            background: #1239c9;
+            background: var(--blue);
             color: white;
         }
 
-        form, .profile-card {
+        form, .card {
             display: grid;
             gap: 12px;
             background: white;
             padding: 24px;
             border-radius: 12px;
             box-shadow: 0 4px 14px rgba(16, 43, 92, 0.08);
+            margin-bottom: 18px;
         }
 
         label {
@@ -67,24 +95,26 @@
             font-weight: bold;
         }
 
-        input, button {
+        input, select {
             width: 100%;
             padding: 12px;
             font-size: 15px;
-        }
-
-        input {
-            border: 1px solid #cbd5e1;
+            border: 1px solid var(--border);
             border-radius: 6px;
+            background: white;
+            color: var(--navy);
         }
 
-        input:focus {
-            outline: 2px solid #9cb5ff;
-            border-color: #1239c9;
+        input:focus, select:focus {
+            outline: 2px solid #9CB5FF;
+            border-color: var(--blue);
         }
+
+        button { padding: 12px; font-size: 15px; }
 
         .submit-button {
-            background: #1239c9;
+            width: 100%;
+            background: var(--blue);
             color: white;
             border: none;
             border-radius: 6px;
@@ -99,67 +129,107 @@
         }
 
         .secondary-button {
-            background: #e2eaff;
-            color: #102b5c;
+            width: 100%;
+            background: #E2EAFF;
+            color: var(--navy);
             border: none;
             border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
         }
 
-        .hidden {
-            display: none;
+        .gold-button {
+            background: var(--gold);
+            color: var(--navy);
         }
+
+        .hidden { display: none !important; }
 
         .status {
             margin-top: 20px;
-            padding: 14px;
+            padding: 18px;
             background: white;
             border-radius: 8px;
             overflow-wrap: anywhere;
+            border-left: 5px solid var(--gold);
         }
 
-        .status h2 {
-            font-size: 18px;
-            margin-top: 0;
-        }
+        .status h2 { font-size: 18px; }
 
         pre {
             white-space: pre-wrap;
             overflow-wrap: anywhere;
             font-size: 13px;
+            line-height: 1.5;
         }
 
-        .success {
-            color: #167044;
-        }
-
-        .error {
-            color: #b42318;
-        }
+        .success { color: var(--success); }
+        .error { color: var(--error); }
 
         .note {
-            color: #526581;
+            color: var(--muted);
             font-size: 12px;
-            line-height: 1.5;
+            line-height: 1.6;
+        }
+
+        .section-description {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .profile-details {
+            white-space: pre-line;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .role-label {
+            display: inline-block;
+            width: fit-content;
+            padding: 5px 10px;
+            background: #FFF1C2;
+            color: var(--navy);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #E2E8F0;
+            margin: 8px 0;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                margin: 10px auto;
+                padding: 14px;
+            }
+
+            form, .card { padding: 18px; }
         }
     </style>
 </head>
 
 <body>
-    <h1>Koos Matli Primary School</h1>
-    <p class="subtitle">Parent Authentication Test</p>
+    <div class="school-mark">KM</div>
 
-    <div class="tabs">
+    <h1>Koos Matli Primary School</h1>
+    <p class="subtitle">Thuto ke Lesedi · API Testing Portal</p>
+
+    <!-- AUTHENTICATION TABS -->
+    <div class="tabs" id="authTabs">
         <button type="button" class="tab active" id="loginTab">
             Sign In
         </button>
 
         <button type="button" class="tab" id="registerTab">
-            Register
+            Register Account
         </button>
     </div>
 
-    <!-- SIGN IN FORM -->
+    <!-- SIGN IN -->
     <form id="loginForm">
         <h2>Welcome Back</h2>
 
@@ -167,7 +237,7 @@
         <input
             id="loginEmail"
             type="email"
-            autocomplete="email"
+            autocomplete="username"
             required
             placeholder="Enter your email"
         >
@@ -186,9 +256,22 @@
         </button>
     </form>
 
-    <!-- REGISTRATION FORM -->
+    <!-- REGISTER ALL ROLES -->
     <form id="registrationForm" class="hidden">
-        <h2>Create Parent Account</h2>
+        <h2>Create an Account</h2>
+
+        <p class="section-description">
+            Create a parent, teacher or admin account for testing the school
+            system. The selected role will be saved to the user's Firestore
+            profile.
+        </p>
+
+        <label for="registerRole">Account type</label>
+        <select id="registerRole" required>
+            <option value="parent">Parent</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+        </select>
 
         <label for="displayName">Full name</label>
         <input
@@ -196,6 +279,7 @@
             type="text"
             autocomplete="name"
             required
+            maxlength="100"
             placeholder="Enter your full name"
         >
 
@@ -218,18 +302,41 @@
             placeholder="At least 8 characters"
         >
 
+        <label for="confirmPassword">Confirm password</label>
+        <input
+            id="confirmPassword"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            required
+            placeholder="Re-enter your password"
+        >
+
         <button type="submit" class="submit-button" id="registerButton">
-            Register Parent
+            Create Account
         </button>
+
+        <p class="note">
+            Testing mode: all three roles are available for registration.
+            Do not expose this unrestricted registration page to the public
+            in production.
+        </p>
     </form>
 
     <!-- SIGNED-IN PROFILE -->
-    <section id="profileCard" class="profile-card hidden">
+    <section id="profileCard" class="card hidden">
         <h2 class="success">You are signed in!</h2>
-        <p id="profileDetails"></p>
+
+        <span class="role-label" id="roleLabel">USER</span>
+
+        <p class="profile-details" id="profileDetails"></p>
 
         <button type="button" class="submit-button" id="testProfileButton">
-            Test /api/auth/me
+            Test My Profile API
+        </button>
+
+        <button type="button" class="secondary-button" id="loadChildrenButton">
+            Load My Linked Children
         </button>
 
         <button type="button" class="secondary-button" id="logoutButton">
@@ -237,20 +344,79 @@
         </button>
 
         <p class="note">
-            Signing out here clears this page's token. It does not revoke the
-            Firebase token or delete the Firebase account.
+            Signing out clears the token from this page. It does not delete
+            your Firebase account or revoke the token at Firebase.
         </p>
     </section>
 
+    <!-- ADMIN TOOLS -->
+    <section id="adminSection" class="hidden">
+        <form id="linkChildForm">
+            <h2>Admin Tools: Link a Learner</h2>
+
+            <p class="section-description">
+                Link a learner to an existing parent account. Enter the
+                parent's Firebase UID and the learner's school details.
+                Only use this after the school has verified the relationship.
+            </p>
+
+            <label for="parentUid">Parent Firebase UID</label>
+            <input id="parentUid" type="text" required
+                   placeholder="Paste the parent's UID">
+
+            <hr class="divider">
+
+            <label for="childFirstName">Learner first name</label>
+            <input id="childFirstName" type="text" required maxlength="100"
+                   placeholder="Enter learner's first name">
+
+            <label for="childLastName">Learner surname</label>
+            <input id="childLastName" type="text" required maxlength="100"
+                   placeholder="Enter learner's surname">
+
+            <label for="childGrade">Grade</label>
+            <input id="childGrade" type="text" required
+                   placeholder="e.g. Grade 4">
+
+            <label for="childClass">Class (optional)</label>
+            <input id="childClass" type="text" placeholder="e.g. 4A">
+
+            <label for="admissionNumber">Admission number</label>
+            <input id="admissionNumber" type="text" required
+                   placeholder="e.g. KM001">
+
+            <button type="submit" class="submit-button gold-button"
+                    id="linkChildButton">
+                Link Learner to Parent
+            </button>
+
+            <p class="note">
+                The API must enforce admin authorization. Hiding this section
+                in the browser is not a security control.
+            </p>
+        </form>
+    </section>
+
+    <!-- PARENT CHILDREN RESULTS -->
+    <section id="childrenCard" class="card hidden">
+        <h2>Linked Children</h2>
+        <p id="childrenSummary" class="section-description"></p>
+        <pre id="childrenResult"></pre>
+    </section>
+
     <!-- API RESPONSE -->
-    <section class="status">
+    <section class="status" aria-live="polite">
         <h2>API Response</h2>
         <p id="statusMessage">Ready to test your API.</p>
         <pre id="result">No request sent yet.</pre>
     </section>
 
     <script>
-        const API_URL = "http://localhost:5000/api/auth";
+        const API_BASE_URL = "http://localhost:5000";
+
+        const AUTH_URL = `${API_BASE_URL}/api/auth`;
+        const PARENT_URL = `${API_BASE_URL}/api/parent`;
+        const SCHOOL_DATA_URL = `${API_BASE_URL}/api/school-data`;
 
         const loginTab = document.getElementById("loginTab");
         const registerTab = document.getElementById("registerTab");
@@ -260,15 +426,23 @@
 
         const profileCard = document.getElementById("profileCard");
         const profileDetails = document.getElementById("profileDetails");
+        const roleLabel = document.getElementById("roleLabel");
 
+        const adminSection = document.getElementById("adminSection");
+        const childrenCard = document.getElementById("childrenCard");
+        const childrenSummary = document.getElementById("childrenSummary");
+        const childrenResult = document.getElementById("childrenResult");
+
+        const authTabs = document.getElementById("authTabs");
         const statusMessage = document.getElementById("statusMessage");
         const result = document.getElementById("result");
 
         const loginButton = document.getElementById("loginButton");
         const registerButton = document.getElementById("registerButton");
+        const linkChildButton = document.getElementById("linkChildButton");
 
-        // Keep the token in page memory rather than browser localStorage.
         let idToken = null;
+        let currentUser = null;
 
         function showResponse(message, data, isError = false) {
             statusMessage.textContent = message;
@@ -279,28 +453,22 @@
                 : JSON.stringify(data, null, 2);
         }
 
-        function showLogin() {
-            loginTab.classList.add("active");
-            registerTab.classList.remove("active");
+        function setAuthTab(tab) {
+            loginTab.classList.toggle("active", tab === "login");
+            registerTab.classList.toggle("active", tab === "register");
 
-            loginForm.classList.remove("hidden");
-            registrationForm.classList.add("hidden");
+            loginForm.classList.toggle("hidden", tab !== "login");
+            registrationForm.classList.toggle("hidden", tab !== "register");
+
             profileCard.classList.add("hidden");
+            adminSection.classList.add("hidden");
+            childrenCard.classList.add("hidden");
         }
 
-        function showRegistration() {
-            registerTab.classList.add("active");
-            loginTab.classList.remove("active");
+        loginTab.addEventListener("click", () => setAuthTab("login"));
+        registerTab.addEventListener("click", () => setAuthTab("register"));
 
-            registrationForm.classList.remove("hidden");
-            loginForm.classList.add("hidden");
-            profileCard.classList.add("hidden");
-        }
-
-        loginTab.addEventListener("click", showLogin);
-        registerTab.addEventListener("click", showRegistration);
-
-        async function sendRequest(url, options) {
+        async function sendRequest(url, options = {}) {
             const response = await fetch(url, options);
 
             const data = await response.json().catch(() => ({
@@ -311,24 +479,76 @@
             return { response, data };
         }
 
-        // REGISTER PARENT
+        function getAuthHeaders() {
+            if (!idToken) {
+                throw new Error("Please sign in first.");
+            }
+
+            return {
+                "Authorization": `Bearer ${idToken}`,
+                "Content-Type": "application/json"
+            };
+        }
+
+        function showSignedInUser(user) {
+            currentUser = user;
+
+            profileDetails.textContent =
+                `Name: ${user.displayName || "Not provided"}\n` +
+                `Email: ${user.email || "Not provided"}\n` +
+                `Role: ${user.role || "Unknown"}\n` +
+                `UID: ${user.uid || "Not provided"}`;
+
+            roleLabel.textContent = (user.role || "user").toUpperCase();
+
+            loginForm.classList.add("hidden");
+            registrationForm.classList.add("hidden");
+            authTabs.classList.add("hidden");
+            profileCard.classList.remove("hidden");
+
+            // Interface convenience only; the API must enforce permissions.
+            adminSection.classList.toggle("hidden", user.role !== "admin");
+            childrenCard.classList.add("hidden");
+        }
+
+        // REGISTER PARENT, TEACHER OR ADMIN
         registrationForm.addEventListener("submit", async (event) => {
             event.preventDefault();
 
-            registerButton.disabled = true;
-            registerButton.textContent = "Registering...";
+            const password =
+                document.getElementById("registerPassword").value;
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
 
-            showResponse("Registering parent account...", "");
+            if (password !== confirmPassword) {
+                showResponse(
+                    "Registration failed.",
+                    "The passwords do not match.",
+                    true
+                );
+                return;
+            }
+
+            registerButton.disabled = true;
+            registerButton.textContent = "Creating Account...";
 
             const requestBody = {
-                displayName: document.getElementById("displayName").value.trim(),
-                email: document.getElementById("registerEmail").value.trim(),
-                password: document.getElementById("registerPassword").value
+                displayName:
+                    document.getElementById("displayName").value.trim(),
+                email:
+                    document.getElementById("registerEmail").value.trim(),
+                password,
+                role: document.getElementById("registerRole").value
             };
+
+            showResponse(
+                `Registering ${requestBody.role} account...`,
+                ""
+            );
 
             try {
                 const { response, data } = await sendRequest(
-                    `${API_URL}/register-parent`,
+                    `${AUTH_URL}/register-parent`,
                     {
                         method: "POST",
                         headers: {
@@ -339,34 +559,38 @@
                 );
 
                 showResponse(
-                    `HTTP Status: ${response.status}`,
+                    `Registration — HTTP ${response.status}`,
                     data,
-                    !response.ok
+                    !response.ok || data.success === false
                 );
 
-                if (response.ok) {
-                    // Switch to sign in and prefill the email.
-                    document.getElementById("loginEmail").value =
-                        requestBody.email;
-
-                    document.getElementById("loginPassword").value = "";
+                if (response.ok && data.success !== false) {
+                    const registeredEmail = requestBody.email;
 
                     registrationForm.reset();
-                    showLogin();
+                    document.getElementById("loginEmail").value =
+                        registeredEmail;
+                    document.getElementById("loginPassword").value = "";
 
-                    statusMessage.textContent =
-                        "Registration successful. Please sign in.";
-                    statusMessage.className = "success";
+                    setAuthTab("login");
+
+                    showResponse(
+                        `${requestBody.role.charAt(0).toUpperCase() + requestBody.role.slice(1)} registered successfully.`,
+                        {
+                            ...data,
+                            nextStep: "Sign in using the email and password you registered with."
+                        }
+                    );
                 }
             } catch (error) {
                 showResponse(
                     "Could not connect to the API.",
-                    error.message + "\nCheck the server and CORS settings.",
+                    `${error.message}\nCheck the server, API URL and CORS settings.`,
                     true
                 );
             } finally {
                 registerButton.disabled = false;
-                registerButton.textContent = "Register Parent";
+                registerButton.textContent = "Create Account";
             }
         });
 
@@ -376,7 +600,6 @@
 
             loginButton.disabled = true;
             loginButton.textContent = "Signing in...";
-
             showResponse("Signing in...", "");
 
             const requestBody = {
@@ -386,7 +609,7 @@
 
             try {
                 const { response, data } = await sendRequest(
-                    `${API_URL}/login`,
+                    `${AUTH_URL}/login`,
                     {
                         method: "POST",
                         headers: {
@@ -396,8 +619,9 @@
                     }
                 );
 
-                if (!response.ok) {
+                if (!response.ok || data.success === false) {
                     idToken = null;
+                    currentUser = null;
 
                     showResponse(
                         `Sign in failed — HTTP ${response.status}`,
@@ -407,30 +631,24 @@
                     return;
                 }
 
-                if (!data.idToken || !data.user) {
+                const receivedToken = data.token || data.idToken;
+
+                if (!receivedToken || !data.user) {
                     idToken = null;
 
                     showResponse(
                         "Sign-in response is incomplete.",
-                        data,
+                        {
+                            message: "Expected a token and a user object.",
+                            receivedResponse: data
+                        },
                         true
                     );
                     return;
                 }
 
-                idToken = data.idToken;
-
-                profileDetails.textContent =
-                    `Name: ${data.user.displayName}\n` +
-                    `Email: ${data.user.email}\n` +
-                    `Role: ${data.user.role}\n` +
-                    `UID: ${data.user.uid}`;
-
-                loginForm.classList.add("hidden");
-                registrationForm.classList.add("hidden");
-                loginTab.classList.remove("active");
-                registerTab.classList.remove("active");
-                profileCard.classList.remove("hidden");
+                idToken = receivedToken;
+                showSignedInUser(data.user);
 
                 showResponse(
                     `Sign in successful — HTTP ${response.status}`,
@@ -441,14 +659,13 @@
                         tokenReceived: true
                     }
                 );
-
-                // Don't display the token in the page.
             } catch (error) {
                 idToken = null;
+                currentUser = null;
 
                 showResponse(
                     "Could not connect to the API.",
-                    error.message + "\nCheck the server and CORS settings.",
+                    `${error.message}\nCheck the server, API URL and CORS settings.`,
                     true
                 );
             } finally {
@@ -457,28 +674,17 @@
             }
         });
 
-        // TEST PROTECTED PROFILE ENDPOINT
+        // TEST /api/auth/me
         document.getElementById("testProfileButton")
             .addEventListener("click", async () => {
-                if (!idToken) {
-                    showResponse(
-                        "No sign-in token is available.",
-                        "Please sign in again.",
-                        true
-                    );
-                    return;
-                }
-
                 showResponse("Testing authenticated profile...", "");
 
                 try {
                     const { response, data } = await sendRequest(
-                        `${API_URL}/me`,
+                        `${AUTH_URL}/me`,
                         {
                             method: "GET",
-                            headers: {
-                                "Authorization": `Bearer ${idToken}`
-                            }
+                            headers: getAuthHeaders()
                         }
                     );
 
@@ -488,26 +694,159 @@
                         !response.ok
                     );
                 } catch (error) {
+                    showResponse("Profile request failed.", error.message, true);
+                }
+            });
+
+        // LOAD CHILDREN FOR A PARENT
+        document.getElementById("loadChildrenButton")
+            .addEventListener("click", async () => {
+                if (!currentUser || currentUser.role !== "parent") {
                     showResponse(
-                        "Could not connect to the API.",
-                        error.message,
+                        "Parent account required.",
+                        "Sign in with a parent account to load linked children.",
+                        true
+                    );
+                    return;
+                }
+
+                showResponse("Loading linked children...", "");
+
+                try {
+                    const { response, data } = await sendRequest(
+                        `${PARENT_URL}/children`,
+                        {
+                            method: "GET",
+                            headers: getAuthHeaders()
+                        }
+                    );
+
+                    showResponse(
+                        `GET /api/parent/children — HTTP ${response.status}`,
+                        data,
+                        !response.ok
+                    );
+
+                    if (response.ok) {
+                        childrenCard.classList.remove("hidden");
+
+                        const children = Array.isArray(data.children)
+                            ? data.children
+                            : [];
+
+                        childrenSummary.textContent =
+                            `${children.length} linked learner(s) found.`;
+
+                        childrenResult.textContent =
+                            JSON.stringify(children, null, 2);
+                    }
+                } catch (error) {
+                    showResponse(
+                        "Could not load children.",
+                        `${error.message}\nCheck that GET /api/parent/children exists.`,
                         true
                     );
                 }
             });
 
-        // SIGN OUT OF THIS TEST PAGE
+        // ADMIN: LINK LEARNER TO PARENT
+        document.getElementById("linkChildForm")
+            .addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                if (!currentUser || currentUser.role !== "admin") {
+                    showResponse(
+                        "Admin access required.",
+                        "Sign in with an authorized admin account.",
+                        true
+                    );
+                    return;
+                }
+
+                const parentUid =
+                    document.getElementById("parentUid").value.trim();
+
+                const requestBody = {
+                    firstName:
+                        document.getElementById("childFirstName").value.trim(),
+                    lastName:
+                        document.getElementById("childLastName").value.trim(),
+                    grade:
+                        document.getElementById("childGrade").value.trim(),
+                    className:
+                        document.getElementById("childClass").value.trim(),
+                    admissionNumber:
+                        document.getElementById("admissionNumber").value.trim()
+                };
+
+                const confirmed = window.confirm(
+                    "Have you verified that this parent is authorized to access this learner's information?"
+                );
+
+                if (!confirmed) {
+                    showResponse(
+                        "Linking cancelled.",
+                        "Verify the parent–learner relationship before continuing."
+                    );
+                    return;
+                }
+
+                linkChildButton.disabled = true;
+                linkChildButton.textContent = "Linking Learner...";
+
+                showResponse("Creating learner record and parent link...", "");
+
+                try {
+                    const { response, data } = await sendRequest(
+                        `${SCHOOL_DATA_URL}/parents/${encodeURIComponent(parentUid)}/children`,
+                        {
+                            method: "POST",
+                            headers: getAuthHeaders(),
+                            body: JSON.stringify(requestBody)
+                        }
+                    );
+
+                    showResponse(
+                        `POST /api/school-data/parents/:parentUid/children — HTTP ${response.status}`,
+                        data,
+                        !response.ok
+                    );
+
+                    if (response.ok) {
+                        document.getElementById("linkChildForm").reset();
+                    }
+                } catch (error) {
+                    showResponse(
+                        "Could not link learner.",
+                        `${error.message}\nCheck the API route, server and CORS settings.`,
+                        true
+                    );
+                } finally {
+                    linkChildButton.disabled = false;
+                    linkChildButton.textContent = "Link Learner to Parent";
+                }
+            });
+
+        // SIGN OUT OF THE TEST PAGE
         document.getElementById("logoutButton")
             .addEventListener("click", () => {
                 idToken = null;
+                currentUser = null;
+
                 loginForm.reset();
+                registrationForm.reset();
+                document.getElementById("linkChildForm").reset();
 
                 profileCard.classList.add("hidden");
-                showLogin();
+                adminSection.classList.add("hidden");
+                childrenCard.classList.add("hidden");
+                authTabs.classList.remove("hidden");
+
+                setAuthTab("login");
 
                 showResponse(
                     "Signed out of the test page.",
-                    "Your token has been cleared from this page's memory."
+                    "The token has been cleared from this page's memory."
                 );
             });
     </script>

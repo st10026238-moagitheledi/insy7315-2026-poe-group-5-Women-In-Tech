@@ -3,12 +3,14 @@ const { auth, db } = require("../config/firebase");
 const VALID_ROLES = ["parent", "teacher", "admin"];
 
 // POST /api/auth/register-parent
+// Public registration is restricted to parent accounts only.
 async function registerParent(req, res) {
     let createdUser = null;
 
     try {
         const { displayName, email, password } = req.body;
 
+        // Validate required fields.
         if (
             typeof displayName !== "string" ||
             typeof email !== "string" ||
@@ -33,6 +35,7 @@ async function registerParent(req, res) {
         const cleanName = displayName.trim();
         const cleanEmail = email.trim().toLowerCase();
 
+        // Create the Firebase Authentication account.
         createdUser = await auth.createUser({
             displayName: cleanName,
             email: cleanEmail,
@@ -40,6 +43,7 @@ async function registerParent(req, res) {
         });
 
         try {
+            // Always create a parent profile in Firestore.
             await db.collection("users").doc(createdUser.uid).create({
                 uid: createdUser.uid,
                 displayName: cleanName,
@@ -49,8 +53,12 @@ async function registerParent(req, res) {
                 createdAt: new Date().toISOString()
             });
         } catch (error) {
+            // Roll back the Auth account if profile creation fails.
             await auth.deleteUser(createdUser.uid).catch((rollbackError) => {
-                console.error("Registration rollback failed:", rollbackError.message);
+                console.error(
+                    "Registration rollback failed:",
+                    rollbackError.message
+                );
             });
 
             throw error;
@@ -58,7 +66,7 @@ async function registerParent(req, res) {
 
         return res.status(201).json({
             success: true,
-            message: "Parent account created. Please sign in.",
+            message: "Parent account created successfully. Please sign in.",
             user: {
                 uid: createdUser.uid,
                 displayName: cleanName,
@@ -66,8 +74,12 @@ async function registerParent(req, res) {
                 role: "parent"
             }
         });
+
     } catch (error) {
-        console.error("Parent registration error:", error.code || error.message);
+        console.error(
+            "Registration error:",
+            error.code || error.message
+        );
 
         if (error.code === "auth/email-already-exists") {
             return res.status(409).json({
