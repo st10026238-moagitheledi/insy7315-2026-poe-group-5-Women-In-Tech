@@ -221,6 +221,59 @@ public class ParentApiService
         return false;
     }
 
+    public async Task<JsonDocument> GetAnnouncementsAsync()
+    {
+        var token = await SecureStorage.Default.GetAsync(TokenKey);
+
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            throw new UnauthorizedAccessException(
+                "Your session has expired. Please log in again.");
+        }
+
+        using var request = new HttpRequestMessage(
+            HttpMethod.Get,
+            "/api/parent/announcements");
+
+        request.Headers.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+
+        using var response = await _httpClient.SendAsync(request);
+
+        var responseBody = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string message =
+                $"Unable to load announcements ({(int)response.StatusCode}).";
+
+            try
+            {
+                using var errorJson = JsonDocument.Parse(responseBody);
+
+                if (errorJson.RootElement.TryGetProperty(
+                        "message", out var messageElement))
+                {
+                    message = messageElement.GetString() ?? message;
+                }
+            }
+            catch (JsonException)
+            {
+                // Keep the default error message.
+            }
+
+            if (response.StatusCode ==
+                System.Net.HttpStatusCode.Unauthorized)
+            {
+                throw new UnauthorizedAccessException(message);
+            }
+
+            throw new HttpRequestException(message);
+        }
+
+        return JsonDocument.Parse(responseBody);
+    }
+
     // =========================================
     // LOG OUT
     // =========================================

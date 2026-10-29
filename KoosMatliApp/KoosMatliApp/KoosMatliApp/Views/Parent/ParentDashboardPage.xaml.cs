@@ -334,53 +334,48 @@ public partial class ParentDashboardPage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync("Announcements");
+        await Navigation.PushAsync(new AnnouncementsPage());
     }
 
     private async void OnTimetableTapped(
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync("Timetables");
+        await Navigation.PushAsync(new TimetablePage());
     }
 
     private async void OnHomeworkTapped(
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync(
-            "Homework & Learning Resources");
+        await Navigation.PushAsync(new HomeworkResourcesPage());
     }
 
     private async void OnCalendarTapped(
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync(
-            "School Calendar & Events");
+        await Navigation.PushAsync(new SchoolCalendarPage());
     }
 
     private async void OnAcademicsTapped(
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync(
-            "Academic Information");
+        await Navigation.PushAsync(new AcademicInformationPage());
     }
 
     private async void OnFeesTapped(
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync(
-            "School Fees & Payments");
+        await Navigation.PushAsync(new SchoolFeesPaymentsPage());
     }
 
     private async void OnProfileTapped(
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync(
-            "Parent Profile & Settings");
+        await Navigation.PushAsync(new ParentProfilePage());
     }
 }

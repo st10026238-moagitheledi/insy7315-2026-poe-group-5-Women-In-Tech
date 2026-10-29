@@ -225,7 +225,7 @@ public partial class TimetablePage : ContentPage
 
     private async void OnHomeTapped(object sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(ParentDashboardPage));
+        await Navigation.PushAsync(new MyChildrenPage());
     }
 
     private async void OnScheduleTapped(object sender, TappedEventArgs e)
@@ -236,17 +236,17 @@ public partial class TimetablePage : ContentPage
 
     private async void OnUpdatesTapped(object sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(AnnouncementsPage));
+        await Navigation.PushAsync(new AnnouncementsPage());
     }
 
     private async void OnChildrenTapped(object sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(MyChildrenPage));
+        await Navigation.PushAsync(new MyChildrenPage());
     }
 
     private async void OnProfileTapped(object sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(ParentProfilePage));
+        await Navigation.PushAsync(new ParentProfilePage());
     }
 }
 

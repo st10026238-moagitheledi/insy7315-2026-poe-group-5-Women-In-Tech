@@ -339,21 +339,21 @@ public partial class MyChildrenPage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync("Timetables");
+        await Navigation.PushAsync(new TimetablePage());
     }
 
     private async void OnUpdatesTapped(
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync("Announcements");
+        await Navigation.PushAsync(new AnnouncementsPage());
     }
 
     private async void OnProfileTapped(
         object sender,
         TappedEventArgs e)
     {
-        await ShowComingSoonAsync("Parent Profile & Settings");
+        await Navigation.PushAsync(new ParentProfilePage());
     }
 
     private async Task ReturnToDashboardAsync()

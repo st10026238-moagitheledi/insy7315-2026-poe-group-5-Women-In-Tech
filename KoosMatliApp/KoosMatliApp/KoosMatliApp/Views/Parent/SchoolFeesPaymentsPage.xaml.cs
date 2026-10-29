@@ -207,7 +207,7 @@ public partial class SchoolFeesPaymentsPage : ContentPage
 
             detailsButton.Clicked += async (_, _) =>
             {
-                await DisplayAlert(
+                await DisplayAlertAsync(
                     item.Title,
                     $"Learner: {account.LearnerName}\n" +
                     $"Description: {item.Description}\n" +
@@ -269,27 +269,27 @@ public partial class SchoolFeesPaymentsPage : ContentPage
 
     private async void OnHomeTapped(object? sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(ParentDashboardPage));
+        await Navigation.PushAsync(new ParentDashboardPage());
     }
 
     private async void OnTimetableTapped(object? sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(TimetablePage));
+        await Navigation.PushAsync(new TimetablePage());
     }
 
     private async void OnUpdatesTapped(object? sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(AnnouncementsPage));
+        await Navigation.PushAsync(new AnnouncementsPage());
     }
 
     private async void OnChildrenTapped(object? sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(MyChildrenPage));
+        await Navigation.PushAsync(new MyChildrenPage());
     }
 
     private async void OnProfileTapped(object? sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(ParentProfilePage));
+        await Navigation.PushAsync(new ParentProfilePage());
     }
 }
 

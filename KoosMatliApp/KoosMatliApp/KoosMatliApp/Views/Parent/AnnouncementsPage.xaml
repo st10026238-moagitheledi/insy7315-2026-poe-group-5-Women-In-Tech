@@ -4,318 +4,459 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Announcements"
-    BackgroundColor="#F5F7FB">
+    BackgroundColor="#F5F7FC">
 
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="*,Auto">
 
-        <!-- Header -->
-        <Grid Grid.Row="0"
-              BackgroundColor="#172554"
-              Padding="22,25,22,22"
-              RowDefinitions="Auto,Auto"
-              RowSpacing="6">
+        <!-- Main content -->
+        <RefreshView
+            x:Name="AnnouncementsRefreshView"
+            Grid.Row="0"
+            Refreshing="OnRefreshing">
 
-            <Label Grid.Row="0"
-                   Text="PARENT PORTAL"
-                   FontSize="11"
-                   FontAttributes="Bold"
-                   TextColor="#93C5FD"
-                   CharacterSpacing="2" />
+            <CollectionView
+                x:Name="AnnouncementsCollectionView"
+                ItemsSource="{Binding FilteredAnnouncements}"
+                SelectionMode="None">
 
-            <Label Grid.Row="1"
-                   Text="Announcements"
-                   FontSize="27"
-                   FontAttributes="Bold"
-                   TextColor="White" />
+                <CollectionView.Header>
+                    <VerticalStackLayout
+                        Padding="20,24,20,12"
+                        Spacing="16">
 
-        </Grid>
+                        <!-- Page title -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label
+                                Text="KOOS MATLI PRIMARY SCHOOL"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                TextColor="#B78600"
+                                CharacterSpacing="1.2" />
 
-        <!-- Main Content -->
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20"
-                                 Spacing="18">
+                            <Label
+                                Text="Announcements"
+                                FontSize="27"
+                                FontAttributes="Bold"
+                                TextColor="#061D45" />
 
-                <VerticalStackLayout Spacing="4">
-                    <Label Text="School Updates"
-                           FontSize="21"
-                           FontAttributes="Bold"
-                           TextColor="#172554" />
-
-                    <Label Text="Stay informed about important school news and notices."
-                           FontSize="13"
-                           TextColor="#64748B" />
-                </VerticalStackLayout>
-
-                <!-- Search -->
-                <SearchBar
-                    x:Name="AnnouncementSearchBar"
-                    Placeholder="Search announcements..."
-                    BackgroundColor="White"
-                    TextColor="#1E293B"
-                    PlaceholderColor="#94A3B8"
-                    CancelButtonColor="#172554"
-                    TextChanged="OnSearchTextChanged" />
-
-                <!-- Category Filter -->
-                <ScrollView Orientation="Horizontal"
-                            HorizontalScrollBarVisibility="Never">
-                    <HorizontalStackLayout Spacing="8">
-
-                        <Button x:Name="AllButton"
-                                Text="All"
-                                Clicked="OnCategoryClicked"
-                                CommandParameter="All"
-                                BackgroundColor="#243B80"
-                                TextColor="White"
-                                CornerRadius="18"
-                                Padding="18,8"
-                                FontSize="12" />
-
-                        <Button x:Name="AcademicButton"
-                                Text="Academic"
-                                Clicked="OnCategoryClicked"
-                                CommandParameter="Academic"
-                                BackgroundColor="White"
-                                TextColor="#334155"
-                                CornerRadius="18"
-                                Padding="18,8"
-                                FontSize="12" />
-
-                        <Button x:Name="EventsButton"
-                                Text="Events"
-                                Clicked="OnCategoryClicked"
-                                CommandParameter="Events"
-                                BackgroundColor="White"
-                                TextColor="#334155"
-                                CornerRadius="18"
-                                Padding="18,8"
-                                FontSize="12" />
-
-                        <Button x:Name="GeneralButton"
-                                Text="General"
-                                Clicked="OnCategoryClicked"
-                                CommandParameter="General"
-                                BackgroundColor="White"
-                                TextColor="#334155"
-                                CornerRadius="18"
-                                Padding="18,8"
-                                FontSize="12" />
-
-                    </HorizontalStackLayout>
-                </ScrollView>
-
-                <!-- Loading -->
-                <ActivityIndicator
-                    x:Name="LoadingIndicator"
-                    IsVisible="False"
-                    IsRunning="False"
-                    Color="#4338CA"
-                    HorizontalOptions="Center" />
-
-                <!-- Status Message -->
-                <Border x:Name="StatusContainer"
-                        IsVisible="False"
-                        BackgroundColor="White"
-                        Stroke="#E2E8F0"
-                        StrokeThickness="1"
-                        Padding="18"
-                        StrokeShape="RoundRectangle 14">
-
-                    <Label x:Name="StatusLabel"
-                           Text=""
-                           FontSize="13"
-                           TextColor="#64748B"
-                           HorizontalTextAlignment="Center" />
-                </Border>
-
-                <!-- Announcement Count -->
-                <Label x:Name="AnnouncementCountLabel"
-                       Text="Announcements"
-                       FontSize="13"
-                       FontAttributes="Bold"
-                       TextColor="#64748B" />
-
-                <!-- Announcements List -->
-                <CollectionView
-                    x:Name="AnnouncementsCollectionView"
-                    ItemsSource="{Binding FilteredAnnouncements}"
-                    SelectionMode="None">
-
-                    <CollectionView.EmptyView>
-                        <VerticalStackLayout Padding="20"
-                                             Spacing="8"
-                                             HorizontalOptions="Center">
-
-                            <Label Text="No announcements found"
-                                   FontSize="16"
-                                   FontAttributes="Bold"
-                                   TextColor="#334155"
-                                   HorizontalTextAlignment="Center" />
-
-                            <Label Text="Try another search or category."
-                                   FontSize="13"
-                                   TextColor="#64748B"
-                                   HorizontalTextAlignment="Center" />
-
+                            <Label
+                                Text="Stay informed about school news, notices and important updates."
+                                FontSize="14"
+                                TextColor="#52627A"
+                                LineBreakMode="WordWrap" />
                         </VerticalStackLayout>
-                    </CollectionView.EmptyView>
 
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border BackgroundColor="White"
-                                    Stroke="#E2E8F0"
-                                    StrokeThickness="1"
-                                    Padding="16"
-                                    Margin="0,0,0,12"
-                                    StrokeShape="RoundRectangle 16">
+                        <!-- Search -->
+                        <SearchBar
+                            x:Name="AnnouncementSearchBar"
+                            Placeholder="Search announcements..."
+                            BackgroundColor="White"
+                            TextColor="#061D45"
+                            PlaceholderColor="#8290A5"
+                            CancelButtonColor="#061D45"
+                            TextChanged="OnSearchTextChanged" />
 
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Tapped="OnAnnouncementTapped"
-                                        CommandParameter="{Binding .}" />
-                                </Border.GestureRecognizers>
+                        <!-- Category filters -->
+                        <VerticalStackLayout Spacing="10">
+                            <Label
+                                Text="Filter by category"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                TextColor="#061D45" />
 
-                                <VerticalStackLayout Spacing="11">
+                            <ScrollView
+                                Orientation="Horizontal"
+                                HorizontalScrollBarVisibility="Never">
 
-                                    <Grid ColumnDefinitions="*,Auto">
-                                        <Border Grid.Column="0"
-                                                BackgroundColor="#EEF2FF"
-                                                Padding="10,5"
-                                                HorizontalOptions="Start"
-                                                StrokeThickness="0"
-                                                StrokeShape="RoundRectangle 10">
+                                <HorizontalStackLayout Spacing="8">
 
-                                            <Label Text="{Binding Category}"
-                                                   FontSize="10"
-                                                   FontAttributes="Bold"
-                                                   TextColor="#4338CA" />
-                                        </Border>
+                                    <Button
+                                        x:Name="AllButton"
+                                        Text="All"
+                                        CommandParameter="All"
+                                        Clicked="OnCategoryClicked"
+                                        BackgroundColor="#061D45"
+                                        TextColor="White"
+                                        CornerRadius="18"
+                                        Padding="18,8"
+                                        FontSize="12" />
 
-                                        <Label Grid.Column="1"
-                                               Text="{Binding DateDisplay}"
-                                               FontSize="11"
-                                               TextColor="#94A3B8"
-                                               VerticalOptions="Center"
-                                               HorizontalTextAlignment="End" />
-                                    </Grid>
+                                    <Button
+                                        x:Name="AcademicButton"
+                                        Text="Academic"
+                                        CommandParameter="Academic"
+                                        Clicked="OnCategoryClicked"
+                                        BackgroundColor="White"
+                                        TextColor="#061D45"
+                                        BorderColor="#E0E7F1"
+                                        CornerRadius="18"
+                                        Padding="18,8"
+                                        FontSize="12" />
 
-                                    <Label Text="{Binding Title}"
-                                           FontSize="16"
-                                           FontAttributes="Bold"
-                                           TextColor="#172554" />
+                                    <Button
+                                        x:Name="EventsButton"
+                                        Text="Events"
+                                        CommandParameter="Events"
+                                        Clicked="OnCategoryClicked"
+                                        BackgroundColor="White"
+                                        TextColor="#061D45"
+                                        BorderColor="#E0E7F1"
+                                        CornerRadius="18"
+                                        Padding="18,8"
+                                        FontSize="12" />
 
-                                    <Label Text="{Binding Summary}"
-                                           FontSize="13"
-                                           TextColor="#64748B"
-                                           LineBreakMode="WordWrap"
-                                           MaxLines="3" />
+                                    <Button
+                                        x:Name="GeneralButton"
+                                        Text="General"
+                                        CommandParameter="General"
+                                        Clicked="OnCategoryClicked"
+                                        BackgroundColor="White"
+                                        TextColor="#061D45"
+                                        BorderColor="#E0E7F1"
+                                        CornerRadius="18"
+                                        Padding="18,8"
+                                        FontSize="12" />
 
-                                    <Grid ColumnDefinitions="*,Auto">
-                                        <Label Grid.Column="0"
-                                               Text="{Binding AuthorDisplay}"
-                                               FontSize="11"
-                                               TextColor="#94A3B8"
-                                               VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </ScrollView>
+                        </VerticalStackLayout>
 
-                                        <Label Grid.Column="1"
-                                               Text="Read more →"
-                                               FontSize="11"
-                                               FontAttributes="Bold"
-                                               TextColor="#4338CA"
-                                               VerticalOptions="Center" />
-                                    </Grid>
+                        <!-- Status -->
+                        <Border
+                            x:Name="StatusContainer"
+                            IsVisible="False"
+                            BackgroundColor="White"
+                            Stroke="#E0E7F1"
+                            StrokeThickness="1"
+                            Padding="14"
+                            StrokeShape="RoundRectangle 12">
 
-                                </VerticalStackLayout>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                            <Label
+                                x:Name="StatusLabel"
+                                Text=""
+                                FontSize="13"
+                                TextColor="#52627A"
+                                LineBreakMode="WordWrap" />
+                        </Border>
 
-            </VerticalStackLayout>
-        </ScrollView>
+                        <ActivityIndicator
+                            x:Name="LoadingIndicator"
+                            IsVisible="False"
+                            IsRunning="False"
+                            Color="#FFBF19"
+                            HorizontalOptions="Center" />
 
-        <!-- Bottom Navigation -->
-        <Grid Grid.Row="2"
-              BackgroundColor="White"
-              Padding="6,10"
-              ColumnDefinitions="*,*,*,*,*">
+                        <Label
+                            x:Name="AnnouncementCountLabel"
+                            Text="Loading announcements..."
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#52627A" />
 
-            <VerticalStackLayout Grid.Column="0"
-                                 Spacing="4"
-                                 HorizontalOptions="Center">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="Latest updates"
+                                FontSize="20"
+                                FontAttributes="Bold"
+                                TextColor="#061D45"
+                                VerticalOptions="Center" />
+
+                            <Button
+                                Grid.Column="1"
+                                Text="Refresh"
+                                Clicked="OnRefreshClicked"
+                                BackgroundColor="#FFBF19"
+                                TextColor="#061D45"
+                                FontAttributes="Bold"
+                                CornerRadius="12"
+                                Padding="12,7"
+                                FontSize="12" />
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </CollectionView.Header>
+
+                <!-- Announcement cards -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BackgroundColor="White"
+                            Stroke="#E0E7F1"
+                            StrokeThickness="1"
+                            Padding="16"
+                            Margin="20,0,20,12"
+                            StrokeShape="RoundRectangle 16">
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnAnnouncementTapped"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <VerticalStackLayout Spacing="12">
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Border
+                                        HorizontalOptions="Start"
+                                        BackgroundColor="#FFF2C7"
+                                        Padding="10,5"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 10">
+
+                                        <Label
+                                            Text="{Binding Category}"
+                                            FontSize="11"
+                                            FontAttributes="Bold"
+                                            TextColor="#061D45" />
+                                    </Border>
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding DateDisplay}"
+                                        FontSize="11"
+                                        TextColor="#52627A"
+                                        VerticalOptions="Center"
+                                        HorizontalTextAlignment="End" />
+                                </Grid>
+
+                                <Label
+                                    Text="{Binding Title}"
+                                    FontSize="17"
+                                    FontAttributes="Bold"
+                                    TextColor="#061D45"
+                                    LineBreakMode="WordWrap" />
+
+                                <Label
+                                    Text="{Binding Summary}"
+                                    FontSize="14"
+                                    TextColor="#52627A"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="3" />
+
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label
+                                        Text="{Binding AuthorDisplay}"
+                                        FontSize="11"
+                                        TextColor="#8290A5"
+                                        VerticalOptions="Center"
+                                        LineBreakMode="TailTruncation" />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="Read more →"
+                                        FontSize="12"
+                                        FontAttributes="Bold"
+                                        TextColor="#061D45"
+                                        VerticalOptions="Center" />
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <!-- Empty state -->
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout
+                        Padding="24"
+                        Spacing="8"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="No announcements found"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#061D45"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="Try a different search or category, or refresh to check for updates."
+                            FontSize="13"
+                            TextColor="#52627A"
+                            HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.Footer>
+                    <Label
+                        Text="Thuto ke Lesedi • Education is Light"
+                        FontSize="12"
+                        HorizontalTextAlignment="Center"
+                        TextColor="#52627A"
+                        Margin="20,12,20,20" />
+                </CollectionView.Footer>
+
+            </CollectionView>
+        </RefreshView>
+
+        <!-- BOTTOM NAVIGATION -->
+        <Grid
+            Grid.Row="2"
+            BackgroundColor="White"
+            Padding="4,8,4,6"
+            ColumnDefinitions="*,*,*,*,*"
+            ColumnSpacing="2">  
+
+            <VerticalStackLayout
+                Grid.Column="0"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="⌂"
+                    FontSize="23"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Home"
+                    FontSize="10"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnHomeTapped" />
                 </VerticalStackLayout.GestureRecognizers>
-                <Label Text="⌂"
-                       FontSize="23"
-                       TextColor="#94A3B8"
-                       HorizontalTextAlignment="Center" />
-                <Label Text="Home"
-                       FontSize="10"
-                       TextColor="#94A3B8" />
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Column="1"
-                                 Spacing="4"
-                                 HorizontalOptions="Center">
+            <VerticalStackLayout
+                Grid.Column="1"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="▦"
+                    FontSize="21"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Schedule"
+                    FontSize="10"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnScheduleTapped" />
                 </VerticalStackLayout.GestureRecognizers>
-                <Label Text="▦"
-                       FontSize="21"
-                       TextColor="#94A3B8"
-                       HorizontalTextAlignment="Center" />
-                <Label Text="Timetable"
-                       FontSize="10"
-                       TextColor="#94A3B8" />
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Column="2"
-                                 Spacing="4"
-                                 HorizontalOptions="Center">
+            <VerticalStackLayout
+                Grid.Column="2"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="◉"
+                    FontSize="21"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Updates"
+                    FontSize="10"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnUpdatesTapped" />
                 </VerticalStackLayout.GestureRecognizers>
-                <Label Text="◉"
-                       FontSize="22"
-                       TextColor="#4338CA"
-                       HorizontalTextAlignment="Center" />
-                <Label Text="Updates"
-                       FontSize="10"
-                       FontAttributes="Bold"
-                       TextColor="#4338CA" />
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Column="3"
-                                 Spacing="4"
-                                 HorizontalOptions="Center">
+            <VerticalStackLayout
+                Grid.Column="3"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="♙"
+                    FontSize="21"
+                    TextColor="#1239C9"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Children"
+                    FontSize="10"
+                    FontAttributes="Bold"
+                    TextColor="#1239C9"
+                    HorizontalTextAlignment="Center" />
+
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnChildrenTapped" />
                 </VerticalStackLayout.GestureRecognizers>
-                <Label Text="♧"
-                       FontSize="22"
-                       TextColor="#94A3B8"
-                       HorizontalTextAlignment="Center" />
-                <Label Text="Children"
-                       FontSize="10"
-                       TextColor="#94A3B8" />
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Column="4"
-                                 Spacing="4"
-                                 HorizontalOptions="Center">
+            <VerticalStackLayout
+                Grid.Column="4"
+                Spacing="3"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="⚙"
+                    FontSize="21"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Profile"
+                    FontSize="10"
+                    TextColor="#64748B"
+                    HorizontalTextAlignment="Center" />
+
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnProfileTapped" />
                 </VerticalStackLayout.GestureRecognizers>
-                <Label Text="◎"
-                       FontSize="22"
-                       TextColor="#94A3B8"
-                       HorizontalTextAlignment="Center" />
-                <Label Text="Profile"
-                       FontSize="10"
-                       TextColor="#94A3B8" />
             </VerticalStackLayout>
 
+        </Grid>
+        
+            <Grid
+            x:Name="LoadingOverlay"
+            Grid.RowSpan="2"
+            IsVisible="False"
+            ZIndex="100"
+            BackgroundColor="#99061D45"
+            InputTransparent="False">
+
+                    <Border
+                BackgroundColor="White"
+                Stroke="#E1E7F0"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 20"
+                Padding="28"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="250">
+
+                        <VerticalStackLayout
+                    Spacing="14"
+                    HorizontalOptions="Center">
+
+                            <ActivityIndicator
+                        x:Name="OverlayActivityIndicator"
+                        IsRunning="True"
+                        IsVisible="True"
+                        Color="#1239C9"
+                        WidthRequest="42"
+                        HeightRequest="42"
+                        HorizontalOptions="Center" />
+
+                            <Label
+                        Text="Loading announcements..."
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        TextColor="#061D45"
+                        HorizontalTextAlignment="Center" />
+
+                        <Label
+                        Text="Please wait while we retrieve the latest school updates."
+                        FontSize="12"
+                        TextColor="#64748B"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="WordWrap" />
+
+                </VerticalStackLayout>
+            </Border>
         </Grid>
 
     </Grid>
