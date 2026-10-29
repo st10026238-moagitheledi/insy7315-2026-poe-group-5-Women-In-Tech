@@ -160,44 +160,7 @@ public class ClassDetailsViewModel : ObservableObject
         };
 
 
-        Learners = new ObservableCollection<LearnerItem>
-        {
-            new()
-            {
-                FullName = "Lerato Mokoena",
-                StudentNumber = "STD001"
-            },
-
-            new()
-            {
-                FullName = "Thabo Nkosi",
-                StudentNumber = "STD002"
-            },
-
-            new()
-            {
-                FullName = "Amahle Dlamini",
-                StudentNumber = "STD003"
-            },
-
-            new()
-            {
-                FullName = "Kagiso Molefe",
-                StudentNumber = "STD004"
-            },
-
-            new()
-            {
-                FullName = "Naledi Khumalo",
-                StudentNumber = "STD005"
-            },
-
-            new()
-            {
-                FullName = "Sipho Maseko",
-                StudentNumber = "STD006"
-            }
-        };
+        Learners = new ObservableCollection<LearnerItem>();
 
 
         ShowOverviewCommand = new RelayCommand(ShowOverview);
@@ -216,6 +179,7 @@ public class ClassDetailsViewModel : ObservableObject
         Subject = selectedClass.Subject;
         LearnerCount = selectedClass.LearnerCount;
 
+        RefreshLearners();
         RefreshHomework();
     }
 
@@ -269,5 +233,26 @@ public class ClassDetailsViewModel : ObservableObject
         {
             Homework.Add(homework);
         }
+    }
+
+    public void RefreshLearners()
+    {
+        Learners.Clear();
+
+
+        var learners =
+            LearnerService.GetLearners(
+                Grade,
+                Subject);
+
+
+        foreach (var learner in learners)
+        {
+            Learners.Add(learner);
+        }
+
+
+        LearnerCount =
+            Learners.Count;
     }
 }

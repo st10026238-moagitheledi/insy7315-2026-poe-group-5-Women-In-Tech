@@ -587,7 +587,9 @@
                 IsVisible="{Binding IsLearnersSelected}"
                 Spacing="10">
 
-                <Grid ColumnDefinitions="*,Auto">
+                <Grid
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="10">
 
                     <VerticalStackLayout Spacing="2">
 
@@ -602,26 +604,26 @@
                             FontSize="9"
                             TextColor="{StaticResource Gray500}" />
 
-                    </VerticalStackLayout>
-
-
-                    <Border
-                        Grid.Column="1"
-                        BackgroundColor="{StaticResource SkyBlue}"
-                        StrokeThickness="0"
-                        Padding="10,5">
-
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="8" />
-                        </Border.StrokeShape>
-
                         <Label
                             Text="{Binding Grade}"
                             FontSize="9"
-                            FontAttributes="Bold"
-                            TextColor="{StaticResource PrimaryBlue}" />
+                            TextColor="{StaticResource Gray500}" />
 
-                    </Border>
+                    </VerticalStackLayout>
+
+
+                    <Button
+                        Grid.Column="1"
+                        Text="+ Add Learner"
+                        Clicked="OnAddLearnerClicked"
+                        BackgroundColor="{StaticResource SunshineGold}"
+                        TextColor="{StaticResource PrimaryBlue}"
+                        FontAttributes="Bold"
+                        FontSize="9"
+                        HeightRequest="38"
+                        CornerRadius="8"
+                        Padding="10,0"
+                        VerticalOptions="Center" />
 
                 </Grid>
 
@@ -639,6 +641,13 @@
                                 Stroke="{StaticResource Gray200}"
                                 StrokeThickness="1"
                                 Padding="10">
+
+                                <Border.GestureRecognizers>
+
+                                    <TapGestureRecognizer
+                                        Tapped="OnLearnerTapped" />
+
+                                </Border.GestureRecognizers>
 
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="8" />

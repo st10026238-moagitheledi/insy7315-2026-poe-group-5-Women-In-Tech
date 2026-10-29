@@ -2,19 +2,20 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using KoosMatliApp.Features.Teacher.Models;
+using KoosMatliApp.Features.Teacher.Services;
 
 namespace KoosMatliApp.Features.Teacher.ViewModels;
 
 public class ClassesViewModel : ObservableObject
 {
-  
+
 
     public ObservableCollection<TeacherClassItem> MyClasses { get; }
 
     public ObservableCollection<TeacherClassItem> AllClasses { get; }
 
 
-   
+
 
     private bool _isMyClassesSelected = true;
 
@@ -22,7 +23,7 @@ public class ClassesViewModel : ObservableObject
     {
         get => _isMyClassesSelected;
 
-        set => SetProperty(ref _isMyClassesSelected,value);
+        set => SetProperty(ref _isMyClassesSelected, value);
     }
 
 
@@ -32,11 +33,11 @@ public class ClassesViewModel : ObservableObject
     {
         get => _isAllClassesSelected;
 
-        set => SetProperty(ref _isAllClassesSelected,value);
+        set => SetProperty(ref _isAllClassesSelected, value);
     }
 
 
-  
+
 
     public IRelayCommand ShowMyClassesCommand { get; }
 
@@ -154,4 +155,25 @@ public class ClassesViewModel : ObservableObject
         IsMyClassesSelected = false;
         IsAllClassesSelected = true;
     }
+
+    public void RefreshLearnerCounts()
+    {
+        foreach (var classItem in MyClasses)
+        {
+            classItem.LearnerCount =
+                LearnerService.GetLearnerCount(
+                    classItem.Grade,
+                    classItem.Subject);
+        }
+
+
+        foreach (var classItem in AllClasses)
+        {
+            classItem.LearnerCount =
+                LearnerService.GetLearnerCount(
+                    classItem.Grade,
+                    classItem.Subject);
+        }
+    }
+
 }

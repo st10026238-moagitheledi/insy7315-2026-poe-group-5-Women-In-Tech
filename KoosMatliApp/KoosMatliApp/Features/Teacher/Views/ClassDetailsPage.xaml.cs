@@ -22,6 +22,8 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         base.OnAppearing();
 
         _viewModel.RefreshHomework();
+
+        _viewModel.RefreshLearners();
     }
 
 
@@ -110,6 +112,63 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
             "Attendance",
             "Attendance has been recorded for this session.",
             "OK");
+    }
+
+    private async void OnAddLearnerClicked(
+        object sender,
+        EventArgs e)
+    {
+        var parameters =
+            new Dictionary<string, object>
+            {
+            {
+                "Grade",
+                _viewModel.Grade
+            },
+
+            {
+                "Subject",
+                _viewModel.Subject
+            }
+            };
+
+
+        await Shell.Current.GoToAsync(
+            nameof(AddLearnerPage),
+            parameters);
+    }
+
+    private async void OnLearnerTapped(
+       object sender,
+       TappedEventArgs e)
+    {
+        if (sender is Border border &&
+            border.BindingContext is LearnerItem learner)
+        {
+            var parameters =
+                new Dictionary<string, object>
+                {
+                {
+                    "Grade",
+                    _viewModel.Grade
+                },
+
+                {
+                    "Subject",
+                    _viewModel.Subject
+                },
+
+                {
+                    "Learner",
+                    learner
+                }
+                };
+
+
+            await Shell.Current.GoToAsync(
+                nameof(LearnerDetailsPage),
+                parameters);
+        }
     }
 }
 
