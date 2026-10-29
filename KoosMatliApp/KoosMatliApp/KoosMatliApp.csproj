@@ -106,16 +106,20 @@
 		<!-- Keep empty Teacher folders visible in Visual Studio -->
 		<Folder Include="Features\Teacher\Controls\" />
 
-		<Folder Include="Features\Teacher\Services\" />
-
 	</ItemGroup>
 
 
 	<ItemGroup>
+	  <MauiXaml Update="Features\Teacher\Views\AddHomeworkPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Features\Teacher\Views\ClassDetailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Features\Teacher\Views\ClassesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Features\Teacher\Views\HomeworkPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

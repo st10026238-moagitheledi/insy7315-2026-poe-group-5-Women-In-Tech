@@ -26,7 +26,7 @@
                 </Border.StrokeShape>
 
                 <Grid
-                    ColumnDefinitions="32,*,40"
+                    ColumnDefinitions="32,*"
                     ColumnSpacing="8">
 
                     <!-- Back Arrow -->
@@ -65,30 +65,6 @@
                             TextColor="{StaticResource White}" />
 
                     </VerticalStackLayout>
-
-
-                    <!-- Temporary School Crest -->
-                    <Border
-                        Grid.Column="2"
-                        WidthRequest="36"
-                        HeightRequest="36"
-                        BackgroundColor="{StaticResource White}"
-                        StrokeThickness="0"
-                        VerticalOptions="Center">
-
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="6" />
-                        </Border.StrokeShape>
-
-                        <Label
-                            Text="TKL"
-                            FontSize="9"
-                            FontAttributes="Bold"
-                            TextColor="{StaticResource PrimaryBlue}"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center" />
-
-                    </Border>
 
                 </Grid>
 
@@ -297,9 +273,17 @@
 
                             <Label
                                 Grid.Column="1"
-                                Text="View all"
+                                Text="View all ›"
                                 FontSize="9"
-                                TextColor="{StaticResource PrimaryBlue}" />
+                                TextColor="{StaticResource PrimaryBlue}"
+                                VerticalOptions="Center">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Tapped="OnViewAllHomeworkTapped" />
+                                </Label.GestureRecognizers>
+
+                            </Label>
 
                         </Grid>
 
@@ -729,44 +713,148 @@
 
             <VerticalStackLayout
                 IsVisible="{Binding IsResourcesSelected}"
-                Spacing="12">
+                Spacing="10">
 
-                <Label
-                    Text="Class Resources"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    TextColor="{StaticResource PrimaryBlue}" />
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <VerticalStackLayout Spacing="2">
+
+                        <Label
+                            Text="Class Resources"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Label
+                            Text="Learning material for this class"
+                            FontSize="9"
+                            TextColor="{StaticResource Gray500}" />
+
+                    </VerticalStackLayout>
+
+
+                    <Border
+                        Grid.Column="1"
+                        BackgroundColor="{StaticResource SkyBlue}"
+                        StrokeThickness="0"
+                        Padding="10,5">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+
+                        <Label
+                            Text="{Binding Grade}"
+                            FontSize="9"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                    </Border>
+
+                </Grid>
 
 
                 <Border
                     BackgroundColor="{StaticResource PrimaryBlueSoft}"
                     StrokeThickness="0"
-                    Padding="24">
+                    Padding="10">
 
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="12" />
+                        <RoundRectangle CornerRadius="8" />
                     </Border.StrokeShape>
 
-                    <VerticalStackLayout
-                        Spacing="8"
-                        HorizontalOptions="Center">
-
-                        <Label
-                            Text="Resources"
-                            FontSize="18"
-                            FontAttributes="Bold"
-                            TextColor="{StaticResource PrimaryBlue}"
-                            HorizontalTextAlignment="Center" />
-
-                        <Label
-                            Text="Class resources will be added in the next step."
-                            FontSize="9"
-                            TextColor="{StaticResource Gray500}"
-                            HorizontalTextAlignment="Center" />
-
-                    </VerticalStackLayout>
+                    <Label
+                        Text="Tap Open to view information about a resource. Actual files will be connected through Firebase later."
+                        FontSize="9"
+                        TextColor="{StaticResource PrimaryBlue}" />
 
                 </Border>
+
+
+                <VerticalStackLayout
+                    Spacing="8"
+                    BindableLayout.ItemsSource="{Binding Resources}">
+
+                    <BindableLayout.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Border
+                                BackgroundColor="{StaticResource CardSurface}"
+                                Stroke="{StaticResource Gray200}"
+                                StrokeThickness="1"
+                                Padding="10">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8" />
+                                </Border.StrokeShape>
+
+                                <Grid
+                                    ColumnDefinitions="40,*,Auto"
+                                    ColumnSpacing="10">
+
+                                    <Border
+                                        WidthRequest="38"
+                                        HeightRequest="38"
+                                        BackgroundColor="{StaticResource SkyBlue}"
+                                        StrokeThickness="0"
+                                        VerticalOptions="Center">
+
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="8" />
+                                        </Border.StrokeShape>
+
+                                        <Label
+                                            Text="R"
+                                            FontSize="13"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryBlue}"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+
+                                    </Border>
+
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="2"
+                                        VerticalOptions="Center">
+
+                                        <Label
+                                            Text="{Binding Title}"
+                                            FontSize="11"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryBlue}" />
+
+                                        <Label
+                                            Text="{Binding ResourceType}"
+                                            FontSize="8"
+                                            TextColor="{StaticResource Gray500}" />
+
+                                    </VerticalStackLayout>
+
+
+                                    <Button
+                                        Grid.Column="2"
+                                        Text="Open"
+                                        Clicked="OnResourceOpenClicked"
+                                        BackgroundColor="{StaticResource PrimaryBlue}"
+                                        TextColor="{StaticResource White}"
+                                        FontSize="8"
+                                        CornerRadius="8"
+                                        HeightRequest="34"
+                                        Padding="10,0"
+                                        VerticalOptions="Center" />
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </BindableLayout.ItemTemplate>
+
+                </VerticalStackLayout>
 
             </VerticalStackLayout>
 

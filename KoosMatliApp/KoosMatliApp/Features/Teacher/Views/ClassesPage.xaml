@@ -22,44 +22,21 @@
             </Border.StrokeShape>
 
             <Grid
-                ColumnDefinitions="44,*,44"
+                ColumnDefinitions="*,44"
                 ColumnSpacing="12">
 
-                <!-- Temporary School Crest -->
-                <Border
-                    WidthRequest="40"
-                    HeightRequest="40"
-                    BackgroundColor="{StaticResource White}"
-                    StrokeThickness="0">
-
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="8" />
-                    </Border.StrokeShape>
-
-                    <Label
-                        Text="TKL"
-                        FontSize="11"
-                        FontAttributes="Bold"
-                        TextColor="{StaticResource PrimaryBlue}"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center" />
-
-                </Border>
-
-
                 <Label
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Text="MY CLASSES"
                     FontSize="18"
                     FontAttributes="Bold"
                     TextColor="{StaticResource SunshineGold}"
-                    HorizontalTextAlignment="Center"
                     VerticalTextAlignment="Center" />
 
 
                 <!-- Temporary Teacher Profile -->
                 <Border
-                    Grid.Column="2"
+                    Grid.Column="1"
                     WidthRequest="40"
                     HeightRequest="40"
                     BackgroundColor="{StaticResource SunshineGold}"

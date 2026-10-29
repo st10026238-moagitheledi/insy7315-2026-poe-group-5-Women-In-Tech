@@ -24,35 +24,12 @@
                 </Border.StrokeShape>
 
                 <Grid
-                    ColumnDefinitions="44,*,44"
+                    ColumnDefinitions="*,44"
                     ColumnSpacing="12">
-
-                    <!-- Temporary School Logo -->
-                    <Border
-                        WidthRequest="40"
-                        HeightRequest="40"
-                        BackgroundColor="{StaticResource White}"
-                        StrokeThickness="0"
-                        VerticalOptions="Center">
-
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="8" />
-                        </Border.StrokeShape>
-
-                        <Label
-                            Text="TKL"
-                            FontSize="11"
-                            FontAttributes="Bold"
-                            TextColor="{StaticResource PrimaryBlue}"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center" />
-
-                    </Border>
-
 
                     <!-- Greeting -->
                     <VerticalStackLayout
-                        Grid.Column="1"
+                        Grid.Column="0"
                         Spacing="0"
                         VerticalOptions="Center">
 
@@ -72,7 +49,7 @@
 
                     <!-- Teacher Profile -->
                     <Border
-                        Grid.Column="2"
+                        Grid.Column="1"
                         WidthRequest="40"
                         HeightRequest="40"
                         BackgroundColor="{StaticResource SunshineGold}"
@@ -141,7 +118,14 @@
                                 Text="View all"
                                 FontSize="11"
                                 TextColor="{StaticResource White}"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Tapped="OnViewAllClassesTapped" />
+                                </Label.GestureRecognizers>
+
+                            </Label>
 
                         </Grid>
 
@@ -323,7 +307,14 @@
                     Text="View all"
                     FontSize="11"
                     TextColor="{StaticResource PrimaryBlue}"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="OnViewAllEventsTapped" />
+                    </Label.GestureRecognizers>
+
+                </Label>
 
             </Grid>
 
@@ -424,6 +415,11 @@
                         BackgroundColor="{StaticResource SkyBlue}"
                         StrokeThickness="0">
 
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnTakeAttendanceTapped" />
+                        </Border.GestureRecognizers>
+
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="8" />
                         </Border.StrokeShape>
@@ -456,6 +452,11 @@
                         HeightRequest="48"
                         BackgroundColor="{StaticResource SunshineGold}"
                         StrokeThickness="0">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnCreateAnnouncementTapped" />
+                        </Border.GestureRecognizers>
 
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="8" />
@@ -491,6 +492,11 @@
                         BackgroundColor="{StaticResource SkyBlue}"
                         StrokeThickness="0">
 
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnUploadHomeworkTapped" />
+                        </Border.GestureRecognizers>
+
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="8" />
                         </Border.StrokeShape>
@@ -525,6 +531,11 @@
                         BackgroundColor="{StaticResource SkyBlue}"
                         StrokeThickness="0">
 
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnViewTimetableTapped" />
+                        </Border.GestureRecognizers>
+
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="8" />
                         </Border.StrokeShape>
@@ -554,4 +565,3 @@
     </ScrollView>
 
 </ContentPage>
-    

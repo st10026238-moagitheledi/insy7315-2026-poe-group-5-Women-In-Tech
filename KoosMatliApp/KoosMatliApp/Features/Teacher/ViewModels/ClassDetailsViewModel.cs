@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using KoosMatliApp.Features.Teacher.Models;
+using KoosMatliApp.Features.Teacher.Services;
 
 namespace KoosMatliApp.Features.Teacher.ViewModels;
 
@@ -79,6 +80,8 @@ public class ClassDetailsViewModel : ObservableObject
 
     public ObservableCollection<LearnerItem> Learners { get; }
 
+    public ObservableCollection<ClassResourceItem> Resources { get; }
+
 
     public IRelayCommand ShowOverviewCommand { get; }
 
@@ -113,22 +116,7 @@ public class ClassDetailsViewModel : ObservableObject
         };
 
 
-        Homework = new ObservableCollection<HomeworkItem>
-        {
-            new()
-            {
-                Title = "Fractions Worksheet",
-                DueDate = "Due 17 May 2024",
-                Status = "Assigned"
-            },
-
-            new()
-            {
-                Title = "Word Problems",
-                DueDate = "Due 20 May 2024",
-                Status = "Draft"
-            }
-        };
+        Homework = new ObservableCollection<HomeworkItem>();
 
 
         Announcements = new ObservableCollection<ClassAnnouncementItem>
@@ -138,6 +126,37 @@ public class ClassDetailsViewModel : ObservableObject
                 Title = "Reminder: Maths Test",
                 Message = "Term 2 Test on 22 May 2024."
             }
+        };
+
+        Resources = new ObservableCollection<ClassResourceItem>
+        {
+            new()
+            {
+                Title = "Fractions Revision Notes",
+                ResourceType = "PDF",
+                Description = "Revision notes covering fractions and equivalent fractions."
+        },
+
+            new()
+            {
+               Title = "Multiplication Worksheet",
+               ResourceType = "Worksheet",
+               Description = "Practice questions for multiplication and number patterns."
+        },
+
+            new()
+            {
+              Title = "Term 2 Study Guide",
+              ResourceType = "Study Guide",
+              Description = "Study material covering the main Term 2 topics."
+        },
+
+           new()
+           {
+             Title = "Maths Formula Sheet",
+             ResourceType = "Reference",
+             Description = "Quick reference sheet for important mathematics formulas."
+           }
         };
 
 
@@ -196,6 +215,8 @@ public class ClassDetailsViewModel : ObservableObject
         Grade = selectedClass.Grade;
         Subject = selectedClass.Subject;
         LearnerCount = selectedClass.LearnerCount;
+
+        RefreshHomework();
     }
 
 
@@ -233,5 +254,20 @@ public class ClassDetailsViewModel : ObservableObject
     {
         ResetTabs();
         IsAttendanceSelected = true;
+    }
+
+    public void RefreshHomework()
+    {
+        Homework.Clear();
+
+        var homeworkItems =
+            HomeworkService.GetHomework(
+                Grade,
+                Subject);
+
+        foreach (var homework in homeworkItems)
+        {
+            Homework.Add(homework);
+        }
     }
 }

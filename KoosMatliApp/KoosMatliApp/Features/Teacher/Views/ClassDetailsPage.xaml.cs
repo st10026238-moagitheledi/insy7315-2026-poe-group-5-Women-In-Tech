@@ -17,6 +17,14 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
     }
 
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        _viewModel.RefreshHomework();
+    }
+
+
     public void ApplyQueryAttributes(
         IDictionary<string, object> query)
     {
@@ -35,6 +43,38 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         TappedEventArgs e)
     {
         await Shell.Current.GoToAsync("..");
+    }
+
+
+    private async void OnViewAllHomeworkTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        var parameters =
+            new Dictionary<string, object>
+            {
+                { "Grade", _viewModel.Grade },
+                { "Subject", _viewModel.Subject }
+            };
+
+        await Shell.Current.GoToAsync(
+            nameof(HomeworkPage),
+            parameters);
+    }
+
+
+    private async void OnResourceOpenClicked(
+        object sender,
+        EventArgs e)
+    {
+        if (sender is Button button &&
+            button.BindingContext is ClassResourceItem resource)
+        {
+            await DisplayAlert(
+                resource.Title,
+                $"{resource.ResourceType}\n\n{resource.Description}",
+                "Close");
+        }
     }
 
 
@@ -72,3 +112,4 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
             "OK");
     }
 }
+
