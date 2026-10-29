@@ -88,11 +88,6 @@ public partial class LoginPage : ContentPage
             switch (role)
             {
                 case "parent":
-                    await DisplayAlertAsync(
-                        "Welcome",
-                        $"Welcome back, {response.User.DisplayName}!",
-                        "Continue");
-
                     // Open the parent dashboard.
                     await Navigation.PushAsync(
                         new ParentDashboardPage());

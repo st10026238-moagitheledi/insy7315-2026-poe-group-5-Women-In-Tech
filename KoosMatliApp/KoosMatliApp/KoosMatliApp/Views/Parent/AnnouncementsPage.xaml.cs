@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using KoosMatliApp.Services;
@@ -51,7 +53,6 @@ public partial class AnnouncementsPage : ContentPage
             _isLoading = true;
 
             ShowLoadingOverlay();
-
             StatusContainer.IsVisible = false;
 
             using JsonDocument response =
@@ -59,7 +60,9 @@ public partial class AnnouncementsPage : ContentPage
 
             JsonElement root = response.RootElement;
 
-            if (TryGetProperty(root, out JsonElement successElement,
+            if (TryGetProperty(
+                    root,
+                    out JsonElement successElement,
                     "success")
                 && successElement.ValueKind == JsonValueKind.False)
             {
@@ -72,7 +75,8 @@ public partial class AnnouncementsPage : ContentPage
             }
 
             if (!TryGetAnnouncementsArray(
-                    root, out JsonElement announcementsElement))
+                    root,
+                    out JsonElement announcementsElement))
             {
                 ShowStatus(
                     "The server response did not contain a valid announcements list.");
@@ -95,6 +99,22 @@ public partial class AnnouncementsPage : ContentPage
                 }
             }
 
+            // Display the newest announcements first.
+            List<AnnouncementItem> sortedAnnouncements =
+                _allAnnouncements
+                    .OrderByDescending(item =>
+                        item.PublishedDate == DateTime.MinValue
+                            ? DateTime.MinValue
+                            : item.PublishedDate)
+                    .ToList();
+
+            _allAnnouncements.Clear();
+
+            foreach (AnnouncementItem item in sortedAnnouncements)
+            {
+                _allAnnouncements.Add(item);
+            }
+
             ApplyFilters(AnnouncementSearchBar.Text ?? string.Empty);
 
             _hasLoadedSuccessfully = true;
@@ -104,6 +124,9 @@ public partial class AnnouncementsPage : ContentPage
         {
             ShowStatus(
                 $"{ex.Message} Please sign in again.");
+
+            System.Diagnostics.Debug.WriteLine(
+                $"Announcements authorization error: {ex}");
 
             _hasLoadedSuccessfully = false;
         }
@@ -162,7 +185,10 @@ public partial class AnnouncementsPage : ContentPage
         JsonElement root,
         out JsonElement announcements)
     {
-        if (TryGetProperty(root, out announcements, "announcements")
+        if (TryGetProperty(
+                root,
+                out announcements,
+                "announcements")
             && announcements.ValueKind == JsonValueKind.Array)
         {
             return true;
@@ -176,15 +202,23 @@ public partial class AnnouncementsPage : ContentPage
                 return true;
             }
 
-            if (TryGetProperty(data, out announcements, "announcements")
+            if (TryGetProperty(
+                    data,
+                    out announcements,
+                    "announcements")
                 && announcements.ValueKind == JsonValueKind.Array)
             {
                 return true;
             }
 
-            if (TryGetProperty(data, out JsonElement nestedData, "data")
+            if (TryGetProperty(
+                    data,
+                    out JsonElement nestedData,
+                    "data")
                 && TryGetProperty(
-                    nestedData, out announcements, "announcements")
+                    nestedData,
+                    out announcements,
+                    "announcements")
                 && announcements.ValueKind == JsonValueKind.Array)
             {
                 return true;
@@ -255,22 +289,11 @@ public partial class AnnouncementsPage : ContentPage
             "announcementId",
             "documentId");
 
-        string? dateText = GetString(
-            json,
-            "datePublished",
-            "publishedAt",
-            "createdAt",
-            "date",
-            "timestamp");
+        // Read the Firestore Timestamp or another supported date format.
+        DateTime? parsedDate = ParseAnnouncementDate(json);
 
-        DateTime publishedDate = DateTime.MinValue;
-
-        if (!string.IsNullOrWhiteSpace(dateText))
-        {
-            DateTime.TryParse(
-                dateText,
-                out publishedDate);
-        }
+        DateTime publishedDate =
+            parsedDate ?? DateTime.MinValue;
 
         return new AnnouncementItem
         {
@@ -286,25 +309,150 @@ public partial class AnnouncementsPage : ContentPage
         };
     }
 
+    // =========================================
+    // PARSE FIRESTORE TIMESTAMPS AND DATES
+    // =========================================
+
+    private static DateTime? ParseAnnouncementDate(
+        JsonElement item)
+    {
+        string[] dateFields =
+        {
+            "createdAt",
+            "datePublished",
+            "publishedAt",
+            "date",
+            "timestamp"
+        };
+
+        foreach (string field in dateFields)
+        {
+            if (!TryGetProperty(
+                    item,
+                    out JsonElement value,
+                    field))
+            {
+                continue;
+            }
+
+            // Case 1: A regular date string or ISO date string.
+            if (value.ValueKind == JsonValueKind.String)
+            {
+                string? dateText = value.GetString();
+
+                if (string.IsNullOrWhiteSpace(dateText))
+                    continue;
+
+                if (DateTimeOffset.TryParse(
+                        dateText,
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.AssumeUniversal,
+                        out DateTimeOffset parsedDate))
+                {
+                    return parsedDate.LocalDateTime;
+                }
+
+                continue;
+            }
+
+            // Case 2: A numeric Unix timestamp.
+            if (value.ValueKind == JsonValueKind.Number
+                && value.TryGetInt64(out long timestamp))
+            {
+                try
+                {
+                    // Values below this threshold are treated as seconds.
+                    if (timestamp < 100000000000L
+                        && timestamp > -100000000000L)
+                    {
+                        return DateTimeOffset
+                            .FromUnixTimeSeconds(timestamp)
+                            .LocalDateTime;
+                    }
+
+                    // Larger values are treated as milliseconds.
+                    return DateTimeOffset
+                        .FromUnixTimeMilliseconds(timestamp)
+                        .LocalDateTime;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    continue;
+                }
+            }
+
+            // Case 3: Firestore Timestamp serialized as an object.
+            // Example:
+            // {
+            //   "_seconds": 1792744200,
+            //   "_nanoseconds": 0
+            // }
+            if (value.ValueKind == JsonValueKind.Object)
+            {
+                if (TryGetProperty(
+                        value,
+                        out JsonElement secondsElement,
+                        "_seconds",
+                        "seconds")
+                    && secondsElement.TryGetInt64(out long seconds))
+                {
+                    long nanoseconds = 0;
+
+                    if (TryGetProperty(
+                            value,
+                            out JsonElement nanosElement,
+                            "_nanoseconds",
+                            "nanoseconds"))
+                    {
+                        nanosElement.TryGetInt64(out nanoseconds);
+                    }
+
+                    try
+                    {
+                        return DateTimeOffset
+                            .FromUnixTimeSeconds(seconds)
+                            .AddTicks(nanoseconds / 100)
+                            .LocalDateTime;
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        continue;
+                    }
+                }
+
+                // Case 4: Firestore Timestamp serialized as { seconds, nanoseconds }
+                // is already covered above.
+            }
+        }
+
+        // No usable date was found.
+        return null;
+    }
+
     private static string NormalizeCategory(string? category)
     {
         if (string.IsNullOrWhiteSpace(category))
             return "General";
 
         if (category.Contains(
-                "academic", StringComparison.OrdinalIgnoreCase)
+                "academic",
+                StringComparison.OrdinalIgnoreCase)
             || category.Contains(
-                "homework", StringComparison.OrdinalIgnoreCase)
+                "homework",
+                StringComparison.OrdinalIgnoreCase)
             || category.Contains(
-                "exam", StringComparison.OrdinalIgnoreCase))
+                "exam",
+                StringComparison.OrdinalIgnoreCase))
         {
             return "Academic";
         }
 
         if (category.Contains(
-                "event", StringComparison.OrdinalIgnoreCase)
+                "event",
+                StringComparison.OrdinalIgnoreCase)
             || category.Contains(
-                "calendar", StringComparison.OrdinalIgnoreCase))
+                "calendar",
+                StringComparison.OrdinalIgnoreCase))
         {
             return "Events";
         }
@@ -496,8 +644,13 @@ public partial class AnnouncementsPage : ContentPage
         JsonElement element,
         params string[] names)
     {
-        if (!TryGetProperty(element, out JsonElement value, names))
+        if (!TryGetProperty(
+                element,
+                out JsonElement value,
+                names))
+        {
             return null;
+        }
 
         return value.ValueKind switch
         {
@@ -518,10 +671,11 @@ public partial class AnnouncementsPage : ContentPage
         {
             foreach (JsonProperty property in element.EnumerateObject())
             {
-                if (names.Any(name => string.Equals(
-                    property.Name,
-                    name,
-                    StringComparison.OrdinalIgnoreCase)))
+                if (names.Any(name =>
+                    string.Equals(
+                        property.Name,
+                        name,
+                        StringComparison.OrdinalIgnoreCase)))
                 {
                     value = property.Value;
                     return true;
@@ -541,7 +695,7 @@ public partial class AnnouncementsPage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-            await Navigation.PushAsync(new ParentDashboardPage());
+        await Navigation.PushAsync(new ParentDashboardPage());
     }
 
     private async void OnScheduleTapped(
@@ -585,7 +739,7 @@ public class AnnouncementItem : INotifyPropertyChanged
     private string _message = string.Empty;
     private string _summary = string.Empty;
     private string _author = "School Administration";
-    private DateTime _publishedDate;
+    private DateTime _publishedDate = DateTime.MinValue;
 
     public string Id { get; set; } = string.Empty;
 
@@ -594,7 +748,8 @@ public class AnnouncementItem : INotifyPropertyChanged
         get => _title;
         set
         {
-            if (_title == value) return;
+            if (_title == value)
+                return;
 
             _title = value;
             OnPropertyChanged();
@@ -606,7 +761,8 @@ public class AnnouncementItem : INotifyPropertyChanged
         get => _category;
         set
         {
-            if (_category == value) return;
+            if (_category == value)
+                return;
 
             _category = value;
             OnPropertyChanged();
@@ -618,7 +774,8 @@ public class AnnouncementItem : INotifyPropertyChanged
         get => _message;
         set
         {
-            if (_message == value) return;
+            if (_message == value)
+                return;
 
             _message = value;
             OnPropertyChanged();
@@ -630,7 +787,8 @@ public class AnnouncementItem : INotifyPropertyChanged
         get => _summary;
         set
         {
-            if (_summary == value) return;
+            if (_summary == value)
+                return;
 
             _summary = value;
             OnPropertyChanged();
@@ -642,7 +800,8 @@ public class AnnouncementItem : INotifyPropertyChanged
         get => _author;
         set
         {
-            if (_author == value) return;
+            if (_author == value)
+                return;
 
             _author = value;
             OnPropertyChanged();
@@ -657,7 +816,8 @@ public class AnnouncementItem : INotifyPropertyChanged
         get => _publishedDate;
         set
         {
-            if (_publishedDate == value) return;
+            if (_publishedDate == value)
+                return;
 
             _publishedDate = value;
             OnPropertyChanged();
