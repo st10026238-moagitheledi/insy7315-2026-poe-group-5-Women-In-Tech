@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KoosMatliApp.Views.Parent.ParentProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="My Profile"
+    BackgroundColor="#F5F7FB"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              BackgroundColor="#172554"
+              Padding="22,18,22,24">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="KOOS MATLI SCHOOL"
+                       FontSize="11"
+                       CharacterSpacing="1.5"
+                       FontAttributes="Bold"
+                       TextColor="#BFDBFE" />
+
+                <Label Text="My Profile"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       TextColor="White" />
+
+                <Label Text="Manage your account and preferences."
+                       FontSize="13"
+                       TextColor="#DCE6FF" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Page content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="18"
+                                 Spacing="18">
+
+                <!-- Profile card -->
+                <Border BackgroundColor="White"
+                        Stroke="#E2E8F0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 20"
+                        Padding="18">
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="14">
+
+                            <Border WidthRequest="70"
+                                    HeightRequest="70"
+                                    BackgroundColor="#DBEAFE"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 35"
+                                    VerticalOptions="Center">
+                                <Label x:Name="InitialsLabel"
+                                       Text="P"
+                                       FontSize="27"
+                                       FontAttributes="Bold"
+                                       TextColor="#1D4ED8"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Spacing="5"
+                                                 VerticalOptions="Center">
+                                <Label x:Name="ParentNameLabel"
+                                       Text="Parent / Guardian"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#172554" />
+
+                                <Label x:Name="ParentRoleLabel"
+                                       Text="Parent account"
+                                       FontSize="13"
+                                       TextColor="#64748B" />
+
+                                <Label Text="Account overview"
+                                       FontSize="12"
+                                       TextColor="#2563EB" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <BoxView HeightRequest="1"
+                                 Color="#E2E8F0" />
+
+                        <Label Text="PERSONAL INFORMATION"
+                               FontSize="11"
+                               CharacterSpacing="1"
+                               FontAttributes="Bold"
+                               TextColor="#64748B" />
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Full name"
+                                   FontSize="12"
+                                   TextColor="#64748B" />
+                            <Entry x:Name="FullNameEntry"
+                                   Placeholder="Enter your full name"
+                                   Text="Parent / Guardian"
+                                   TextColor="#172554"
+                                   BackgroundColor="#F8FAFC" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Email address"
+                                   FontSize="12"
+                                   TextColor="#64748B" />
+                            <Entry x:Name="EmailEntry"
+                                   Placeholder="Enter your email address"
+                                   Keyboard="Email"
+                                   TextColor="#172554"
+                                   BackgroundColor="#F8FAFC" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Phone number"
+                                   FontSize="12"
+                                   TextColor="#64748B" />
+                            <Entry x:Name="PhoneEntry"
+                                   Placeholder="Enter your phone number"
+                                   Keyboard="Telephone"
+                                   TextColor="#172554"
+                                   BackgroundColor="#F8FAFC" />
+                        </VerticalStackLayout>
+
+                        <Button Text="Save profile"
+                                BackgroundColor="#243B80"
+                                TextColor="White"
+                                CornerRadius="12"
+                                HeightRequest="48"
+                                FontAttributes="Bold"
+                                Clicked="OnSaveProfileClicked" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Preferences -->
+                <Label Text="Preferences"
+                       FontSize="19"
+                       FontAttributes="Bold"
+                       TextColor="#172554" />
+
+                <Border BackgroundColor="White"
+                        Stroke="#E2E8F0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="16">
+
+                    <VerticalStackLayout Spacing="16">
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              ColumnSpacing="12">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Language"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#172554" />
+                                <Label Text="Choose your preferred language"
+                                       FontSize="12"
+                                       TextColor="#64748B" />
+                            </VerticalStackLayout>
+
+                            <Picker x:Name="LanguagePicker"
+                                    Grid.Column="1"
+                                    WidthRequest="125"
+                                    Title="Language"
+                                    TextColor="#172554"
+                                    SelectedIndexChanged="OnLanguageChanged">
+                                <Picker.Items>
+                                    <x:String>English</x:String>
+                                    <x:String>Sepedi</x:String>
+                                    <x:String>Setswana</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+
+                        <BoxView HeightRequest="1"
+                                 Color="#E2E8F0" />
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              ColumnSpacing="12">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Notifications"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#172554" />
+                                <Label Text="Receive school update reminders"
+                                       FontSize="12"
+                                       TextColor="#64748B" />
+                            </VerticalStackLayout>
+
+                            <Switch x:Name="NotificationsSwitch"
+                                    Grid.Column="1"
+                                    OnColor="#2563EB"
+                                    ThumbColor="White"
+                                    IsToggled="True"
+                                    Toggled="OnNotificationsToggled" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Security -->
+                <Label Text="Security"
+                       FontSize="19"
+                       FontAttributes="Bold"
+                       TextColor="#172554" />
+
+                <Border BackgroundColor="White"
+                        Stroke="#E2E8F0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="16">
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="12">
+                            <Label Text="🔒"
+                                   FontSize="22"
+                                   VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Spacing="4"
+                                                 VerticalOptions="Center">
+                                <Label Text="Password &amp; security"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#172554" />
+                                <Label Text="Keep your account secure"
+                                       FontSize="12"
+                                       TextColor="#64748B" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Button Text="Change password"
+                                BackgroundColor="#EFF6FF"
+                                TextColor="#1D4ED8"
+                                CornerRadius="12"
+                                HeightRequest="45"
+                                Clicked="OnChangePasswordClicked" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Logout -->
+                <Button Text="Log out"
+                        BackgroundColor="#FFF1F2"
+                        TextColor="#BE123C"
+                        BorderColor="#FECDD3"
+                        BorderWidth="1"
+                        CornerRadius="12"
+                        HeightRequest="50"
+                        FontAttributes="Bold"
+                        Clicked="OnLogoutClicked" />
+
+                <Label Text="Koos Matli School Parent Portal"
+                       FontSize="11"
+                       TextColor="#94A3B8"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,8" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom navigation -->
+        <Grid Grid.Row="2"
+              BackgroundColor="White"
+              Padding="4,8"
+              ColumnDefinitions="*,*,*,*,*">
+
+            <VerticalStackLayout Grid.Column="0"
+                                 Spacing="3"
+                                 HorizontalOptions="Center">
+                <Label Text="⌂"
+                       FontSize="23"
+                       TextColor="#64748B"
+                       HorizontalOptions="Center" />
+                <Label Text="Home"
+                       FontSize="10"
+                       TextColor="#64748B" />
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1"
+                                 Spacing="3"
+                                 HorizontalOptions="Center">
+                <Label Text="▦"
+                       FontSize="22"
+                       TextColor="#64748B"
+                       HorizontalOptions="Center" />
+                <Label Text="Timetable"
+                       FontSize="10"
+                       TextColor="#64748B" />
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTimetableTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="2"
+                                 Spacing="3"
+                                 HorizontalOptions="Center">
+                <Label Text="◉"
+                       FontSize="22"
+                       TextColor="#64748B"
+                       HorizontalOptions="Center" />
+                <Label Text="Updates"
+                       FontSize="10"
+                       TextColor="#64748B" />
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnUpdatesTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="3"
+                                 Spacing="3"
+                                 HorizontalOptions="Center">
+                <Label Text="♧"
+                       FontSize="22"
+                       TextColor="#64748B"
+                       HorizontalOptions="Center" />
+                <Label Text="Children"
+                       FontSize="10"
+                       TextColor="#64748B" />
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnChildrenTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="4"
+                                 Spacing="3"
+                                 HorizontalOptions="Center">
+                <Label Text="○"
+                       FontSize="22"
+                       TextColor="#2563EB"
+                       HorizontalOptions="Center" />
+                <Label Text="Profile"
+                       FontSize="10"
+                       FontAttributes="Bold"
+                       TextColor="#2563EB" />
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnProfileTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+        </Grid>
+    </Grid>
+</ContentPage>
