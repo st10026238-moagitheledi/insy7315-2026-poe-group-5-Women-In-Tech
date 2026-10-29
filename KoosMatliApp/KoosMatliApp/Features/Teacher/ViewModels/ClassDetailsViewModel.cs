@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using KoosMatliApp.Features.Teacher.Models;
 
 namespace KoosMatliApp.Features.Teacher.ViewModels;
@@ -14,7 +15,6 @@ public class ClassDetailsViewModel : ObservableObject
         set => SetProperty(ref _grade, value);
     }
 
-
     private string _subject = "Mathematics";
 
     public string Subject
@@ -22,7 +22,6 @@ public class ClassDetailsViewModel : ObservableObject
         get => _subject;
         set => SetProperty(ref _subject, value);
     }
-
 
     private int _learnerCount = 32;
 
@@ -39,32 +38,76 @@ public class ClassDetailsViewModel : ObservableObject
     public string AverageAttendance { get; } = "95%";
 
 
+    private bool _isOverviewSelected = true;
+
+    public bool IsOverviewSelected
+    {
+        get => _isOverviewSelected;
+        set => SetProperty(ref _isOverviewSelected, value);
+    }
+
+    private bool _isLearnersSelected;
+
+    public bool IsLearnersSelected
+    {
+        get => _isLearnersSelected;
+        set => SetProperty(ref _isLearnersSelected, value);
+    }
+
+    private bool _isResourcesSelected;
+
+    public bool IsResourcesSelected
+    {
+        get => _isResourcesSelected;
+        set => SetProperty(ref _isResourcesSelected, value);
+    }
+
+    private bool _isAttendanceSelected;
+
+    public bool IsAttendanceSelected
+    {
+        get => _isAttendanceSelected;
+        set => SetProperty(ref _isAttendanceSelected, value);
+    }
+
+
     public ObservableCollection<ClassTimetableItem> Timetable { get; }
 
     public ObservableCollection<HomeworkItem> Homework { get; }
 
     public ObservableCollection<ClassAnnouncementItem> Announcements { get; }
 
+    public ObservableCollection<LearnerItem> Learners { get; }
+
+
+    public IRelayCommand ShowOverviewCommand { get; }
+
+    public IRelayCommand ShowLearnersCommand { get; }
+
+    public IRelayCommand ShowResourcesCommand { get; }
+
+    public IRelayCommand ShowAttendanceCommand { get; }
+
 
     public ClassDetailsViewModel()
     {
         Timetable = new ObservableCollection<ClassTimetableItem>
         {
-            new ClassTimetableItem
+            new()
             {
-                Day = "Monday",
+                Day = "Mon",
                 Time = "08:00 - 08:45"
             },
 
-            new ClassTimetableItem
+            new()
             {
-                Day = "Wednesday",
+                Day = "Wed",
                 Time = "08:00 - 08:45"
             },
 
-            new ClassTimetableItem
+            new()
             {
-                Day = "Friday",
+                Day = "Fri",
                 Time = "08:00 - 08:45"
             }
         };
@@ -72,30 +115,79 @@ public class ClassDetailsViewModel : ObservableObject
 
         Homework = new ObservableCollection<HomeworkItem>
         {
-            new HomeworkItem
+            new()
             {
                 Title = "Fractions Worksheet",
-                DueDate = "Due 24 May 2026",
-                Status = "Active"
+                DueDate = "Due 17 May 2024",
+                Status = "Assigned"
             },
 
-            new HomeworkItem
+            new()
             {
-                Title = "Multiplication Exercise",
-                DueDate = "Due 27 May 2026",
-                Status = "Active"
+                Title = "Word Problems",
+                DueDate = "Due 20 May 2024",
+                Status = "Draft"
             }
         };
 
 
         Announcements = new ObservableCollection<ClassAnnouncementItem>
         {
-            new ClassAnnouncementItem
+            new()
             {
-                Title = "Mathematics Test",
-                Message = "Learners will write a short mathematics test on Friday."
+                Title = "Reminder: Maths Test",
+                Message = "Term 2 Test on 22 May 2024."
             }
         };
+
+
+        Learners = new ObservableCollection<LearnerItem>
+        {
+            new()
+            {
+                FullName = "Lerato Mokoena",
+                StudentNumber = "STD001"
+            },
+
+            new()
+            {
+                FullName = "Thabo Nkosi",
+                StudentNumber = "STD002"
+            },
+
+            new()
+            {
+                FullName = "Amahle Dlamini",
+                StudentNumber = "STD003"
+            },
+
+            new()
+            {
+                FullName = "Kagiso Molefe",
+                StudentNumber = "STD004"
+            },
+
+            new()
+            {
+                FullName = "Naledi Khumalo",
+                StudentNumber = "STD005"
+            },
+
+            new()
+            {
+                FullName = "Sipho Maseko",
+                StudentNumber = "STD006"
+            }
+        };
+
+
+        ShowOverviewCommand = new RelayCommand(ShowOverview);
+
+        ShowLearnersCommand = new RelayCommand(ShowLearners);
+
+        ShowResourcesCommand = new RelayCommand(ShowResources);
+
+        ShowAttendanceCommand = new RelayCommand(ShowAttendance);
     }
 
 
@@ -104,5 +196,42 @@ public class ClassDetailsViewModel : ObservableObject
         Grade = selectedClass.Grade;
         Subject = selectedClass.Subject;
         LearnerCount = selectedClass.LearnerCount;
+    }
+
+
+    private void ResetTabs()
+    {
+        IsOverviewSelected = false;
+        IsLearnersSelected = false;
+        IsResourcesSelected = false;
+        IsAttendanceSelected = false;
+    }
+
+
+    private void ShowOverview()
+    {
+        ResetTabs();
+        IsOverviewSelected = true;
+    }
+
+
+    private void ShowLearners()
+    {
+        ResetTabs();
+        IsLearnersSelected = true;
+    }
+
+
+    private void ShowResources()
+    {
+        ResetTabs();
+        IsResourcesSelected = true;
+    }
+
+
+    private void ShowAttendance()
+    {
+        ResetTabs();
+        IsAttendanceSelected = true;
     }
 }
