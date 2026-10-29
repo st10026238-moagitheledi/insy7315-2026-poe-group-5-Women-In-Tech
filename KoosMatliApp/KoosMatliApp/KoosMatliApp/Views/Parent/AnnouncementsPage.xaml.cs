@@ -1,15 +1,14 @@
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Net.Http;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using KoosMatliApp.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace KoosMatliApp.Views.Parent;
 
 public partial class AnnouncementsPage : ContentPage
 {
-    private readonly ParentApiService _parentApiService;
+    private readonly ParentApiService _parentApiService = new();
 
     private readonly ObservableCollection<AnnouncementItem>
         _allAnnouncements = new();
@@ -18,29 +17,412 @@ public partial class AnnouncementsPage : ContentPage
         FilteredAnnouncements
     { get; } = new();
 
-    private string _selectedCategory = "All";
     private bool _isLoading;
-    private bool _loadFailed;
+    private bool _hasLoadedSuccessfully;
+    private string _selectedCategory = "All";
 
     public AnnouncementsPage()
     {
         InitializeComponent();
-
         BindingContext = this;
-
-        _parentApiService =
-            Application.Current!.Handler!.MauiContext!
-                .Services.GetRequiredService<ParentApiService>();
-
-        Loaded += async (_, _) => await LoadAnnouncementsAsync();
     }
 
-    private async void OnRefreshClicked(
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (!_isLoading && !_hasLoadedSuccessfully)
+        {
+            await LoadAnnouncementsAsync();
+        }
+    }
+
+    // =========================================
+    // LOAD ANNOUNCEMENTS
+    // =========================================
+
+    private async Task LoadAnnouncementsAsync()
+    {
+        if (_isLoading)
+            return;
+
+        try
+        {
+            _isLoading = true;
+
+            ShowLoadingOverlay();
+
+            StatusContainer.IsVisible = false;
+
+            using JsonDocument response =
+                await _parentApiService.GetAnnouncementsAsync();
+
+            JsonElement root = response.RootElement;
+
+            if (TryGetProperty(root, out JsonElement successElement,
+                    "success")
+                && successElement.ValueKind == JsonValueKind.False)
+            {
+                ShowStatus(
+                    GetString(root, "message")
+                    ?? "Unable to load announcements.");
+
+                _hasLoadedSuccessfully = false;
+                return;
+            }
+
+            if (!TryGetAnnouncementsArray(
+                    root, out JsonElement announcementsElement))
+            {
+                ShowStatus(
+                    "The server response did not contain a valid announcements list.");
+
+                _hasLoadedSuccessfully = false;
+                return;
+            }
+
+            _allAnnouncements.Clear();
+
+            foreach (JsonElement announcementJson
+                     in announcementsElement.EnumerateArray())
+            {
+                AnnouncementItem? announcement =
+                    MapAnnouncement(announcementJson);
+
+                if (announcement != null)
+                {
+                    _allAnnouncements.Add(announcement);
+                }
+            }
+
+            ApplyFilters(AnnouncementSearchBar.Text ?? string.Empty);
+
+            _hasLoadedSuccessfully = true;
+            StatusContainer.IsVisible = false;
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            ShowStatus(
+                $"{ex.Message} Please sign in again.");
+
+            _hasLoadedSuccessfully = false;
+        }
+        catch (HttpRequestException ex)
+        {
+            ShowStatus(
+                "Unable to connect to the school server. " +
+                "Check that your API is running and try again.");
+
+            System.Diagnostics.Debug.WriteLine(
+                $"Announcements API error: {ex}");
+
+            _hasLoadedSuccessfully = false;
+        }
+        catch (TaskCanceledException ex)
+        {
+            ShowStatus(
+                "The request timed out. Please try again.");
+
+            System.Diagnostics.Debug.WriteLine(
+                $"Announcements timeout: {ex}");
+
+            _hasLoadedSuccessfully = false;
+        }
+        catch (JsonException ex)
+        {
+            ShowStatus(
+                "The server returned data that could not be read.");
+
+            System.Diagnostics.Debug.WriteLine(
+                $"Announcements JSON error: {ex}");
+
+            _hasLoadedSuccessfully = false;
+        }
+        catch (Exception ex)
+        {
+            ShowStatus(
+                "Something went wrong while loading announcements.");
+
+            System.Diagnostics.Debug.WriteLine(
+                $"Announcements error: {ex}");
+
+            _hasLoadedSuccessfully = false;
+        }
+        finally
+        {
+            HideLoadingOverlay();
+
+            AnnouncementsRefreshView.IsRefreshing = false;
+
+            _isLoading = false;
+        }
+    }
+
+    private static bool TryGetAnnouncementsArray(
+        JsonElement root,
+        out JsonElement announcements)
+    {
+        if (TryGetProperty(root, out announcements, "announcements")
+            && announcements.ValueKind == JsonValueKind.Array)
+        {
+            return true;
+        }
+
+        if (TryGetProperty(root, out JsonElement data, "data"))
+        {
+            if (data.ValueKind == JsonValueKind.Array)
+            {
+                announcements = data;
+                return true;
+            }
+
+            if (TryGetProperty(data, out announcements, "announcements")
+                && announcements.ValueKind == JsonValueKind.Array)
+            {
+                return true;
+            }
+
+            if (TryGetProperty(data, out JsonElement nestedData, "data")
+                && TryGetProperty(
+                    nestedData, out announcements, "announcements")
+                && announcements.ValueKind == JsonValueKind.Array)
+            {
+                return true;
+            }
+        }
+
+        if (root.ValueKind == JsonValueKind.Array)
+        {
+            announcements = root;
+            return true;
+        }
+
+        announcements = default;
+        return false;
+    }
+
+    // =========================================
+    // MAP API JSON TO ANNOUNCEMENT MODEL
+    // =========================================
+
+    private static AnnouncementItem? MapAnnouncement(
+        JsonElement json)
+    {
+        string? title = GetString(
+            json,
+            "title",
+            "name",
+            "announcementTitle");
+
+        string? message = GetString(
+            json,
+            "message",
+            "description",
+            "content",
+            "details",
+            "body");
+
+        string? summary = GetString(
+            json,
+            "summary",
+            "excerpt");
+
+        if (string.IsNullOrWhiteSpace(title))
+            title = "School Announcement";
+
+        if (string.IsNullOrWhiteSpace(message))
+            message = summary ?? "No additional details available.";
+
+        if (string.IsNullOrWhiteSpace(summary))
+            summary = message;
+
+        string? category = GetString(
+            json,
+            "category",
+            "type");
+
+        string? author = GetString(
+            json,
+            "author",
+            "authorName",
+            "createdByName",
+            "postedBy",
+            "createdBy");
+
+        string? id = GetString(
+            json,
+            "id",
+            "announcementId",
+            "documentId");
+
+        string? dateText = GetString(
+            json,
+            "datePublished",
+            "publishedAt",
+            "createdAt",
+            "date",
+            "timestamp");
+
+        DateTime publishedDate = DateTime.MinValue;
+
+        if (!string.IsNullOrWhiteSpace(dateText))
+        {
+            DateTime.TryParse(
+                dateText,
+                out publishedDate);
+        }
+
+        return new AnnouncementItem
+        {
+            Id = id ?? string.Empty,
+            Title = title,
+            Category = NormalizeCategory(category),
+            Message = message,
+            Summary = summary,
+            Author = string.IsNullOrWhiteSpace(author)
+                ? "School Administration"
+                : author,
+            PublishedDate = publishedDate
+        };
+    }
+
+    private static string NormalizeCategory(string? category)
+    {
+        if (string.IsNullOrWhiteSpace(category))
+            return "General";
+
+        if (category.Contains(
+                "academic", StringComparison.OrdinalIgnoreCase)
+            || category.Contains(
+                "homework", StringComparison.OrdinalIgnoreCase)
+            || category.Contains(
+                "exam", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Academic";
+        }
+
+        if (category.Contains(
+                "event", StringComparison.OrdinalIgnoreCase)
+            || category.Contains(
+                "calendar", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Events";
+        }
+
+        return "General";
+    }
+
+    // =========================================
+    // SEARCH
+    // =========================================
+
+    private void OnSearchTextChanged(
+        object sender,
+        TextChangedEventArgs e)
+    {
+        ApplyFilters(e.NewTextValue ?? string.Empty);
+    }
+
+    // =========================================
+    // CATEGORY FILTERS
+    // =========================================
+
+    private void OnCategoryClicked(
         object sender,
         EventArgs e)
     {
-        await LoadAnnouncementsAsync();
+        if (sender is not Button button
+            || button.CommandParameter is not string category)
+        {
+            return;
+        }
+
+        _selectedCategory = category;
+
+        UpdateCategoryButtonStyles();
+
+        ApplyFilters(AnnouncementSearchBar.Text ?? string.Empty);
     }
+
+    private void UpdateCategoryButtonStyles()
+    {
+        StyleCategoryButton(AllButton, "All");
+        StyleCategoryButton(AcademicButton, "Academic");
+        StyleCategoryButton(EventsButton, "Events");
+        StyleCategoryButton(GeneralButton, "General");
+    }
+
+    private void StyleCategoryButton(
+        Button button,
+        string category)
+    {
+        bool selected = _selectedCategory == category;
+
+        button.BackgroundColor = selected
+            ? Color.FromArgb("#061D45")
+            : Colors.White;
+
+        button.TextColor = selected
+            ? Colors.White
+            : Color.FromArgb("#061D45");
+
+        button.BorderColor = selected
+            ? Color.FromArgb("#061D45")
+            : Color.FromArgb("#E0E7F1");
+    }
+
+    private void ApplyFilters(string searchText)
+    {
+        FilteredAnnouncements.Clear();
+
+        IEnumerable<AnnouncementItem> results = _allAnnouncements;
+
+        if (_selectedCategory != "All")
+        {
+            results = results.Where(item =>
+                item.Category.Equals(
+                    _selectedCategory,
+                    StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            results = results.Where(item =>
+                item.Title.Contains(
+                    searchText,
+                    StringComparison.OrdinalIgnoreCase)
+                || item.Message.Contains(
+                    searchText,
+                    StringComparison.OrdinalIgnoreCase)
+                || item.Category.Contains(
+                    searchText,
+                    StringComparison.OrdinalIgnoreCase)
+                || item.Author.Contains(
+                    searchText,
+                    StringComparison.OrdinalIgnoreCase));
+        }
+
+        foreach (AnnouncementItem item in results)
+        {
+            FilteredAnnouncements.Add(item);
+        }
+
+        AnnouncementCountLabel.Text =
+            $"{_allAnnouncements.Count} " +
+            (_allAnnouncements.Count == 1
+                ? "Announcement"
+                : "Announcements");
+
+        ResultsCountLabel.Text =
+            $"{FilteredAnnouncements.Count} " +
+            (FilteredAnnouncements.Count == 1
+                ? "update"
+                : "updates");
+    }
+
+    // =========================================
+    // REFRESH
+    // =========================================
 
     private async void OnRefreshing(
         object sender,
@@ -49,399 +431,259 @@ public partial class AnnouncementsPage : ContentPage
         await LoadAnnouncementsAsync();
     }
 
-    private async Task LoadAnnouncementsAsync()
-    {
-        if (_isLoading)
-            return;
-
-        _isLoading = true;
-
-        AnnouncementsRefreshView.IsRefreshing = true;
-        LoadingOverlay.IsVisible = true;
-        LoadingIndicator.IsVisible = true;
-        LoadingIndicator.IsRunning = true;
-
-        StatusContainer.IsVisible = false;
-        _loadFailed = false;
-
-        AnnouncementCountLabel.Text =
-            "Loading announcements...";
-
-        try
-        {
-            using JsonDocument document =
-                await _parentApiService.GetAnnouncementsAsync();
-
-            JsonElement root = document.RootElement;
-
-            if (root.ValueKind == JsonValueKind.Object &&
-                root.TryGetProperty(
-                    "success", out JsonElement success) &&
-                success.ValueKind == JsonValueKind.False)
-            {
-                throw new HttpRequestException(
-                    ReadString(root, "message") ??
-                    "Unable to load announcements.");
-            }
-
-            JsonElement announcements =
-                GetProperty(root, "announcements");
-
-            // Support APIs that wrap results in a data object.
-            if (announcements.ValueKind != JsonValueKind.Array)
-            {
-                JsonElement data = GetProperty(root, "data");
-
-                announcements =
-                    GetProperty(data, "announcements");
-            }
-
-            if (announcements.ValueKind != JsonValueKind.Array)
-            {
-                throw new JsonException(
-                    "The API response does not contain an announcements array.");
-            }
-
-            _allAnnouncements.Clear();
-
-            foreach (JsonElement item in
-                     announcements.EnumerateArray())
-            {
-                AnnouncementItem? announcement =
-                    ParseAnnouncement(item);
-
-                if (announcement != null)
-                    _allAnnouncements.Add(announcement);
-            }
-
-            ApplyFilters();
-
-            StatusContainer.IsVisible = false;
-            _loadFailed = false;
-
-            AnnouncementCountLabel.Text =
-                _allAnnouncements.Count == 1
-                    ? "1 published announcement"
-                    : $"{_allAnnouncements.Count} published announcements";
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            ShowError(
-                "Your session has expired. Please sign in again.");
-
-            await DisplayAlertAsync(
-                "Session expired",
-                ex.Message,
-                "OK");
-        }
-        catch (HttpRequestException ex)
-        {
-            ShowError(ex.Message);
-        }
-        catch (TaskCanceledException)
-        {
-            ShowError(
-                "The request timed out. Check your connection and try again.");
-        }
-        catch (JsonException ex)
-        {
-            ShowError(
-                $"Unable to read announcements: {ex.Message}");
-        }
-        catch (Exception ex)
-        {
-            ShowError(
-                $"Unable to load announcements: {ex.Message}");
-        }
-        finally
-        {
-            LoadingOverlay.IsVisible = false;
-            LoadingIndicator.IsVisible = false;
-            LoadingIndicator.IsRunning = false;
-            AnnouncementsRefreshView.IsRefreshing = false;
-            _isLoading = false;
-        }
-    }
-
-    private void ShowError(string message)
-    {
-        _loadFailed = true;
-
-        StatusLabel.Text = message;
-        StatusContainer.IsVisible = true;
-
-        AnnouncementCountLabel.Text =
-            "Announcements could not be loaded";
-
-        // Do not present old data as if it were current.
-        _allAnnouncements.Clear();
-        FilteredAnnouncements.Clear();
-    }
-
-    private static AnnouncementItem? ParseAnnouncement(
-        JsonElement item)
-    {
-        if (item.ValueKind != JsonValueKind.Object)
-            return null;
-
-        string title =
-            ReadString(item, "title") ??
-            ReadString(item, "name") ??
-            "School announcement";
-
-        string details =
-            ReadString(item, "message") ??
-            ReadString(item, "description") ??
-            ReadString(item, "content") ??
-            ReadString(item, "details") ??
-            "";
-
-        string summary =
-            ReadString(item, "summary") ??
-            details;
-
-        string category =
-            ReadString(item, "category") ??
-            ReadString(item, "type") ??
-            "General";
-
-        string author =
-            ReadString(item, "author") ??
-            ReadString(item, "createdByName") ??
-            ReadString(item, "postedBy") ??
-            "School Administration";
-
-        string? rawDate =
-            ReadString(item, "datePublished") ??
-            ReadString(item, "publishedAt") ??
-            ReadString(item, "createdAt") ??
-            ReadString(item, "date");
-
-        DateTime publishedDate = DateTime.MinValue;
-
-        if (!string.IsNullOrWhiteSpace(rawDate))
-        {
-            DateTime.TryParse(
-                rawDate,
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.AssumeLocal,
-                out publishedDate);
-        }
-
-        return new AnnouncementItem
-        {
-            Id =
-                ReadString(item, "id") ??
-                ReadString(item, "announcementId") ??
-                ReadString(item, "documentId") ??
-                "",
-
-            Title = title,
-            Category = NormalizeCategory(category),
-            Summary = string.IsNullOrWhiteSpace(summary)
-                ? "Open this announcement for more information."
-                : summary,
-            Details = string.IsNullOrWhiteSpace(details)
-                ? summary
-                : details,
-            DatePublished = publishedDate,
-            Author = author
-        };
-    }
-
-    private static string NormalizeCategory(string category)
-    {
-        string value = category.Trim();
-
-        if (value.Equals(
-                "Academic",
-                StringComparison.OrdinalIgnoreCase))
-            return "Academic";
-
-        if (value.Equals(
-                "Event",
-                StringComparison.OrdinalIgnoreCase) ||
-            value.Equals(
-                "Events",
-                StringComparison.OrdinalIgnoreCase))
-            return "Events";
-
-        return "General";
-    }
-
-    private void ApplyFilters()
-    {
-        string searchText =
-            AnnouncementSearchBar?.Text?.Trim() ?? "";
-
-        var results = _allAnnouncements
-            .Where(item =>
-            {
-                bool matchesCategory =
-                    _selectedCategory == "All" ||
-                    string.Equals(
-                        item.Category,
-                        _selectedCategory,
-                        StringComparison.OrdinalIgnoreCase);
-
-                bool matchesSearch =
-                    string.IsNullOrWhiteSpace(searchText) ||
-                    item.Title.Contains(
-                        searchText,
-                        StringComparison.OrdinalIgnoreCase) ||
-                    item.Summary.Contains(
-                        searchText,
-                        StringComparison.OrdinalIgnoreCase) ||
-                    item.Details.Contains(
-                        searchText,
-                        StringComparison.OrdinalIgnoreCase) ||
-                    item.Category.Contains(
-                        searchText,
-                        StringComparison.OrdinalIgnoreCase) ||
-                    item.Author.Contains(
-                        searchText,
-                        StringComparison.OrdinalIgnoreCase);
-
-                return matchesCategory && matchesSearch;
-            })
-            .OrderByDescending(item => item.DatePublished)
-            .ToList();
-
-        FilteredAnnouncements.Clear();
-
-        foreach (AnnouncementItem item in results)
-            FilteredAnnouncements.Add(item);
-
-        if (!_loadFailed)
-        {
-            AnnouncementCountLabel.Text =
-                $"{FilteredAnnouncements.Count} announcement(s)";
-        }
-    }
-
-    private void OnSearchTextChanged(
+    private async void OnRefreshClicked(
         object sender,
-        TextChangedEventArgs e)
+        TappedEventArgs e)
     {
-        ApplyFilters();
+        await LoadAnnouncementsAsync();
     }
 
-    private void OnCategoryClicked(
-        object sender,
-        EventArgs e)
-    {
-        if (sender is not Button button ||
-            button.CommandParameter is not string category)
-        {
-            return;
-        }
-
-        _selectedCategory = category;
-
-        ResetCategoryButtons();
-
-        button.BackgroundColor = Color.FromArgb("#061D45");
-        button.TextColor = Colors.White;
-
-        ApplyFilters();
-    }
-
-    private void ResetCategoryButtons()
-    {
-        Button[] buttons =
-        {
-            AllButton,
-            AcademicButton,
-            EventsButton,
-            GeneralButton
-        };
-
-        foreach (Button button in buttons)
-        {
-            button.BackgroundColor = Colors.White;
-            button.TextColor = Color.FromArgb("#061D45");
-        }
-    }
+    // =========================================
+    // OPEN ANNOUNCEMENT DETAILS
+    // =========================================
 
     private async void OnAnnouncementTapped(
         object sender,
         TappedEventArgs e)
     {
-        if (e.Parameter is not AnnouncementItem announcement)
+        if (e.Parameter is not AnnouncementItem item)
             return;
 
-        await DisplayAlertAsync(
-            announcement.Title,
-            $"{announcement.Category} · {announcement.DateDisplay}\n\n" +
-            $"{announcement.Details}\n\n" +
-            $"Posted by: {announcement.Author}",
+        string date = item.PublishedDate == DateTime.MinValue
+            ? "Date not available"
+            : item.PublishedDate.ToString("dd MMM yyyy");
+
+        await DisplayAlert(
+            item.Title,
+            $"{item.Category}\n" +
+            $"Published: {date}\n" +
+            $"By: {item.Author}\n\n" +
+            item.Message,
             "Close");
     }
 
-    private static JsonElement GetProperty(
-        JsonElement element,
-        string propertyName)
+    // =========================================
+    // LOADING OVERLAY
+    // =========================================
+
+    private void ShowLoadingOverlay()
     {
-        if (element.ValueKind != JsonValueKind.Object)
-            return default;
+        LoadingOverlay.IsVisible = true;
+        OverlayActivityIndicator.IsRunning = true;
+    }
 
-        if (element.TryGetProperty(
-                propertyName, out JsonElement value))
-            return value;
+    private void HideLoadingOverlay()
+    {
+        OverlayActivityIndicator.IsRunning = false;
+        LoadingOverlay.IsVisible = false;
+    }
 
-        // Also support camelCase/PascalCase differences.
-        foreach (JsonProperty property in
-                 element.EnumerateObject())
+    // =========================================
+    // STATUS MESSAGE
+    // =========================================
+
+    private void ShowStatus(string message)
+    {
+        StatusLabel.Text = message;
+        StatusContainer.IsVisible = true;
+    }
+
+    // =========================================
+    // JSON HELPERS
+    // =========================================
+
+    private static string? GetString(
+        JsonElement element,
+        params string[] names)
+    {
+        if (!TryGetProperty(element, out JsonElement value, names))
+            return null;
+
+        return value.ValueKind switch
         {
-            if (string.Equals(
-                    property.Name,
-                    propertyName,
-                    StringComparison.OrdinalIgnoreCase))
+            JsonValueKind.String => value.GetString(),
+            JsonValueKind.Number => value.ToString(),
+            JsonValueKind.True => "true",
+            JsonValueKind.False => "false",
+            _ => null
+        };
+    }
+
+    private static bool TryGetProperty(
+        JsonElement element,
+        out JsonElement value,
+        params string[] names)
+    {
+        if (element.ValueKind == JsonValueKind.Object)
+        {
+            foreach (JsonProperty property in element.EnumerateObject())
             {
-                return property.Value;
+                if (names.Any(name => string.Equals(
+                    property.Name,
+                    name,
+                    StringComparison.OrdinalIgnoreCase)))
+                {
+                    value = property.Value;
+                    return true;
+                }
             }
         }
 
-        return default;
+        value = default;
+        return false;
     }
 
-    private static string? ReadString(
-        JsonElement element,
-        string propertyName)
+    // =========================================
+    // BOTTOM NAVIGATION
+    // =========================================
+
+    private async void OnHomeTapped(
+        object sender,
+        TappedEventArgs e)
     {
-        JsonElement value = GetProperty(element, propertyName);
+        if (Navigation.NavigationStack.Count > 1)
+        {
+            await Navigation.PopToRootAsync();
+        }
+        else
+        {
+            await Navigation.PushAsync(new ParentDashboardPage());
+        }
+    }
 
-        if (value.ValueKind == JsonValueKind.String)
-            return value.GetString();
+    private async void OnScheduleTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await Navigation.PushAsync(new TimetablePage());
+    }
 
-        if (value.ValueKind == JsonValueKind.Number)
-            return value.ToString();
+    private async void OnUpdatesTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        // Already on the Announcements page.
+        await Task.CompletedTask;
+    }
 
-        return null;
+    private async void OnChildrenTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await Navigation.PushAsync(new MyChildrenPage());
+    }
+
+    private async void OnProfileTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await Navigation.PushAsync(new ParentProfilePage());
     }
 }
 
-public class AnnouncementItem
+// =============================================
+// ANNOUNCEMENT MODEL
+// =============================================
+
+public class AnnouncementItem : INotifyPropertyChanged
 {
-    public string Id { get; set; } = "";
+    private string _title = string.Empty;
+    private string _category = "General";
+    private string _message = string.Empty;
+    private string _summary = string.Empty;
+    private string _author = "School Administration";
+    private DateTime _publishedDate;
 
-    public string Title { get; set; } = "";
+    public string Id { get; set; } = string.Empty;
 
-    public string Category { get; set; } = "General";
+    public string Title
+    {
+        get => _title;
+        set
+        {
+            if (_title == value) return;
 
-    public string Summary { get; set; } = "";
+            _title = value;
+            OnPropertyChanged();
+        }
+    }
 
-    public string Details { get; set; } = "";
+    public string Category
+    {
+        get => _category;
+        set
+        {
+            if (_category == value) return;
 
-    public DateTime DatePublished { get; set; }
+            _category = value;
+            OnPropertyChanged();
+        }
+    }
 
-    public string Author { get; set; } =
-        "School Administration";
+    public string Message
+    {
+        get => _message;
+        set
+        {
+            if (_message == value) return;
 
-    public string DateDisplay =>
-        DatePublished == DateTime.MinValue
-            ? "Date unavailable"
-            : DatePublished.ToString("dd MMM yyyy");
+            _message = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Summary
+    {
+        get => _summary;
+        set
+        {
+            if (_summary == value) return;
+
+            _summary = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Author
+    {
+        get => _author;
+        set
+        {
+            if (_author == value) return;
+
+            _author = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(AuthorDisplay));
+        }
+    }
 
     public string AuthorDisplay => $"Posted by {Author}";
+
+    public DateTime PublishedDate
+    {
+        get => _publishedDate;
+        set
+        {
+            if (_publishedDate == value) return;
+
+            _publishedDate = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(DateDisplay));
+        }
+    }
+
+    public string DateDisplay =>
+        PublishedDate == DateTime.MinValue
+            ? "Date not available"
+            : PublishedDate.ToString("dd MMM yyyy");
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    private void OnPropertyChanged(
+        [CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(propertyName));
+    }
 }

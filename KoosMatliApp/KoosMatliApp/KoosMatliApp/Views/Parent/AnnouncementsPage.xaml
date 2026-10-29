@@ -3,15 +3,61 @@
     x:Class="KoosMatliApp.Views.Parent.AnnouncementsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Announcements"
+    NavigationPage.HasNavigationBar="False"
     BackgroundColor="#F5F7FC">
 
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto">
 
-        <!-- Main content -->
+        <!-- NAVY SCHOOL HEADER -->
+        <Grid
+            Grid.Row="0"
+            BackgroundColor="#061D45"
+            Padding="20,18,20,22"
+            ColumnDefinitions="*,Auto">
+
+            <VerticalStackLayout Spacing="5">
+                <Label
+                    Text="KOOS MATLI PRIMARY SCHOOL"
+                    FontSize="10"
+                    CharacterSpacing="1.2"
+                    FontAttributes="Bold"
+                    TextColor="#FFBF19" />
+
+                <Label
+                    Text="Announcements"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    TextColor="White" />
+
+                <Label
+                    Text="Stay informed about school news and important updates."
+                    FontSize="12"
+                    TextColor="#D7E2F4" />
+            </VerticalStackLayout>
+
+            <Border
+                Grid.Column="1"
+                WidthRequest="44"
+                HeightRequest="44"
+                BackgroundColor="#183660"
+                Stroke="#36527B"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 14"
+                VerticalOptions="Center">
+
+                <Label
+                    Text="◉"
+                    FontSize="25"
+                    TextColor="#FFBF19"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Border>
+        </Grid>
+
+        <!-- MAIN CONTENT -->
         <RefreshView
             x:Name="AnnouncementsRefreshView"
-            Grid.Row="0"
+            Grid.Row="1"
             Refreshing="OnRefreshing">
 
             <CollectionView
@@ -21,32 +67,59 @@
 
                 <CollectionView.Header>
                     <VerticalStackLayout
-                        Padding="20,24,20,12"
-                        Spacing="16">
+                        Padding="16,18,16,12"
+                        Spacing="17">
 
-                        <!-- Page title -->
-                        <VerticalStackLayout Spacing="5">
-                            <Label
-                                Text="KOOS MATLI PRIMARY SCHOOL"
-                                FontSize="11"
-                                FontAttributes="Bold"
-                                TextColor="#B78600"
-                                CharacterSpacing="1.2" />
+                        <!-- SUMMARY CARD -->
+                        <Border
+                            BackgroundColor="White"
+                            Stroke="#E1E7F0"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 18"
+                            Padding="16">
 
-                            <Label
-                                Text="Announcements"
-                                FontSize="27"
-                                FontAttributes="Bold"
-                                TextColor="#061D45" />
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
 
-                            <Label
-                                Text="Stay informed about school news, notices and important updates."
-                                FontSize="14"
-                                TextColor="#52627A"
-                                LineBreakMode="WordWrap" />
-                        </VerticalStackLayout>
+                                <VerticalStackLayout Spacing="5">
+                                    <Label
+                                        Text="School Updates"
+                                        FontSize="13"
+                                        TextColor="#64748B" />
 
-                        <!-- Search -->
+                                    <Label
+                                        x:Name="AnnouncementCountLabel"
+                                        Text="0 Announcements"
+                                        FontSize="24"
+                                        FontAttributes="Bold"
+                                        TextColor="#061D45" />
+
+                                    <Label
+                                        Text="News and notices from your school."
+                                        FontSize="11"
+                                        TextColor="#64748B" />
+                                </VerticalStackLayout>
+
+                                <Border
+                                    Grid.Column="1"
+                                    BackgroundColor="#FFF2D9"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 15"
+                                    WidthRequest="56"
+                                    HeightRequest="56"
+                                    VerticalOptions="Center">
+
+                                    <Label
+                                        Text="!"
+                                        FontSize="30"
+                                        FontAttributes="Bold"
+                                        TextColor="#B77912"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- SEARCH -->
                         <SearchBar
                             x:Name="AnnouncementSearchBar"
                             Placeholder="Search announcements..."
@@ -54,13 +127,15 @@
                             TextColor="#061D45"
                             PlaceholderColor="#8290A5"
                             CancelButtonColor="#061D45"
+                            FontSize="13"
+                            HeightRequest="52"
                             TextChanged="OnSearchTextChanged" />
 
-                        <!-- Category filters -->
+                        <!-- CATEGORY FILTERS -->
                         <VerticalStackLayout Spacing="10">
                             <Label
                                 Text="Filter by category"
-                                FontSize="15"
+                                FontSize="14"
                                 FontAttributes="Bold"
                                 TextColor="#061D45" />
 
@@ -89,6 +164,7 @@
                                         BackgroundColor="White"
                                         TextColor="#061D45"
                                         BorderColor="#E0E7F1"
+                                        BorderWidth="1"
                                         CornerRadius="18"
                                         Padding="18,8"
                                         FontSize="12" />
@@ -101,6 +177,7 @@
                                         BackgroundColor="White"
                                         TextColor="#061D45"
                                         BorderColor="#E0E7F1"
+                                        BorderWidth="1"
                                         CornerRadius="18"
                                         Padding="18,8"
                                         FontSize="12" />
@@ -113,6 +190,7 @@
                                         BackgroundColor="White"
                                         TextColor="#061D45"
                                         BorderColor="#E0E7F1"
+                                        BorderWidth="1"
                                         CornerRadius="18"
                                         Padding="18,8"
                                         FontSize="12" />
@@ -121,7 +199,7 @@
                             </ScrollView>
                         </VerticalStackLayout>
 
-                        <!-- Status -->
+                        <!-- STATUS MESSAGE -->
                         <Border
                             x:Name="StatusContainer"
                             IsVisible="False"
@@ -134,57 +212,60 @@
                             <Label
                                 x:Name="StatusLabel"
                                 Text=""
-                                FontSize="13"
-                                TextColor="#52627A"
+                                FontSize="12"
+                                TextColor="#C62828"
                                 LineBreakMode="WordWrap" />
                         </Border>
 
-                        <ActivityIndicator
-                            x:Name="LoadingIndicator"
-                            IsVisible="False"
-                            IsRunning="False"
-                            Color="#FFBF19"
-                            HorizontalOptions="Center" />
-
-                        <Label
-                            x:Name="AnnouncementCountLabel"
-                            Text="Loading announcements..."
-                            FontSize="13"
-                            FontAttributes="Bold"
-                            TextColor="#52627A" />
-
+                        <!-- RESULTS HEADING -->
                         <Grid ColumnDefinitions="*,Auto">
                             <Label
-                                Text="Latest updates"
-                                FontSize="20"
+                                Text="Latest Updates"
+                                FontSize="18"
                                 FontAttributes="Bold"
                                 TextColor="#061D45"
                                 VerticalOptions="Center" />
 
-                            <Button
+                            <Grid
                                 Grid.Column="1"
-                                Text="Refresh"
-                                Clicked="OnRefreshClicked"
-                                BackgroundColor="#FFBF19"
-                                TextColor="#061D45"
-                                FontAttributes="Bold"
-                                CornerRadius="12"
-                                Padding="12,7"
-                                FontSize="12" />
+                                ColumnDefinitions="Auto,Auto"
+                                ColumnSpacing="6"
+                                VerticalOptions="Center">
+
+                                <Label
+                                    x:Name="ResultsCountLabel"
+                                    Text="0 updates"
+                                    FontSize="11"
+                                    TextColor="#64748B"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Grid.Column="1"
+                                    Text="↻"
+                                    FontSize="18"
+                                    TextColor="#061D45"
+                                    VerticalOptions="Center">
+
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="OnRefreshClicked" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
                         </Grid>
 
                     </VerticalStackLayout>
                 </CollectionView.Header>
 
-                <!-- Announcement cards -->
+                <!-- ANNOUNCEMENT CARDS -->
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border
                             BackgroundColor="White"
                             Stroke="#E0E7F1"
                             StrokeThickness="1"
-                            Padding="16"
-                            Margin="20,0,20,12"
+                            Padding="15"
+                            Margin="16,0,16,12"
                             StrokeShape="RoundRectangle 16">
 
                             <Border.GestureRecognizers>
@@ -193,9 +274,9 @@
                                     CommandParameter="{Binding .}" />
                             </Border.GestureRecognizers>
 
-                            <VerticalStackLayout Spacing="12">
+                            <VerticalStackLayout Spacing="11">
 
-                                <Grid ColumnDefinitions="*,Auto">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
                                     <Border
                                         HorizontalOptions="Start"
                                         BackgroundColor="#FFF2C7"
@@ -205,7 +286,7 @@
 
                                         <Label
                                             Text="{Binding Category}"
-                                            FontSize="11"
+                                            FontSize="10"
                                             FontAttributes="Bold"
                                             TextColor="#061D45" />
                                     </Border>
@@ -213,40 +294,40 @@
                                     <Label
                                         Grid.Column="1"
                                         Text="{Binding DateDisplay}"
-                                        FontSize="11"
-                                        TextColor="#52627A"
+                                        FontSize="10"
+                                        TextColor="#64748B"
                                         VerticalOptions="Center"
                                         HorizontalTextAlignment="End" />
                                 </Grid>
 
                                 <Label
                                     Text="{Binding Title}"
-                                    FontSize="17"
+                                    FontSize="16"
                                     FontAttributes="Bold"
                                     TextColor="#061D45"
                                     LineBreakMode="WordWrap" />
 
                                 <Label
                                     Text="{Binding Summary}"
-                                    FontSize="14"
+                                    FontSize="13"
                                     TextColor="#52627A"
                                     LineBreakMode="WordWrap"
                                     MaxLines="3" />
 
-                                <Grid ColumnDefinitions="*,Auto">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
                                     <Label
                                         Text="{Binding AuthorDisplay}"
-                                        FontSize="11"
+                                        FontSize="10"
                                         TextColor="#8290A5"
                                         VerticalOptions="Center"
                                         LineBreakMode="TailTruncation" />
 
                                     <Label
                                         Grid.Column="1"
-                                        Text="Read more →"
-                                        FontSize="12"
+                                        Text="Read more  ›"
+                                        FontSize="11"
                                         FontAttributes="Bold"
-                                        TextColor="#061D45"
+                                        TextColor="#1239C9"
                                         VerticalOptions="Center" />
                                 </Grid>
 
@@ -255,35 +336,51 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 
-                <!-- Empty state -->
+                <!-- EMPTY STATE -->
                 <CollectionView.EmptyView>
-                    <VerticalStackLayout
+                    <Border
+                        BackgroundColor="White"
+                        Stroke="#E1E7F0"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
                         Padding="24"
-                        Spacing="8"
-                        HorizontalOptions="Center">
+                        Margin="16,4,16,16">
 
-                        <Label
-                            Text="No announcements found"
-                            FontSize="17"
-                            FontAttributes="Bold"
-                            TextColor="#061D45"
-                            HorizontalTextAlignment="Center" />
+                        <VerticalStackLayout
+                            Spacing="9"
+                            HorizontalOptions="Center">
 
-                        <Label
-                            Text="Try a different search or category, or refresh to check for updates."
-                            FontSize="13"
-                            TextColor="#52627A"
-                            HorizontalTextAlignment="Center" />
-                    </VerticalStackLayout>
+                            <Label
+                                Text="◉"
+                                FontSize="34"
+                                TextColor="#94A3B8"
+                                HorizontalTextAlignment="Center" />
+
+                            <Label
+                                Text="No announcements found"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="#061D45"
+                                HorizontalTextAlignment="Center" />
+
+                            <Label
+                                Text="Try another search or category, or refresh to check for updates."
+                                FontSize="12"
+                                TextColor="#64748B"
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="WordWrap" />
+                        </VerticalStackLayout>
+                    </Border>
                 </CollectionView.EmptyView>
 
+                <!-- FOOTER -->
                 <CollectionView.Footer>
                     <Label
                         Text="Thuto ke Lesedi • Education is Light"
-                        FontSize="12"
+                        FontSize="11"
                         HorizontalTextAlignment="Center"
-                        TextColor="#52627A"
-                        Margin="20,12,20,20" />
+                        TextColor="#64748B"
+                        Margin="16,12,16,20" />
                 </CollectionView.Footer>
 
             </CollectionView>
@@ -295,7 +392,7 @@
             BackgroundColor="White"
             Padding="4,8,4,6"
             ColumnDefinitions="*,*,*,*,*"
-            ColumnSpacing="2">  
+            ColumnSpacing="2">
 
             <VerticalStackLayout
                 Grid.Column="0"
@@ -349,13 +446,14 @@
                 <Label
                     Text="◉"
                     FontSize="21"
-                    TextColor="#64748B"
+                    TextColor="#1239C9"
                     HorizontalTextAlignment="Center" />
 
                 <Label
                     Text="Updates"
                     FontSize="10"
-                    TextColor="#64748B"
+                    FontAttributes="Bold"
+                    TextColor="#1239C9"
                     HorizontalTextAlignment="Center" />
 
                 <VerticalStackLayout.GestureRecognizers>
@@ -371,14 +469,13 @@
                 <Label
                     Text="♙"
                     FontSize="21"
-                    TextColor="#1239C9"
+                    TextColor="#64748B"
                     HorizontalTextAlignment="Center" />
 
                 <Label
                     Text="Children"
                     FontSize="10"
-                    FontAttributes="Bold"
-                    TextColor="#1239C9"
+                    TextColor="#64748B"
                     HorizontalTextAlignment="Center" />
 
                 <VerticalStackLayout.GestureRecognizers>
@@ -407,48 +504,46 @@
                     <TapGestureRecognizer Tapped="OnProfileTapped" />
                 </VerticalStackLayout.GestureRecognizers>
             </VerticalStackLayout>
-
         </Grid>
-        
-            <Grid
+
+        <!-- FULL-PAGE LOADING OVERLAY -->
+        <Grid
             x:Name="LoadingOverlay"
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             IsVisible="False"
             ZIndex="100"
             BackgroundColor="#99061D45"
             InputTransparent="False">
 
-                    <Border
+            <Border
                 BackgroundColor="White"
                 Stroke="#E1E7F0"
                 StrokeThickness="1"
                 StrokeShape="RoundRectangle 20"
-                Padding="28"
+                Padding="26"
+                WidthRequest="260"
                 HorizontalOptions="Center"
-                VerticalOptions="Center"
-                WidthRequest="250">
+                VerticalOptions="Center">
 
-                        <VerticalStackLayout
-                    Spacing="14"
-                    HorizontalOptions="Center">
+                <VerticalStackLayout Spacing="14">
 
-                            <ActivityIndicator
+                    <ActivityIndicator
                         x:Name="OverlayActivityIndicator"
-                        IsRunning="True"
+                        IsRunning="False"
                         IsVisible="True"
                         Color="#1239C9"
                         WidthRequest="42"
                         HeightRequest="42"
                         HorizontalOptions="Center" />
 
-                            <Label
+                    <Label
                         Text="Loading announcements..."
                         FontSize="15"
                         FontAttributes="Bold"
                         TextColor="#061D45"
                         HorizontalTextAlignment="Center" />
 
-                        <Label
+                    <Label
                         Text="Please wait while we retrieve the latest school updates."
                         FontSize="12"
                         TextColor="#64748B"
