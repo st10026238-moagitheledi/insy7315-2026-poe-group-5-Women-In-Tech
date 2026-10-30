@@ -40,7 +40,7 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("//TeacherUpdates");
+        await Shell.Current.GoToAsync(nameof(AddAnnouncementPage));
     }
 
 

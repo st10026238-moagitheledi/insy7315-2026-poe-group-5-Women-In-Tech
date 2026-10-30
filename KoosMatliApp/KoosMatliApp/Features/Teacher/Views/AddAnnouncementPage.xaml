@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.AddAnnouncementPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    
+    Title="Create Announcement"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="12,10,12,24"
+            Spacing="14">
+
+
+            <!-- Header -->
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Grid
+                    ColumnDefinitions="32,*"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Text="‹"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+
+                        <Label.GestureRecognizers>
+
+                            <TapGestureRecognizer
+                                Tapped="OnBackTapped" />
+
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+
+                    <Label
+                        Grid.Column="1"
+                        Text="Create Announcement"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+            </Border>
+
+
+            <Label
+                Text="Announcement Details"
+                FontSize="15"
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryBlue}" />
+
+
+            <Border
+                BackgroundColor="{StaticResource White}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+
+
+                <VerticalStackLayout Spacing="14">
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Title"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Entry
+                            Text="{Binding Title}"
+                            Placeholder="Enter announcement title"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Message"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Editor
+                            Text="{Binding Message}"
+                            Placeholder="Enter announcement message"
+                            MinimumHeightRequest="120"
+                            AutoSize="TextChanges"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Event / Due Date"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <DatePicker
+                           Date="{Binding EventDate}"
+                           MinimumDate="{x:Static sys:DateTime.Today}"
+                           FontSize="11"
+                           TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Audience"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Picker
+                            ItemsSource="{Binding AudienceOptions}"
+                            SelectedItem="{Binding Audience}"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout
+                        IsVisible="{Binding IsSpecificClass}"
+                        Spacing="12">
+
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label
+                                Text="Grade"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Picker
+                                ItemsSource="{Binding GradeOptions}"
+                                SelectedItem="{Binding Grade}"
+                                TextColor="{StaticResource Charcoal}" />
+
+                        </VerticalStackLayout>
+
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label
+                                Text="Subject"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Picker
+                                ItemsSource="{Binding SubjectOptions}"
+                                SelectedItem="{Binding Subject}"
+                                TextColor="{StaticResource Charcoal}" />
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Button
+                Text="Publish Announcement"
+                Clicked="OnPublishAnnouncementClicked"
+                BackgroundColor="{StaticResource SunshineGold}"
+                TextColor="{StaticResource PrimaryBlue}"
+                FontAttributes="Bold"
+                FontSize="11"
+                HeightRequest="46"
+                CornerRadius="8" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

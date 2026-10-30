@@ -7,16 +7,224 @@
     Title="Updates"
     BackgroundColor="{StaticResource PageBackground}">
 
-    <Grid Padding="16">
+    <ScrollView>
 
-        <Label
-            Text="Updates"
-            FontSize="28"
-            FontAttributes="Bold"
-            TextColor="{StaticResource PrimaryBlue}"
-            HorizontalOptions="Center"
-            VerticalOptions="Center" />
+        <VerticalStackLayout
+            Padding="16,12,16,24"
+            Spacing="14">
 
-    </Grid>
+
+            <!-- Header -->
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Grid
+                    ColumnDefinitions="*,44"
+                    ColumnSpacing="12">
+
+                    <VerticalStackLayout
+                        Grid.Column="0"
+                        Spacing="1"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="UPDATES"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource SunshineGold}" />
+
+                        <Label
+                            Text="Announcements and school updates"
+                            FontSize="9"
+                            TextColor="{StaticResource White}" />
+
+                    </VerticalStackLayout>
+
+
+                    <!-- Teacher Profile -->
+                    <Border
+                        Grid.Column="1"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        BackgroundColor="{StaticResource SunshineGold}"
+                        StrokeThickness="0">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20" />
+                        </Border.StrokeShape>
+
+                        <Label
+                            Text="JD"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+
+                    </Border>
+
+                </Grid>
+
+            </Border>
+
+
+            <Grid
+                ColumnDefinitions="*,Auto"
+                ColumnSpacing="10">
+
+                <VerticalStackLayout Spacing="2">
+
+                    <Label
+                        Text="Announcements"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Label
+                        Text="Manage announcements for your learners"
+                        FontSize="9"
+                        TextColor="{StaticResource Gray500}" />
+
+                </VerticalStackLayout>
+
+
+                <Button
+                    Grid.Column="1"
+                    Text="+ Create"
+                    Clicked="OnCreateAnnouncementClicked"
+                    BackgroundColor="{StaticResource SunshineGold}"
+                    TextColor="{StaticResource PrimaryBlue}"
+                    FontAttributes="Bold"
+                    FontSize="9"
+                    HeightRequest="38"
+                    CornerRadius="8"
+                    Padding="12,0" />
+
+            </Grid>
+
+
+            <!-- Announcement List -->
+
+            <VerticalStackLayout
+                Spacing="10"
+                BindableLayout.ItemsSource="{Binding Announcements}">
+
+                <BindableLayout.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Border
+                            BackgroundColor="{StaticResource CardSurface}"
+                            Stroke="{StaticResource Gray200}"
+                            StrokeThickness="1"
+                            Padding="12">
+
+                            <Border.GestureRecognizers>
+
+                                <TapGestureRecognizer
+                                    Tapped="OnAnnouncementTapped" />
+
+                            </Border.GestureRecognizers>
+
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+
+
+                            <Grid
+                                ColumnDefinitions="42,*,Auto"
+                                ColumnSpacing="10">
+
+                                <Border
+                                    WidthRequest="38"
+                                    HeightRequest="38"
+                                    BackgroundColor="{StaticResource SunshineGoldSoft}"
+                                    StrokeThickness="0"
+                                    VerticalOptions="Start">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
+
+                                    <Label
+                                        Text="!"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource SunshineGold}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+
+                                </Border>
+
+
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="3">
+
+                                    <Label
+                                        Text="{Binding Title}"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+                                    <Label
+                                        Text="{Binding Message}"
+                                        FontSize="9"
+                                        TextColor="{StaticResource Charcoal}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="2" />
+
+                                    <HorizontalStackLayout
+                                        Spacing="8">
+
+                                        <Label
+                                           Text="{Binding Audience}"
+                                           FontSize="8"
+                                           TextColor="{StaticResource GrowthGreen}" />
+
+                                        <Label
+                                           Text="Due / Event:"
+                                           FontSize="8"
+                                           TextColor="{StaticResource Gray500}" />
+
+                                        <Label
+                                           Text="{Binding EventDate, StringFormat='{}{0:dd MMM yyyy}'}"
+                                           FontSize="8"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource PrimaryBlue}" />
+
+                                    </HorizontalStackLayout>
+
+                                </VerticalStackLayout>
+
+
+                                <Label
+                                    Grid.Column="2"
+                                    Text="›"
+                                    FontSize="24"
+                                    TextColor="{StaticResource PrimaryBlue}"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </BindableLayout.ItemTemplate>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
 
 </ContentPage>

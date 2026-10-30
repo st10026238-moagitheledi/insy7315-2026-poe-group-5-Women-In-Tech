@@ -489,9 +489,19 @@
 
                             <Label
                                 Grid.Column="1"
-                                Text="View all"
+                                Text="View all ›"
                                 FontSize="9"
-                                TextColor="{StaticResource PrimaryBlue}" />
+                                TextColor="{StaticResource PrimaryBlue}">
+
+                                <Label.GestureRecognizers>
+
+                                    <TapGestureRecognizer
+                                        
+                                        Tapped="OnViewAllAnnouncementsTapped" />
+
+                                </Label.GestureRecognizers>
+
+                            </Label>
 
                         </Grid>
 

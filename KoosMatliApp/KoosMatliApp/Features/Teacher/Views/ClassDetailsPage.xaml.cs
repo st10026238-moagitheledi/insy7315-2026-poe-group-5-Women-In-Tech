@@ -24,6 +24,8 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         _viewModel.RefreshHomework();
 
         _viewModel.RefreshLearners();
+
+        _viewModel.RefreshAnnouncements();
     }
 
 
@@ -169,6 +171,14 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
                 nameof(LearnerDetailsPage),
                 parameters);
         }
+    }
+
+    private async void OnViewAllAnnouncementsTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(
+            "//TeacherUpdates");
     }
 }
 
