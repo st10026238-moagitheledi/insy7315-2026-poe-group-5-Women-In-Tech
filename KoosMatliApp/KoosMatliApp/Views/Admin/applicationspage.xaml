@@ -1,94 +1,79 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="KoosMatliApp.Views.Admin.applicationspage"
-    Title="Applications">
+    x:Class="KoosMatliApp.Views.Admin.ApplicationsPage"
+    Title="{DynamicResource T_98E33B0F3104}">
 
-    <Grid
-        Padding="20"
-        RowDefinitions="Auto,Auto,Auto,*"
-        RowSpacing="15">
+    <Grid Padding="20"
+          RowDefinitions="Auto,Auto,Auto,Auto,*"
+          RowSpacing="12">
 
-        <VerticalStackLayout>
-            <Label
-                Text="Applications"
-                FontSize="28"
-                FontAttributes="Bold" />
+        <VerticalStackLayout Spacing="4">
+            <Label Text="{DynamicResource T_98E33B0F3104}"
+                   FontSize="28"
+                   FontAttributes="Bold" />
 
-            <Label
-                Text="Review learner admission applications"
-                TextColor="Gray" />
+            <Label Text="{DynamicResource T_54212DB90869}"
+                   TextColor="Gray" />
         </VerticalStackLayout>
 
-        <SearchBar
-            Grid.Row="1"
-            Placeholder="Search application number or learner..." />
+        <SearchBar x:Name="SearchInput"
+                   Grid.Row="1"
+                   Placeholder="{DynamicResource T_1B93C5C528A4}"
+                   TextChanged="SearchChanged" />
 
-        <!-- STATUS FILTERS -->
-        <ScrollView
-            Grid.Row="2"
-            Orientation="Horizontal">
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,*"
+              RowDefinitions="Auto,Auto"
+              ColumnSpacing="8"
+              RowSpacing="8">
 
-            <HorizontalStackLayout Spacing="8">
+            <Button x:Name="AllFilter"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="{DynamicResource T_A52ACE420F21}"
+                    CommandParameter="0"
+                    Clicked="StatusClicked" />
 
-                <Button Text="New" />
-                <Button Text="Pending" />
-                <Button Text="Approved" />
-                <Button Text="Rejected" />
+            <Button x:Name="PendingFilter"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="{DynamicResource T_331551B0DE41}"
+                    CommandParameter="1"
+                    Clicked="StatusClicked" />
 
-            </HorizontalStackLayout>
+            <Button x:Name="ApprovedFilter"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="{DynamicResource T_87B42E40C2A2}"
+                    CommandParameter="2"
+                    Clicked="StatusClicked" />
 
+            <Button x:Name="RejectedFilter"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{DynamicResource T_AEA4A04A8042}"
+                    CommandParameter="3"
+                    Clicked="StatusClicked" />
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="3" Spacing="4">
+            <Button x:Name="RefreshButton"
+                    Text="Refresh"
+                    Clicked="RefreshClicked"
+                    HorizontalOptions="Start" />
+
+            <ActivityIndicator x:Name="Loading"
+                               IsVisible="False" />
+
+            <Label x:Name="Feedback"
+                   TextColor="Red" />
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="4">
+            <VerticalStackLayout x:Name="ApplicationCards"
+                                 Spacing="12" />
         </ScrollView>
-
-        <!-- APPLICATION LIST -->
-        <CollectionView Grid.Row="3" ItemsSource="{Binding Applications}">
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-
-                    <Border
-                        Padding="15"
-                        Margin="0,5"
-                        Stroke="#DDDDDD"
-                        StrokeShape="RoundRectangle 10">
-
-                        <Grid ColumnDefinitions="*,Auto">
-
-                            <VerticalStackLayout Spacing="4">
-
-                                <Label
-                                    Text="{Binding ApplicationNumber}"
-                                    FontAttributes="Bold"
-                                    FontSize="16" />
-
-                                <Label
-                                    Text="{Binding LearnerFullName}"
-                                    FontSize="14" />
-
-                                <Label
-                                    Text="{Binding Status}"
-                                    FontSize="13"
-                                    TextColor="Orange" />
-
-                            </VerticalStackLayout>
-
-                            <Label
-                                Grid.Column="1"
-                                Text="›"
-                                FontSize="25"
-                                VerticalOptions="Center" />
-
-                        </Grid>
-
-                    </Border>
-
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-
-        </CollectionView>
-
     </Grid>
-
 </ContentPage>

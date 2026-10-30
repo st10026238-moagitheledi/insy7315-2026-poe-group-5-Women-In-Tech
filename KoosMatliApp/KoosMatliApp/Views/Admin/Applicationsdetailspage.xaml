@@ -1,99 +1,75 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:KoosMatliApp.ViewModels"
     x:Class="KoosMatliApp.Views.Admin.Applicationsdetailspage"
-    Title="Application Details">
+    x:DataType="vm:ApplicationsDetailViewModel"
+    Title="{DynamicResource T_B5EFD6AD6D8A}">
 
     <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-        <VerticalStackLayout
-            Padding="20"
-            Spacing="18">
+            <Label Text="{DynamicResource T_B5EFD6AD6D8A}"
+                   FontSize="28"
+                   FontAttributes="Bold" />
+
+            <Label Text="{DynamicResource T_24A68D3C253A}"
+                   TextColor="Gray" />
+
+            <Label Text="{Binding Application.ApplicationNumber}"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Label Text="{DynamicResource T_920E413C7D41}"
+                   TextColor="Gray" />
 
             <Label
-                Text="Application Details"
-                FontSize="28"
-                FontAttributes="Bold" />
+                Text="{Binding Status, Converter={StaticResource LocalizeValue}}"
+                FontSize="16"
+                TextColor="Orange" />
 
-            <Border
-                Padding="15"
-                Stroke="#DDDDDD"
-                StrokeShape="RoundRectangle 10">
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   TextColor="Red" />
 
-                <VerticalStackLayout Spacing="8">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" />
 
-                    <Label
-                        Text="Application Number"
-                        FontSize="12"
-                        TextColor="Gray" />
+            <Label Text="{DynamicResource T_CD7AF8B9CC4F}"
+                   TextColor="Gray" />
+            <Label Text="{Binding LearnerFullName}" />
 
-                    <Label
-                        Text="APP-2026-001"
-                        FontSize="18"
-                        FontAttributes="Bold" />
+            <Label Text="{DynamicResource T_EB4C4E239122}"
+                   TextColor="Gray" />
+            <Label Text="{Binding DateOfBirth, StringFormat='{0:d}'}" />
 
-                    <Label
-                        Text="Status: Pending"
-                        TextColor="Orange" />
+            <Label Text="{DynamicResource T_249CD471DFDD}"
+                   TextColor="Gray" />
+            <Label Text="{Binding GradeApplyingFor}" />
 
-                </VerticalStackLayout>
+            <Label Text="{DynamicResource T_3AA8F6BACEA9}"
+                   TextColor="Gray" />
+            <Label Text="{Binding GuardianName}" />
 
-            </Border>
+            <Label Text="{DynamicResource T_4420C1A686E2}"
+                   TextColor="Gray" />
+            <Label Text="{Binding GuardianEmail}" />
 
-            <!-- LEARNER -->
-            <Label
-                Text="Learner Information"
-                FontSize="20"
-                FontAttributes="Bold" />
+            <Label Text="{DynamicResource T_BAC8586D9B07}"
+                   TextColor="Gray" />
+            <Label Text="{Binding GuardianPhone}" />
 
-            <Border
-                Padding="15"
-                Stroke="#DDDDDD"
-                StrokeShape="RoundRectangle 10">
+            <Button Text="{DynamicResource T_4126FD415F2D}"
+                    Command="{Binding ApproveCommand}"
+                    IsVisible="{Binding CanDecide}"
+                    IsEnabled="{Binding IsNotBusy}" />
 
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Name: Learner Name" />
-                    <Label Text="Date of Birth: 01 January 2018" />
-                    <Label Text="Grade Applying For: Grade 3" />
-                </VerticalStackLayout>
-
-            </Border>
-
-            <!-- GUARDIAN -->
-            <Label
-                Text="Parent / Guardian Information"
-                FontSize="20"
-                FontAttributes="Bold" />
-
-            <Border
-                Padding="15"
-                Stroke="#DDDDDD"
-                StrokeShape="RoundRectangle 10">
-
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Name: Parent Name" />
-                    <Label Text="Email: parent@example.com" />
-                    <Label Text="Phone: 000 000 0000" />
-                </VerticalStackLayout>
-
-            </Border>
-
-            <!-- ACTIONS -->
-            <Label
-                Text="Application Decision"
-                FontSize="20"
-                FontAttributes="Bold" />
-
-            <Button Text="Approve Application" />
-
-            <Button Text="Reject Application" />
-
-            <Button Text="Mark as Pending" />
+            <Button Text="{DynamicResource T_210F2A76B0B3}"
+                    Command="{Binding RejectCommand}"
+                    IsVisible="{Binding CanDecide}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    BackgroundColor="Red" />
 
         </VerticalStackLayout>
-
     </ScrollView>
-
 </ContentPage>

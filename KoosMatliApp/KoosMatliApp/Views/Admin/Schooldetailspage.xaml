@@ -1,47 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns:vm="clr-namespace:KoosMatliApp.ViewModels" xmlns:model="clr-namespace:KoosMatliApp.Models" x:DataType="vm:SchoolDetailsViewModel" xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="KoosMatliApp.Views.Admin.Schooldetailspage" Title="{DynamicResource T_13AFEF346B27}">
+<ScrollView><VerticalStackLayout Padding="20" Spacing="14">
+<Label Text="{DynamicResource T_13AFEF346B27}" FontSize="28" FontAttributes="Bold"/>
+<Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="Red"/>
+<Label Text="{DynamicResource T_EB2CBD328CE2}"/><Entry Text="{Binding SchoolName}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBool}}"/>
+<Label Text="{DynamicResource T_56EF8F20955F}"/><Entry Text="{Binding Address}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBool}}"/>
+<Label Text="{DynamicResource T_306F1BB20677}"/><Entry Text="{Binding PhoneNumber}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBool}}"/>
+<Label Text="{DynamicResource T_F2488FD4EF4A}"/><Entry Text="{Binding Email}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBool}}"/>
+<Label Text="{DynamicResource T_0DB4C7311469}"/><Entry Text="{Binding PrincipalName}" IsReadOnly="{Binding IsEditing, Converter={StaticResource InverseBool}}"/>
 
-<ContentPage
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="KoosMatliApp.Views.Admin.Schooldetailspage"
-    Title="School Details">
-
-    <ScrollView>
-
-        <VerticalStackLayout
-            Padding="20"
-            Spacing="15">
-
-            <Label
-                Text="School Details"
-                FontSize="28"
-                FontAttributes="Bold" />
-
-            <Label Text="School Name" />
-            <Entry Text="Koos Matli Primary School" />
-
-            <Label Text="Address" />
-            <Editor
-                Placeholder="School address"
-                AutoSize="TextChanges" />
-
-            <Label Text="Telephone Number" />
-            <Entry
-                Placeholder="Telephone number"
-                Keyboard="Telephone" />
-
-            <Label Text="Email Address" />
-            <Entry
-                Placeholder="Email address"
-                Keyboard="Email" />
-
-            <Label Text="Principal" />
-            <Entry Placeholder="Principal name" />
-
-            <Button Text="Save School Details" />
-
-        </VerticalStackLayout>
-
-    </ScrollView>
-
-</ContentPage>
+<Button Text="{DynamicResource T_464C4FFD019E}" Command="{Binding EditCommand}" IsVisible="{Binding IsEditing, Converter={StaticResource InverseBool}}"/>
+<Button Text="{DynamicResource T_1509F561F241}" Command="{Binding SaveCommand}" IsVisible="{Binding IsEditing}" IsEnabled="{Binding IsNotBusy}"/>
+<Button Text="{DynamicResource T_19766ED6CCB2}" Command="{Binding CancelCommand}" IsVisible="{Binding IsEditing}"/>
+<ActivityIndicator IsRunning="{Binding IsBusy}"/>
+</VerticalStackLayout></ScrollView></ContentPage>

@@ -1,94 +1,93 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:KoosMatliApp.ViewModels"
+    xmlns:model="clr-namespace:KoosMatliApp.Models"
     x:Class="KoosMatliApp.Views.Admin.UserPage"
-    Title="Users">
+    x:DataType="vm:UsersViewModel"
+    Title="{DynamicResource T_6B0CC904D081}">
 
-    <Grid
-        Padding="20"
-        RowDefinitions="Auto,Auto,Auto,*"
-        RowSpacing="15">
+    <Grid Padding="20"
+          RowDefinitions="Auto,Auto,Auto,*,Auto"
+          RowSpacing="15">
 
-        <!-- HEADER -->
         <VerticalStackLayout>
-            <Label
-                Text="Users"
-                FontSize="28"
-                FontAttributes="Bold" />
+            <Label Text="{DynamicResource T_6B0CC904D081}"
+                   FontSize="28"
+                   FontAttributes="Bold" />
 
-            <Label
-                Text="View registered parents, teachers and learners"
-                TextColor="Gray" />
+            <Label Text="{DynamicResource T_1F48FE53A7E7}"
+                   TextColor="Gray" />
         </VerticalStackLayout>
 
-        <!-- SEARCH -->
-        <SearchBar
-            Grid.Row="1"
-            Placeholder="Search users..." />
+        <Label Text="{Binding ErrorMessage}"
+               TextColor="Red"
+               IsVisible="{Binding HasError}" />
 
-        <!-- FILTER BUTTONS -->
-        <Grid
-            Grid.Row="2"
-            ColumnDefinitions="*,*,*"
-            ColumnSpacing="8">
+        <SearchBar Grid.Row="1"
+                   Placeholder="{DynamicResource T_BEB0E209E98E}"
+                   Text="{Binding SearchText}" />
 
-            <Button
-                Grid.Column="0"
-                Text="Parents" />
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,*,*"
+              ColumnSpacing="8">
 
-            <Button
-                Grid.Column="1"
-                Text="Teachers" />
+            <Button Grid.Column="0"
+                    Text="{DynamicResource T_C8B2999ED42D}"
+                    Clicked="ParentsFilter_Clicked" />
 
-            <Button
-                Grid.Column="2"
-                Text="Learners" />
+            <Button Grid.Column="1"
+                    Text="{DynamicResource T_33C512C6EEC1}"
+                    Clicked="TeachersFilter_Clicked" />
 
+            <Button Grid.Column="2"
+                    Text="{DynamicResource T_B8B5AE579B24}"
+                    Clicked="LearnersFilter_Clicked" />
         </Grid>
 
-        <!-- USERS -->
-        <CollectionView Grid.Row="3" ItemsSource="{Binding Users}">
+        <CollectionView Grid.Row="3"
+                        ItemsSource="{Binding Users}"
+                        SelectionMode="Single"
+                        SelectionChanged="UserSelected">
 
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-
-                    <Border
-                        Padding="15"
-                        Margin="0,5"
-                        Stroke="#DDDDDD"
-                        StrokeShape="RoundRectangle 10">
+                <DataTemplate x:DataType="model:User">
+                    <Border Padding="15"
+                            Margin="0,5"
+                            Stroke="#DDDDDD"
+                            StrokeShape="RoundRectangle 10">
 
                         <Grid ColumnDefinitions="*,Auto">
-
-                            <VerticalStackLayout>
-                                <Label
-                                    Text="{Binding FullName}"
-                                    FontSize="16"
-                                    FontAttributes="Bold" />
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding FullName}"
+                                       FontSize="16"
+                                       FontAttributes="Bold" />
 
                                 <Label
-                                    Text="{Binding Role}"
+                                    Text="{Binding Role, Converter={StaticResource LocalizeValue}}"
                                     FontSize="13"
                                     TextColor="Gray" />
+
+                                <Label Text="{Binding Email}"
+                                       FontSize="13" />
+
+                                <Label Text="{Binding PhoneNumber}"
+                                       FontSize="13" />
                             </VerticalStackLayout>
 
-                            <Label
-                                Grid.Column="1"
-                                Text="›"
-                                FontSize="25"
-                                VerticalOptions="Center" />
-
+                            <Label Grid.Column="1"
+                                   Text="›"
+                                   FontSize="25"
+                                   VerticalOptions="Center" />
                         </Grid>
-
                     </Border>
-
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-
         </CollectionView>
 
+        <Button Grid.Row="4"
+                Text="{DynamicResource T_6BE2D9FC1A68}"
+                Clicked="AddNewUser_Clicked" />
     </Grid>
-
 </ContentPage>

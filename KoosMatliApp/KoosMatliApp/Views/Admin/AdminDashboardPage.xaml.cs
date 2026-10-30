@@ -1,49 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using KoosMatliApp.ViewModels;
 
-namespace KoosMatliApp.Views.Admin
+namespace KoosMatliApp.Views.Admin;
+
+public partial class AdminDashboardPage : ContentPage
 {
-    public partial class AdminDashboardPage: ContentPage
+    public AdminDashboardPage()
     {
-        public AdminDashboardPage()
-        {
-            InitializeComponent();
-            try
-            {
-                var services = App.Services;
-                BindingContext = services?.GetService(typeof(KoosMatliApp.ViewModels.AdminDashboardViewModel)) as KoosMatliApp.ViewModels.AdminDashboardViewModel;
-            }
-            catch
-            {
-            }
-            // Attach click handlers for quick action buttons
-            try
-            {
-                var btnDetails = this.FindByName<Button>("btnSchoolDetails");
-                var btnDates = this.FindByName<Button>("btnSchoolDates");
-                var btnCalendar = this.FindByName<Button>("btnSchoolCalendar");
-                var btnDocs = this.FindByName<Button>("btnDocuments");
+        InitializeComponent();
 
-                if (btnDetails != null) btnDetails.Clicked += async (s, e) => await Shell.Current.GoToAsync("admin/school/details");
-                if (btnDates != null) btnDates.Clicked += async (s, e) => await Shell.Current.GoToAsync("admin/school/dates");
-                if (btnCalendar != null) btnCalendar.Clicked += async (s, e) => await Shell.Current.GoToAsync("admin/school/calendar");
-                if (btnDocs != null) btnDocs.Clicked += async (s, e) => await Shell.Current.GoToAsync("admin/documents");
-            }
-            catch { }
+        BindingContext = App.Services?
+          .GetService(typeof(AdminDashboardViewModel))
+          as AdminDashboardViewModel;
+
+        var btnDetails = FindByName("btnSchoolDetails") as Button;
+        var btnDates = FindByName("btnSchoolDates") as Button;
+        var btnCalendar = FindByName("btnSchoolCalendar") as Button;
+        var btnDocs = FindByName("btnDocuments") as Button;
+
+        if (btnDetails != null)
+        {
+            btnDetails.Clicked += async (s, e) =>
+              await Shell.Current.GoToAsync("schooldetails");
         }
 
-        protected async override void OnAppearing()
+        if (btnDates != null)
         {
-            base.OnAppearing();
-            try
-            {
-                if (BindingContext is KoosMatliApp.ViewModels.AdminDashboardViewModel vm)
-                {
-                    await vm.InitializeAsync();
-                }
-            }
-            catch { }
+            btnDates.Clicked += async (s, e) =>
+              await Shell.Current.GoToAsync("schooldates");
+        }
+
+        if (btnCalendar != null)
+        {
+            btnCalendar.Clicked += async (s, e) =>
+              await Shell.Current.GoToAsync("schoolcalendar");
+        }
+
+        if (btnDocs != null)
+        {
+            btnDocs.Clicked += async (s, e) =>
+              await Shell.Current.GoToAsync("documents");
+        }
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (BindingContext is AdminDashboardViewModel vm)
+        {
+            await vm.InitializeAsync();
         }
     }
 }

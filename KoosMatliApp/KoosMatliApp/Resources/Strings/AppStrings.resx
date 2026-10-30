@@ -1,0 +1,513 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <data name="T_6BE2D9FC1A68" xml:space="preserve">
+    <value>+ Add New User</value>
+  </data>
+  <data name="T_896503F29933" xml:space="preserve">
+    <value>A school name is required.</value>
+  </data>
+  <data name="T_2A1FAB4371E6" xml:space="preserve">
+    <value>ACCESS &amp; SECURITY</value>
+  </data>
+  <data name="T_2D75B76B2DCF" xml:space="preserve">
+    <value>ACCOUNT</value>
+  </data>
+  <data name="T_D0F9BC7A3B01" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="T_04C4D06CD854" xml:space="preserve">
+    <value>Add Calendar Event</value>
+  </data>
+  <data name="T_8512BF96FFF6" xml:space="preserve">
+    <value>Add New User</value>
+  </data>
+  <data name="T_57D208BC0D04" xml:space="preserve">
+    <value>Add event</value>
+  </data>
+  <data name="T_DD1BD303896B" xml:space="preserve">
+    <value>Add school date</value>
+  </data>
+  <data name="T_56EF8F20955F" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="T_C1C224B03CD9" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="T_66D1605446F4" xml:space="preserve">
+    <value>Admin Dashboard</value>
+  </data>
+  <data name="T_CB124FEC070C" xml:space="preserve">
+    <value>Admin access is checked by the API using verified Firebase custom claims.</value>
+  </data>
+  <data name="T_E7D3E769F3F5" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="T_5079416A24BA" xml:space="preserve">
+    <value>Admission applications will appear here.</value>
+  </data>
+  <data name="T_A52ACE420F21" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="T_B5EFD6AD6D8A" xml:space="preserve">
+    <value>Application Details</value>
+  </data>
+  <data name="T_24A68D3C253A" xml:space="preserve">
+    <value>Application Number</value>
+  </data>
+  <data name="T_66C87D4BEF58" xml:space="preserve">
+    <value>Application not found.</value>
+  </data>
+  <data name="T_98E33B0F3104" xml:space="preserve">
+    <value>Applications</value>
+  </data>
+  <data name="T_4126FD415F2D" xml:space="preserve">
+    <value>Approve Application</value>
+  </data>
+  <data name="T_87B42E40C2A2" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="T_89DD748442C1" xml:space="preserve">
+    <value>Apps</value>
+  </data>
+  <data name="T_5428D7FE5929" xml:space="preserve">
+    <value>Audit Logs</value>
+  </data>
+  <data name="T_F75A67CF14EF" xml:space="preserve">
+    <value>Backup exported</value>
+  </data>
+  <data name="T_8C344657A5C0" xml:space="preserve">
+    <value>Backup exported.</value>
+  </data>
+  <data name="T_56A5A9DCF8AD" xml:space="preserve">
+    <value>Backup validated</value>
+  </data>
+  <data name="T_6426FF468548" xml:space="preserve">
+    <value>Backup validated. Users: {0}; applications: {1}; staff: {2}.</value>
+  </data>
+  <data name="T_3334FEE2C77F" xml:space="preserve">
+    <value>Backups</value>
+  </data>
+  <data name="T_697535D31F3C" xml:space="preserve">
+    <value>Calendar event saved successfully.</value>
+  </data>
+  <data name="T_19766ED6CCB2" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="T_823DE70B6076" xml:space="preserve">
+    <value>Change this application status?</value>
+  </data>
+  <data name="T_D688D95B7103" xml:space="preserve">
+    <value>Choose a language and theme.</value>
+  </data>
+  <data name="T_03FDBACED0DF" xml:space="preserve">
+    <value>Choose an application first.</value>
+  </data>
+  <data name="T_84637286C5B7" xml:space="preserve">
+    <value>Classes</value>
+  </data>
+  <data name="T_83B12C2216EF" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="T_31C4B51F11BF" xml:space="preserve">
+    <value>Clear Local Logs</value>
+  </data>
+  <data name="T_AF3238F87791" xml:space="preserve">
+    <value>Clear your local activity records?</value>
+  </data>
+  <data name="T_62813FBF49FC" xml:space="preserve">
+    <value>Configure a valid HTTPS API address.</value>
+  </data>
+  <data name="T_EEBDD24A77D9" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="T_19BA957D0AC0" xml:space="preserve">
+    <value>Confirm sensitive actions</value>
+  </data>
+  <data name="T_31FBEF162594" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="T_20EE035DF599" xml:space="preserve">
+    <value>DATA &amp; MONITORING</value>
+  </data>
+  <data name="T_60ACC53F13A5" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="T_67B696468610" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="T_526E0087CC3F" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="T_2B7F6A84DE91" xml:space="preserve">
+    <value>Display name</value>
+  </data>
+  <data name="T_CDB9BAB9845D" xml:space="preserve">
+    <value>Document upload requires a file-storage service.</value>
+  </data>
+  <data name="T_B4E929D8BCFE" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="T_AB175DA44DFA" xml:space="preserve">
+    <value>Documents returned by the API will appear here.</value>
+  </data>
+  <data name="T_464C4FFD019E" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="T_F2488FD4EF4A" xml:space="preserve">
+    <value>Email address</value>
+  </data>
+  <data name="T_14303AA0C4A0" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="T_2E46006A5EEB" xml:space="preserve">
+    <value>End time</value>
+  </data>
+  <data name="T_E1E0B8248D4C" xml:space="preserve">
+    <value>Enter event details</value>
+  </data>
+  <data name="T_05786ECBA692" xml:space="preserve">
+    <value>Enter first name</value>
+  </data>
+  <data name="T_DCE8CD1AC578" xml:space="preserve">
+    <value>Enter phone number</value>
+  </data>
+  <data name="T_B891C28467F5" xml:space="preserve">
+    <value>Enter surname</value>
+  </data>
+  <data name="T_54A0E8C17EBB" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="T_8EC4602CE4A2" xml:space="preserve">
+    <value>Event title</value>
+  </data>
+  <data name="T_0DB468AB78F2" xml:space="preserve">
+    <value>Export JSON backup</value>
+  </data>
+  <data name="T_BE1439996573" xml:space="preserve">
+    <value>Export school records or validate an exported file. Validation does not restore the database.</value>
+  </data>
+  <data name="T_6A57122C5D03" xml:space="preserve">
+    <value>Export school records to a file?</value>
+  </data>
+  <data name="T_702EF921ED1D" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="T_C628585531B7" xml:space="preserve">
+    <value>Grade: {0}</value>
+  </data>
+  <data name="T_3A78695388B3" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="T_A4FE65264EF7" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="T_0815286C81C0" xml:space="preserve">
+    <value>Learner</value>
+  </data>
+  <data name="T_B8B5AE579B24" xml:space="preserve">
+    <value>Learners</value>
+  </data>
+  <data name="T_B74CFDE60DD2" xml:space="preserve">
+    <value>Learners: {0}</value>
+  </data>
+  <data name="T_DBCD5E7BB7A0" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="T_0227D5F623F0" xml:space="preserve">
+    <value>Manage your account and school administration preferences.</value>
+  </data>
+  <data name="T_25CC9F7E00D4" xml:space="preserve">
+    <value>Mark as Pending</value>
+  </data>
+  <data name="T_18FDD549B2ED" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="T_6E2BE99CC54C" xml:space="preserve">
+    <value>New Applications</value>
+  </data>
+  <data name="T_AA570486B4D1" xml:space="preserve">
+    <value>No activity recorded.</value>
+  </data>
+  <data name="T_391838C0889A" xml:space="preserve">
+    <value>No applications found.</value>
+  </data>
+  <data name="T_204BEB801DEB" xml:space="preserve">
+    <value>No calendar events found.</value>
+  </data>
+  <data name="T_DC2B642B2BC8" xml:space="preserve">
+    <value>No classes are assigned to staff yet.</value>
+  </data>
+  <data name="T_BD98B4E7A5EE" xml:space="preserve">
+    <value>No documents found.</value>
+  </data>
+  <data name="T_E97A7247CEFC" xml:space="preserve">
+    <value>No file URL is available.</value>
+  </data>
+  <data name="T_75EF12FF6078" xml:space="preserve">
+    <value>No school dates found.</value>
+  </data>
+  <data name="T_580C04FF57CD" xml:space="preserve">
+    <value>No subjects are assigned to staff yet.</value>
+  </data>
+  <data name="T_F1CDB4DDB7AE" xml:space="preserve">
+    <value>No teachers found.</value>
+  </data>
+  <data name="T_788011833A5A" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="T_565339BC4D33" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="T_8DBF1826A8F1" xml:space="preserve">
+    <value>Only HTTPS document links can be opened.</value>
+  </data>
+  <data name="T_C6A8117678D0" xml:space="preserve">
+    <value>PREFERENCES</value>
+  </data>
+  <data name="T_5F7953F7C9B6" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="T_C8B2999ED42D" xml:space="preserve">
+    <value>Parents</value>
+  </data>
+  <data name="T_331551B0DE41" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="T_B5B56177F25C" xml:space="preserve">
+    <value>Pending Applications</value>
+  </data>
+  <data name="T_306F1BB20677" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="T_E3DD46681019" xml:space="preserve">
+    <value>Please complete the name, surname, role and email fields.</value>
+  </data>
+  <data name="T_3AABB2773E98" xml:space="preserve">
+    <value>Please enter a title for the school date.</value>
+  </data>
+  <data name="T_958E4CCF2953" xml:space="preserve">
+    <value>Please enter a valid email address.</value>
+  </data>
+  <data name="T_2E0E2AD4FD9E" xml:space="preserve">
+    <value>Please enter an event title.</value>
+  </data>
+  <data name="T_4F9AB9096B6C" xml:space="preserve">
+    <value>Position: {0}</value>
+  </data>
+  <data name="T_AFC19F1734C1" xml:space="preserve">
+    <value>Principal</value>
+  </data>
+  <data name="T_0DB4C7311469" xml:space="preserve">
+    <value>Principal name</value>
+  </data>
+  <data name="T_D696A35BDD18" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="T_2CC2B6F7F200" xml:space="preserve">
+    <value>Quick Actions</value>
+  </data>
+  <data name="T_0E9161011702" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="T_210F2A76B0B3" xml:space="preserve">
+    <value>Reject Application</value>
+  </data>
+  <data name="T_AEA4A04A8042" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="T_54212DB90869" xml:space="preserve">
+    <value>Review learner admission applications</value>
+  </data>
+  <data name="T_14736A2EB9F4" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="T_1FA0387819C5" xml:space="preserve">
+    <value>Roles &amp; Permissions</value>
+  </data>
+  <data name="T_1509F561F241" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="T_93ADF40D174B" xml:space="preserve">
+    <value>Save Event</value>
+  </data>
+  <data name="T_96C2BBB5ED5B" xml:space="preserve">
+    <value>Save User</value>
+  </data>
+  <data name="T_B5C120B316C2" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="T_6CD2E331855D" xml:space="preserve">
+    <value>School</value>
+  </data>
+  <data name="T_2A31515574F6" xml:space="preserve">
+    <value>School Calendar</value>
+  </data>
+  <data name="T_87EF078ACE17" xml:space="preserve">
+    <value>School Dates</value>
+  </data>
+  <data name="T_13AFEF346B27" xml:space="preserve">
+    <value>School Details</value>
+  </data>
+  <data name="T_1A29E2072068" xml:space="preserve">
+    <value>School Documents</value>
+  </data>
+  <data name="T_B7D5E8DEF7AF" xml:space="preserve">
+    <value>School Overview</value>
+  </data>
+  <data name="T_617AD4E4A19A" xml:space="preserve">
+    <value>School details were saved successfully.</value>
+  </data>
+  <data name="T_EB2CBD328CE2" xml:space="preserve">
+    <value>School name</value>
+  </data>
+  <data name="T_25C69A5E2D7A" xml:space="preserve">
+    <value>School profile roles do not grant administrator access. A trusted Firebase administrator must assign admin claims.</value>
+  </data>
+  <data name="T_1B93C5C528A4" xml:space="preserve">
+    <value>Search applications...</value>
+  </data>
+  <data name="T_BEB0E209E98E" xml:space="preserve">
+    <value>Search users...</value>
+  </data>
+  <data name="T_8F6FB4EB7F42" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="T_977844FD4358" xml:space="preserve">
+    <value>Select a role</value>
+  </data>
+  <data name="T_74A883A037BC" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="T_5CB8B6077BD1" xml:space="preserve">
+    <value>Settings updated</value>
+  </data>
+  <data name="T_681927E34B77" xml:space="preserve">
+    <value>Staff</value>
+  </data>
+  <data name="T_22267A1DB540" xml:space="preserve">
+    <value>Staff &amp; Scheduling</value>
+  </data>
+  <data name="T_8169693101A4" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="T_BABE9DDA8503" xml:space="preserve">
+    <value>Start time</value>
+  </data>
+  <data name="T_920E413C7D41" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="T_1A7529AB14FD" xml:space="preserve">
+    <value>Subjects</value>
+  </data>
+  <data name="T_C88A0B907419" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="T_F762DA05F4D4" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="T_6725E7BBCD28" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="T_1F87F883CC7E" xml:space="preserve">
+    <value>System Settings</value>
+  </data>
+  <data name="T_5EEEE52EC1E5" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="T_DC2792F99079" xml:space="preserve">
+    <value>Teacher: {0}</value>
+  </data>
+  <data name="T_33C512C6EEC1" xml:space="preserve">
+    <value>Teachers</value>
+  </data>
+  <data name="T_0CA57C7C7D47" xml:space="preserve">
+    <value>The API did not return the saved event.</value>
+  </data>
+  <data name="T_3CA6A1F68C1A" xml:space="preserve">
+    <value>The API did not return the saved user.</value>
+  </data>
+  <data name="T_7132765A0A91" xml:space="preserve">
+    <value>The backup file is too large.</value>
+  </data>
+  <data name="T_69DBB6FC6C19" xml:space="preserve">
+    <value>The end date and time must be after the start.</value>
+  </data>
+  <data name="T_242A515FCB03" xml:space="preserve">
+    <value>The school date was saved successfully.</value>
+  </data>
+  <data name="T_1133C5EB424B" xml:space="preserve">
+    <value>The server could not complete the request.</value>
+  </data>
+  <data name="T_BFF67F1D7335" xml:space="preserve">
+    <value>The server returned no saved record.</value>
+  </data>
+  <data name="T_EFB52E7172B7" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="T_060C44C8B5B3" xml:space="preserve">
+    <value>These are local settings activity records for your signed-in account.</value>
+  </data>
+  <data name="T_58CE982AFBD4" xml:space="preserve">
+    <value>This is not a valid Koos Matli backup.</value>
+  </data>
+  <data name="T_4B0E9B991A33" xml:space="preserve">
+    <value>This saves your notification preference. Push delivery requires a notification service.</value>
+  </data>
+  <data name="T_7E8CD2056DA7" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="T_8ED120159ECA" xml:space="preserve">
+    <value>Today's Summary</value>
+  </data>
+  <data name="T_6B0CC904D081" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="T_6787D609C7D4" xml:space="preserve">
+    <value>Validate backup file</value>
+  </data>
+  <data name="T_DCC839A4015C" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="T_1F48FE53A7E7" xml:space="preserve">
+    <value>View registered parents, teachers and learners</value>
+  </data>
+  <data name="T_0A73DB6A4002" xml:space="preserve">
+    <value>View teachers, classes and subjects</value>
+  </data>
+  <data name="T_2A4438D038EC" xml:space="preserve">
+    <value>Your settings have been saved.</value>
+  </data>
+  <data name="T_87031E353595" xml:space="preserve">
+    <value>e.g. Parent Meeting</value>
+  </data>
+  <data name="T_40EE3794B4EE" xml:space="preserve">
+    <value>{0} was added successfully.</value>
+  </data>
+  <data name="T_3FE52A685736" xml:space="preserve">
+    <value>{0} — uploaded {1:d}</value>
+  </data>
+  <data name="T_ACEB696A04C1" xml:space="preserve">
+    <value>← Back</value>
+  </data>
+  <data name="T_CD7AF8B9CC4F" xml:space="preserve">
+    <value>Learner name</value>
+  </data>
+  <data name="T_EB4C4E239122" xml:space="preserve">
+    <value>Date of birth</value>
+  </data>
+  <data name="T_249CD471DFDD" xml:space="preserve">
+    <value>Grade applying for</value>
+  </data>
+  <data name="T_3AA8F6BACEA9" xml:space="preserve">
+    <value>Guardian name</value>
+  </data>
+  <data name="T_4420C1A686E2" xml:space="preserve">
+    <value>Guardian email</value>
+  </data>
+  <data name="T_BAC8586D9B07" xml:space="preserve">
+    <value>Guardian phone</value>
+  </data>
+  <data name="T_D42FA569949B" xml:space="preserve">
+    <value>Connect the signed-in user before loading admin data.</value>
+  </data>
+</root>

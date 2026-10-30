@@ -1,76 +1,130 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="KoosMatliApp.Views.Admin.ProfilePage"
-    Title="Profile">
+    Title="{DynamicResource T_74A883A037BC}">
 
     <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="18">
 
-        <VerticalStackLayout
-            Padding="20"
-            Spacing="20">
-
+            <!-- Page heading -->
             <Label
-                Text="Profile"
-                FontSize="28"
+                Text="{DynamicResource T_74A883A037BC}"
+                FontSize="30"
                 FontAttributes="Bold" />
 
-            <VerticalStackLayout
-                HorizontalOptions="Center"
-                Spacing="8">
-
-                <Border
-                    WidthRequest="90"
-                    HeightRequest="90"
-                    StrokeShape="RoundRectangle 45"
-                    BackgroundColor="#EEEEEE">
-
-                    <Label
-                        Text="A"
-                        FontSize="35"
-                        FontAttributes="Bold"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center" />
-
-                </Border>
-
-                <Label
-                    Text="Administrator"
-                    FontSize="20"
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center" />
-
-                <Label
-                    Text="admin@koosmatli.co.za"
-                    TextColor="Gray"
-                    HorizontalOptions="Center" />
-
-            </VerticalStackLayout>
-
             <Label
-                Text="Account Settings"
-                FontSize="20"
-                FontAttributes="Bold" />
+                Text="{DynamicResource T_0227D5F623F0}"
+                TextColor="Gray" />
 
-            <Entry
-                Placeholder="Full Name"
-                Text="Administrator" />
+            <!-- Administrator profile -->
+            <Border
+                Padding="16"
+                Stroke="#DDDDDD"
+                StrokeShape="RoundRectangle 12">
 
-            <Entry
-                Placeholder="Email Address"
-                Text="admin@koosmatli.co.za"
-                Keyboard="Email" />
+                <Grid
+                    ColumnDefinitions="Auto,*"
+                    ColumnSpacing="14">
 
-            <Button Text="Save Changes" />
+                    <Border
+                        WidthRequest="56"
+                        HeightRequest="56"
+                        BackgroundColor="#E8EEF9"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 28">
 
-            <Button Text="Change Password" />
+                        <Label
+                            Text="A"
+                            FontSize="26"
+                            FontAttributes="Bold"
+                            TextColor="#244A87"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+                    </Border>
 
-            <Button Text="Sign Out" />
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        VerticalOptions="Center"
+                        Spacing="4">
+
+                        <Label
+                            x:Name="AdminNameLabel"
+                            Text=""
+                            FontSize="19"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            x:Name="AdminEmailLabel"
+                            Text=""
+                            TextColor="Gray" />
+
+                        <Label
+                            Text="{DynamicResource T_E7D3E769F3F5}"
+                            TextColor="#244A87" />
+        </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Account -->
+            <Label
+                Text="{DynamicResource T_2D75B76B2DCF}"
+                FontSize="12"
+                FontAttributes="Bold"
+                TextColor="Gray" />
+
+            <Button
+                Text="{DynamicResource T_D0F9BC7A3B01}"
+                Clicked="AccountSettings_Clicked"
+                HorizontalOptions="Fill" />
+
+            <!-- Access and security -->
+            <Label
+                Text="{DynamicResource T_2A1FAB4371E6}"
+                FontSize="12"
+                FontAttributes="Bold"
+                TextColor="Gray" />
+
+            <Button
+                Text="{DynamicResource T_1FA0387819C5}"
+                Clicked="RolesPermissions_Clicked"
+                HorizontalOptions="Fill" />
+
+            <Button
+                Text="{DynamicResource T_8F6FB4EB7F42}"
+                Clicked="Security_Clicked"
+                HorizontalOptions="Fill" />
+
+            <!-- Data and monitoring -->
+            <Label
+                Text="{DynamicResource T_20EE035DF599}"
+                FontSize="12"
+                FontAttributes="Bold"
+                TextColor="Gray" />
+
+            <Button
+                Text="{DynamicResource T_3334FEE2C77F}"
+                Clicked="BackupRestore_Clicked"
+                HorizontalOptions="Fill" />
+
+            <Button
+                Text="{DynamicResource T_5428D7FE5929}"
+                Clicked="AuditLogs_Clicked"
+                HorizontalOptions="Fill" />
+
+            <!-- Preferences -->
+            <Label
+                Text="{DynamicResource T_C6A8117678D0}"
+                FontSize="12"
+                FontAttributes="Bold"
+                TextColor="Gray" />
+
+            <Button
+                Text="{DynamicResource T_1F87F883CC7E}"
+                Clicked="SystemSettings_Clicked"
+                HorizontalOptions="Fill" />
 
         </VerticalStackLayout>
-
     </ScrollView>
-
 </ContentPage>

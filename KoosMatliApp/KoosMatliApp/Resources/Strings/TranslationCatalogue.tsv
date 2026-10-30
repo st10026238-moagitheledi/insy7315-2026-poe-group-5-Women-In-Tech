@@ -1,0 +1,171 @@
+English	Setswana	Sepedi
++ Add New User	+ Tsenya modirisi yo montšha	+ Tsenya modiriši yo mofsa
+A school name is required.	Leina la sekolo le a tlhokega.	Leina la sekolo le a nyakega.
+ACCESS & SECURITY	TETLA LE TSHIRELETSEGO	TUMELELO LE TŠHIRELETŠO
+ACCOUNT	AKHAONTO	AKHAONTO
+Account Settings	Ditlhophiso tsa akhaonto	Dipeakanyo tša akhaonto
+Add Calendar Event	Tsenya tiragalo mo khalendareng	Tsenya tiragalo khalentareng
+Add New User	Tsenya modirisi yo montšha	Tsenya modiriši yo mofsa
+Add event	Tsenya tiragalo	Tsenya tiragalo
+Add school date	Tsenya letlha la sekolo	Tsenya letšatšikgwedi la sekolo
+Address	Aterese	Aterese
+Admin	Motsamaisi	Molaodi
+Admin Dashboard	Kakaretso ya motsamaisi	Kakaretšo ya molaodi
+Administrator	Motsamaisi	Molaodi
+Admission applications will appear here.	Dikopo tsa kamogelo di tla bonala fano.	Dikgopelo tša kamogelo di tla bonagala mo.
+All	Tsotlhe	Ka moka
+Application Details	Dintlha tsa kopo	Dintlha tša kgopelo
+Application Number	Nomoro ya kopo	Nomoro ya kgopelo
+Application not found.	Kopo ga e a bonwa.	Kgopelo ga se ya hwetšwa.
+Applications	Dikopo	Dikgopelo
+Approve Application	Amogela kopo	Amogela kgopelo
+Approved	E amogetswe	E amogetšwe
+Apps	Dikopo	Dikgopelo
+Audit Logs	Direkoto tsa ditiro	Direkhoto tša ditiro
+Backup exported	Khopi ya polokelo e rometswe	Khopi ya polokelo e rometšwe
+Backup exported.	Khopi ya polokelo e rometswe.	Khopi ya polokelo e rometšwe.
+Backup validated	Khopi ya polokelo e netefaditswe	Khopi ya polokelo e netefaditšwe
+Backup validated. Users: {0}; applications: {1}; staff: {2}.	Khopi e netefaditswe. Badirisi: {0}; dikopo: {1}; badiri: {2}.	Khopi e netefaditšwe. Badiriši: {0}; dikgopelo: {1}; bašomi: {2}.
+Backups	Dikhopi tsa polokelo	Dikhopi tša polokelo
+Calendar event saved successfully.	Tiragalo ya khalendara e bolokilwe.	Tiragalo ya khalentara e bolokilwe.
+Cancel	Khansela	Khansela
+Change this application status?	Fetola maemo a kopo eno?	Fetoša maemo a kgopelo ye?
+Choose a language and theme.	Tlhopha puo le tebego.	Kgetha polelo le ponagalo.
+Choose an application first.	Tlhopha kopo pele.	Kgetha kgopelo pele.
+Classes	Ditlelase	Diklase
+Clear	Phimola	Phumola
+Clear your local activity records?	Phimola direkoto tsa gago tsa ditiro mo sedirisweng seno?	Phumola direkhoto tša gago tša ditiro sedirišweng se?
+Configure a valid HTTPS API address.	Tsenya aterese e e nepagetseng ya HTTPS API.	Tsenya aterese ya maleba ya HTTPS API.
+Confirm	Netefatsa	Netefatša
+Continue	Tswelela	Tšwela pele
+DATA & MONITORING	TSHEDIMOSETSO LE TEKOLO	TSHEDIMOŠO LE TEKOLO
+Dark	Lefifi	Leswiswi
+Dashboard	Kakaretso	Kakaretšo
+Description	Tlhaloso	Tlhalošo
+Document upload requires a file-storage service.	Go tsenya ditokomane go tlhoka tirelo ya polokelo ya difaele.	Go tsenya ditokomane go nyaka tirelo ya polokelo ya difaele.
+Documents	Ditokomane	Ditokomane
+Documents returned by the API will appear here.	Ditokomane tse di tswang mo API di tla bonala fano.	Ditokomane tše di tšwago go API di tla bonagala mo.
+Edit	Fetola	Fetoša
+Email address	Aterese ya imeile	Aterese ya imeile
+End date	Letlha la bokhutlo	Letšatšikgwedi la mafelelo
+End time	Nako ya bokhutlo	Nako ya mafelelo
+Enter event details	Tsenya dintlha tsa tiragalo	Tsenya dintlha tša tiragalo
+Enter first name	Tsenya leina	Tsenya leina
+Enter phone number	Tsenya nomoro ya mogala	Tsenya nomoro ya mogala
+Enter surname	Tsenya sefane	Tsenya sefane
+Error	Phoso	Phošo
+Event title	Setlhogo sa tiragalo	Hlogo ya tiragalo
+Export JSON backup	Romela khopi ya polokelo ya JSON	Romela khopi ya polokelo ya JSON
+Export school records to a file?	Romela direkoto tsa sekolo mo faeleng?	Romela direkhoto tša sekolo faeleng?
+First name	Leina	Leina
+Grade: {0}	Mophato: {0}	Mphato: {0}
+Home	Gae	Gae
+Language	Puo	Polelo
+Learner	Morutwana	Morutwana
+Learners	Barutwana	Barutwana
+Learners: {0}	Barutwana: {0}	Barutwana: {0}
+Light	Lesedi	Seetša
+Manage your account and school administration preferences.	Laola akhaonto le ditlhophiso tsa tsamaiso ya sekolo.	Laola akhaonto le dipeakanyo tša taolo ya sekolo.
+Mark as Pending	Tshwaya e le e e emetseng	Swaya bjalo ka ye e sa letile
+New	E ntšha	Ye mpsha
+New Applications	Dikopo tse dintšha	Dikgopelo tše mpsha
+No activity recorded.	Ga go na ditiro tse di rekotilweng.	Ga go na ditiro tše di rekhotilwego.
+No applications found.	Ga go na dikopo tse di bonweng.	Ga go na dikgopelo tše di hweditšwego.
+No calendar events found.	Ga go na ditiragalo tsa khalendara.	Ga go na ditiragalo tša khalentara.
+No classes are assigned to staff yet.	Ga go na ditlelase tse di abetsweng badiri.	Ga go na diklase tše di abetšwego bašomi.
+No documents found.	Ga go na ditokomane tse di bonweng.	Ga go na ditokomane tše di hweditšwego.
+No file URL is available.	Ga go na URL ya faele.	Ga go na URL ya faele.
+No school dates found.	Ga go na matlha a sekolo.	Ga go na matšatšikgwedi a sekolo.
+No subjects are assigned to staff yet.	Ga go na dirutwa tse di abetsweng badiri.	Ga go na dithuto tše di abetšwego bašomi.
+No teachers found.	Ga go na barutabana ba ba bonweng.	Ga go na barutiši ba ba hweditšwego.
+OK	Go siame	Go lokile
+Only HTTPS document links can be opened.	Go ka bulwa fela dilinki tsa HTTPS tsa ditokomane.	Go ka bulwa fela dilinki tša HTTPS tša ditokomane.
+PREFERENCES	DITLHOPHISO	DIPEAKANYO
+Parent	Motsadi	Motswadi
+Parents	Batsadi	Batswadi
+Pending	E emetse	E sa letile
+Pending Applications	Dikopo tse di emetseng	Dikgopelo tše di sa letile
+Phone number	Nomoro ya mogala	Nomoro ya mogala
+Please complete the name, surname, role and email fields.	Tsweetswee tlatsa leina, sefane, seabe le imeile.	Hle tlatša leina, sefane, tema le imeile.
+Please enter a title for the school date.	Tsweetswee tsenya setlhogo sa letlha la sekolo.	Hle tsenya hlogo ya letšatšikgwedi la sekolo.
+Please enter a valid email address.	Tsweetswee tsenya aterese e e nepagetseng ya imeile.	Hle tsenya aterese ya maleba ya imeile.
+Please enter an event title.	Tsweetswee tsenya setlhogo sa tiragalo.	Hle tsenya hlogo ya tiragalo.
+Position: {0}	Maemo: {0}	Maemo: {0}
+Principal	Mogokgo	Hlogo ya sekolo
+Principal name	Leina la mogokgo	Leina la hlogo ya sekolo
+Profile	Porofaele	Profaele
+Quick Actions	Ditiro tsa bonako	Ditiro tša ka pela
+Reject Application	Gana kopo	Gana kgopelo
+Rejected	E gannwe	E gannwe
+Review learner admission applications	Sekaseka dikopo tsa kamogelo ya barutwana	Sekaseka dikgopelo tša kamogelo ya barutwana
+Role	Seabe	Tema
+Roles & Permissions	Diabe le ditetla	Ditema le ditumelelo
+Save	Boloka	Boloka
+Save Event	Boloka tiragalo	Boloka tiragalo
+Save User	Boloka modirisi	Boloka modiriši
+Saved	E bolokilwe	E bolokilwe
+School	Sekolo	Sekolo
+School Calendar	Khalendara ya sekolo	Khalentara ya sekolo
+School Dates	Matlha a sekolo	Matšatšikgwedi a sekolo
+School Details	Dintlha tsa sekolo	Dintlha tša sekolo
+School Documents	Ditokomane tsa sekolo	Ditokomane tša sekolo
+School Overview	Kakaretso ya sekolo	Kakaretšo ya sekolo
+School details were saved successfully.	Dintlha tsa sekolo di bolokilwe.	Dintlha tša sekolo di bolokilwe.
+School name	Leina la sekolo	Leina la sekolo
+Search applications...	Batla dikopo...	Nyaka dikgopelo...
+Search users...	Batla badirisi...	Nyaka badiriši...
+Security	Tshireletsego	Tšhireletšo
+Select a role	Tlhopha seabe	Kgetha tema
+Settings	Ditlhophiso	Dipeakanyo
+Settings updated	Ditlhophiso di fetotswe	Dipeakanyo di fetošitšwe
+Staff	Badiri	Bašomi
+Staff & Scheduling	Badiri le dithulaganyo	Bašomi le dipeakanyo
+Start date	Letlha la tshimologo	Letšatšikgwedi la mathomo
+Start time	Nako ya tshimologo	Nako ya mathomo
+Status	Maemo	Maemo
+Subjects	Dirutwa	Dithuto
+Success	Katlego	Katlego
+Surname	Sefane	Sefane
+System	Tsamaiso	Tshepedišo
+System Settings	Ditlhophiso tsa tsamaiso	Dipeakanyo tša tshepedišo
+Teacher	Morutabana	Morutiši
+Teacher: {0}	Morutabana: {0}	Morutiši: {0}
+Teachers	Barutabana	Barutiši
+The API did not return the saved user.	API ga e a busa modirisi yo o bolokilweng.	API ga se ya buša modiriši yo a bolokilwego.
+The backup file is too large.	Faele ya khopi ya polokelo e kgolo thata.	Faele ya khopi ya polokelo e kgolo kudu.
+The school date was saved successfully.	Letlha la sekolo le bolokilwe.	Letšatšikgwedi la sekolo le bolokilwe.
+The server could not complete the request.	Seva ga e a kgona go wetsa kopo.	Seva ga se ya kgona go phetha kgopelo.
+The server returned no saved record.	Seva ga e a busa rekoto e e bolokilweng.	Seva ga se ya buša rekhoto ye e bolokilwego.
+This is not a valid Koos Matli backup.	Eno ga se khopi e e nepagetseng ya polokelo ya Koos Matli.	Ye ga se khopi ya maleba ya polokelo ya Koos Matli.
+Title	Setlhogo	Hlogo
+Today's Summary	Kakaretso ya gompieno	Kakaretšo ya lehono
+Users	Badirisi	Badiriši
+Validate backup file	Netefatsa faele ya khopi ya polokelo	Netefatša faele ya khopi ya polokelo
+View	Leba	Lebelela
+View registered parents, teachers and learners	Leba batsadi, barutabana le barutwana ba ba kwadisitsweng	Lebelela batswadi, barutiši le barutwana bao ba ngwadišitšwego
+View teachers, classes and subjects	Leba barutabana, ditlelase le dirutwa	Lebelela barutiši, diklase le dithuto
+Your settings have been saved.	Ditlhophiso tsa gago di bolokilwe.	Dipeakanyo tša gago di bolokilwe.
+e.g. Parent Meeting	Sekai: Kopano ya batsadi	Mohlala: Kopano ya batswadi
+{0} was added successfully.	{0} o tsentswe ka katlego.	{0} o tsentšwe ka katlego.
+← Back	← Boela morago	← Boela morago
+Display name	Leina le le bontshiwang	Leina leo le bontšhwago
+Notifications	Dikitsiso	Ditsebišo
+Theme	Tebego	Ponagalo
+Confirm sensitive actions	Netefatsa ditiro tse di tlhokang tlhokomelo	Netefatša ditiro tše di nyakago tlhokomelo
+Refresh	Ntšhafatsa	Mpshafatša
+This saves your notification preference. Push delivery requires a notification service.	Seno se boloka tlhopho ya gago ya dikitsiso. Go romela dikitsiso go tlhoka tirelo ya dikitsiso.	Se se boloka kgetho ya gago ya ditsebišo. Go romela ditsebišo go nyaka tirelo ya ditsebišo.
+Admin access is checked by the API using verified Firebase custom claims.	API e lekola tetla ya motsamaisi ka ditetla tsa Firebase tse di netefaditsweng.	API e lekola tumelelo ya molaodi ka ditumelelo tša Firebase tše di netefaditšwego.
+School profile roles do not grant administrator access. A trusted Firebase administrator must assign admin claims.	Diabe tsa porofaele ya sekolo ga di neye tetla ya motsamaisi. Motsamaisi yo o ikanyegang wa Firebase o tshwanetse go aba ditetla.	Ditema tša profaele ya sekolo ga di fe tumelelo ya molaodi. Molaodi yo a botegago wa Firebase o swanetše go aba ditumelelo.
+Export school records or validate an exported file. Validation does not restore the database.	Romela direkoto tsa sekolo kgotsa netefatsa faele e e rometsweng. Netefatso ga e busetse polokelo ya tshedimosetso.	Romela direkhoto tša sekolo goba netefatša faele ye e rometšwego. Netefatšo ga e bušetše polokelo ya tshedimošo.
+These are local settings activity records for your signed-in account.	Tseno ke direkoto tsa ditiro tsa ditlhophiso tsa akhaonto ya gago mo sedirisweng seno.	Tše ke direkhoto tša ditiro tša dipeakanyo tša akhaonto ya gago sedirišweng se.
+The end date and time must be after the start.	Letlha le nako ya bokhutlo di tshwanetse go nna morago ga tshimologo.	Letšatšikgwedi le nako ya mafelelo di swanetše go ba ka morago ga mathomo.
+The API did not return the saved event.	API ga e a busa tiragalo e e bolokilweng.	API ga se ya buša tiragalo ye e bolokilwego.
+{0} — uploaded {1:d}	{0} — e tsentswe ka {1:d}	{0} — e tsentšwe ka {1:d}
+Clear Local Logs	Phimola direkoto tsa sediriswa	Phumola direkhoto tša sedirišwa
+Learner name	Leina la morutwana	Leina la morutwana
+Date of birth	Letlha la botsalo	Letšatšikgwedi la matswalo
+Grade applying for	Mophato o o kopiwang	Mphato wo o kgopelwago
+Guardian name	Leina la motlhokomedi	Leina la mohlokomedi
+Guardian email	Imeile ya motlhokomedi	Imeile ya mohlokomedi
+Guardian phone	Mogala wa motlhokomedi	Mogala wa mohlokomedi
+Connect the signed-in user before loading admin data.	Golaganya modirisi yo o tseneng pele o bula tshedimosetso ya motsamaisi.	Kgokaganya modiriši yo a tsenego pele o bula tshedimošo ya molaodi.

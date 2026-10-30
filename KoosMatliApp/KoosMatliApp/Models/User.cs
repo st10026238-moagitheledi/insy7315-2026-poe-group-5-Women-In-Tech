@@ -1,8 +1,8 @@
-﻿namespace KoosMatliApp.Models;
+namespace KoosMatliApp.Models;
 
 public class User
 {
-    public int Id { get; set; }
+    public int Id { get; set; } //(Microsoft Learn, 2026).
 
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
@@ -14,3 +14,7 @@ public class User
 
     public string FullName => $"{FirstName} {LastName}";
 }
+/*Reference List
+ 
+ Microsoft Corporation, "Model-View-ViewModel (MVVM) in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/mvvm
+ */

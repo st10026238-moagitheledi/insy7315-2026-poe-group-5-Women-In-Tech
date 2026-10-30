@@ -1,9 +1,8 @@
-﻿using KoosMatliApp.Models;
-using KoosMatliApp.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using KoosMatliApp.Models;
+using KoosMatliApp.Services;
 
 namespace KoosMatliApp.ViewModels;
 
@@ -21,45 +20,25 @@ public class SchoolDatesViewModel : BaseViewModel
     public string NewTitle
     {
         get => _newTitle;
-        set
-        {
-            if (_newTitle == value) return;
-            _newTitle = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _newTitle, value);
     }
 
     public string NewDescription
     {
         get => _newDescription;
-        set
-        {
-            if (_newDescription == value) return;
-            _newDescription = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _newDescription, value);
     }
 
     public DateTime NewDate
     {
         get => _newDate;
-        set
-        {
-            if (_newDate == value) return;
-            _newDate = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _newDate, value);
     }
 
     public bool IsAddFormVisible
     {
         get => _isAddFormVisible;
-        set
-        {
-            if (_isAddFormVisible == value) return;
-            _isAddFormVisible = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _isAddFormVisible, value);
     }
 
     public ICommand ShowAddFormCommand { get; }
@@ -70,14 +49,14 @@ public class SchoolDatesViewModel : BaseViewModel
     public SchoolDatesViewModel(IAdminApiService api)
     {
         _api = api;
-
-        Title = "School Dates";
+        Title = L.T("School Dates");
 
         ShowAddFormCommand = new Command(() =>
         {
             NewTitle = string.Empty;
             NewDescription = string.Empty;
             NewDate = DateTime.Today;
+
             HasError = false;
             ErrorMessage = string.Empty;
             IsAddFormVisible = true;
@@ -90,15 +69,16 @@ public class SchoolDatesViewModel : BaseViewModel
             ErrorMessage = string.Empty;
         });
 
-        SaveDateCommand = new Command(async () => await SaveDateAsync());
+        SaveDateCommand = new Command(
+          async () => await SaveDateAsync(),
+          () => !IsBusy);
 
-        RefreshCommand = new Command(async () => await LoadDatesAsync());
+        RefreshCommand = new Command(
+          async () => await LoadDatesAsync(),
+          () => !IsBusy);
     }
 
-    public async Task InitializeAsync()
-    {
-        await LoadDatesAsync();
-    }
+    public Task InitializeAsync() => LoadDatesAsync();
 
     private async Task LoadDatesAsync()
     {
@@ -107,7 +87,7 @@ public class SchoolDatesViewModel : BaseViewModel
 
         try
         {
-            IsBusy = true;
+            SetBusy(true);
             HasError = false;
             ErrorMessage = string.Empty;
 
@@ -115,20 +95,20 @@ public class SchoolDatesViewModel : BaseViewModel
 
             SchoolDates.Clear();
 
-            foreach (var schoolDate in dates.OrderBy(d => d.Date))
-                SchoolDates.Add(schoolDate);
+            foreach (var item in dates.OrderBy(x => x.Date))
+                SchoolDates.Add(item);
         }
         catch (Exception ex)
         {
             HasError = true;
-            ErrorMessage = "Unable to load school dates. Please try again.";
+            ErrorMessage = ex.Message;
 
             System.Diagnostics.Debug.WriteLine(
-                $"SCHOOL DATES LOAD ERROR: {ex}");
+              $"SCHOOL DATES LOAD ERROR: {ex}");
         }
         finally
         {
-            IsBusy = false;
+            SetBusy(false);
         }
     }
 
@@ -140,38 +120,36 @@ public class SchoolDatesViewModel : BaseViewModel
         if (string.IsNullOrWhiteSpace(NewTitle))
         {
             HasError = true;
-            ErrorMessage = "Please enter a title for the school date.";
+            ErrorMessage = L.T("Please enter a title for the school date.");
             return;
         }
 
         try
         {
-            IsBusy = true;
+            SetBusy(true);
             HasError = false;
             ErrorMessage = string.Empty;
 
             var schoolDate = new SchoolDate
             {
                 Title = NewTitle.Trim(),
-                Date = NewDate.Date,
+                Date = DateTime.SpecifyKind(NewDate.Date, DateTimeKind.Utc),
                 Description = NewDescription.Trim()
             };
 
-            var savedDate = await _api.AddSchoolDateAsync(schoolDate);
+            var saved = await _api.AddSchoolDateAsync(schoolDate);
 
-            if (savedDate == null)
-            {
-                HasError = true;
-                ErrorMessage = "The API did not return the saved school date.";
-                return;
-            }
+            if (saved == null)
+                throw new InvalidOperationException(
+                  L.T("The server returned no saved record."));
 
-            SchoolDates.Add(savedDate);
+            // Reload from the API so the displayed collection reflects
+            // the server's actual data.
+            var dates = await _api.GetSchoolDatesAsync();
 
-            var sortedDates = SchoolDates.OrderBy(d => d.Date).ToList();
             SchoolDates.Clear();
 
-            foreach (var item in sortedDates)
+            foreach (var item in dates.OrderBy(x => x.Date))
                 SchoolDates.Add(item);
 
             IsAddFormVisible = false;
@@ -180,21 +158,32 @@ public class SchoolDatesViewModel : BaseViewModel
             NewDate = DateTime.Today;
 
             await Shell.Current.DisplayAlertAsync(
-            "Success",
-            "The school date was saved successfully.",
-            "OK");
+              L.T("Success"),
+              L.T("The school date was saved successfully."),
+              L.T("OK"));
         }
         catch (Exception ex)
         {
             HasError = true;
-            ErrorMessage = "Unable to save the school date. Please try again.";
+            ErrorMessage = ex.Message;
 
             System.Diagnostics.Debug.WriteLine(
                 $"SCHOOL DATE SAVE ERROR: {ex}");
         }
         finally
         {
-            IsBusy = false;
+            SetBusy(false);
         }
+    }
+
+    private void SetBusy(bool value)
+    {
+        IsBusy = value;
+
+        if (SaveDateCommand is Command save)
+            save.ChangeCanExecute();
+
+        if (RefreshCommand is Command refresh)
+            refresh.ChangeCanExecute();
     }
 }

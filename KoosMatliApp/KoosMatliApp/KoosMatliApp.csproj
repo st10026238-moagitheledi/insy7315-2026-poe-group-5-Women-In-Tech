@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android</TargetFrameworks>
@@ -19,13 +19,14 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<!-- Enable XAML source generation for faster build times and improved performance.
+		<!-- Use standard XAML compilation. Previously enabled source generation is replaced here.
+             Original template notes:
 		     This generates C# code from XAML at compile time instead of runtime inflation.
 		     To disable, remove this line.
 		     For individual files, you can override by setting Inflator metadata:
 		       <MauiXaml Update="MyPage.xaml" Inflator="Default" /> (reverts to defaults: Runtime for Debug, XamlC for Release)
 		       <MauiXaml Update="MyPage.xaml" Inflator="Runtime" /> (force runtime inflation) -->
-		<MauiXamlInflator>SourceGen</MauiXamlInflator>
+		<RespectAlreadyAssignedItemCulture>true</RespectAlreadyAssignedItemCulture>
 
 		<!-- Display name -->
 		<ApplicationTitle>KoosMatliApp</ApplicationTitle>
@@ -68,10 +69,19 @@
 	<ItemGroup>
 	<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
-	<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\BrandStyles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Admin\AddCalendarEventPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Admin\AddNewUserPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Admin\AdminDashboardPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -104,4 +114,8 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources/Strings/AppStrings.tn-ZA.resx" Culture="tn-ZA" WithCulture="true" LogicalName="KoosMatliApp.Resources.Strings.AppStrings.tn-ZA.resources" />
+    <EmbeddedResource Update="Resources/Strings/AppStrings.nso-ZA.resx" Culture="nso-ZA" WithCulture="true" LogicalName="KoosMatliApp.Resources.Strings.AppStrings.nso-ZA.resources" />
+  </ItemGroup>
 </Project>

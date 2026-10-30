@@ -3,17 +3,33 @@
     x:Class="KoosMatliApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:KoosMatliApp"
     xmlns:admin="clr-namespace:KoosMatliApp.Views.Admin"
-    Title="KoosMatliApp">
+    Title="Koos Matli Primary School">
 
-    <!-- Main Admin navigation: Home | Users | Apps | Staff | Profile -->
     <TabBar>
-        <ShellContent Title="Home" Route="admin/dashboard" ContentTemplate="{DataTemplate admin:AdminDashboardPage}" />
-        <ShellContent Title="Users" Route="admin/users" ContentTemplate="{DataTemplate admin:UserPage}" />
-        <ShellContent Title="Apps" Route="admin/apps" ContentTemplate="{DataTemplate admin:applicationspage}" />
-        <ShellContent Title="Staff" Route="admin/staff" ContentTemplate="{DataTemplate admin:StaffPage}" />
-        <ShellContent Title="Profile" Route="admin/profile" ContentTemplate="{DataTemplate admin:ProfilePage}" />
-    </TabBar>
+        <ShellContent
+            Title="{DynamicResource T_3A78695388B3}"
+            Route="dashboard"
+            ContentTemplate="{DataTemplate admin:AdminDashboardPage}" />
 
+        <ShellContent
+            Title="{DynamicResource T_6B0CC904D081}"
+            Route="users"
+            ContentTemplate="{DataTemplate admin:UserPage}" />
+
+        <ShellContent
+            Title="{DynamicResource T_89DD748442C1}"
+            Route="applications"
+            ContentTemplate="{DataTemplate admin:ApplicationsPage}" />
+
+        <ShellContent
+            Title="{DynamicResource T_681927E34B77}"
+            Route="staff"
+            ContentTemplate="{DataTemplate admin:StaffPage}" />
+
+        <ShellContent
+            Title="{DynamicResource T_74A883A037BC}"
+            Route="profile" 
+            ContentTemplate="{DataTemplate admin:ProfilePage}" />
+    </TabBar>
 </Shell>

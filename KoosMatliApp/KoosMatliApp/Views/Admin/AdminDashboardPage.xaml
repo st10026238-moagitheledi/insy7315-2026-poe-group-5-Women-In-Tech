@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage
+<ContentPage xmlns:vm="clr-namespace:KoosMatliApp.ViewModels" xmlns:model="clr-namespace:KoosMatliApp.Models" x:DataType="vm:AdminDashboardViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="KoosMatliApp.Views.Admin.AdminDashboardPage"
-    Title="Dashboard">
+    Title="{DynamicResource T_67B696468610}">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
@@ -22,15 +22,17 @@
                     TextColor="Gray" />
             </VerticalStackLayout>
 
+            <Label Text="{Binding ErrorMessage}" TextColor="Red" IsVisible="{Binding HasError}"/>
+            <ActivityIndicator IsRunning="{Binding IsBusy}"/>
             <!-- SCHOOL OVERVIEW -->
             <Label
-                Text="School Overview"
+                Text="{DynamicResource T_B7D5E8DEF7AF}"
                 FontSize="20"
                 FontAttributes="Bold" />
 
             <Grid
                 ColumnDefinitions="*,*"
-                RowDefinitions="Auto,Auto"
+                RowDefinitions="Auto,Auto,Auto,*,Auto"
                 ColumnSpacing="12"
                 RowSpacing="12">
 
@@ -49,7 +51,7 @@
                             HorizontalOptions="Center" />
 
                         <Label
-                            Text="Learners"
+                            Text="{DynamicResource T_B8B5AE579B24}"
                             HorizontalOptions="Center" />
                     </VerticalStackLayout>
 
@@ -70,7 +72,7 @@
                             HorizontalOptions="Center" />
 
                         <Label
-                            Text="Teachers"
+                            Text="{DynamicResource T_33C512C6EEC1}"
                             HorizontalOptions="Center" />
                     </VerticalStackLayout>
 
@@ -91,7 +93,7 @@
                             HorizontalOptions="Center" />
 
                         <Label
-                            Text="Parents"
+                            Text="{DynamicResource T_C8B2999ED42D}"
                             HorizontalOptions="Center" />
                     </VerticalStackLayout>
 
@@ -101,7 +103,7 @@
 
             <!-- TODAY'S SUMMARY -->
             <Label
-                Text="Today's Summary"
+                Text="{DynamicResource T_8ED120159ECA}"
                 FontSize="20"
                 FontAttributes="Bold" />
 
@@ -113,7 +115,7 @@
                 <VerticalStackLayout Spacing="14">
 
                     <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="New Applications" />
+                        <Label Text="{DynamicResource T_6E2BE99CC54C}" />
                         <Label
                             Grid.Column="1"
                             Text="{Binding Dashboard.NewApplications}"
@@ -121,18 +123,10 @@
                     </Grid>
 
                     <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="Pending Applications" />
+                        <Label Text="{DynamicResource T_B5B56177F25C}" />
                         <Label
                             Grid.Column="1"
                             Text="{Binding Dashboard.PendingApplications}"
-                            FontAttributes="Bold" />
-                    </Grid>
-
-                    <Grid ColumnDefinitions="*,Auto">
-                        <Label Text="Announcements Sent" />
-                        <Label
-                            Grid.Column="1"
-                            Text="{Binding Dashboard.AnnouncementsSent}"
                             FontAttributes="Bold" />
                     </Grid>
 
@@ -142,13 +136,13 @@
 
             <!-- QUICK ACTIONS -->
             <Label
-                Text="Quick Actions"
+                Text="{DynamicResource T_2CC2B6F7F200}"
                 FontSize="20"
                 FontAttributes="Bold" />
 
             <Grid
                 ColumnDefinitions="*,*"
-                RowDefinitions="Auto,Auto"
+                RowDefinitions="Auto,Auto,Auto,*,Auto"
                 ColumnSpacing="10"
                 RowSpacing="10">
 
@@ -156,28 +150,28 @@
                     x:Name="btnSchoolDetails"
                     Grid.Row="0"
                     Grid.Column="0"
-                    Text="School Details"
+                    Text="{DynamicResource T_13AFEF346B27}"
                     HeightRequest="60" />
 
                 <Button
                     x:Name="btnSchoolDates"
                     Grid.Row="0"
                     Grid.Column="1"
-                    Text="School Dates"
+                    Text="{DynamicResource T_87EF078ACE17}"
                     HeightRequest="60" />
 
                 <Button
                     x:Name="btnSchoolCalendar"
                     Grid.Row="1"
                     Grid.Column="0"
-                    Text="School Calendar"
+                    Text="{DynamicResource T_2A31515574F6}"
                     HeightRequest="60" />
 
                 <Button
                     x:Name="btnDocuments"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Text="Documents"
+                    Text="{DynamicResource T_B4E929D8BCFE}"
                     HeightRequest="60" />
 
             </Grid>

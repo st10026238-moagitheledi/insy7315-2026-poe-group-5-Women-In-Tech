@@ -1,4 +1,4 @@
-﻿namespace KoosMatliApp.Models;
+namespace KoosMatliApp.Models;
 
 public class SchoolDate
 {
@@ -6,7 +6,7 @@ public class SchoolDate
 
     public string Title { get; set; } = string.Empty;
 
-    public DateTime Date { get; set; }
+    public DateTime Date { get; set; } // (Microsoft Learn, 2026).
 
     public string Description { get; set; } = string.Empty;
 
@@ -16,3 +16,7 @@ public class SchoolDate
 
     public string MonthName => Date.ToString("MMM");
 }
+/*Reference List
+ 
+ Microsoft Corporation, "Model-View-ViewModel (MVVM) in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/mvvm
+ */
