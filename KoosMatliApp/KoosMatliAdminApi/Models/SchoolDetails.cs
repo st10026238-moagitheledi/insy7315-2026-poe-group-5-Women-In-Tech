@@ -1,17 +1,23 @@
-﻿namespace KoosMatliAdminApi.Models
+using Google.Cloud.Firestore;
+
+namespace KoosMatliAdminApi.Models;
+
+[FirestoreData]
+public class SchoolDetails
 {
-    public class SchoolDetails
-    {
-        public int Id { get; set; }
+    public SchoolDetails() { }
 
-        public string SchoolName { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public int Id { get; set; }
 
-        public string Address { get; set; } = string.Empty;
-
-        public string PhoneNumber { get; set; } = string.Empty;
-
-        public string Email { get; set; } = string.Empty;
-
-        public string PrincipalName { get; set; } = string.Empty;
-    }
+    [FirestoreProperty]
+    public string SchoolName { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string Address { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string PhoneNumber { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string Email { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string PrincipalName { get; set; } = string.Empty;
 }

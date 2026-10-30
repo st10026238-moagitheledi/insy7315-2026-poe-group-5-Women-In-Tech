@@ -1,17 +1,24 @@
-﻿namespace KoosMatliAdminApi.Models
+using Google.Cloud.Firestore;
+
+namespace KoosMatliAdminApi.Models;
+
+[FirestoreData]
+public class SchoolDocument
 {
-    public class SchoolDocument
-    {
-        public int Id { get; set; }
+    public SchoolDocument() { }
 
-        public string Title { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public int Id { get; set; }
 
-        public string FileName { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string Title { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string FileName { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string FileUrl { get; set; } = string.Empty;
+    [FirestoreProperty(ConverterType = typeof(KoosMatliAdminApi.Services.UtcDateTimeConverter))]
+    public DateTime UploadedDate { get; set; }
 
-        public string FileUrl { get; set; } = string.Empty;
-
-        public DateTime UploadedDate { get; set; }
-
-        public string Category { get; set; } = string.Empty;
-    }
+    [FirestoreProperty]
+    public string Category { get; set; } = string.Empty;
 }

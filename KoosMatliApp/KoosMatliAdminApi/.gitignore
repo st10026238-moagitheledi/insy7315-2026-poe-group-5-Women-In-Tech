@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+*.user
+*service-account*.json
+*firebase-adminsdk*.json
+.env

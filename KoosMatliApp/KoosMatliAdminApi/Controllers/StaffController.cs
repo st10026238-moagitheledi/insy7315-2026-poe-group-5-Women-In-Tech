@@ -1,36 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using KoosMatliAdminApi.Data;
 using KoosMatliAdminApi.Models;
-using Microsoft.EntityFrameworkCore;
+using KoosMatliAdminApi.Services;
+using Microsoft.AspNetCore.Mvc;
 
-namespace KoosMatliAdminApi.Controllers
+namespace KoosMatliAdminApi.Controllers;
+
+[Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")] //(Microsoft Learn, 2026a).
+[ApiController]
+[Route("api/admin/staff")]
+public class StaffController : ControllerBase
 {
-    [ApiController]
-    [Route("api/admin/staff")]
-    public class StaffController : ControllerBase
+    private readonly FirestoreDataStore _store;
+    public StaffController(FirestoreDataStore store) => _store = store;
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<StaffMember>>> GetAll() => //(Microsoft Learn, 2026b).
+        Ok(await _store.GetAllAsync<StaffMember>("staffMembers"));
+
+    [HttpGet("classes")]
+    public async Task<ActionResult<IEnumerable<SchoolClass>>> Classes() => Ok(await _store.GetAllAsync<SchoolClass>("schoolClasses"));
+
+    [HttpGet("subjects")]
+    public async Task<ActionResult<IEnumerable<Subject>>> Subjects() => Ok(await _store.GetAllAsync<Subject>("subjects")); //(Microsoft Learn, 2026b).
+
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<StaffMember>> Get(int id) //(Microsoft Learn, 2026b).
     {
-        private readonly AppDbContext _context;
-
-        public StaffController(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        // GET: api/admin/staff
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<StaffMember>>> GetAll()
-        {
-            var staff = await _context.StaffMembers.ToListAsync();
-            return Ok(staff);
-        }
-
-        // GET: api/admin/staff/{id}
-        [HttpGet("{id}")]
-        public async Task<ActionResult<StaffMember>> Get(int id)
-        {
-            var member = await _context.StaffMembers.FindAsync(id);
-            if (member == null) return NotFound();
-            return Ok(member);
-        }
+        var member = await _store.GetByIdAsync<StaffMember>("staffMembers", id); //(Google Cloud, 2026).
+        return member is null ? NotFound() : Ok(member);
     }
 }
+
+/*Reference List
+ 
+Microsoft Corporation, "Role-based Authorization in ASP.NET Core," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles
+
+Microsoft Corporation, "Controller Action Return Types in ASP.NET Core Web API," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/aspnet/core/web-api/action-return-types
+
+Google Cloud, "Cloud Firestore .NET Client Library Documentation," Google Cloud Documentation, 2026. [Online]. Available: https://cloud.google.com/dotnet/docs/reference/Google.Cloud.Firestore/latest
+ */

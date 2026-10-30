@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <data name="NotFound" xml:space="preserve">
+    <value>Rekoto e e kopilweng ga e a bonwa.</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>Tsweetswee tsena go tswelela.</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>Ga o na tetla ya go dira seno.</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Lekola tshedimosetso e o e tsentseng mme o leke gape.</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Kopo ga e a kgona go wediwa. Tsweetswee leka gape.</value>
+  </data>
+  <data name="InvalidLanguage" xml:space="preserve">
+    <value>Tlhopha English, Setswana kgotsa Sepedi.</value>
+  </data>
+  <data name="InvalidTheme" xml:space="preserve">
+    <value>Tlhopha System, Light kgotsa Dark.</value>
+  </data>
+  <data name="InvalidStatus" xml:space="preserve">
+    <value>Tlhopha E ntšha, E emetse, E amogetswe kgotsa E gannwe.</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ditlhophiso</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Puo</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Boloka</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Khansela</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Tebego</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Dikitsiso</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Kakaretso</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Dikopo</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Badiri</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Ditokomane</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>E ntšha</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>E emetse</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>E amogetswe</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>E gannwe</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Tsamaiso</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Lesedi</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Lefifi</value>
+  </data>
+  <data name="First name is required." xml:space="preserve">
+    <value>Leina le a tlhokega.</value>
+  </data>
+  <data name="Surname is required." xml:space="preserve">
+    <value>Sefane se a tlhokega.</value>
+  </data>
+  <data name="Email is required." xml:space="preserve">
+    <value>Imeile e a tlhokega.</value>
+  </data>
+  <data name="A role is required." xml:space="preserve">
+    <value>Seabe se a tlhokega.</value>
+  </data>
+  <data name="Role must be Teacher, Parent or Learner." xml:space="preserve">
+    <value>Seabe se tshwanetse go nna Morutabana, Motsadi kgotsa Morutwana.</value>
+  </data>
+  <data name="A user with this email already exists." xml:space="preserve">
+    <value>Modirisi yo o nang le imeile eno o setse a le teng.</value>
+  </data>
+  <data name="A school name is required." xml:space="preserve">
+    <value>Leina la sekolo le a tlhokega.</value>
+  </data>
+  <data name="A title is required." xml:space="preserve">
+    <value>Setlhogo se a tlhokega.</value>
+  </data>
+  <data name="A valid date is required." xml:space="preserve">
+    <value>Letlha le le nepagetseng le a tlhokega.</value>
+  </data>
+  <data name="An event title is required." xml:space="preserve">
+    <value>Setlhogo sa tiragalo se a tlhokega.</value>
+  </data>
+  <data name="A valid event start date and time is required." xml:space="preserve">
+    <value>Letlha le nako e e nepagetseng ya tshimologo di a tlhokega.</value>
+  </data>
+  <data name="The event end must be after its start." xml:space="preserve">
+    <value>Bokhutlo jwa tiragalo bo tshwanetse go nna morago ga tshimologo.</value>
+  </data>
+  <data name="A status is required." xml:space="preserve">
+    <value>Maemo a a tlhokega.</value>
+  </data>
+</root>

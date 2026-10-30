@@ -1,20 +1,26 @@
-﻿namespace KoosMatliAdminApi.Models
+using Google.Cloud.Firestore;
+
+namespace KoosMatliAdminApi.Models;
+
+[FirestoreData]
+public class StaffMember
 {
-    public class StaffMember
-    {
-        public int Id { get; set; }
+    public StaffMember() { }
 
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public int Id { get; set; }
 
-        public string Email { get; set; } = string.Empty;
-
-        public string Position { get; set; } = string.Empty;
-
-        public List<string> Subjects { get; set; } = new();
-
-        public List<string> Classes { get; set; } = new();
-
-        public string FullName => $"{FirstName} {LastName}";
-    }
+    [FirestoreProperty]
+    public string FirstName { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string LastName { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string Email { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public string Position { get; set; } = string.Empty;
+    [FirestoreProperty]
+    public List<string> Subjects { get; set; } = new();
+    [FirestoreProperty]
+    public List<string> Classes { get; set; } = new();
+    public string FullName => $"{FirstName} {LastName}";
 }

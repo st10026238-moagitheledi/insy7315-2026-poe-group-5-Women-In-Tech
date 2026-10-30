@@ -1,6 +1,26 @@
-@KoosMatliAdminApi_HostAddress = http://localhost:5037
+@baseUrl = https://localhost:7043
+@idToken = REPLACE_WITH_FIREBASE_ID_TOKEN
 
-GET {{KoosMatliAdminApi_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{baseUrl}}/api/localization/languages
 
-###
+### Sepedi resources
+GET {{baseUrl}}/api/localization/resources
+Accept-Language: nso-ZA
+
+### Signed-in user settings
+GET {{baseUrl}}/api/settings
+Authorization: Bearer {{idToken}}
+Accept-Language: tn-ZA
+
+### Save settings
+PUT {{baseUrl}}/api/settings
+Authorization: Bearer {{idToken}}
+Content-Type: application/json
+Accept-Language: nso-ZA
+
+{"language":"nso-ZA","theme":"System","notificationsEnabled":true}
+
+### Admin dashboard (requires Admin custom claim)
+GET {{baseUrl}}/api/admin/dashboard
+Authorization: Bearer {{idToken}}
+Accept-Language: tn-ZA
