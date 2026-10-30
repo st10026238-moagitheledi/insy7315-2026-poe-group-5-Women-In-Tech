@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.AboutAppPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="About"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <VerticalStackLayout
+        Padding="12,10,12,24"
+        Spacing="14">
+
+        <Border
+            BackgroundColor="{StaticResource PrimaryBlue}"
+            StrokeThickness="0"
+            Padding="12">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="12" />
+            </Border.StrokeShape>
+
+            <Grid ColumnDefinitions="32,*">
+
+                <Label
+                    Text="‹"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource SunshineGold}">
+
+                    <Label.GestureRecognizers>
+
+                        <TapGestureRecognizer
+                            Tapped="OnBackTapped" />
+
+                    </Label.GestureRecognizers>
+
+                </Label>
+
+                <Label
+                    Grid.Column="1"
+                    Text="About the App"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource SunshineGold}"
+                    VerticalOptions="Center" />
+
+            </Grid>
+
+        </Border>
+
+
+        <Border
+            BackgroundColor="{StaticResource CardSurface}"
+            Stroke="{StaticResource Gray200}"
+            StrokeThickness="1"
+            Padding="16">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout
+                Spacing="7"
+                HorizontalOptions="Center">
+
+                <Label
+                    Text="Koos Matli Primary School"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource PrimaryBlue}"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Teacher Portal"
+                    FontSize="11"
+                    TextColor="{StaticResource Charcoal}" />
+
+                <Label
+                    Text="Version 1.0"
+                    FontSize="9"
+                    TextColor="{StaticResource Gray500}" />
+
+            </VerticalStackLayout>
+
+        </Border>
+
+    </VerticalStackLayout>
+
+</ContentPage>

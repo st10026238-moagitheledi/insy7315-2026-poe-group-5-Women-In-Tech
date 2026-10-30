@@ -43,5 +43,33 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(
            nameof(ScheduleDetailsPage),
            typeof(ScheduleDetailsPage));
+
+        Routing.RegisterRoute(
+           nameof(TeacherSettingsPage),
+           typeof(TeacherSettingsPage));
+
+        Routing.RegisterRoute(
+           nameof(PersonalInformationPage),
+           typeof(PersonalInformationPage));
+
+        Routing.RegisterRoute(
+            nameof(ChangePasswordPage),
+            typeof(ChangePasswordPage));
+
+        Routing.RegisterRoute(
+            nameof(LanguageSettingsPage),
+            typeof(LanguageSettingsPage));
+
+        Routing.RegisterRoute(
+            nameof(NotificationSettingsPage),
+            typeof(NotificationSettingsPage));
+
+        Routing.RegisterRoute(
+            nameof(HelpSupportPage),
+            typeof(HelpSupportPage));
+
+        Routing.RegisterRoute(
+            nameof(AboutAppPage),
+            typeof(AboutAppPage));
     }
 }
