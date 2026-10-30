@@ -1,0 +1,171 @@
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using KoosMatliApp.Features.Teacher.Models;
+using KoosMatliApp.Features.Teacher.Services;
+
+namespace KoosMatliApp.Features.Teacher.ViewModels;
+
+public class AddScheduleViewModel : ObservableObject
+{
+    public ObservableCollection<string> EventTypeOptions { get; } =
+        new()
+        {
+            "Class",
+            "Meeting",
+            "School Event",
+            "Other"
+        };
+
+
+    public ObservableCollection<string> GradeOptions { get; } =
+        new()
+        {
+            "Grade 2B",
+            "Grade 3C",
+            "Grade 4B",
+            "Grade 5A",
+            "Grade 6A",
+            "Grade 7A"
+        };
+
+
+    public ObservableCollection<string> SubjectOptions { get; } =
+        new()
+        {
+            "Mathematics",
+            "Life Skills",
+            "Natural Science",
+            "English Home Language"
+        };
+
+
+    private string _title = string.Empty;
+
+    public string Title
+    {
+        get => _title;
+        set => SetProperty(ref _title, value);
+    }
+
+
+    private string _description = string.Empty;
+
+    public string Description
+    {
+        get => _description;
+        set => SetProperty(ref _description, value);
+    }
+
+
+    private string _eventType = "Class";
+
+    public string EventType
+    {
+        get => _eventType;
+
+        set
+        {
+            if (SetProperty(ref _eventType, value))
+            {
+                OnPropertyChanged(nameof(IsClass));
+            }
+        }
+    }
+
+
+    public bool IsClass =>
+        EventType == "Class";
+
+
+    private DateTime _date =
+        DateTime.Today;
+
+    public DateTime Date
+    {
+        get => _date;
+        set => SetProperty(ref _date, value);
+    }
+
+
+    private TimeSpan _startTime =
+        new(8, 0, 0);
+
+    public TimeSpan StartTime
+    {
+        get => _startTime;
+        set => SetProperty(ref _startTime, value);
+    }
+
+
+    private TimeSpan _endTime =
+        new(8, 45, 0);
+
+    public TimeSpan EndTime
+    {
+        get => _endTime;
+        set => SetProperty(ref _endTime, value);
+    }
+
+
+    private string _grade = "Grade 5A";
+
+    public string Grade
+    {
+        get => _grade;
+        set => SetProperty(ref _grade, value);
+    }
+
+
+    private string _subject = "Mathematics";
+
+    public string Subject
+    {
+        get => _subject;
+        set => SetProperty(ref _subject, value);
+    }
+
+
+    private string _location = string.Empty;
+
+    public string Location
+    {
+        get => _location;
+        set => SetProperty(ref _location, value);
+    }
+
+
+    public void SaveScheduleItem()
+    {
+        var item =
+            new TeacherScheduleItem
+            {
+                Title = Title.Trim(),
+
+                Description = Description.Trim(),
+
+                EventType = EventType,
+
+                Date = Date,
+
+                StartTime = StartTime,
+
+                EndTime = EndTime,
+
+                Grade =
+                    IsClass
+                        ? Grade
+                        : string.Empty,
+
+                Subject =
+                    IsClass
+                        ? Subject
+                        : string.Empty,
+
+                Location = Location.Trim()
+            };
+
+
+        ScheduleService.AddScheduleItem(
+            item);
+    }
+}

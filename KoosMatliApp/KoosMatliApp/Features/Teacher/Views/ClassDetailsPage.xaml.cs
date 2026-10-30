@@ -11,9 +11,11 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
     {
         InitializeComponent();
 
-        _viewModel = new ClassDetailsViewModel();
+        _viewModel =
+            new ClassDetailsViewModel();
 
-        BindingContext = _viewModel;
+        BindingContext =
+            _viewModel;
     }
 
 
@@ -26,6 +28,8 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         _viewModel.RefreshLearners();
 
         _viewModel.RefreshAnnouncements();
+
+        _viewModel.RefreshTimetable();
     }
 
 
@@ -37,7 +41,8 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
                 out var selectedClass) &&
             selectedClass is TeacherClassItem classItem)
         {
-            _viewModel.LoadClass(classItem);
+            _viewModel.LoadClass(
+                classItem);
         }
     }
 
@@ -46,7 +51,17 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(
+            "..");
+    }
+
+
+    private async void OnViewFullTimetableTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(
+            "//TeacherSchedule");
     }
 
 
@@ -57,9 +72,17 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         var parameters =
             new Dictionary<string, object>
             {
-                { "Grade", _viewModel.Grade },
-                { "Subject", _viewModel.Subject }
+                {
+                    "Grade",
+                    _viewModel.Grade
+                },
+
+                {
+                    "Subject",
+                    _viewModel.Subject
+                }
             };
+
 
         await Shell.Current.GoToAsync(
             nameof(HomeworkPage),
@@ -89,7 +112,8 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         if (sender is Button button &&
             button.BindingContext is LearnerItem learner)
         {
-            learner.AttendanceStatus = "Present";
+            learner.AttendanceStatus =
+                "Present";
         }
     }
 
@@ -101,7 +125,8 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         if (sender is Button button &&
             button.BindingContext is LearnerItem learner)
         {
-            learner.AttendanceStatus = "Absent";
+            learner.AttendanceStatus =
+                "Absent";
         }
     }
 
@@ -116,6 +141,7 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
             "OK");
     }
 
+
     private async void OnAddLearnerClicked(
         object sender,
         EventArgs e)
@@ -123,33 +149,6 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         var parameters =
             new Dictionary<string, object>
             {
-            {
-                "Grade",
-                _viewModel.Grade
-            },
-
-            {
-                "Subject",
-                _viewModel.Subject
-            }
-            };
-
-
-        await Shell.Current.GoToAsync(
-            nameof(AddLearnerPage),
-            parameters);
-    }
-
-    private async void OnLearnerTapped(
-       object sender,
-       TappedEventArgs e)
-    {
-        if (sender is Border border &&
-            border.BindingContext is LearnerItem learner)
-        {
-            var parameters =
-                new Dictionary<string, object>
-                {
                 {
                     "Grade",
                     _viewModel.Grade
@@ -158,12 +157,40 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
                 {
                     "Subject",
                     _viewModel.Subject
-                },
-
-                {
-                    "Learner",
-                    learner
                 }
+            };
+
+
+        await Shell.Current.GoToAsync(
+            nameof(AddLearnerPage),
+            parameters);
+    }
+
+
+    private async void OnLearnerTapped(
+        object sender,
+        TappedEventArgs e)
+    {
+        if (sender is Border border &&
+            border.BindingContext is LearnerItem learner)
+        {
+            var parameters =
+                new Dictionary<string, object>
+                {
+                    {
+                        "Grade",
+                        _viewModel.Grade
+                    },
+
+                    {
+                        "Subject",
+                        _viewModel.Subject
+                    },
+
+                    {
+                        "Learner",
+                        learner
+                    }
                 };
 
 
@@ -173,6 +200,7 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         }
     }
 
+
     private async void OnViewAllAnnouncementsTapped(
         object sender,
         TappedEventArgs e)
@@ -181,4 +209,3 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
             "//TeacherUpdates");
     }
 }
-

@@ -40,8 +40,10 @@
                         VerticalOptions="Center">
 
                         <Label.GestureRecognizers>
+
                             <TapGestureRecognizer
                                 Tapped="OnBackTapped" />
+
                         </Label.GestureRecognizers>
 
                     </Label>
@@ -187,7 +189,7 @@
                         <RoundRectangle CornerRadius="8" />
                     </Border.StrokeShape>
 
-                    <VerticalStackLayout Spacing="7">
+                    <VerticalStackLayout Spacing="8">
 
                         <Grid ColumnDefinitions="*,Auto">
 
@@ -202,41 +204,79 @@
                                 Text="View full timetable ›"
                                 FontSize="9"
                                 TextColor="{StaticResource PrimaryBlue}"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center">
+
+                                <Label.GestureRecognizers>
+
+                                    <TapGestureRecognizer
+                                        Tapped="OnViewFullTimetableTapped" />
+
+                                </Label.GestureRecognizers>
+
+                            </Label>
 
                         </Grid>
 
 
                         <VerticalStackLayout
-                            Spacing="5"
+                            Spacing="6"
                             BindableLayout.ItemsSource="{Binding Timetable}">
 
                             <BindableLayout.ItemTemplate>
 
                                 <DataTemplate>
 
-                                    <Grid
-                                        ColumnDefinitions="60,*,Auto"
-                                        ColumnSpacing="8">
+                                    <Border
+                                        BackgroundColor="{StaticResource White}"
+                                        Stroke="{StaticResource Gray200}"
+                                        StrokeThickness="1"
+                                        Padding="8">
 
-                                        <Label
-                                            Text="{Binding Day}"
-                                            FontSize="9"
-                                            TextColor="{StaticResource PrimaryBlue}" />
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="6" />
+                                        </Border.StrokeShape>
 
-                                        <Label
-                                            Grid.Column="1"
-                                            Text="{Binding Time}"
-                                            FontSize="9"
-                                            TextColor="{StaticResource PrimaryBlue}" />
 
-                                        <Label
-                                            Grid.Column="2"
-                                            Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.Subject}"
-                                            FontSize="9"
-                                            TextColor="{StaticResource PrimaryBlue}" />
+                                        <Grid
+                                            ColumnDefinitions="90,*,Auto"
+                                            ColumnSpacing="8">
 
-                                    </Grid>
+                                            <Label
+                                                Text="{Binding Date, StringFormat='{}{0:ddd, dd MMM}'}"
+                                                FontSize="9"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource PrimaryBlue}"
+                                                VerticalOptions="Center" />
+
+
+                                            <VerticalStackLayout
+                                                Grid.Column="1"
+                                                Spacing="1">
+
+                                                <Label
+                                                    Text="{Binding TimeDisplay}"
+                                                    FontSize="9"
+                                                    FontAttributes="Bold"
+                                                    TextColor="{StaticResource PrimaryBlue}" />
+
+                                                <Label
+                                                    Text="{Binding Location}"
+                                                    FontSize="8"
+                                                    TextColor="{StaticResource Gray500}" />
+
+                                            </VerticalStackLayout>
+
+
+                                            <Label
+                                                Grid.Column="2"
+                                                Text="›"
+                                                FontSize="18"
+                                                TextColor="{StaticResource PrimaryBlue}"
+                                                VerticalOptions="Center" />
+
+                                        </Grid>
+
+                                    </Border>
 
                                 </DataTemplate>
 
@@ -279,8 +319,10 @@
                                 VerticalOptions="Center">
 
                                 <Label.GestureRecognizers>
+
                                     <TapGestureRecognizer
                                         Tapped="OnViewAllHomeworkTapped" />
+
                                 </Label.GestureRecognizers>
 
                             </Label>
@@ -496,7 +538,6 @@
                                 <Label.GestureRecognizers>
 
                                     <TapGestureRecognizer
-                                        
                                         Tapped="OnViewAllAnnouncementsTapped" />
 
                                 </Label.GestureRecognizers>
@@ -551,6 +592,12 @@
                                                     FontSize="8"
                                                     TextColor="{StaticResource Gray500}"
                                                     LineBreakMode="WordWrap" />
+
+                                                <Label
+                                                    Text="{Binding EventDate, StringFormat='Due / Event: {0:dd MMM yyyy}'}"
+                                                    FontSize="8"
+                                                    FontAttributes="Bold"
+                                                    TextColor="{StaticResource GrowthGreen}" />
 
                                             </VerticalStackLayout>
 
@@ -1021,7 +1068,6 @@
                     CornerRadius="8" />
 
             </VerticalStackLayout>
-
 
         </VerticalStackLayout>
 

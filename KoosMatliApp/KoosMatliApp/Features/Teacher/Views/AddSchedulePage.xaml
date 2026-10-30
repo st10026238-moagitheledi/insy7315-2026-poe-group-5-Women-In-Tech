@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.AddSchedulePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    Title="Add Schedule"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="12,10,12,24"
+            Spacing="14">
+
+
+            <!-- Header -->
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Grid
+                    ColumnDefinitions="32,*"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Text="‹"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+
+                        <Label.GestureRecognizers>
+
+                            <TapGestureRecognizer
+                                Tapped="OnBackTapped" />
+
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+
+                    <Label
+                        Grid.Column="1"
+                        Text="Add Schedule"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+            </Border>
+
+
+            <Label
+                Text="Schedule Details"
+                FontSize="15"
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryBlue}" />
+
+
+            <Border
+                BackgroundColor="{StaticResource White}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+
+
+                <VerticalStackLayout Spacing="14">
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Title"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Entry
+                            Text="{Binding Title}"
+                            Placeholder="Enter title"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Description"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Editor
+                            Text="{Binding Description}"
+                            Placeholder="Enter description"
+                            MinimumHeightRequest="90"
+                            AutoSize="TextChanges"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Event Type"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Picker
+                            ItemsSource="{Binding EventTypeOptions}"
+                            SelectedItem="{Binding EventType}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Date"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <DatePicker
+                            Date="{Binding Date}"
+                            MinimumDate="{x:Static sys:DateTime.Today}" />
+
+                    </VerticalStackLayout>
+
+
+                    <Grid
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="12">
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label
+                                Text="Start Time"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <TimePicker
+                                Time="{Binding StartTime}" />
+
+                        </VerticalStackLayout>
+
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="5">
+
+                            <Label
+                                Text="End Time"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <TimePicker
+                                Time="{Binding EndTime}" />
+
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+
+                    <!-- Class Details -->
+
+                    <VerticalStackLayout
+                        IsVisible="{Binding IsClass}"
+                        Spacing="12">
+
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label
+                                Text="Grade"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Picker
+                                ItemsSource="{Binding GradeOptions}"
+                                SelectedItem="{Binding Grade}" />
+
+                        </VerticalStackLayout>
+
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label
+                                Text="Subject"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Picker
+                                ItemsSource="{Binding SubjectOptions}"
+                                SelectedItem="{Binding Subject}" />
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Location"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Entry
+                            Text="{Binding Location}"
+                            Placeholder="Enter location"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Button
+                Text="Add to Schedule"
+                Clicked="OnSaveScheduleClicked"
+                BackgroundColor="{StaticResource SunshineGold}"
+                TextColor="{StaticResource PrimaryBlue}"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                CornerRadius="8" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

@@ -14,6 +14,8 @@
             Spacing="16">
 
 
+            <!-- Header -->
+
             <Border
                 BackgroundColor="{StaticResource PrimaryBlue}"
                 StrokeThickness="0"
@@ -81,6 +83,7 @@
                 TextColor="{StaticResource Charcoal}" />
 
 
+            <!-- Today's Classes -->
 
             <Border
                 BackgroundColor="{StaticResource CardSurface}"
@@ -121,8 +124,10 @@
                                 VerticalOptions="Center">
 
                                 <Label.GestureRecognizers>
+
                                     <TapGestureRecognizer
                                         Tapped="OnViewAllClassesTapped" />
+
                                 </Label.GestureRecognizers>
 
                             </Label>
@@ -253,6 +258,8 @@
             </Border>
 
 
+            <!-- Latest Announcement -->
+
             <Border
                 BackgroundColor="{StaticResource CardSurface}"
                 Stroke="{StaticResource SunshineGold}"
@@ -287,12 +294,20 @@
                             TextColor="{StaticResource Charcoal}"
                             LineBreakMode="WordWrap" />
 
+                        <Label
+                            Text="{Binding AnnouncementDate}"
+                            FontSize="9"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource GrowthGreen}" />
+
                     </VerticalStackLayout>
 
                 </Grid>
 
             </Border>
 
+
+            <!-- Upcoming Events Header -->
 
             <Grid ColumnDefinitions="*,Auto">
 
@@ -310,8 +325,10 @@
                     VerticalOptions="Center">
 
                     <Label.GestureRecognizers>
+
                         <TapGestureRecognizer
                             Tapped="OnViewAllEventsTapped" />
+
                     </Label.GestureRecognizers>
 
                 </Label>
@@ -319,79 +336,111 @@
             </Grid>
 
 
-            <Border
-                BackgroundColor="{StaticResource CardSurface}"
-                Stroke="{StaticResource Gray200}"
-                StrokeThickness="1"
-                Padding="12">
+            <!-- Upcoming Events -->
 
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="8" />
-                </Border.StrokeShape>
+            <VerticalStackLayout
+                BindableLayout.ItemsSource="{Binding UpcomingEvents}"
+                Spacing="8">
 
-                <Grid
-                    ColumnDefinitions="48,*"
-                    ColumnSpacing="12">
+                <BindableLayout.ItemTemplate>
 
+                    <DataTemplate>
 
-                    <!-- Date -->
-                    <Border
-                        WidthRequest="44"
-                        HeightRequest="50"
-                        BackgroundColor="{StaticResource SkyBlue}"
-                        StrokeThickness="0">
+                        <Border
+                            BackgroundColor="{StaticResource CardSurface}"
+                            Stroke="{StaticResource Gray200}"
+                            StrokeThickness="1"
+                            Padding="12">
 
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="8" />
-                        </Border.StrokeShape>
-
-                        <VerticalStackLayout
-                            Spacing="-2"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-
-                            <Label
-                                Text="{Binding EventDay}"
-                                FontSize="17"
-                                FontAttributes="Bold"
-                                TextColor="{StaticResource PrimaryBlue}"
-                                HorizontalTextAlignment="Center" />
-
-                            <Label
-                                Text="{Binding EventMonth}"
-                                FontSize="8"
-                                FontAttributes="Bold"
-                                TextColor="{StaticResource PrimaryBlue}"
-                                HorizontalTextAlignment="Center" />
-
-                        </VerticalStackLayout>
-
-                    </Border>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8" />
+                            </Border.StrokeShape>
 
 
-                    <!-- Event Details -->
-                    <VerticalStackLayout
-                        Grid.Column="1"
-                        Spacing="3"
-                        VerticalOptions="Center">
+                            <Grid
+                                ColumnDefinitions="48,*,Auto"
+                                ColumnSpacing="12">
 
-                        <Label
-                            Text="{Binding EventTitle}"
-                            FontSize="12"
-                            FontAttributes="Bold"
-                            TextColor="{StaticResource PrimaryBlue}" />
 
-                        <Label
-                            Text="{Binding EventSubtitle}"
-                            FontSize="10"
-                            TextColor="{StaticResource Gray500}" />
+                                <!-- Date -->
+                                <Border
+                                    WidthRequest="44"
+                                    HeightRequest="50"
+                                    BackgroundColor="{StaticResource SkyBlue}"
+                                    StrokeThickness="0">
 
-                    </VerticalStackLayout>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
 
-                </Grid>
+                                    <VerticalStackLayout
+                                        Spacing="-2"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center">
 
-            </Border>
+                                        <Label
+                                            Text="{Binding Date, StringFormat='{}{0:dd}'}"
+                                            FontSize="17"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryBlue}"
+                                            HorizontalTextAlignment="Center" />
 
+                                        <Label
+                                            Text="{Binding Date, StringFormat='{}{0:MMM}'}"
+                                            FontSize="8"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryBlue}"
+                                            HorizontalTextAlignment="Center" />
+
+                                    </VerticalStackLayout>
+
+                                </Border>
+
+
+                                <!-- Event Details -->
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="3"
+                                    VerticalOptions="Center">
+
+                                    <Label
+                                        Text="{Binding Title}"
+                                        FontSize="12"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+                                    <Label
+                                        Text="{Binding TimeDisplay}"
+                                        FontSize="10"
+                                        TextColor="{StaticResource Gray500}" />
+
+                                    <Label
+                                        Text="{Binding Location}"
+                                        FontSize="9"
+                                        TextColor="{StaticResource Gray500}" />
+
+                                </VerticalStackLayout>
+
+
+                                <Label
+                                    Grid.Column="2"
+                                    Text="›"
+                                    FontSize="22"
+                                    TextColor="{StaticResource PrimaryBlue}"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </BindableLayout.ItemTemplate>
+
+            </VerticalStackLayout>
+
+
+            <!-- Quick Actions -->
 
             <Label
                 Text="Quick Actions"
@@ -416,8 +465,10 @@
                         StrokeThickness="0">
 
                         <Border.GestureRecognizers>
+
                             <TapGestureRecognizer
                                 Tapped="OnTakeAttendanceTapped" />
+
                         </Border.GestureRecognizers>
 
                         <Border.StrokeShape>
@@ -454,8 +505,10 @@
                         StrokeThickness="0">
 
                         <Border.GestureRecognizers>
+
                             <TapGestureRecognizer
                                 Tapped="OnCreateAnnouncementTapped" />
+
                         </Border.GestureRecognizers>
 
                         <Border.StrokeShape>
@@ -493,8 +546,10 @@
                         StrokeThickness="0">
 
                         <Border.GestureRecognizers>
+
                             <TapGestureRecognizer
                                 Tapped="OnUploadHomeworkTapped" />
+
                         </Border.GestureRecognizers>
 
                         <Border.StrokeShape>
@@ -532,8 +587,10 @@
                         StrokeThickness="0">
 
                         <Border.GestureRecognizers>
+
                             <TapGestureRecognizer
                                 Tapped="OnViewTimetableTapped" />
+
                         </Border.GestureRecognizers>
 
                         <Border.StrokeShape>

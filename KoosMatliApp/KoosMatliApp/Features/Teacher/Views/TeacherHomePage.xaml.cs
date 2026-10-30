@@ -4,11 +4,31 @@ namespace KoosMatliApp.Features.Teacher.Views;
 
 public partial class TeacherHomePage : ContentPage
 {
+    private readonly TeacherHomeViewModel _viewModel;
+
+
     public TeacherHomePage()
     {
         InitializeComponent();
 
-        BindingContext = new TeacherHomeViewModel();
+
+        _viewModel =
+            new TeacherHomeViewModel();
+
+
+        BindingContext =
+            _viewModel;
+    }
+
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+
+        _viewModel.RefreshUpcomingEvents();
+
+        _viewModel.RefreshAnnouncement();
     }
 
 
@@ -16,7 +36,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("//TeacherClasses");
+        await Shell.Current.GoToAsync(
+            "//TeacherClasses");
     }
 
 
@@ -24,7 +45,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("//TeacherSchedule");
+        await Shell.Current.GoToAsync(
+            "//TeacherSchedule");
     }
 
 
@@ -32,7 +54,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("//TeacherClasses");
+        await Shell.Current.GoToAsync(
+            "//TeacherClasses");
     }
 
 
@@ -40,7 +63,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(AddAnnouncementPage));
+        await Shell.Current.GoToAsync(
+            nameof(AddAnnouncementPage));
     }
 
 
@@ -48,7 +72,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("//TeacherClasses");
+        await Shell.Current.GoToAsync(
+            "//TeacherClasses");
     }
 
 
@@ -56,6 +81,7 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("//TeacherSchedule");
+        await Shell.Current.GoToAsync(
+            "//TeacherSchedule");
     }
 }

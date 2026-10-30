@@ -45,7 +45,9 @@ public static class AnnouncementService
         GetAllAnnouncements()
     {
         return _announcements
-            .OrderBy(announcement => announcement.EventDate);
+            .OrderBy(
+                announcement =>
+                    announcement.EventDate);
     }
 
 
@@ -68,6 +70,35 @@ public static class AnnouncementService
     }
 
 
+    public static ClassAnnouncementItem?
+        GetLatestAnnouncement()
+    {
+        var upcomingAnnouncement =
+            _announcements
+                .Where(
+                    announcement =>
+                        announcement.EventDate.Date >=
+                        DateTime.Today)
+                .OrderBy(
+                    announcement =>
+                        announcement.EventDate)
+                .FirstOrDefault();
+
+
+        if (upcomingAnnouncement != null)
+        {
+            return upcomingAnnouncement;
+        }
+
+
+        return _announcements
+            .OrderByDescending(
+                announcement =>
+                    announcement.EventDate)
+            .FirstOrDefault();
+    }
+
+
     public static void AddAnnouncement(
         ClassAnnouncementItem announcement)
     {
@@ -85,17 +116,23 @@ public static class AnnouncementService
         string subject,
         DateTime eventDate)
     {
-        announcement.Title = title;
+        announcement.Title =
+            title;
 
-        announcement.Message = message;
+        announcement.Message =
+            message;
 
-        announcement.Audience = audience;
+        announcement.Audience =
+            audience;
 
-        announcement.Grade = grade;
+        announcement.Grade =
+            grade;
 
-        announcement.Subject = subject;
+        announcement.Subject =
+            subject;
 
-        announcement.EventDate = eventDate;
+        announcement.EventDate =
+            eventDate;
     }
 
 

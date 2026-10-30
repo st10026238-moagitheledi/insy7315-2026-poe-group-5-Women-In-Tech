@@ -7,16 +7,349 @@
     Title="Schedule"
     BackgroundColor="{StaticResource PageBackground}">
 
-    <Grid Padding="16">
+    <ScrollView>
 
-        <Label
-            Text="Schedule"
-            FontSize="28"
-            FontAttributes="Bold"
-            TextColor="{StaticResource PrimaryBlue}"
-            HorizontalOptions="Center"
-            VerticalOptions="Center" />
+        <VerticalStackLayout
+            Padding="16,12,16,24"
+            Spacing="16">
 
-    </Grid>
+
+            <!-- Header -->
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+
+                <Grid
+                    ColumnDefinitions="*,44"
+                    ColumnSpacing="12">
+
+
+                    <VerticalStackLayout
+                        Spacing="1"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="SCHEDULE"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource SunshineGold}" />
+
+                        <Label
+                            Text="Your classes, meetings and school events"
+                            FontSize="9"
+                            TextColor="{StaticResource White}" />
+
+                    </VerticalStackLayout>
+
+
+                    <Border
+                        Grid.Column="1"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        BackgroundColor="{StaticResource SunshineGold}"
+                        StrokeThickness="0">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20" />
+                        </Border.StrokeShape>
+
+                        <Label
+                            Text="JD"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+
+                    </Border>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- Date -->
+
+            <VerticalStackLayout Spacing="2">
+
+                <Label
+                    Text="Today's Schedule"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource PrimaryBlue}" />
+
+                <Label
+                    Text="{Binding TodayDate}"
+                    FontSize="9"
+                    TextColor="{StaticResource Gray500}" />
+
+            </VerticalStackLayout>
+
+
+            <!-- Today's Schedule -->
+
+            <VerticalStackLayout
+                Spacing="10"
+                BindableLayout.ItemsSource="{Binding TodaySchedule}">
+
+                <BindableLayout.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Border
+                            BackgroundColor="{StaticResource CardSurface}"
+                            Stroke="{StaticResource Gray200}"
+                            StrokeThickness="1"
+                            Padding="12">
+
+                            <Border.GestureRecognizers>
+
+                                <TapGestureRecognizer
+                                    Tapped="OnScheduleItemTapped" />
+
+                            </Border.GestureRecognizers>
+
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+
+
+                            <Grid
+                                ColumnDefinitions="66,*,Auto"
+                                ColumnSpacing="10">
+
+
+                                <Border
+                                    BackgroundColor="{StaticResource PrimaryBlueSoft}"
+                                    StrokeThickness="0"
+                                    Padding="6">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
+
+
+                                    <VerticalStackLayout
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"
+                                        Spacing="0">
+
+                                        <Label
+                                            Text="{Binding StartTime, StringFormat='{}{0:hh\\:mm}'}"
+                                            FontSize="11"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryBlue}"
+                                            HorizontalTextAlignment="Center" />
+
+                                        <Label
+                                            Text="{Binding EndTime, StringFormat='{}{0:hh\\:mm}'}"
+                                            FontSize="8"
+                                            TextColor="{StaticResource Gray500}"
+                                            HorizontalTextAlignment="Center" />
+
+                                    </VerticalStackLayout>
+
+                                </Border>
+
+
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="3">
+
+                                    <Label
+                                        Text="{Binding Title}"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+                                    <Label
+                                        Text="{Binding ClassDisplay}"
+                                        FontSize="9"
+                                        TextColor="{StaticResource GrowthGreen}" />
+
+                                    <Label
+                                        Text="{Binding Location}"
+                                        FontSize="8"
+                                        TextColor="{StaticResource Gray500}" />
+
+                                </VerticalStackLayout>
+
+
+                                <Label
+                                    Grid.Column="2"
+                                    Text="›"
+                                    FontSize="24"
+                                    TextColor="{StaticResource PrimaryBlue}"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </BindableLayout.ItemTemplate>
+
+            </VerticalStackLayout>
+
+
+            <!-- Upcoming -->
+
+            <Grid
+                Margin="0,8,0,0"
+                ColumnDefinitions="*,Auto">
+
+                <VerticalStackLayout Spacing="2">
+
+                    <Label
+                        Text="Upcoming"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Label
+                        Text="Upcoming classes and events"
+                        FontSize="9"
+                        TextColor="{StaticResource Gray500}" />
+
+                </VerticalStackLayout>
+
+
+                <Button
+                    Grid.Column="1"
+                    Text="+ Add"
+                    Clicked="OnAddScheduleClicked"
+                    BackgroundColor="{StaticResource SunshineGold}"
+                    TextColor="{StaticResource PrimaryBlue}"
+                    FontAttributes="Bold"
+                    FontSize="9"
+                    HeightRequest="38"
+                    CornerRadius="8"
+                    Padding="12,0" />
+
+            </Grid>
+
+
+            <VerticalStackLayout
+                Spacing="10"
+                BindableLayout.ItemsSource="{Binding UpcomingSchedule}">
+
+                <BindableLayout.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Border
+                            BackgroundColor="{StaticResource CardSurface}"
+                            Stroke="{StaticResource Gray200}"
+                            StrokeThickness="1"
+                            Padding="12">
+
+                            <Border.GestureRecognizers>
+
+                                <TapGestureRecognizer
+                                    Tapped="OnScheduleItemTapped" />
+
+                            </Border.GestureRecognizers>
+
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+
+
+                            <Grid
+                                ColumnDefinitions="58,*,Auto"
+                                ColumnSpacing="10">
+
+
+                                <Border
+                                    BackgroundColor="{StaticResource SunshineGoldSoft}"
+                                    StrokeThickness="0"
+                                    Padding="6">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
+
+
+                                    <VerticalStackLayout
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        Spacing="0">
+
+                                        <Label
+                                            Text="{Binding Date, StringFormat='{}{0:dd}'}"
+                                            FontSize="16"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryBlue}"
+                                            HorizontalTextAlignment="Center" />
+
+                                        <Label
+                                            Text="{Binding Date, StringFormat='{}{0:MMM}'}"
+                                            FontSize="8"
+                                            TextColor="{StaticResource Gray500}"
+                                            HorizontalTextAlignment="Center" />
+
+                                    </VerticalStackLayout>
+
+                                </Border>
+
+
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="3">
+
+                                    <Label
+                                        Text="{Binding Title}"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+                                    <Label
+                                        Text="{Binding ClassDisplay}"
+                                        FontSize="9"
+                                        TextColor="{StaticResource GrowthGreen}" />
+
+                                    <Label
+                                        Text="{Binding TimeDisplay}"
+                                        FontSize="8"
+                                        TextColor="{StaticResource Gray500}" />
+
+                                    <Label
+                                        Text="{Binding Location}"
+                                        FontSize="8"
+                                        TextColor="{StaticResource Gray500}" />
+
+                                </VerticalStackLayout>
+
+
+                                <Label
+                                    Grid.Column="2"
+                                    Text="›"
+                                    FontSize="24"
+                                    TextColor="{StaticResource PrimaryBlue}"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </BindableLayout.ItemTemplate>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
 
 </ContentPage>
