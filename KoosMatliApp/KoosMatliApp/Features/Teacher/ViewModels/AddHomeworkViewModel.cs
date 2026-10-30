@@ -70,6 +70,17 @@ public class AddHomeworkViewModel : ObservableObject
         set => SetProperty(ref _attachmentName, value);
     }
 
+    private string _attachmentPath =
+    string.Empty;
+
+    public string AttachmentPath
+    {
+        get => _attachmentPath;
+
+        set => SetProperty(
+            ref _attachmentPath,
+            value);
+    }
 
     public void LoadClassInformation(
         string grade,
@@ -102,7 +113,10 @@ public class AddHomeworkViewModel : ObservableObject
                 AttachmentName =
                     AttachmentName == "No file selected"
                         ? string.Empty
-                        : AttachmentName
+                        : AttachmentName,
+
+                AttachmentPath = AttachmentPath
+
             };
 
         HomeworkService.AddHomework(homework);

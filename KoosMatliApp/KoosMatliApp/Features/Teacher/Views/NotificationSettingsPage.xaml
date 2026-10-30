@@ -4,6 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.NotificationSettingsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    
     Title="Notifications"
     BackgroundColor="{StaticResource PageBackground}">
 
@@ -40,7 +42,7 @@
 
                 <Label
                     Grid.Column="1"
-                    Text="Notification Settings"
+                    Text="{localization:Translate Key=NotificationSettings}"
                     FontSize="16"
                     FontAttributes="Bold"
                     TextColor="{StaticResource SunshineGold}"
@@ -67,7 +69,7 @@
                 <Grid ColumnDefinitions="*,Auto">
 
                     <Label
-                        Text="All Notifications"
+                        Text="{localization:Translate Key=AllNotifications}"
                         FontSize="11"
                         FontAttributes="Bold"
                         TextColor="{StaticResource PrimaryBlue}" />
@@ -82,7 +84,7 @@
                 <Grid ColumnDefinitions="*,Auto">
 
                     <Label
-                        Text="Homework Notifications"
+                        Text="{localization:Translate Key=HomeworkNotifications}"
                         FontSize="11"
                         TextColor="{StaticResource PrimaryBlue}" />
 
@@ -96,7 +98,7 @@
                 <Grid ColumnDefinitions="*,Auto">
 
                     <Label
-                        Text="Announcement Notifications"
+                        Text="{localization:Translate Key=AnnouncementNotifications}"
                         FontSize="11"
                         TextColor="{StaticResource PrimaryBlue}" />
 
@@ -112,7 +114,7 @@
 
 
         <Button
-            Text="Save Settings"
+            Text="{localization:Translate Key=SaveSettings}"
             Clicked="OnSaveSettingsClicked"
             BackgroundColor="{StaticResource SunshineGold}"
             TextColor="{StaticResource PrimaryBlue}"

@@ -4,7 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.ClassDetailsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Class Details"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{Binding Grade}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
@@ -87,7 +88,7 @@
                     Spacing="4">
 
                     <Button
-                        Text="Overview"
+                        Text="{localization:Translate Key=Overview}"
                         Command="{Binding ShowOverviewCommand}"
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource PrimaryBlue}"
@@ -109,7 +110,7 @@
                     Spacing="4">
 
                     <Button
-                        Text="Learners"
+                        Text="{localization:Translate Key=Learners}"
                         Command="{Binding ShowLearnersCommand}"
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource PrimaryBlue}"
@@ -131,7 +132,7 @@
                     Spacing="4">
 
                     <Button
-                        Text="Resources"
+                        Text="{localization:Translate Key=Resources}"
                         Command="{Binding ShowResourcesCommand}"
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource PrimaryBlue}"
@@ -153,7 +154,7 @@
                     Spacing="4">
 
                     <Button
-                        Text="Attendance"
+                        Text="{localization:Translate Key=Attendance}"
                         Command="{Binding ShowAttendanceCommand}"
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource PrimaryBlue}"
@@ -194,14 +195,14 @@
                         <Grid ColumnDefinitions="*,Auto">
 
                             <Label
-                                Text="Class Timetable"
+                                Text="{localization:Translate Key=ClassTimetable}"
                                 FontSize="12"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource PrimaryBlue}" />
 
                             <Label
                                 Grid.Column="1"
-                                Text="View full timetable ›"
+                                Text="{localization:Translate Key=ViewFullTimetable}"
                                 FontSize="9"
                                 TextColor="{StaticResource PrimaryBlue}"
                                 VerticalOptions="Center">
@@ -306,14 +307,14 @@
                         <Grid ColumnDefinitions="*,Auto">
 
                             <Label
-                                Text="Homework"
+                                Text="{localization:Translate Key=Homework}"
                                 FontSize="12"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource PrimaryBlue}" />
 
                             <Label
                                 Grid.Column="1"
-                                Text="View all ›"
+                                Text="{localization:Translate Key=ViewAll}"
                                 FontSize="9"
                                 TextColor="{StaticResource PrimaryBlue}"
                                 VerticalOptions="Center">
@@ -400,7 +401,7 @@
                 <!-- Class Summary -->
 
                 <Label
-                    Text="Classes Summary"
+                    Text="{localization:Translate Key=ClassesSummary}"
                     FontSize="12"
                     FontAttributes="Bold"
                     TextColor="{StaticResource PrimaryBlue}" />
@@ -432,7 +433,7 @@
                                 HorizontalTextAlignment="Center" />
 
                             <Label
-                                Text="Learners"
+                                Text="{localization:Translate Key=Learners}"
                                 FontSize="7"
                                 TextColor="{StaticResource Gray500}"
                                 HorizontalTextAlignment="Center" />
@@ -453,7 +454,7 @@
                                 HorizontalTextAlignment="Center" />
 
                             <Label
-                                Text="Present&#10;Today"
+                                Text="{localization:Translate Key=PresentToday}"
                                 FontSize="7"
                                 TextColor="{StaticResource Gray500}"
                                 HorizontalTextAlignment="Center" />
@@ -474,7 +475,7 @@
                                 HorizontalTextAlignment="Center" />
 
                             <Label
-                                Text="Absent&#10;Today"
+                                Text="{localization:Translate Key=AbsentToday}"
                                 FontSize="7"
                                 TextColor="{StaticResource Gray500}"
                                 HorizontalTextAlignment="Center" />
@@ -495,7 +496,7 @@
                                 HorizontalTextAlignment="Center" />
 
                             <Label
-                                Text="Average&#10;Attendance"
+                                Text="{localization:Translate Key=AverageAttendance}"
                                 FontSize="7"
                                 TextColor="{StaticResource Gray500}"
                                 HorizontalTextAlignment="Center" />
@@ -524,14 +525,14 @@
                         <Grid ColumnDefinitions="*,Auto">
 
                             <Label
-                                Text="Announcements"
+                                Text="{localization:Translate Key=Announcements}"
                                 FontSize="12"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource PrimaryBlue}" />
 
                             <Label
                                 Grid.Column="1"
-                                Text="View all ›"
+                                Text="{localization:Translate Key=ViewAll}"
                                 FontSize="9"
                                 TextColor="{StaticResource PrimaryBlue}">
 
@@ -593,11 +594,21 @@
                                                     TextColor="{StaticResource Gray500}"
                                                     LineBreakMode="WordWrap" />
 
-                                                <Label
-                                                    Text="{Binding EventDate, StringFormat='Due / Event: {0:dd MMM yyyy}'}"
-                                                    FontSize="8"
-                                                    FontAttributes="Bold"
-                                                    TextColor="{StaticResource GrowthGreen}" />
+                                                <HorizontalStackLayout Spacing="4">
+
+                                                    <Label
+                                                        Text="{localization:Translate Key=DueEvent}"
+                                                        FontSize="8"
+                                                        FontAttributes="Bold"
+                                                        TextColor="{StaticResource GrowthGreen}" />
+
+                                                    <Label
+                                                        Text="{Binding EventDate, StringFormat='{}{0:dd MMM yyyy}'}"
+                                                        FontSize="8"
+                                                        FontAttributes="Bold"
+                                                        TextColor="{StaticResource GrowthGreen}" />
+
+                                                </HorizontalStackLayout>
 
                                             </VerticalStackLayout>
 
@@ -626,7 +637,7 @@
                 <!-- Take Attendance -->
 
                 <Button
-                    Text="Take Attendance"
+                    Text="{localization:Translate Key=TakeAttendance}"
                     Command="{Binding ShowAttendanceCommand}"
                     BackgroundColor="{StaticResource SunshineGold}"
                     TextColor="{StaticResource PrimaryBlue}"
@@ -651,15 +662,24 @@
                     <VerticalStackLayout Spacing="2">
 
                         <Label
-                            Text="Learners"
+                            Text="{localization:Translate Key=Learners}"
                             FontSize="16"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
-                        <Label
-                            Text="{Binding LearnerCount, StringFormat='{}{0} learners in this class'}"
-                            FontSize="9"
-                            TextColor="{StaticResource Gray500}" />
+                        <HorizontalStackLayout Spacing="4">
+
+                            <Label
+                                Text="{Binding LearnerCount}"
+                                FontSize="9"
+                                TextColor="{StaticResource Gray500}" />
+
+                            <Label
+                                Text="{localization:Translate Key=Learners}"
+                                FontSize="9"
+                                TextColor="{StaticResource Gray500}" />
+
+                        </HorizontalStackLayout>
 
                         <Label
                             Text="{Binding Grade}"
@@ -671,7 +691,7 @@
 
                     <Button
                         Grid.Column="1"
-                        Text="+ Add Learner"
+                        Text="{localization:Translate Key=AddLearner}"
                         Clicked="OnAddLearnerClicked"
                         BackgroundColor="{StaticResource SunshineGold}"
                         TextColor="{StaticResource PrimaryBlue}"
@@ -786,13 +806,13 @@
                     <VerticalStackLayout Spacing="2">
 
                         <Label
-                            Text="Class Resources"
+                            Text="{localization:Translate Key=ClassResources}"
                             FontSize="16"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
                         <Label
-                            Text="Learning material for this class"
+                            Text="{localization:Translate Key=LearningMaterial}"
                             FontSize="9"
                             TextColor="{StaticResource Gray500}" />
 
@@ -902,7 +922,7 @@
 
                                     <Button
                                         Grid.Column="2"
-                                        Text="Open"
+                                        Text="{localization:Translate Key=Open}"
                                         Clicked="OnResourceOpenClicked"
                                         BackgroundColor="{StaticResource PrimaryBlue}"
                                         TextColor="{StaticResource White}"
@@ -932,7 +952,7 @@
                 Spacing="10">
 
                 <Label
-                    Text="Take Attendance"
+                    Text="{localization:Translate Key=TakeAttendance}"
                     FontSize="16"
                     FontAttributes="Bold"
                     TextColor="{StaticResource PrimaryBlue}" />
@@ -954,7 +974,7 @@
                     </Border.StrokeShape>
 
                     <Label
-                        Text="Mark each learner as present or absent for today's class."
+                        Text="{localization:Translate Key=AttendanceInstruction}"
                         FontSize="9"
                         TextColor="{StaticResource PrimaryBlue}" />
 
@@ -1026,7 +1046,7 @@
 
                                         <Button
                                             Grid.Column="0"
-                                            Text="Present"
+                                            Text="{localization:Translate Key=Present}"
                                             Clicked="OnPresentClicked"
                                             BackgroundColor="{StaticResource GrowthGreen}"
                                             TextColor="{StaticResource White}"
@@ -1036,7 +1056,7 @@
 
                                         <Button
                                             Grid.Column="1"
-                                            Text="Absent"
+                                            Text="{localization:Translate Key=Absent}"
                                             Clicked="OnAbsentClicked"
                                             BackgroundColor="{StaticResource SunshineGold}"
                                             TextColor="{StaticResource PrimaryBlue}"
@@ -1058,7 +1078,7 @@
 
 
                 <Button
-                    Text="Save Attendance"
+                    Text="{localization:Translate Key=SaveAttendance}"
                     Clicked="OnSaveAttendanceClicked"
                     BackgroundColor="{StaticResource PrimaryBlue}"
                     TextColor="{StaticResource White}"

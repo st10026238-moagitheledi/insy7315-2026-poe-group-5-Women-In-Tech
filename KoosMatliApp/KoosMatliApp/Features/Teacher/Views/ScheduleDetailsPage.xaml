@@ -4,7 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.ScheduleDetailsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Schedule Details"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=ScheduleDetails}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
@@ -49,7 +50,7 @@
 
                     <Label
                         Grid.Column="1"
-                        Text="Schedule Details"
+                        Text="{localization:Translate Key=ScheduleDetails}"
                         FontSize="16"
                         FontAttributes="Bold"
                         TextColor="{StaticResource SunshineGold}"
@@ -73,37 +74,97 @@
 
                 <VerticalStackLayout Spacing="14">
 
-                    <Entry
-                        Text="{Binding Title}"
-                        Placeholder="Title" />
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="{localization:Translate Key=Title}"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Entry
+                            Text="{Binding Title}" />
+
+                    </VerticalStackLayout>
 
 
-                    <Editor
-                        Text="{Binding Description}"
-                        Placeholder="Description"
-                        MinimumHeightRequest="90"
-                        AutoSize="TextChanges" />
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="{localization:Translate Key=Description}"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Editor
+                            Text="{Binding Description}"
+                            MinimumHeightRequest="90"
+                            AutoSize="TextChanges" />
+
+                    </VerticalStackLayout>
 
 
-                    <Picker
-                        ItemsSource="{Binding EventTypeOptions}"
-                        SelectedItem="{Binding EventType}" />
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="{localization:Translate Key=EventType}"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Picker
+                            ItemsSource="{Binding EventTypeOptions}"
+                            SelectedItem="{Binding EventType}" />
+
+                    </VerticalStackLayout>
 
 
-                    <DatePicker
-                        Date="{Binding Date}" />
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="{localization:Translate Key=Date}"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <DatePicker
+                            Date="{Binding Date}" />
+
+                    </VerticalStackLayout>
 
 
                     <Grid
                         ColumnDefinitions="*,*"
                         ColumnSpacing="12">
 
-                        <TimePicker
-                            Time="{Binding StartTime}" />
+                        <VerticalStackLayout Spacing="5">
 
-                        <TimePicker
+                            <Label
+                                Text="{localization:Translate Key=StartTime}"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <TimePicker
+                                Time="{Binding StartTime}" />
+
+                        </VerticalStackLayout>
+
+
+                        <VerticalStackLayout
                             Grid.Column="1"
-                            Time="{Binding EndTime}" />
+                            Spacing="5">
+
+                            <Label
+                                Text="{localization:Translate Key=EndTime}"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <TimePicker
+                                Time="{Binding EndTime}" />
+
+                        </VerticalStackLayout>
 
                     </Grid>
 
@@ -112,20 +173,50 @@
                         IsVisible="{Binding IsClass}"
                         Spacing="12">
 
-                        <Picker
-                            ItemsSource="{Binding GradeOptions}"
-                            SelectedItem="{Binding Grade}" />
+                        <VerticalStackLayout Spacing="5">
 
-                        <Picker
-                            ItemsSource="{Binding SubjectOptions}"
-                            SelectedItem="{Binding Subject}" />
+                            <Label
+                                Text="{localization:Translate Key=Grade}"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Picker
+                                ItemsSource="{Binding GradeOptions}"
+                                SelectedItem="{Binding Grade}" />
+
+                        </VerticalStackLayout>
+
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label
+                                Text="{localization:Translate Key=Subject}"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Picker
+                                ItemsSource="{Binding SubjectOptions}"
+                                SelectedItem="{Binding Subject}" />
+
+                        </VerticalStackLayout>
 
                     </VerticalStackLayout>
 
 
-                    <Entry
-                        Text="{Binding Location}"
-                        Placeholder="Location" />
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="{localization:Translate Key=Location}"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Entry
+                            Text="{Binding Location}" />
+
+                    </VerticalStackLayout>
 
                 </VerticalStackLayout>
 
@@ -133,7 +224,7 @@
 
 
             <Button
-                Text="Save Changes"
+                Text="{localization:Translate Key=SaveChanges}"
                 Clicked="OnSaveChangesClicked"
                 BackgroundColor="{StaticResource SunshineGold}"
                 TextColor="{StaticResource PrimaryBlue}"
@@ -143,7 +234,7 @@
 
 
             <Button
-                Text="Delete Schedule Item"
+                Text="{localization:Translate Key=DeleteScheduleItem}"
                 Clicked="OnDeleteScheduleClicked"
                 BackgroundColor="{StaticResource White}"
                 TextColor="#B42318"

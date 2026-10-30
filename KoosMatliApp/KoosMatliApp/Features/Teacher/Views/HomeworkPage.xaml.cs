@@ -1,5 +1,6 @@
 using KoosMatliApp.Features.Teacher.ViewModels;
 
+
 namespace KoosMatliApp.Features.Teacher.Views;
 
 public partial class HomeworkPage : ContentPage, IQueryAttributable
@@ -80,5 +81,63 @@ public partial class HomeworkPage : ContentPage, IQueryAttributable
         await Shell.Current.GoToAsync(
             nameof(AddHomeworkPage),
             parameters);
+    }
+
+    private async void OnOpenAttachmentClicked(
+    object sender,
+    EventArgs e)
+    {
+        if (sender is not Button button)
+        {
+            return;
+        }
+
+
+        var filePath =
+            button.CommandParameter
+                ?.ToString();
+
+
+        if (string.IsNullOrWhiteSpace(
+                filePath))
+        {
+            await DisplayAlert(
+                "No Attachment",
+                "There is no file attached to this homework.",
+                "OK");
+
+            return;
+        }
+
+
+        if (!File.Exists(
+                filePath))
+        {
+            await DisplayAlert(
+                "File Not Found",
+                "The attached file could not be found on this device.",
+                "OK");
+
+            return;
+        }
+
+
+        try
+        {
+            await Launcher.Default.OpenAsync(
+                new OpenFileRequest
+                {
+                    File =
+                        new ReadOnlyFile(
+                            filePath)
+                });
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert(
+                "Unable to Open File",
+                ex.Message,
+                "OK");
+        }
     }
 }

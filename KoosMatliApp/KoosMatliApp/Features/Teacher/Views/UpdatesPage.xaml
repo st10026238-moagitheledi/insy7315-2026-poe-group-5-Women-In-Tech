@@ -4,7 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.UpdatesPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Updates"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=Updates}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
@@ -35,13 +36,13 @@
                         VerticalOptions="Center">
 
                         <Label
-                            Text="UPDATES"
+                            Text="{localization:Translate Key=Updates}"
                             FontSize="18"
                             FontAttributes="Bold"
                             TextColor="{StaticResource SunshineGold}" />
 
                         <Label
-                            Text="Announcements and school updates"
+                            Text="{localization:Translate Key=Announcements}"
                             FontSize="9"
                             TextColor="{StaticResource White}" />
 
@@ -82,13 +83,13 @@
                 <VerticalStackLayout Spacing="2">
 
                     <Label
-                        Text="Announcements"
+                        Text="{localization:Translate Key=Announcements}"
                         FontSize="16"
                         FontAttributes="Bold"
                         TextColor="{StaticResource PrimaryBlue}" />
 
                     <Label
-                        Text="Manage announcements for your learners"
+                        Text="{localization:Translate Key=ManageAnnouncements}"
                         FontSize="9"
                         TextColor="{StaticResource Gray500}" />
 
@@ -97,7 +98,7 @@
 
                 <Button
                     Grid.Column="1"
-                    Text="+ Create"
+                    Text="{localization:Translate Key=Create}"
                     Clicked="OnCreateAnnouncementClicked"
                     BackgroundColor="{StaticResource SunshineGold}"
                     TextColor="{StaticResource PrimaryBlue}"
@@ -186,20 +187,20 @@
                                         Spacing="8">
 
                                         <Label
-                                           Text="{Binding Audience}"
-                                           FontSize="8"
-                                           TextColor="{StaticResource GrowthGreen}" />
+                                            Text="{Binding Audience}"
+                                            FontSize="8"
+                                            TextColor="{StaticResource GrowthGreen}" />
 
                                         <Label
-                                           Text="Due / Event:"
-                                           FontSize="8"
-                                           TextColor="{StaticResource Gray500}" />
+                                            Text="{localization:Translate Key=DueEvent}"
+                                            FontSize="8"
+                                            TextColor="{StaticResource Gray500}" />
 
                                         <Label
-                                           Text="{Binding EventDate, StringFormat='{}{0:dd MMM yyyy}'}"
-                                           FontSize="8"
-                                           FontAttributes="Bold"
-                                           TextColor="{StaticResource PrimaryBlue}" />
+                                            Text="{Binding EventDate, StringFormat='{}{0:dd MMM yyyy}'}"
+                                            FontSize="8"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryBlue}" />
 
                                     </HorizontalStackLayout>
 

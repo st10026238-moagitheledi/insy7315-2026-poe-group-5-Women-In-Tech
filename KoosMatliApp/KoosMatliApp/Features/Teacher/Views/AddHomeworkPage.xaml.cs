@@ -52,8 +52,8 @@ public partial class AddHomeworkPage : ContentPage, IQueryAttributable
 
 
     private async void OnChooseFileClicked(
-        object sender,
-        EventArgs e)
+    object sender,
+    EventArgs e)
     {
         try
         {
@@ -62,21 +62,61 @@ public partial class AddHomeworkPage : ContentPage, IQueryAttributable
                     new PickOptions
                     {
                         PickerTitle =
-                            "Select homework file"
+                            "Choose homework file"
                     });
 
 
-            if (result != null)
+            if (result == null)
             {
-                _viewModel.AttachmentName =
-                    result.FileName;
+                return;
             }
+
+
+            var attachmentsFolder =
+                Path.Combine(
+                    FileSystem.AppDataDirectory,
+                    "HomeworkAttachments");
+
+
+            Directory.CreateDirectory(
+                attachmentsFolder);
+
+
+            var savedFileName =
+                $"{Guid.NewGuid()}_{result.FileName}";
+
+
+            var savedFilePath =
+                Path.Combine(
+                    attachmentsFolder,
+                    savedFileName);
+
+
+            await using var sourceStream =
+                await result.OpenReadAsync();
+
+
+            await using var destinationStream =
+                File.Create(
+                    savedFilePath);
+
+
+            await sourceStream.CopyToAsync(
+                destinationStream);
+
+
+            _viewModel.AttachmentName =
+                result.FileName;
+
+
+            _viewModel.AttachmentPath =
+                savedFilePath;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             await DisplayAlert(
-                "File",
-                "The file could not be selected.",
+                "File Error",
+                ex.Message,
                 "OK");
         }
     }

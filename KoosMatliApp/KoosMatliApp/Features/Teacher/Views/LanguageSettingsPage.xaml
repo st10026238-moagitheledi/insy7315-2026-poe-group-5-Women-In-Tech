@@ -4,6 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.LanguageSettingsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    
     Title="Language"
     BackgroundColor="{StaticResource PageBackground}">
 
@@ -40,7 +42,7 @@
 
                 <Label
                     Grid.Column="1"
-                    Text="Language"
+                    Text="{localization:Translate Key=Language}"
                     FontSize="16"
                     FontAttributes="Bold"
                     TextColor="{StaticResource SunshineGold}"
@@ -52,7 +54,7 @@
 
 
         <Label
-            Text="Choose App Language"
+            Text="{localization:Translate Key=ChooseAppLanguage}"
             FontSize="15"
             FontAttributes="Bold"
             TextColor="{StaticResource PrimaryBlue}" />
@@ -71,9 +73,10 @@
             <VerticalStackLayout Spacing="8">
 
                 <Label
-                    Text="The selected language will be applied to the Teacher app in the next commit."
+                    Text="{localization:Translate Key=LanguageExplanation}"
                     FontSize="9"
-                    TextColor="{StaticResource Gray500}" />
+                    TextColor="{StaticResource Gray500}"
+                    LineBreakMode="WordWrap" />
 
                 <Picker
                     ItemsSource="{Binding Languages}"
@@ -85,7 +88,7 @@
 
 
         <Button
-            Text="Save Language"
+            Text="{localization:Translate Key=SaveLanguage}"
             Clicked="OnSaveLanguageClicked"
             BackgroundColor="{StaticResource SunshineGold}"
             TextColor="{StaticResource PrimaryBlue}"

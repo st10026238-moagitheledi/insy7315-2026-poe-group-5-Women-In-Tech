@@ -4,7 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.SchedulePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Schedule"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=Schedule}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
@@ -36,13 +37,13 @@
                         VerticalOptions="Center">
 
                         <Label
-                            Text="SCHEDULE"
+                            Text="{localization:Translate Key=Schedule}"
                             FontSize="18"
                             FontAttributes="Bold"
                             TextColor="{StaticResource SunshineGold}" />
 
                         <Label
-                            Text="Your classes, meetings and school events"
+                            Text="{localization:Translate Key=ScheduleSubtitle}"
                             FontSize="9"
                             TextColor="{StaticResource White}" />
 
@@ -80,7 +81,7 @@
             <VerticalStackLayout Spacing="2">
 
                 <Label
-                    Text="Today's Schedule"
+                    Text="{localization:Translate Key=TodaysSchedule}"
                     FontSize="16"
                     FontAttributes="Bold"
                     TextColor="{StaticResource PrimaryBlue}" />
@@ -210,13 +211,13 @@
                 <VerticalStackLayout Spacing="2">
 
                     <Label
-                        Text="Upcoming"
+                        Text="{localization:Translate Key=Upcoming}"
                         FontSize="16"
                         FontAttributes="Bold"
                         TextColor="{StaticResource PrimaryBlue}" />
 
                     <Label
-                        Text="Upcoming classes and events"
+                        Text="{localization:Translate Key=UpcomingClassesEvents}"
                         FontSize="9"
                         TextColor="{StaticResource Gray500}" />
 
@@ -225,7 +226,7 @@
 
                 <Button
                     Grid.Column="1"
-                    Text="+ Add"
+                    Text="{localization:Translate Key=Add}"
                     Clicked="OnAddScheduleClicked"
                     BackgroundColor="{StaticResource SunshineGold}"
                     TextColor="{StaticResource PrimaryBlue}"

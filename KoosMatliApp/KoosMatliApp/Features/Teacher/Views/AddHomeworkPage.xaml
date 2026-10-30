@@ -4,7 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.AddHomeworkPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Add Homework"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=AddHomework}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
@@ -51,7 +52,7 @@
                         VerticalOptions="Center">
 
                         <Label
-                            Text="Add Homework"
+                            Text="{localization:Translate Key=AddHomework}"
                             FontSize="16"
                             FontAttributes="Bold"
                             TextColor="{StaticResource SunshineGold}" />
@@ -76,7 +77,7 @@
             <!-- Homework Details -->
 
             <Label
-                Text="Homework Details"
+                Text="{localization:Translate Key=HomeworkDetails}"
                 FontSize="15"
                 FontAttributes="Bold"
                 TextColor="{StaticResource PrimaryBlue}" />
@@ -98,14 +99,13 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Title"
+                            Text="{localization:Translate Key=Title}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
                         <Entry
                             Text="{Binding Title}"
-                            Placeholder="Enter homework title"
                             FontSize="11"
                             TextColor="{StaticResource Charcoal}" />
 
@@ -115,14 +115,13 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Instructions"
+                            Text="{localization:Translate Key=Instructions}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
                         <Editor
                             Text="{Binding Description}"
-                            Placeholder="Enter homework instructions"
                             AutoSize="TextChanges"
                             MinimumHeightRequest="100"
                             FontSize="11"
@@ -134,7 +133,7 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Due Date"
+                            Text="{localization:Translate Key=DueDate}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
@@ -150,7 +149,7 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Status"
+                            Text="{localization:Translate Key=Status}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
@@ -179,7 +178,7 @@
             <!-- Attachment -->
 
             <Label
-                Text="Attachment"
+                Text="{localization:Translate Key=Attachment}"
                 FontSize="15"
                 FontAttributes="Bold"
                 TextColor="{StaticResource PrimaryBlue}" />
@@ -197,13 +196,13 @@
                 <VerticalStackLayout Spacing="10">
 
                     <Label
-                        Text="You can attach a worksheet, document or other homework file."
+                        Text="{localization:Translate Key=Attachment}"
                         FontSize="9"
                         TextColor="{StaticResource PrimaryBlue}" />
 
 
                     <Button
-                        Text="Choose File"
+                        Text="{localization:Translate Key=ChooseFile}"
                         Clicked="OnChooseFileClicked"
                         BackgroundColor="{StaticResource White}"
                         TextColor="{StaticResource PrimaryBlue}"
@@ -228,7 +227,7 @@
             <!-- Save -->
 
             <Button
-                Text="Save Homework"
+                Text="{localization:Translate Key=SaveHomework}"
                 Clicked="OnSaveHomeworkClicked"
                 BackgroundColor="{StaticResource SunshineGold}"
                 TextColor="{StaticResource PrimaryBlue}"

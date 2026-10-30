@@ -5,8 +5,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-    
-    Title="Create Announcement"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=CreateAnnouncement}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
@@ -51,7 +51,7 @@
 
                     <Label
                         Grid.Column="1"
-                        Text="Create Announcement"
+                        Text="{localization:Translate Key=CreateAnnouncement}"
                         FontSize="16"
                         FontAttributes="Bold"
                         TextColor="{StaticResource SunshineGold}"
@@ -63,7 +63,7 @@
 
 
             <Label
-                Text="Announcement Details"
+                Text="{localization:Translate Key=AnnouncementDetails}"
                 FontSize="15"
                 FontAttributes="Bold"
                 TextColor="{StaticResource PrimaryBlue}" />
@@ -86,14 +86,13 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Title"
+                            Text="{localization:Translate Key=Title}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
                         <Entry
                             Text="{Binding Title}"
-                            Placeholder="Enter announcement title"
                             FontSize="11"
                             TextColor="{StaticResource Charcoal}" />
 
@@ -103,14 +102,13 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Message"
+                            Text="{localization:Translate Key=Message}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
                         <Editor
                             Text="{Binding Message}"
-                            Placeholder="Enter announcement message"
                             MinimumHeightRequest="120"
                             AutoSize="TextChanges"
                             FontSize="11"
@@ -118,19 +116,20 @@
 
                     </VerticalStackLayout>
 
+
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Event / Due Date"
+                            Text="{localization:Translate Key=EventDueDate}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
                         <DatePicker
-                           Date="{Binding EventDate}"
-                           MinimumDate="{x:Static sys:DateTime.Today}"
-                           FontSize="11"
-                           TextColor="{StaticResource Charcoal}" />
+                            Date="{Binding EventDate}"
+                            MinimumDate="{x:Static sys:DateTime.Today}"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
 
                     </VerticalStackLayout>
 
@@ -138,7 +137,7 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Audience"
+                            Text="{localization:Translate Key=Audience}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
@@ -159,7 +158,7 @@
                         <VerticalStackLayout Spacing="5">
 
                             <Label
-                                Text="Grade"
+                                Text="{localization:Translate Key=Grade}"
                                 FontSize="10"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource PrimaryBlue}" />
@@ -175,7 +174,7 @@
                         <VerticalStackLayout Spacing="5">
 
                             <Label
-                                Text="Subject"
+                                Text="{localization:Translate Key=Subject}"
                                 FontSize="10"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource PrimaryBlue}" />
@@ -195,7 +194,7 @@
 
 
             <Button
-                Text="Publish Announcement"
+                Text="{localization:Translate Key=PublishAnnouncement}"
                 Clicked="OnPublishAnnouncementClicked"
                 BackgroundColor="{StaticResource SunshineGold}"
                 TextColor="{StaticResource PrimaryBlue}"

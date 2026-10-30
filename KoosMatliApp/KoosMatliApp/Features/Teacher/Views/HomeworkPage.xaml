@@ -4,7 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.HomeworkPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Homework"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=Homework}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
@@ -51,7 +52,7 @@
                         VerticalOptions="Center">
 
                         <Label
-                            Text="Homework"
+                            Text="{localization:Translate Key=Homework}"
                             FontSize="16"
                             FontAttributes="Bold"
                             TextColor="{StaticResource SunshineGold}" />
@@ -80,13 +81,13 @@
                 <VerticalStackLayout Spacing="2">
 
                     <Label
-                        Text="Class Homework"
+                        Text="{localization:Translate Key=ClassHomework}"
                         FontSize="16"
                         FontAttributes="Bold"
                         TextColor="{StaticResource PrimaryBlue}" />
 
                     <Label
-                        Text="Manage homework for this class"
+                        Text="{localization:Translate Key=Homework}"
                         FontSize="9"
                         TextColor="{StaticResource Gray500}" />
 
@@ -95,7 +96,7 @@
 
                 <Button
                     Grid.Column="1"
-                    Text="+ Add Homework"
+                    Text="{localization:Translate Key=AddHomework}"
                     Clicked="OnAddHomeworkClicked"
                     BackgroundColor="{StaticResource SunshineGold}"
                     TextColor="{StaticResource PrimaryBlue}"
@@ -119,7 +120,7 @@
                 </Border.StrokeShape>
 
                 <Label
-                    Text="All homework activities for this class are shown below."
+                    Text="{localization:Translate Key=ClassHomework}"
                     FontSize="9"
                     TextColor="{StaticResource PrimaryBlue}" />
 
@@ -218,15 +219,14 @@
                                     LineBreakMode="WordWrap" />
 
 
-                                <Label
-                                    Text="{Binding AttachmentName, StringFormat='Attachment: {0}'}"
-                                    FontSize="8"
-                                    TextColor="{StaticResource Gray500}">
+                                <Grid
+                                    ColumnDefinitions="*,Auto"
+                                    ColumnSpacing="8">
 
-                                    <Label.Triggers>
+                                    <Grid.Triggers>
 
                                         <DataTrigger
-                                            TargetType="Label"
+                                            TargetType="Grid"
                                             Binding="{Binding AttachmentName}"
                                             Value="">
 
@@ -236,9 +236,60 @@
 
                                         </DataTrigger>
 
-                                    </Label.Triggers>
+                                    </Grid.Triggers>
 
-                                </Label>
+
+                                    <VerticalStackLayout
+                                        Grid.Column="0"
+                                        Spacing="2"
+                                        VerticalOptions="Center">
+
+                                        <Label
+                                            Text="{localization:Translate Key=Attachment}"
+                                            FontSize="8"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource Gray500}" />
+
+                                        <Label
+                                           Text="{Binding AttachmentName}"
+                                           FontSize="8"
+                                           TextColor="{StaticResource PrimaryBlue}"
+                                           LineBreakMode="TailTruncation" />
+
+                                    </VerticalStackLayout>
+
+
+                                    <Button
+                                          Grid.Column="1"
+                                          Text="{localization:Translate Key=Open}"
+                                          CommandParameter="{Binding AttachmentPath}"
+                                          Clicked="OnOpenAttachmentClicked"
+                                          BackgroundColor="{StaticResource PrimaryBlue}"
+                                          TextColor="{StaticResource White}"
+                                          FontSize="8"
+                                          HeightRequest="34"
+                                          CornerRadius="8"
+                                          Padding="12,0"
+                                          VerticalOptions="Center">
+
+                                        <Button.Triggers>
+
+                                            <DataTrigger
+                                                TargetType="Button"
+                                                Binding="{Binding AttachmentPath}"
+                                                Value="">
+
+                                                <Setter
+                                                    Property="IsVisible"
+                                                    Value="False" />
+
+                                            </DataTrigger>
+
+                                        </Button.Triggers>
+
+                                    </Button>
+
+                                </Grid>
 
                             </VerticalStackLayout>
 

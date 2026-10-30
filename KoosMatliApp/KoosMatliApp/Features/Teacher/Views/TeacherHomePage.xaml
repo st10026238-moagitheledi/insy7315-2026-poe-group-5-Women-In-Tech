@@ -4,7 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.TeacherHomePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Home"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=Home}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
@@ -36,13 +37,13 @@
                         VerticalOptions="Center">
 
                         <Label
-                            Text="Good Morning,"
+                            Text="{localization:Translate Key=GoodMorning}"
                             FontSize="18"
                             FontAttributes="Bold"
                             TextColor="{StaticResource SunshineGold}" />
 
                         <Label
-                            Text="Teacher"
+                            Text="{localization:Translate Key=Teacher}"
                             FontSize="11"
                             TextColor="{StaticResource White}" />
 
@@ -78,7 +79,7 @@
 
 
             <Label
-                Text="Here's what's happening today"
+                Text="{localization:Translate Key=WhatsHappeningToday}"
                 FontSize="15"
                 TextColor="{StaticResource Charcoal}" />
 
@@ -111,14 +112,14 @@
                         <Grid ColumnDefinitions="*,Auto">
 
                             <Label
-                                Text="Today's Classes"
+                                Text="{localization:Translate Key=TodaysClasses}"
                                 FontSize="14"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource SunshineGold}" />
 
                             <Label
                                 Grid.Column="1"
-                                Text="View all"
+                                Text="{localization:Translate Key=ViewAll}"
                                 FontSize="11"
                                 TextColor="{StaticResource White}"
                                 VerticalOptions="Center">
@@ -312,14 +313,14 @@
             <Grid ColumnDefinitions="*,Auto">
 
                 <Label
-                    Text="Upcoming Events"
+                    Text="{localization:Translate Key=UpcomingEvents}"
                     FontSize="15"
                     FontAttributes="Bold"
                     TextColor="{StaticResource PrimaryBlue}" />
 
                 <Label
                     Grid.Column="1"
-                    Text="View all"
+                    Text="{localization:Translate Key=ViewAll}"
                     FontSize="11"
                     TextColor="{StaticResource PrimaryBlue}"
                     VerticalOptions="Center">
@@ -443,7 +444,7 @@
             <!-- Quick Actions -->
 
             <Label
-                Text="Quick Actions"
+                Text="{localization:Translate Key=QuickActions}"
                 FontSize="15"
                 FontAttributes="Bold"
                 TextColor="{StaticResource PrimaryBlue}" />
@@ -485,7 +486,7 @@
                     </Border>
 
                     <Label
-                        Text="Take&#10;Attendance"
+                        Text="{localization:Translate Key=TakeAttendance}"
                         FontSize="9"
                         FontAttributes="Bold"
                         TextColor="{StaticResource PrimaryBlue}"
@@ -526,7 +527,7 @@
                     </Border>
 
                     <Label
-                        Text="Create&#10;Announcement"
+                        Text="{localization:Translate Key=CreateAnnouncement}"
                         FontSize="9"
                         FontAttributes="Bold"
                         TextColor="{StaticResource PrimaryBlue}"
@@ -567,7 +568,7 @@
                     </Border>
 
                     <Label
-                        Text="Upload&#10;Homework"
+                        Text="{localization:Translate Key=UploadHomework}"
                         FontSize="9"
                         FontAttributes="Bold"
                         TextColor="{StaticResource PrimaryBlue}"
@@ -607,7 +608,7 @@
                     </Border>
 
                     <Label
-                        Text="View&#10;Timetable"
+                        Text="{localization:Translate Key=ViewTimetable}"
                         FontSize="9"
                         FontAttributes="Bold"
                         TextColor="{StaticResource PrimaryBlue}"

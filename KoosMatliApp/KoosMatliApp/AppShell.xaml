@@ -5,6 +5,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:teacher="clr-namespace:KoosMatliApp.Features.Teacher.Views"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
 
     FlyoutBehavior="Disabled"
 
@@ -18,31 +19,31 @@
     <TabBar>
 
         <ShellContent
-        Title="Home"
+        Title="{localization:Translate Key=Home}"
         Icon="nav_home.svg"
         Route="TeacherHome"
         ContentTemplate="{DataTemplate teacher:TeacherHomePage}" />
 
         <ShellContent
-        Title="Classes"
+        Title="{localization:Translate Key=Classes}"
         Icon="nav_classes.svg"
         Route="TeacherClasses"
         ContentTemplate="{DataTemplate teacher:ClassesPage}" />
 
         <ShellContent
-        Title="Updates"
+        Title="{localization:Translate Key=Updates}"
         Icon="nav_updates.svg"
         Route="TeacherUpdates"
         ContentTemplate="{DataTemplate teacher:UpdatesPage}" />
 
         <ShellContent
-        Title="Schedule"
+        Title="{localization:Translate Key=Schedule}"
         Icon="nav_schedule.svg"
         Route="TeacherSchedule"
         ContentTemplate="{DataTemplate teacher:SchedulePage}" />
 
         <ShellContent
-        Title="Profile"
+        Title="{localization:Translate Key=Profile}"
         Icon="nav_profile.svg"
         Route="TeacherProfile"
         ContentTemplate="{DataTemplate teacher:ProfilePage}" />

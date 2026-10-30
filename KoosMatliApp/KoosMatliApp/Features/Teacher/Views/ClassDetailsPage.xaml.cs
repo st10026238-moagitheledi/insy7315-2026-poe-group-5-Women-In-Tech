@@ -1,5 +1,7 @@
 using KoosMatliApp.Features.Teacher.Models;
 using KoosMatliApp.Features.Teacher.ViewModels;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Storage;
 
 namespace KoosMatliApp.Features.Teacher.Views;
 
@@ -91,16 +93,56 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
 
 
     private async void OnResourceOpenClicked(
-        object sender,
-        EventArgs e)
+    object sender,
+    EventArgs e)
     {
-        if (sender is Button button &&
-            button.BindingContext is ClassResourceItem resource)
+        if (sender is not Button button ||
+            button.BindingContext is not ClassResourceItem resource)
+        {
+            return;
+        }
+
+
+        if (string.IsNullOrWhiteSpace(
+                resource.FilePath))
         {
             await DisplayAlert(
                 resource.Title,
-                $"{resource.ResourceType}\n\n{resource.Description}",
-                "Close");
+                "No file is currently attached to this resource.",
+                "OK");
+
+            return;
+        }
+
+
+        if (!File.Exists(
+                resource.FilePath))
+        {
+            await DisplayAlert(
+                "File Not Found",
+                "The attached file could not be found on this device.",
+                "OK");
+
+            return;
+        }
+
+
+        try
+        {
+            await Launcher.Default.OpenAsync(
+                new OpenFileRequest
+                {
+                    File =
+                        new ReadOnlyFile(
+                            resource.FilePath)
+                });
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert(
+                "Unable to Open File",
+                ex.Message,
+                "OK");
         }
     }
 

@@ -15,4 +15,6 @@ public class HomeworkItem
     public string Subject { get; set; } = string.Empty;
 
     public string AttachmentName { get; set; } = string.Empty;
+
+    public string AttachmentPath { get; set; } = string.Empty;
 }

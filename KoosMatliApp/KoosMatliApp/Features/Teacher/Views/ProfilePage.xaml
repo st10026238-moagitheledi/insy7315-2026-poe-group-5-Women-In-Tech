@@ -4,6 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.ProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    
     Title="Profile"
     BackgroundColor="{StaticResource PageBackground}">
 
@@ -30,7 +32,7 @@
                     ColumnSpacing="10">
 
                     <Label
-                        Text="PROFILE"
+                        Text="{localization:Translate Key=Profile}"
                         FontSize="18"
                         FontAttributes="Bold"
                         TextColor="{StaticResource SunshineGold}"
@@ -131,7 +133,7 @@
             <!-- Account -->
 
             <Label
-                Text="Account"
+                Text="{localization:Translate Key=Account}"
                 FontSize="11"
                 FontAttributes="Bold"
                 TextColor="{StaticResource Gray500}" />
@@ -163,7 +165,7 @@
                         </Grid.GestureRecognizers>
 
                         <Label
-                            Text="Personal Information"
+                            Text="{localization:Translate Key=PersonalInformation}"
                             FontSize="11"
                             TextColor="{StaticResource PrimaryBlue}" />
 
@@ -193,7 +195,7 @@
                         </Grid.GestureRecognizers>
 
                         <Label
-                            Text="Change Password"
+                            Text="{localization:Translate Key=ChangePassword}"
                             FontSize="11"
                             TextColor="{StaticResource PrimaryBlue}" />
 
@@ -213,7 +215,7 @@
             <!-- Preferences -->
 
             <Label
-                Text="Preferences"
+                Text="{localization:Translate Key=Preferences}"
                 FontSize="11"
                 FontAttributes="Bold"
                 TextColor="{StaticResource Gray500}" />
@@ -245,7 +247,7 @@
                         </Grid.GestureRecognizers>
 
                         <Label
-                            Text="Language"
+                            Text="{localization:Translate Key=Language}"
                             FontSize="11"
                             TextColor="{StaticResource PrimaryBlue}" />
 
@@ -275,7 +277,7 @@
                         </Grid.GestureRecognizers>
 
                         <Label
-                            Text="Notification Settings"
+                            Text="{localization:Translate Key=NotificationSettings}"
                             FontSize="11"
                             TextColor="{StaticResource PrimaryBlue}" />
 
@@ -295,7 +297,7 @@
             <!-- Support -->
 
             <Label
-                Text="Support"
+                Text="{localization:Translate Key=Support}"
                 FontSize="11"
                 FontAttributes="Bold"
                 TextColor="{StaticResource Gray500}" />
@@ -327,7 +329,7 @@
                         </Grid.GestureRecognizers>
 
                         <Label
-                            Text="Help &amp; Support"
+                            Text="{localization:Translate Key=HelpSupport}"
                             FontSize="11"
                             TextColor="{StaticResource PrimaryBlue}" />
 
@@ -357,7 +359,7 @@
                         </Grid.GestureRecognizers>
 
                         <Label
-                            Text="About the App"
+                            Text="{localization:Translate Key=AboutApp}"
                             FontSize="11"
                             TextColor="{StaticResource PrimaryBlue}" />
 
@@ -377,7 +379,7 @@
             <!-- Log Out -->
 
             <Button
-                Text="Log Out"
+                Text="{localization:Translate Key=Logout}"
                 Clicked="OnLogoutClicked"
                 BackgroundColor="Transparent"
                 TextColor="#B42318"

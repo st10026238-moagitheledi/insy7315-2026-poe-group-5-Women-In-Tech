@@ -4,7 +4,8 @@
     x:Class="KoosMatliApp.Features.Teacher.Views.ClassesPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Classes"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=Classes}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <Grid RowDefinitions="Auto,Auto,*">
@@ -27,7 +28,7 @@
 
                 <Label
                     Grid.Column="0"
-                    Text="MY CLASSES"
+                    Text="{localization:Translate Key=MyClasses}"
                     FontSize="18"
                     FontAttributes="Bold"
                     TextColor="{StaticResource SunshineGold}"
@@ -73,7 +74,7 @@
                 Spacing="6">
 
                 <Button
-                    Text="My Classes"
+                    Text="{localization:Translate Key=MyClasses}"
                     Command="{Binding ShowMyClassesCommand}"
                     BackgroundColor="Transparent"
                     TextColor="{StaticResource SunshineGold}"
@@ -94,7 +95,7 @@
                 Spacing="6">
 
                 <Button
-                    Text="All Classes"
+                    Text="{localization:Translate Key=AllClasses}"
                     Command="{Binding ShowAllClassesCommand}"
                     BackgroundColor="Transparent"
                     TextColor="{StaticResource PrimaryBlue}"
@@ -133,7 +134,6 @@
                 <CollectionView.ItemTemplate>
 
                     <DataTemplate>
-
 
                         <Border
                             BackgroundColor="{StaticResource CardSurface}"
@@ -201,26 +201,21 @@
                                         TextColor="{StaticResource PrimaryBlue}" />
 
 
-                                    <Label
-                                        FontSize="10"
-                                        TextColor="{StaticResource Gray500}">
+                                    <HorizontalStackLayout
+                                        Spacing="4">
 
-                                        <Label.FormattedText>
+                                        <Label
+                                            Text="{Binding LearnerCount}"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource Gray500}" />
 
-                                            <FormattedString>
+                                        <Label
+                                            Text="{localization:Translate Key=Learners}"
+                                            FontSize="10"
+                                            TextColor="{StaticResource Gray500}" />
 
-                                                <Span
-                                                    Text="{Binding LearnerCount}"
-                                                    FontAttributes="Bold" />
-
-                                                <Span
-                                                    Text=" learners" />
-
-                                            </FormattedString>
-
-                                        </Label.FormattedText>
-
-                                    </Label>
+                                    </HorizontalStackLayout>
 
 
                                     <BoxView
@@ -261,7 +256,6 @@
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
-
 
 
             <CollectionView
@@ -349,26 +343,21 @@
                                         TextColor="{StaticResource PrimaryBlue}" />
 
 
-                                    <Label
-                                        FontSize="10"
-                                        TextColor="{StaticResource Gray500}">
+                                    <HorizontalStackLayout
+                                        Spacing="4">
 
-                                        <Label.FormattedText>
+                                        <Label
+                                            Text="{Binding LearnerCount}"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource Gray500}" />
 
-                                            <FormattedString>
+                                        <Label
+                                            Text="{localization:Translate Key=Learners}"
+                                            FontSize="10"
+                                            TextColor="{StaticResource Gray500}" />
 
-                                                <Span
-                                                    Text="{Binding LearnerCount}"
-                                                    FontAttributes="Bold" />
-
-                                                <Span
-                                                    Text=" learners" />
-
-                                            </FormattedString>
-
-                                        </Label.FormattedText>
-
-                                    </Label>
+                                    </HorizontalStackLayout>
 
 
                                     <BoxView

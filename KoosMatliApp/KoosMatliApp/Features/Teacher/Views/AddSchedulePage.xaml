@@ -5,7 +5,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-    Title="Add Schedule"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=AddSchedule}"
     BackgroundColor="{StaticResource PageBackground}">
 
     <ScrollView>
@@ -50,7 +51,7 @@
 
                     <Label
                         Grid.Column="1"
-                        Text="Add Schedule"
+                        Text="{localization:Translate Key=AddSchedule}"
                         FontSize="16"
                         FontAttributes="Bold"
                         TextColor="{StaticResource SunshineGold}"
@@ -62,7 +63,7 @@
 
 
             <Label
-                Text="Schedule Details"
+                Text="{localization:Translate Key=ScheduleDetails}"
                 FontSize="15"
                 FontAttributes="Bold"
                 TextColor="{StaticResource PrimaryBlue}" />
@@ -85,14 +86,13 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Title"
+                            Text="{localization:Translate Key=Title}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
                         <Entry
                             Text="{Binding Title}"
-                            Placeholder="Enter title"
                             FontSize="11"
                             TextColor="{StaticResource Charcoal}" />
 
@@ -102,14 +102,13 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Description"
+                            Text="{localization:Translate Key=Description}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
                         <Editor
                             Text="{Binding Description}"
-                            Placeholder="Enter description"
                             MinimumHeightRequest="90"
                             AutoSize="TextChanges"
                             FontSize="11"
@@ -121,7 +120,7 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Event Type"
+                            Text="{localization:Translate Key=EventType}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
@@ -136,7 +135,7 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Date"
+                            Text="{localization:Translate Key=Date}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
@@ -155,7 +154,7 @@
                         <VerticalStackLayout Spacing="5">
 
                             <Label
-                                Text="Start Time"
+                                Text="{localization:Translate Key=StartTime}"
                                 FontSize="10"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource PrimaryBlue}" />
@@ -171,7 +170,7 @@
                             Spacing="5">
 
                             <Label
-                                Text="End Time"
+                                Text="{localization:Translate Key=EndTime}"
                                 FontSize="10"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource PrimaryBlue}" />
@@ -194,7 +193,7 @@
                         <VerticalStackLayout Spacing="5">
 
                             <Label
-                                Text="Grade"
+                                Text="{localization:Translate Key=Grade}"
                                 FontSize="10"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource PrimaryBlue}" />
@@ -209,7 +208,7 @@
                         <VerticalStackLayout Spacing="5">
 
                             <Label
-                                Text="Subject"
+                                Text="{localization:Translate Key=Subject}"
                                 FontSize="10"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource PrimaryBlue}" />
@@ -226,14 +225,13 @@
                     <VerticalStackLayout Spacing="5">
 
                         <Label
-                            Text="Location"
+                            Text="{localization:Translate Key=Location}"
                             FontSize="10"
                             FontAttributes="Bold"
                             TextColor="{StaticResource PrimaryBlue}" />
 
                         <Entry
                             Text="{Binding Location}"
-                            Placeholder="Enter location"
                             FontSize="11"
                             TextColor="{StaticResource Charcoal}" />
 
@@ -245,7 +243,7 @@
 
 
             <Button
-                Text="Add to Schedule"
+                Text="{localization:Translate Key=AddToSchedule}"
                 Clicked="OnSaveScheduleClicked"
                 BackgroundColor="{StaticResource SunshineGold}"
                 TextColor="{StaticResource PrimaryBlue}"

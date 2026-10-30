@@ -1,9 +1,12 @@
 ﻿namespace KoosMatliApp;
+using KoosMatliApp.Resources.Localization;
 
 public partial class App : Application
 {
     public App()
     {
+        LocalizationManager.Instance.Initialize();
+
         InitializeComponent();
     }
 

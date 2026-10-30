@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using KoosMatliApp.Features.Teacher.Models;
 using KoosMatliApp.Features.Teacher.Services;
+using KoosMatliApp.Resources.Localization;
 
 namespace KoosMatliApp.Features.Teacher.ViewModels;
 
@@ -18,7 +19,7 @@ public partial class TeacherHomeViewModel : ObservableObject
 
 
     private string _announcementTitle =
-        "No Announcements";
+        string.Empty;
 
     public string AnnouncementTitle
     {
@@ -31,7 +32,7 @@ public partial class TeacherHomeViewModel : ObservableObject
 
 
     private string _announcementMessage =
-        "There are no current announcements.";
+        string.Empty;
 
     public string AnnouncementMessage
     {
@@ -118,10 +119,11 @@ public partial class TeacherHomeViewModel : ObservableObject
         if (announcement == null)
         {
             AnnouncementTitle =
-                "No Announcements";
+                LocalizationManager.Instance[
+                    "Announcements"];
 
             AnnouncementMessage =
-                "There are no current announcements.";
+                string.Empty;
 
             AnnouncementDate =
                 string.Empty;
@@ -136,8 +138,14 @@ public partial class TeacherHomeViewModel : ObservableObject
         AnnouncementMessage =
             announcement.Message;
 
+
+        var dueEventText =
+            LocalizationManager.Instance[
+                "DueEvent"];
+
+
         AnnouncementDate =
-            $"Due / Event: " +
+            $"{dueEventText}: " +
             $"{announcement.EventDate:dd MMM yyyy}";
     }
 }

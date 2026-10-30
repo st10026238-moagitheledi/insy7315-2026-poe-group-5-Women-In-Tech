@@ -21,6 +21,8 @@
 		<UseMaui>true</UseMaui>
 
 		<SingleProject>true</SingleProject>
+		
+		<NeutralLanguage>en-ZA</NeutralLanguage>
 
 		<ImplicitUsings>enable</ImplicitUsings>
 
@@ -106,6 +108,23 @@
 		<!-- Keep empty Teacher folders visible in Visual Studio -->
 		<Folder Include="Features\Teacher\Controls\" />
 
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Update="Resources\Localization\AppResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AppResources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Localization\AppResources.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 

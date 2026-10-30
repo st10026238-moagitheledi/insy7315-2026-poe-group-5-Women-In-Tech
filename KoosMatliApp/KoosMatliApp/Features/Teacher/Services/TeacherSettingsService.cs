@@ -1,15 +1,32 @@
-﻿using KoosMatliApp.Features.Teacher.Models;
+﻿using Microsoft.Maui.Storage;
+using KoosMatliApp.Features.Teacher.Models;
 
 namespace KoosMatliApp.Features.Teacher.Services;
 
 public static class TeacherSettingsService
 {
+    private const string LanguageKey =
+        "TeacherLanguage";
+
+
     private static readonly TeacherSettings _settings =
-        new();
+        new()
+        {
+            Language =
+                Preferences.Default.Get(
+                    LanguageKey,
+                    "English")
+        };
 
 
     public static TeacherSettings GetSettings()
     {
+        _settings.Language =
+            Preferences.Default.Get(
+                LanguageKey,
+                "English");
+
+
         return _settings;
     }
 
@@ -30,6 +47,12 @@ public static class TeacherSettingsService
     public static void UpdateLanguage(
         string language)
     {
-        _settings.Language = language;
+        _settings.Language =
+            language;
+
+
+        Preferences.Default.Set(
+            LanguageKey,
+            language);
     }
 }
