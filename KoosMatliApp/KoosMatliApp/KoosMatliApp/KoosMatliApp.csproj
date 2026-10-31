@@ -1,127 +1,341 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+
+		<!-- Target platforms -->
 		<TargetFrameworks>net10.0-android</TargetFrameworks>
-		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
 
-		<!-- Note for MacCatalyst:
-		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
-		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
-		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
-		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
-		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">
+			$(TargetFrameworks);net10.0-ios;net10.0-maccatalyst
+		</TargetFrameworks>
 
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">
+			$(TargetFrameworks);net10.0-windows10.0.19041.0
+		</TargetFrameworks>
+
+		<!-- Application configuration -->
 		<OutputType>Exe</OutputType>
+
 		<RootNamespace>KoosMatliApp</RootNamespace>
+
 		<UseMaui>true</UseMaui>
+
 		<SingleProject>true</SingleProject>
+
+		<NeutralLanguage>en-ZA</NeutralLanguage>
+
 		<ImplicitUsings>enable</ImplicitUsings>
+
 		<Nullable>enable</Nullable>
 
-		<!-- Enable XAML source generation for faster build times and improved performance.
-		     This generates C# code from XAML at compile time instead of runtime inflation.
-		     To disable, remove this line.
-		     For individual files, you can override by setting Inflator metadata:
-		       <MauiXaml Update="MyPage.xaml" Inflator="Default" /> (reverts to defaults: Runtime for Debug, XamlC for Release)
-		       <MauiXaml Update="MyPage.xaml" Inflator="Runtime" /> (force runtime inflation) -->
-		<MauiXamlInflator>SourceGen</MauiXamlInflator>
-
-		<!-- Display name -->
+		<!-- Application name -->
 		<ApplicationTitle>KoosMatliApp</ApplicationTitle>
 
-		<!-- App Identifier -->
+		<!-- Application identifier -->
 		<ApplicationId>com.companyname.koosmatliapp</ApplicationId>
 
-		<!-- Versions -->
+		<!-- Application version -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+
 		<ApplicationVersion>1</ApplicationVersion>
 
-		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
+		<!-- Windows configuration -->
 		<WindowsPackageType>None</WindowsPackageType>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<!-- Minimum supported OS versions -->
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+			15.0
+		</SupportedOSPlatformVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+			15.0
+		</SupportedOSPlatformVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+			23.0
+		</SupportedOSPlatformVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+			10.0.17763.0
+		</SupportedOSPlatformVersion>
+
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+			10.0.17763.0
+		</TargetPlatformMinVersion>
+
+		<!-- Required for BlueStacks deployment -->
+		<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+
 	</PropertyGroup>
 
+
 	<ItemGroup>
+
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon
+			Include="Resources\AppIcon\appicon.svg"
+			ForegroundFile="Resources\AppIcon\appiconfg.svg"
+			Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen
+			Include="Resources\Splash\splash.svg"
+			Color="#512BD4"
+			BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
-		
-		<!-- Custom Fonts -->
+
+		<MauiImage
+			Update="Resources\Images\dotnet_bot.png"
+			Resize="True"
+			BaseSize="300,185" />
+
+		<!-- Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
-		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		<!-- Raw Assets -->
+		<MauiAsset
+			Include="Resources\Raw\**"
+			LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+
 	</ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
-	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\Parent\AnnouncementsPage.xaml.cs">
-	    <DependentUpon>AnnouncementsPage.xaml</DependentUpon>
-	  </Compile>
+
+		<None Remove="Platforms\Android\Resources\values\strings.xml" />
+
 	</ItemGroup>
 
+
+	<!-- NuGet Packages -->
 	<ItemGroup>
-	  <MauiXaml Update="Views\Authentication\ForgotPasswordPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Authentication\LanguagePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Authentication\LoginPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Authentication\OnboardingPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Authentication\RegisterPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Authentication\SplashPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Parent\AcademicInformationPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Parent\HomeworkResourcesPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Parent\MyChildren.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Parent\AnnouncementsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Parent\ParentDashboardPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Parent\ParentProfilePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Parent\SchoolCalendarPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Parent\SchoolFeesPaymentsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Parent\TimetablePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+
+		<PackageReference
+			Include="Microsoft.Maui.Controls"
+			Version="$(MauiVersion)" />
+
+		<PackageReference
+			Include="Microsoft.Extensions.Logging.Debug"
+			Version="10.0.0" />
+
+		<!-- MVVM Toolkit -->
+		<PackageReference
+			Include="CommunityToolkit.Mvvm"
+			Version="8.4.0" />
+
+	</ItemGroup>
+
+
+	<!-- Firebase Android configuration -->
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+
+		<GoogleServicesJson Include="google-services.json" />
+
+		<PackageReference
+			Include="Plugin.Firebase"
+			Version="4.2.1" />
+
+	</ItemGroup>
+
+
+	<!-- Localization -->
+	<ItemGroup>
+
+		<Compile Update="Resources\Localization\AppResources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AppResources.resx</DependentUpon>
+		</Compile>
+
+	</ItemGroup>
+
+
+	<ItemGroup>
+
+		<EmbeddedResource Update="Resources\Localization\AppResources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+
+	</ItemGroup>
+
+
+	<!-- Parent code-behind -->
+	<ItemGroup>
+
+		<Compile Update="Views\Parent\AnnouncementsPage.xaml.cs">
+			<DependentUpon>AnnouncementsPage.xaml</DependentUpon>
+		</Compile>
+
+	</ItemGroup>
+
+
+	<!-- Authentication and Parent XAML -->
+	<ItemGroup>
+
+		<MauiXaml Update="Views\Authentication\ForgotPasswordPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Authentication\LanguagePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Authentication\LoginPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Authentication\OnboardingPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Authentication\RegisterPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Authentication\SplashPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Parent\AcademicInformationPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Parent\HomeworkResourcesPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Parent\MyChildren.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Parent\AnnouncementsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Parent\ParentDashboardPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Parent\ParentProfilePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Parent\SchoolCalendarPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Parent\SchoolFeesPaymentsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Views\Parent\TimetablePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+	</ItemGroup>
+
+
+	<!-- Teacher XAML -->
+	<ItemGroup>
+
+		<MauiXaml Update="Features\Teacher\TeacherShell.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\AboutAppPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\AddAnnouncementPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\AddHomeworkPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\AddLearnerPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\AddSchedulePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\AnnouncementDetailsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\ChangePasswordPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\ClassDetailsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\ClassesPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\HelpSupportPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\HomeworkPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\LanguageSettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\LearnerDetailsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\NotificationSettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\PersonalInformationPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\ProfilePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\ScheduleDetailsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\SchedulePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\TeacherHomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\TeacherSettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\UpdatesPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+	</ItemGroup>
+
+
+	<ItemGroup>
+
+		<Folder Include="Features\Teacher\Controls\" />
+
 	</ItemGroup>
 
 </Project>

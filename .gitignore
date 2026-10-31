@@ -7,6 +7,7 @@
 *.sln.docstates
 *.cache
 *.v2
+*.vsidx
 
 # .NET build output
 bin/
@@ -21,6 +22,14 @@ artifacts/
 packages/
 *.nupkg
 *.snupkg
+
+# Node / API
+node_modules/
+**/node_modules/
+.env
+**/.env
+*firebase-adminsdk*.json
+**/*firebase-adminsdk*.json
 
 # Logs
 *.log
