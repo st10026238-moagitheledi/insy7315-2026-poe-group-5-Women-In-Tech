@@ -1,4 +1,8 @@
+using KoosMatliApp.Localization;
 using KoosMatliApp.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.ApplicationModel.DataTransfer;
+using Microsoft.Maui.Controls;
 
 namespace KoosMatliApp.Views.Admin;
 
@@ -11,7 +15,7 @@ public abstract class SettingsPage : ContentPage
         App.Services!.GetRequiredService<AdminSession>();
 
     protected readonly AdminExtrasClient Client =
-        new(App.Services!.GetRequiredService<HttpClient>());
+        new(App.Services!.GetRequiredService<AdminHttpClient>());
 
     protected readonly VerticalStackLayout Body = new()
     {
@@ -30,6 +34,8 @@ public abstract class SettingsPage : ContentPage
 
     protected SettingsPage(string title)
     {
+        AdminTheme.Apply(this);
+
         Title = L.T(title);
 
         var back = new Button
@@ -66,6 +72,7 @@ public abstract class SettingsPage : ContentPage
 
         _actions.Add(button);
         Body.Add(button);
+
         return button;
     }
 
@@ -112,14 +119,7 @@ public abstract class SettingsPage : ContentPage
 
     protected static void LeaveSession()
     {
-        App.ClearAdminSession();
-
-#if DEBUG
-        if (Application.Current?.Windows.FirstOrDefault() is { } window)
-            window.Page = new KoosMatliApp.Views.AdminTestSignInPage();
-#else
-        App.ShowShell();
-#endif
+        App.ShowLogin();
     }
 }
 
@@ -321,7 +321,8 @@ public sealed class SecuritySettingsPage : SettingsPage
                 return;
 
             using var response =
-                await App.Services!.GetRequiredService<HttpClient>()
+                await App.Services!
+                    .GetRequiredService<AdminHttpClient>()
                     .PostAsync("api/account/password-reset", null);
 
             await AdminApiService.EnsureSuccessAsync(response);

@@ -99,7 +99,7 @@ public class SchoolDetailsViewModel : BaseViewModel
             async () => await AddEventAsync());
 
         BackCommand = new Command(
-            async () => await AppShell.GoBackAsync());
+            async () => await AdminShell.GoBackAsync()
     }
 
     private bool CheckSession()
