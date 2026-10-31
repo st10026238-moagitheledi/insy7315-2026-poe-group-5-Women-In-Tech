@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns:vm="clr-namespace:KoosMatliApp.ViewModels" xmlns:model="clr-namespace:KoosMatliApp.Models" x:DataType="vm:SchoolDatesViewModel" xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="KoosMatliApp.Views.Admin.SchoolDatesPage" Title="{DynamicResource T_87EF078ACE17}">
+<Grid Padding="20" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="12">
+<Label Text="{DynamicResource T_87EF078ACE17}" FontSize="28" FontAttributes="Bold"/>
+<VerticalStackLayout Grid.Row="1"><Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="Red"/>
+<Button Text="{DynamicResource T_DD1BD303896B}" Command="{Binding ShowAddFormCommand}"/></VerticalStackLayout>
+<VerticalStackLayout Grid.Row="2" IsVisible="{Binding IsAddFormVisible}" Spacing="8">
+<Entry Placeholder="{DynamicResource T_7E8CD2056DA7}" Text="{Binding NewTitle}"/><DatePicker Date="{Binding NewDate}"/>
+<Editor Placeholder="{DynamicResource T_526E0087CC3F}" Text="{Binding NewDescription}"/>
+<Button Text="{DynamicResource T_1509F561F241}" Command="{Binding SaveDateCommand}" IsEnabled="{Binding IsNotBusy}"/>
+<Button Text="{DynamicResource T_19766ED6CCB2}" Command="{Binding CancelAddCommand}"/>
+</VerticalStackLayout>
+<RefreshView Grid.Row="3" IsRefreshing="{Binding IsBusy}" Command="{Binding RefreshCommand}">
+<CollectionView ItemsSource="{Binding SchoolDates}" SelectionMode="None">
+<CollectionView.EmptyView><Label Text="{DynamicResource T_75EF12FF6078}"/></CollectionView.EmptyView>
+<CollectionView.ItemTemplate><DataTemplate x:DataType="model:SchoolDate"><VerticalStackLayout Padding="12" Spacing="6">
+<Label Text="{Binding Title}" FontAttributes="Bold"/><Label Text="{Binding Date, StringFormat='{0:D}'}"/>
+<Label Text="{Binding Description}"/></VerticalStackLayout></DataTemplate></CollectionView.ItemTemplate>
+</CollectionView></RefreshView></Grid></ContentPage>

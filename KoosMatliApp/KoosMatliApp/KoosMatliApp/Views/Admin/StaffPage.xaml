@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns:vm="clr-namespace:KoosMatliApp.ViewModels" xmlns:model="clr-namespace:KoosMatliApp.Models" x:DataType="vm:StaffViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.StaffPage"
+    Title="{DynamicResource T_681927E34B77}">
+
+    <Grid Padding="20"
+          RowDefinitions="Auto,Auto,*"
+          RowSpacing="15">
+
+        <VerticalStackLayout>
+            <Label Text="{DynamicResource T_22267A1DB540}"
+                   FontSize="28"
+                   FontAttributes="Bold" />
+            <Label Text="{DynamicResource T_0A73DB6A4002}"
+                   TextColor="Gray" />
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   IsVisible="{Binding HasError}" />
+        </VerticalStackLayout>
+
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,*,*"
+              ColumnSpacing="8">
+
+            <Button Grid.Column="0"
+                    Text="{DynamicResource T_33C512C6EEC1}"
+                    Clicked="Teachers_Clicked" />
+
+            <Button Grid.Column="1"
+                    Text="{DynamicResource T_84637286C5B7}"
+                    Clicked="Classes_Clicked" />
+
+            <Button Grid.Column="2"
+                    Text="{DynamicResource T_1A7529AB14FD}"
+                    Clicked="Subjects_Clicked" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+
+            <CollectionView ItemsSource="{Binding Teachers}"
+                            IsVisible="{Binding ShowTeachers}"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <Label Text="{DynamicResource T_F1CDB4DDB7AE}"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="Center" />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:StaffMember">
+                        <Border Padding="15"
+                                Margin="0,5"
+                                Stroke="#DDDDDD"
+                                StrokeShape="RoundRectangle 10">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="{Binding FullName}"
+                                       FontSize="16"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Position, Converter={StaticResource LocalizeValue}, StringFormat={StaticResource T_4F9AB9096B6C}}" />
+                                <Label Text="{Binding Email}" />
+                                <Label Text="{Binding SubjectsText}"
+                                       TextColor="Gray" />
+                                <Label Text="{Binding ClassesText}"
+                                       TextColor="Gray" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <CollectionView ItemsSource="{Binding Classes}"
+                            IsVisible="{Binding ShowClasses}"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <Label Text="{DynamicResource T_DC2B642B2BC8}"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="Center" />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:SchoolClass">
+                        <Border Padding="15"
+                                Margin="0,5"
+                                Stroke="#DDDDDD"
+                                StrokeShape="RoundRectangle 10">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="{Binding ClassName}"
+                                       FontSize="16"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Grade, StringFormat={StaticResource T_C628585531B7}}" />
+                                <Label Text="{Binding TeacherName, StringFormat={StaticResource T_DC2792F99079}}" />
+                                <Label Text="{Binding LearnerCount, StringFormat={StaticResource T_B74CFDE60DD2}}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <CollectionView ItemsSource="{Binding Subjects}"
+                            IsVisible="{Binding ShowSubjects}"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <Label Text="{DynamicResource T_580C04FF57CD}"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="Center" />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Subject">
+                        <Border Padding="15"
+                                Margin="0,5"
+                                Stroke="#DDDDDD"
+                                StrokeShape="RoundRectangle 10">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="{Binding Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Grade, StringFormat={StaticResource T_C628585531B7}}" />
+                                <Label Text="{Binding TeacherNamesText}"
+       TextColor="Gray" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+    </Grid>
+</ContentPage>
