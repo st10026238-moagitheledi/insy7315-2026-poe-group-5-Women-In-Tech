@@ -3,6 +3,10 @@
 **/.vs/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
+*.cache
+*.v2
 
 # .NET build output
 bin/
@@ -12,6 +16,14 @@ obj/
 
 # Build artifacts
 artifacts/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Logs
+*.log
 
 # OS junk
 Thumbs.db
