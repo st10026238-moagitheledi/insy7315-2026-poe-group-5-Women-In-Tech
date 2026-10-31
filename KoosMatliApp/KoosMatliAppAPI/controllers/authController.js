@@ -2,8 +2,7 @@ const { auth, db } = require("../config/firebase");
 
 const VALID_ROLES = ["parent", "teacher", "admin"];
 
-// POST /api/auth/register-parent
-// Public registration is restricted to parent accounts only.
+
 async function registerParent(req, res) {
     let createdUser = null;
 

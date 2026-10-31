@@ -1,24 +1,10 @@
-const { initializeApp, cert, getApps } = require("firebase-admin/app");
-const { getFirestore } = require("firebase-admin/firestore");
-const { getAuth } = require("firebase-admin/auth");
-const { getStorage } = require("firebase-admin/storage");
+'use strict';
 
-const serviceAccount = require("../koosmatliprimaryschoolsystem-firebase-adminsdk-fbsvc-60df4d9328.json");
-
-const firebaseApp =
-    getApps().length > 0
-        ? getApps()[0]
-        : initializeApp({
-              credential: cert(serviceAccount)
-          });
-
-const db = getFirestore(firebaseApp);
-const auth = getAuth(firebaseApp);
-const storage = getStorage(firebaseApp);
-
-module.exports = {
-    firebaseApp,
-    db,
-    auth,
-    storage
-};
+const { initializeApp, applicationDefault, getApps } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
+const { getAuth } = require('firebase-admin/auth');
+const { getStorage } = require('firebase-admin/storage');
+const { readConfig } = require('./settings');
+const config = readConfig();
+const firebaseApp = getApps()[0] || initializeApp({ projectId: config.projectId, credential: applicationDefault() });
+module.exports = { firebaseApp, db: getFirestore(firebaseApp), auth: getAuth(firebaseApp), storage: getStorage(firebaseApp) };

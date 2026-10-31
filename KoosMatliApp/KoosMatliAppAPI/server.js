@@ -13,11 +13,14 @@ const parentRoutes = require("./routes/parentRoutes");
 const teacherRoutes = require("./routes/teacherRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const schoolDataRoutes = require("./routes/schoolDataRoutes");
+const { createApp: createAdminApp } = require("./config/adminApp");
+const { readConfig } = require("./config/settings");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(helmet());
+app.use(require("./middleware/localization").localization);
 
 const allowedOrigins = process.env.CLIENT_ORIGIN
     ? process.env.CLIENT_ORIGIN.split(",").map((origin) => origin.trim())
@@ -40,7 +43,9 @@ app.use(express.json({ limit: "1mb" }));
 app.get("/", (req, res) => {
     res.status(200).json({
         success: true,
-        message: "Koos Matli Primary School API is running."
+        message: "Koos Matli Primary School API is running.",
+        status: "API running",
+        languages: "/api/localization/languages"
     });
 });
 
@@ -75,6 +80,11 @@ app.use("/api/parent", parentRoutes);
 app.use("/api/teacher", teacherRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/school-data", schoolDataRoutes);
+
+// Admin extension follows existing routes so auth/parent/teacher/school-data
+// handlers keep their existing paths and response contracts.
+const firebase = require('./config/firebase');
+app.use(createAdminApp({ ...firebase, config: readConfig() }));
 
 // Unknown endpoint handler.
 app.use((req, res) => {

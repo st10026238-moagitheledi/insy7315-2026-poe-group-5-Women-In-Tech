@@ -42,9 +42,6 @@ async function getDashboard(req, res) {
     }
 }
 
-// POST /api/admin/users
-// Admins can create teacher or admin accounts.
-// Public users cannot call this endpoint successfully.
 async function createStaffAccount(req, res) {
     let createdUser = null;
 
