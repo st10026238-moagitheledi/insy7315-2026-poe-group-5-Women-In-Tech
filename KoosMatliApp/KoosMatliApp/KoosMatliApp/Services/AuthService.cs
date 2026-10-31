@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Headers;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using KoosMatliApp.Models;
@@ -13,7 +13,7 @@ public class AuthService
 
     // Windows desktop: localhost.
     // Android emulator: use http://10.0.2.2:5000 instead.
-    private const string BaseUrl = "http://localhost:5000";
+    private static string BaseUrl => ApiEndpoint.BaseUrl;
 
     private static readonly JsonSerializerOptions JsonOptions =
         new(JsonSerializerDefaults.Web);
