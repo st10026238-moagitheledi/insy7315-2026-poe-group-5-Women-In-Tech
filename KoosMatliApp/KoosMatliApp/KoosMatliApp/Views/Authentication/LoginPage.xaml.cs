@@ -109,10 +109,10 @@ public partial class LoginPage : ContentPage
 
                 case "admin":
                 case "administrator":
-                    await DisplayAlertAsync(
-                        "Administrator Login",
-                        "You have signed in successfully. The administrator landing page has not been connected yet.",
-                        "OK");
+                    await App.EnterAdminAsync(
+                        response.User.Uid,
+                        response.User.Email,
+                        _ => AuthService.Instance.GetSavedTokenAsync());
 
                     break;
 

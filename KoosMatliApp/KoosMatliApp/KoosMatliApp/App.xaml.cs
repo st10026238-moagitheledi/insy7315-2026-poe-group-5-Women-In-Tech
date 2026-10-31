@@ -63,10 +63,27 @@ public partial class App : Application
 
             await MainThread.InvokeOnMainThreadAsync(ShowShell);
         }
-        catch
+        catch (Exception ex)
         {
+            System.Diagnostics.Debug.WriteLine(
+                $"Opening admin failed: {ex}");
+
             session.Clear();
             settings.Reset();
+
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                ShowLogin();
+
+                if (Current?.Windows.FirstOrDefault()?.Page is { } page)
+                {
+                    await page.DisplayAlertAsync(
+                        "Unable to open administrator dashboard",
+                        ex.Message,
+                        "OK");
+                }
+            });
+
             throw;
         }
     }

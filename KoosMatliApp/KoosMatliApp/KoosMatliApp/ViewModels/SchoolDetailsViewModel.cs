@@ -99,9 +99,8 @@ public class SchoolDetailsViewModel : BaseViewModel
             async () => await AddEventAsync());
 
         BackCommand = new Command(
-            async () => await AdminShell.GoBackAsync()
+        async () => await AdminShell.GoBackAsync());
     }
-
     private bool CheckSession()
     {
         if (_session.IsConnected)
