@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 
@@ -338,4 +338,11 @@
 
 	</ItemGroup>
 
+  <PropertyGroup>
+    <RespectAlreadyAssignedItemCulture>true</RespectAlreadyAssignedItemCulture>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources/Strings/AppStrings.tn-ZA.resx" Culture="tn-ZA" WithCulture="true" LogicalName="KoosMatliApp.Resources.Strings.AppStrings.tn-ZA.resources" />
+    <EmbeddedResource Update="Resources/Strings/AppStrings.nso-ZA.resx" Culture="nso-ZA" WithCulture="true" LogicalName="KoosMatliApp.Resources.Strings.AppStrings.nso-ZA.resources" />
+  </ItemGroup>
 </Project>

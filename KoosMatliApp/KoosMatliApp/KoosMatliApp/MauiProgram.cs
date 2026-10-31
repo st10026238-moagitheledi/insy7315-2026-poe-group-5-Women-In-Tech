@@ -1,4 +1,4 @@
-﻿using KoosMatliApp.Services;
+using KoosMatliApp.Services;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.ApplicationModel;
@@ -61,7 +61,7 @@ namespace KoosMatliApp
             // Shared / Parent Services
 
             builder.Services
-                .AddSingleton<AuthService>();
+                .AddSingleton(AuthService.Instance);
 
             builder.Services
                 .AddSingleton<ParentApiService>();
@@ -131,7 +131,29 @@ namespace KoosMatliApp
 #endif
 
 
-            return builder.Build();
+            builder.Services.AddSingleton(new KoosMatliApp.Services.AppConfiguration());
+            builder.Services.AddSingleton<KoosMatliApp.Services.AdminSession>();
+            builder.Services.AddSingleton<KoosMatliApp.Services.AdminHttpClient>();
+            builder.Services.AddSingleton<KoosMatliApp.Services.IAdminApiService>(sp =>
+                new KoosMatliApp.Services.AdminApiService(sp.GetRequiredService<KoosMatliApp.Services.AdminHttpClient>(), sp.GetRequiredService<KoosMatliApp.Services.AdminSession>()));
+            builder.Services.AddSingleton<KoosMatliApp.Services.SettingsService>(sp =>
+                new KoosMatliApp.Services.SettingsService(sp.GetRequiredService<KoosMatliApp.Services.AdminHttpClient>(),
+                    sp.GetRequiredService<KoosMatliApp.Services.AdminSession>()));
+            builder.Services.AddTransient<KoosMatliApp.ViewModels.AdminDashboardViewModel>();
+            builder.Services.AddTransient<KoosMatliApp.ViewModels.UsersViewModel>();
+            builder.Services.AddTransient<KoosMatliApp.ViewModels.ApplicationsViewModel>();
+            builder.Services.AddTransient<KoosMatliApp.ViewModels.ApplicationsDetailViewModel>();
+            builder.Services.AddTransient<KoosMatliApp.ViewModels.SchoolDetailsViewModel>();
+            builder.Services.AddTransient<KoosMatliApp.ViewModels.SchoolDatesViewModel>();
+            builder.Services.AddTransient<KoosMatliApp.ViewModels.StaffViewModel>();
+            builder.Services.AddTransient<KoosMatliApp.ViewModels.DocumentsViewModel>();
+            builder.Services.AddTransient<KoosMatliApp.ViewModels.ProfileViewModel>();
+
+            var app = builder.Build();
+            App.Services = app.Services;
+            app.Services.GetRequiredService<KoosMatliApp.Services.AdminSession>()
+                .AuthorizationRequired += (_, _) => MainThread.BeginInvokeOnMainThread(App.ShowLogin);
+            return app;
         }
 
 
