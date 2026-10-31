@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.HomeworkPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=Homework}"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="12,10,12,24"
+            Spacing="12">
+
+
+            <!-- Header -->
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Grid
+                    ColumnDefinitions="32,*"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Text="‹"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnBackTapped" />
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Spacing="1"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="{localization:Translate Key=Homework}"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource SunshineGold}" />
+
+                        <Label
+                            Text="{Binding Grade}"
+                            FontSize="9"
+                            TextColor="{StaticResource White}" />
+
+                        <Label
+                            Text="{Binding Subject}"
+                            FontSize="9"
+                            TextColor="{StaticResource White}" />
+
+                    </VerticalStackLayout>
+
+                </Grid>
+
+            </Border>
+
+
+            <Grid
+                ColumnDefinitions="*,Auto"
+                ColumnSpacing="10">
+
+                <VerticalStackLayout Spacing="2">
+
+                    <Label
+                        Text="{localization:Translate Key=ClassHomework}"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Label
+                        Text="{localization:Translate Key=Homework}"
+                        FontSize="9"
+                        TextColor="{StaticResource Gray500}" />
+
+                </VerticalStackLayout>
+
+
+                <Button
+                    Grid.Column="1"
+                    Text="{localization:Translate Key=AddHomework}"
+                    Clicked="OnAddHomeworkClicked"
+                    BackgroundColor="{StaticResource SunshineGold}"
+                    TextColor="{StaticResource PrimaryBlue}"
+                    FontAttributes="Bold"
+                    FontSize="9"
+                    HeightRequest="38"
+                    CornerRadius="8"
+                    Padding="10,0" />
+
+            </Grid>
+
+
+            <Border
+                BackgroundColor="{StaticResource GrowthGreenSoft}"
+                Stroke="{StaticResource GrowthGreen}"
+                StrokeThickness="1"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+
+                <Label
+                    Text="{localization:Translate Key=ClassHomework}"
+                    FontSize="9"
+                    TextColor="{StaticResource PrimaryBlue}" />
+
+            </Border>
+
+
+            <!-- Homework List -->
+
+            <VerticalStackLayout
+                Spacing="8"
+                BindableLayout.ItemsSource="{Binding Homework}">
+
+                <BindableLayout.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Border
+                            BackgroundColor="{StaticResource White}"
+                            Stroke="{StaticResource Gray200}"
+                            StrokeThickness="1"
+                            Padding="12">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="8">
+
+                                <Grid
+                                    ColumnDefinitions="40,*,Auto"
+                                    ColumnSpacing="10">
+
+                                    <Border
+                                        WidthRequest="38"
+                                        HeightRequest="38"
+                                        BackgroundColor="{StaticResource GrowthGreenSoft}"
+                                        StrokeThickness="0">
+
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="8" />
+                                        </Border.StrokeShape>
+
+                                        <Label
+                                            Text="H"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource GrowthGreen}"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+
+                                    </Border>
+
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="3">
+
+                                        <Label
+                                            Text="{Binding Title}"
+                                            FontSize="11"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryBlue}" />
+
+                                        <Label
+                                            Text="{Binding DueDate}"
+                                            FontSize="9"
+                                            TextColor="{StaticResource Gray500}" />
+
+                                    </VerticalStackLayout>
+
+
+                                    <Border
+                                        Grid.Column="2"
+                                        BackgroundColor="{StaticResource SkyBlue}"
+                                        StrokeThickness="0"
+                                        Padding="8,4"
+                                        VerticalOptions="Center">
+
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="8" />
+                                        </Border.StrokeShape>
+
+                                        <Label
+                                            Text="{Binding Status}"
+                                            FontSize="8"
+                                            TextColor="{StaticResource PrimaryBlue}" />
+
+                                    </Border>
+
+                                </Grid>
+
+
+                                <Label
+                                    Text="{Binding Description}"
+                                    FontSize="9"
+                                    TextColor="{StaticResource Charcoal}"
+                                    LineBreakMode="WordWrap" />
+
+
+                                <Grid
+                                    ColumnDefinitions="*,Auto"
+                                    ColumnSpacing="8">
+
+                                    <Grid.Triggers>
+
+                                        <DataTrigger
+                                            TargetType="Grid"
+                                            Binding="{Binding AttachmentName}"
+                                            Value="">
+
+                                            <Setter
+                                                Property="IsVisible"
+                                                Value="False" />
+
+                                        </DataTrigger>
+
+                                    </Grid.Triggers>
+
+
+                                    <VerticalStackLayout
+                                        Grid.Column="0"
+                                        Spacing="2"
+                                        VerticalOptions="Center">
+
+                                        <Label
+                                            Text="{localization:Translate Key=Attachment}"
+                                            FontSize="8"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource Gray500}" />
+
+                                        <Label
+                                           Text="{Binding AttachmentName}"
+                                           FontSize="8"
+                                           TextColor="{StaticResource PrimaryBlue}"
+                                           LineBreakMode="TailTruncation" />
+
+                                    </VerticalStackLayout>
+
+
+                                    <Button
+                                          Grid.Column="1"
+                                          Text="{localization:Translate Key=Open}"
+                                          CommandParameter="{Binding AttachmentPath}"
+                                          Clicked="OnOpenAttachmentClicked"
+                                          BackgroundColor="{StaticResource PrimaryBlue}"
+                                          TextColor="{StaticResource White}"
+                                          FontSize="8"
+                                          HeightRequest="34"
+                                          CornerRadius="8"
+                                          Padding="12,0"
+                                          VerticalOptions="Center">
+
+                                        <Button.Triggers>
+
+                                            <DataTrigger
+                                                TargetType="Button"
+                                                Binding="{Binding AttachmentPath}"
+                                                Value="">
+
+                                                <Setter
+                                                    Property="IsVisible"
+                                                    Value="False" />
+
+                                            </DataTrigger>
+
+                                        </Button.Triggers>
+
+                                    </Button>
+
+                                </Grid>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </BindableLayout.ItemTemplate>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

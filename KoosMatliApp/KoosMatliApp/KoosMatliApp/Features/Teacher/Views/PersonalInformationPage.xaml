@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.PersonalInformationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    
+    Title="Personal Information"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="12,10,12,24"
+            Spacing="14">
+
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Grid ColumnDefinitions="32,*">
+
+                    <Label
+                        Text="‹"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}">
+
+                        <Label.GestureRecognizers>
+
+                            <TapGestureRecognizer
+                                Tapped="OnBackTapped" />
+
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+                    <Label
+                        Grid.Column="1"
+                        Text="{localization:Translate Key=PersonalInformation}"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+            </Border>
+
+
+            <Border
+                BackgroundColor="{StaticResource CardSurface}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+
+
+                <VerticalStackLayout Spacing="12">
+
+                    <Label
+                        Text="{localization:Translate Key=FirstName}"
+                        FontSize="9"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Entry
+                        Text="{Binding FirstName}" />
+
+
+                    <Label
+                        Text="{localization:Translate Key=LastName}"
+                        FontSize="9"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Entry
+                        Text="{Binding LastName}" />
+
+
+                    <Label
+                        Text="{localization:Translate Key=EmailAddress}"
+                        FontSize="9"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Entry
+                        Text="{Binding Email}"
+                        Keyboard="Email" />
+
+
+                    <Label
+                        Text="{localization:Translate Key=PhoneNumber}"
+                        FontSize="9"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Entry
+                        Text="{Binding PhoneNumber}"
+                        Keyboard="Telephone" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Label
+                Text="{localization:Translate Key=SchoolInformation}"
+                FontSize="14"
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryBlue}" />
+
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlueSoft}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="6">
+
+                    <Label
+                        Text="{Binding EmployeeNumber, StringFormat='Employee Number: {0}'}"
+                        FontSize="10"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Label
+                        Text="{Binding Position, StringFormat='Position: {0}'}"
+                        FontSize="10"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Label
+                        Text="{Binding Department, StringFormat='Department: {0}'}"
+                        FontSize="10"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Button
+                Text="{localization:Translate Key=SaveChanges}"
+                Clicked="OnSaveChangesClicked"
+                BackgroundColor="{StaticResource SunshineGold}"
+                TextColor="{StaticResource PrimaryBlue}"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                CornerRadius="8" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

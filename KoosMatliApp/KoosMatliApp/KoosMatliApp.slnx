@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="KoosMatliApp/KoosMatliApp.csproj" />
+  <Project Path="KoosMatliApp/KoosMatliApp.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>
