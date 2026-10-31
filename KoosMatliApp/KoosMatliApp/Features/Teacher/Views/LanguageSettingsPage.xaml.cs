@@ -16,7 +16,7 @@ public partial class LanguageSettingsPage : ContentPage
 
         BindingContext =
             _viewModel;
-    }
+    } // (Microsoft, 2026)
 
 
     protected override void OnAppearing()
@@ -33,7 +33,7 @@ public partial class LanguageSettingsPage : ContentPage
     {
         await Shell.Current.GoToAsync("..");
     }
-
+    // (Microsoft, 2026)
 
     private async void OnSaveLanguageClicked(
         object sender,
@@ -48,3 +48,7 @@ public partial class LanguageSettingsPage : ContentPage
             "OK");
     }
 }
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
 using KoosMatliApp.Features.Teacher.Models;
 using KoosMatliApp.Features.Teacher.Services;
 
@@ -8,13 +9,18 @@ namespace KoosMatliApp.Features.Teacher.ViewModels;
 
 public class ClassesViewModel : ObservableObject
 {
+    private readonly TeacherApiService
+        _teacherApiService;
 
 
-    public ObservableCollection<TeacherClassItem> MyClasses { get; }
+    public ObservableCollection<TeacherClassItem>
+        MyClasses
+    { get; } = new(); // (Microsoft, 2026)
 
-    public ObservableCollection<TeacherClassItem> AllClasses { get; }
 
-
+    public ObservableCollection<TeacherClassItem>
+        AllClasses
+    { get; } = new();
 
 
     private bool _isMyClassesSelected = true;
@@ -23,157 +29,329 @@ public class ClassesViewModel : ObservableObject
     {
         get => _isMyClassesSelected;
 
-        set => SetProperty(ref _isMyClassesSelected, value);
+        set => SetProperty(
+            ref _isMyClassesSelected,
+            value); // (Microsoft, 2026)
     }
 
 
-    private bool _isAllClassesSelected = false;
+    private bool _isAllClassesSelected;
 
     public bool IsAllClassesSelected
     {
         get => _isAllClassesSelected;
 
-        set => SetProperty(ref _isAllClassesSelected, value);
+        set => SetProperty(
+            ref _isAllClassesSelected,
+            value);
     }
 
 
+    private bool _isLoading;
 
-
-    public IRelayCommand ShowMyClassesCommand { get; }
-
-    public IRelayCommand ShowAllClassesCommand { get; }
-
-
-
-    public ClassesViewModel()
+    public bool IsLoading
     {
+        get => _isLoading;
 
-        MyClasses = new ObservableCollection<TeacherClassItem>
-        {
-            new TeacherClassItem
-            {
-                Grade = "Grade 5A",
-                LearnerCount = 32,
-                Subject = "Mathematics",
-                Schedule = "Mon, Wed, Fri  |  08:00 - 08:45"
-            },
-
-            new TeacherClassItem
-            {
-                Grade = "Grade 4B",
-                LearnerCount = 28,
-                Subject = "Life Skills",
-                Schedule = "Mon, Wed  |  09:00 - 09:45"
-            },
-
-            new TeacherClassItem
-            {
-                Grade = "Grade 6A",
-                LearnerCount = 30,
-                Subject = "Natural Science",
-                Schedule = "Tue, Thu  |  10:00 - 10:45"
-            },
-
-            new TeacherClassItem
-            {
-                Grade = "Grade 3C",
-                LearnerCount = 26,
-                Subject = "English Home Language",
-                Schedule = "Tue, Thu  |  12:00 - 12:45"
-            }
-        };
+        set => SetProperty(
+            ref _isLoading,
+            value);
+    } // (Microsoft, 2026)
 
 
-        AllClasses = new ObservableCollection<TeacherClassItem>
-        {
-            new TeacherClassItem
-            {
-                Grade = "Grade 5A",
-                LearnerCount = 32,
-                Subject = "Mathematics",
-                Schedule = "Mon, Wed, Fri  |  08:00 - 08:45"
-            },
+    private string _errorMessage =
+        string.Empty;
 
-            new TeacherClassItem
-            {
-                Grade = "Grade 4B",
-                LearnerCount = 28,
-                Subject = "Life Skills",
-                Schedule = "Mon, Wed  |  09:00 - 09:45"
-            },
+    public string ErrorMessage
+    {
+        get => _errorMessage;
 
-            new TeacherClassItem
-            {
-                Grade = "Grade 6A",
-                LearnerCount = 30,
-                Subject = "Natural Science",
-                Schedule = "Tue, Thu  |  10:00 - 10:45"
-            },
+        set => SetProperty(
+            ref _errorMessage,
+            value);
+    }
 
-            new TeacherClassItem
-            {
-                Grade = "Grade 3C",
-                LearnerCount = 26,
-                Subject = "English Home Language",
-                Schedule = "Tue, Thu  |  12:00 - 12:45"
-            },
 
-            new TeacherClassItem
-            {
-                Grade = "Grade 7A",
-                LearnerCount = 31,
-                Subject = "Mathematics",
-                Schedule = "Mon, Tue  |  13:00 - 13:45"
-            },
+    public IRelayCommand
+        ShowMyClassesCommand
+    { get; } // (Microsoft, 2026)
 
-            new TeacherClassItem
-            {
-                Grade = "Grade 2B",
-                LearnerCount = 25,
-                Subject = "Life Skills",
-                Schedule = "Wed, Fri  |  11:00 - 11:45"
-            }
-        };
+
+    public IRelayCommand
+        ShowAllClassesCommand
+    { get; }
+
+
+    public ClassesViewModel(
+        TeacherApiService teacherApiService)
+    {
+        _teacherApiService =
+            teacherApiService;
 
 
         ShowMyClassesCommand =
-            new RelayCommand(ShowMyClasses);
+            new RelayCommand(
+                ShowMyClasses);
+
 
         ShowAllClassesCommand =
-            new RelayCommand(ShowAllClasses);
-    }
+            new RelayCommand(
+                ShowAllClasses);
+    } // (Microsoft, 2026)
 
 
     private void ShowMyClasses()
     {
-        IsMyClassesSelected = true;
-        IsAllClassesSelected = false;
+        IsMyClassesSelected =
+            true;
+
+        IsAllClassesSelected =
+            false;
     }
+
 
     private void ShowAllClasses()
     {
-        IsMyClassesSelected = false;
-        IsAllClassesSelected = true;
+        IsMyClassesSelected =
+            false;
+
+        IsAllClassesSelected =
+            true;
     }
 
-    public void RefreshLearnerCounts()
+
+    public async Task<bool>
+        RefreshClassesAsync()
     {
-        foreach (var classItem in MyClasses)
+        if (IsLoading)
         {
-            classItem.LearnerCount =
-                LearnerService.GetLearnerCount(
-                    classItem.Grade,
-                    classItem.Subject);
+            return false;
+        } // (Microsoft, 2026)
+
+
+        try
+        {
+            IsLoading =
+                true;
+
+            ErrorMessage =
+                string.Empty;
+
+
+            var classesResponse =
+                await _teacherApiService
+                    .GetClassesAsync();
+
+
+            if (classesResponse == null ||
+                !classesResponse.Success)
+            {
+                ErrorMessage =
+                    "Unable to load classes.";
+
+                return false;
+            }
+
+            var learnersResponse =
+                await _teacherApiService
+                    .GetLearnersAsync();
+
+
+            var learners =
+                learnersResponse?.Learners ??
+                new List
+                    <TeacherLearnerApiModel>(); // (Microsoft, 2026)
+
+
+            MyClasses.Clear();
+
+            AllClasses.Clear();
+
+
+            foreach (
+                var classItem
+                in classesResponse.MyClasses)
+            {
+                MyClasses.Add(
+                    ConvertClass(
+                        classItem,
+                        learners));
+            }
+
+
+            foreach (
+                var classItem
+                in classesResponse.AllClasses)
+            {
+                AllClasses.Add(
+                    ConvertClass(
+                        classItem,
+                        learners));
+            } // (Microsoft, 2026)
+
+
+            return true;
         }
-
-
-        foreach (var classItem in AllClasses)
+        catch (Exception ex)
         {
-            classItem.LearnerCount =
-                LearnerService.GetLearnerCount(
-                    classItem.Grade,
-                    classItem.Subject);
+            ErrorMessage =
+                ex.Message;
+
+            return false;
+        }
+        finally
+        {
+            IsLoading =
+                false;
         }
     }
 
+
+    private static TeacherClassItem
+        ConvertClass(
+            TeacherClassApiModel apiClass,
+            IEnumerable
+                <TeacherLearnerApiModel>
+                learners)
+    {
+        var className =
+            FirstAvailable(
+                apiClass.ClassName,
+                apiClass.Grade,
+                apiClass.Name,
+                apiClass.Code,
+                apiClass.Id,
+                "Class"); // (Microsoft, 2026)
+
+
+        var subject =
+            FirstAvailable(
+                apiClass.Subject,
+                GetDifferentValue(
+                    apiClass.Name,
+                    className),
+                GetDifferentValue(
+                    apiClass.Code,
+                    className),
+                "Class");
+
+
+        var schedule =
+            FirstAvailable(
+                apiClass.Schedule,
+                string.Empty);
+
+
+        var identifiers =
+            new[]
+            {
+                apiClass.Id,
+                apiClass.ClassId,
+                apiClass.ClassName,
+                apiClass.Grade,
+                apiClass.Name,
+                apiClass.Code
+            }
+            .Where(value =>
+                !string.IsNullOrWhiteSpace(
+                    value))
+            .Select(value =>
+                value.Trim()
+                    .ToLowerInvariant())
+            .Distinct()
+            .ToList(); // (Microsoft, 2026)
+
+
+        var actualLearnerCount =
+            learners.Count(
+                learner =>
+                {
+                    var learnerClass =
+                        learner.ClassName?
+                            .Trim()
+                            .ToLowerInvariant();
+
+
+                    return
+                        !string.IsNullOrWhiteSpace(
+                            learnerClass)
+                        &&
+                        identifiers.Contains(
+                            learnerClass);
+                });
+
+
+        var learnerCount =
+            actualLearnerCount > 0
+                ? actualLearnerCount
+                : apiClass.LearnerCount ?? 0;
+
+
+        return new TeacherClassItem
+        {
+            Id =
+                apiClass.Id,
+
+            Grade =
+                className,
+
+            Subject =
+                subject,
+
+            Schedule =
+                schedule,
+
+            LearnerCount =
+                learnerCount // (Microsoft, 2026)
+        };
+    }
+
+
+    private static string
+        GetDifferentValue(
+            string value,
+            string comparison)
+    {
+        if (string.IsNullOrWhiteSpace(
+                value))
+        {
+            return string.Empty;
+        }
+
+
+        if (string.Equals(
+                value.Trim(),
+                comparison.Trim(),
+                StringComparison
+                    .OrdinalIgnoreCase))
+        {
+            return string.Empty;
+        }
+
+
+        return value.Trim();
+    } // (Microsoft, 2026)
+
+
+    private static string
+        FirstAvailable(
+            params string[] values)
+    {
+        foreach (var value in values)
+        {
+            if (!string.IsNullOrWhiteSpace(
+                    value))
+            {
+                return value.Trim();
+            }
+        }
+
+
+        return string.Empty;
+    } // (Microsoft, 2026)
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

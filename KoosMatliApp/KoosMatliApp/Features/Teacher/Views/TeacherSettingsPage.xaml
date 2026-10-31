@@ -184,7 +184,7 @@
                         TextColor="{StaticResource PrimaryBlue}" />
 
                     <Label
-                        Text="Language switching will be fully connected in the next commit."
+                        Text="Choose the language used throughout the app."
                         FontSize="8"
                         TextColor="{StaticResource Gray500}" />
 

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.LifecycleEvents;
+
 using KoosMatliApp.Features.Teacher.Services;
+using KoosMatliApp.Features.Teacher.ViewModels;
 
 #if ANDROID
 using Plugin.Firebase.Auth;
@@ -31,16 +33,88 @@ namespace KoosMatliApp
                     fonts.AddFont(
                         "OpenSans-Semibold.ttf",
                         "OpenSansSemibold");
-                });
+                }); // (Microsoft, 2026)
 
+
+            // Firebase
 
             builder.RegisterFirebaseServices();
 
-            builder.Services.AddSingleton<FirebaseAuthService>();
+
+            // API Connection
+
+            builder.Services.AddSingleton(
+                new HttpClient
+                {
+                    BaseAddress =
+                        new Uri(
+                            ApiSettings.BaseUrl),
+
+                    Timeout =
+                        TimeSpan.FromSeconds(30)
+                });
+
+
+            builder.Services
+                .AddSingleton<TeacherApiService>();
+
+
+            builder.Services
+                .AddSingleton<FirebaseAuthService>();
+
+
+            // Teacher View Models
+
+            builder.Services
+                .AddTransient<ProfileHubViewModel>();
+
+            builder.Services
+                .AddTransient<PersonalInformationViewModel>();
+
+            builder.Services
+                .AddTransient<ClassesViewModel>();
+
+            builder.Services
+                .AddTransient<ClassDetailsViewModel>();
+
+            builder.Services
+                .AddTransient<AddLearnerViewModel>();
+
+            builder.Services
+                .AddTransient<LearnerDetailsViewModel>();
+
+            builder.Services
+                .AddTransient<UpdatesViewModel>();
+
+            builder.Services
+                .AddTransient<AddAnnouncementViewModel>(); // (Microsoft, 2026)
+
+            builder.Services
+                .AddTransient<AnnouncementDetailsViewModel>();
+
+            builder.Services
+                .AddTransient<TeacherHomeViewModel>();
+
+            builder.Services
+                .AddTransient<HomeworkViewModel>();
+
+            builder.Services
+                .AddTransient<AddHomeworkViewModel>();
+
+            builder.Services
+                .AddTransient<ScheduleViewModel>();
+
+            builder.Services
+                .AddTransient<AddScheduleViewModel>();
+
+            builder.Services
+                .AddTransient<ScheduleDetailsViewModel>();
 
 
 #if DEBUG
+
             builder.Logging.AddDebug();
+
 #endif
 
 
@@ -48,8 +122,9 @@ namespace KoosMatliApp
         }
 
 
-        private static MauiAppBuilder RegisterFirebaseServices(
-            this MauiAppBuilder builder)
+        private static MauiAppBuilder
+            RegisterFirebaseServices(
+                this MauiAppBuilder builder)
         {
 #if ANDROID
 
@@ -64,28 +139,37 @@ namespace KoosMatliApp
                                     var settings =
                                         new CrossFirebaseSettings(
                                             isAuthEnabled: true,
-                                            isFirestoreEnabled: true,
+                                            isFirestoreEnabled: true, // (Microsoft, 2026)
                                             isStorageEnabled: false);
 
 
                                     CrossFirebase.Initialize(
                                         activity,
-                                        () => Platform.CurrentActivity,
+                                        () =>
+                                            Platform
+                                                .CurrentActivity,
                                         settings);
                                 }));
                 });
 
 
             builder.Services.AddSingleton(
-                _ => CrossFirebaseAuth.Current);
+                _ =>
+                    CrossFirebaseAuth.Current);
 
 
             builder.Services.AddSingleton(
-                _ => CrossFirebaseFirestore.Current);
+                _ =>
+                    CrossFirebaseFirestore.Current);
 
 #endif
 
-            return builder;
+             
+            return builder; // (Microsoft, 2026)
         }
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

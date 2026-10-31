@@ -18,7 +18,7 @@ public partial class TeacherSettingsPage : ContentPage
 
         BindingContext =
             _viewModel;
-    }
+    } // (Microsoft, 2026)
 
 
     protected override void OnAppearing()
@@ -50,5 +50,9 @@ public partial class TeacherSettingsPage : ContentPage
             "Settings",
             "Your settings have been saved.",
             "OK");
-    }
+    } // (Microsoft, 2026)
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

@@ -4,16 +4,19 @@ namespace KoosMatliApp.Features.Teacher.Models;
 
 public class LearnerItem : ObservableObject
 {
-    private string _fullName =
-        string.Empty;
+    public string Id { get; set; } = string.Empty;
+
+
+    private string _fullName = string.Empty;
 
     public string FullName
     {
         get => _fullName;
+
         set => SetProperty(
             ref _fullName,
             value);
-    }
+    } // (Microsoft, 2026)
 
 
     private string _studentNumber =
@@ -22,6 +25,7 @@ public class LearnerItem : ObservableObject
     public string StudentNumber
     {
         get => _studentNumber;
+
         set => SetProperty(
             ref _studentNumber,
             value);
@@ -29,7 +33,7 @@ public class LearnerItem : ObservableObject
 
 
     private string _attendanceStatus =
-        "Not Marked";
+        string.Empty;
 
     public string AttendanceStatus
     {
@@ -38,5 +42,9 @@ public class LearnerItem : ObservableObject
         set => SetProperty(
             ref _attendanceStatus,
             value);
-    }
+    } // (Microsoft, 2026)
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

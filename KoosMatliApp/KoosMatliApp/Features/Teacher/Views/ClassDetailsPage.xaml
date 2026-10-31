@@ -849,11 +849,6 @@
                         <RoundRectangle CornerRadius="8" />
                     </Border.StrokeShape>
 
-                    <Label
-                        Text="Tap Open to view information about a resource. Actual files will be connected through Firebase later."
-                        FontSize="9"
-                        TextColor="{StaticResource PrimaryBlue}" />
-
                 </Border>
 
 

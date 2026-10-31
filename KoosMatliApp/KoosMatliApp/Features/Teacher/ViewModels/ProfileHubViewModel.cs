@@ -5,33 +5,51 @@ namespace KoosMatliApp.Features.Teacher.ViewModels;
 
 public class ProfileHubViewModel : ObservableObject
 {
-    private string _fullName = string.Empty;
+    private readonly TeacherApiService
+        _teacherApiService;
+
+
+    public ProfileHubViewModel(
+        TeacherApiService teacherApiService)
+    {
+        _teacherApiService =
+            teacherApiService; // (Microsoft, 2026)
+    }
+
+
+    private string _fullName =
+        string.Empty;
 
     public string FullName
     {
         get => _fullName;
+
         set => SetProperty(
             ref _fullName,
             value);
     }
 
 
-    private string _initials = string.Empty;
+    private string _initials =
+        string.Empty;
 
     public string Initials
     {
         get => _initials;
+
         set => SetProperty(
             ref _initials,
-            value);
+            value); // (Microsoft, 2026)
     }
 
 
-    private string _position = string.Empty;
+    private string _position =
+        string.Empty;
 
     public string Position
     {
         get => _position;
+
         set => SetProperty(
             ref _position,
             value);
@@ -44,39 +62,174 @@ public class ProfileHubViewModel : ObservableObject
     public string EmployeeNumber
     {
         get => _employeeNumber;
+
         set => SetProperty(
             ref _employeeNumber,
+            value);
+    } // (Microsoft, 2026)
+
+
+    private string _errorMessage =
+        string.Empty;
+
+    public string ErrorMessage
+    {
+        get => _errorMessage;
+
+        set => SetProperty(
+            ref _errorMessage,
             value);
     }
 
 
-    public void RefreshProfile()
+    private bool _isLoading;
+
+    public bool IsLoading
     {
-        var profile = TeacherProfileService.GetProfile();
+        get => _isLoading;
+
+        set => SetProperty(
+            ref _isLoading,
+            value);
+    }
 
 
-        FullName =
-            $"{profile.FirstName} {profile.LastName}".Trim();
+    public async Task<bool> RefreshProfileAsync()
+    {
+        if (IsLoading)
+        {
+            return false;
+        } // (Microsoft, 2026)
+
+
+        try
+        {
+            IsLoading = true;
+
+            ErrorMessage =
+                string.Empty;
+
+
+            var response =
+                await _teacherApiService
+                    .GetProfileAsync();
+
+
+            if (response == null ||
+                !response.Success ||
+                response.Profile == null)
+            {
+                ErrorMessage =
+                    "Unable to load the teacher profile.";
+
+                return false;
+            }
+
+
+            var profile =
+                response.Profile;
+
+
+            FullName =
+                string.IsNullOrWhiteSpace(
+                    profile.DisplayName)
+                    ? "Teacher"
+                    : profile.DisplayName.Trim();
+
+
+            Initials =
+                CreateInitials(
+                    FullName); // (Microsoft, 2026)
+
+
+            Position =
+                string.Equals(
+                    profile.Role,
+                    "teacher",
+                    StringComparison.OrdinalIgnoreCase)
+                    ? "Teacher"
+                    : profile.Role;
+
+
+            if (string.IsNullOrWhiteSpace(
+                    Position))
+            {
+                Position =
+                    "Teacher";
+            }
+
+
+            EmployeeNumber =
+                string.IsNullOrWhiteSpace(
+                    profile.StaffId)
+                    ? "Not assigned"
+                    : profile.StaffId;
+
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage =
+                ex.Message;
+
+            return false;
+        }
+        finally
+        {
+            IsLoading = // (Microsoft, 2026)
+                false;
+        }
+    }
+
+
+    private static string CreateInitials(
+        string fullName)
+    {
+        if (string.IsNullOrWhiteSpace(
+                fullName))
+        {
+            return "T";
+        }
+
+
+        var names =
+            fullName.Split(
+                ' ',
+                StringSplitOptions
+                    .RemoveEmptyEntries);
+
+
+        if (names.Length == 0)
+        {
+            return "T";
+        }
+
+
+        if (names.Length == 1)
+        {
+            return names[0][..1]
+                .ToUpperInvariant(); // (Microsoft, 2026)
+        }
 
 
         var firstInitial =
-            string.IsNullOrWhiteSpace(profile.FirstName)
-                ? string.Empty
-                : profile.FirstName[..1].ToUpper();
+            names[0][..1]
+                .ToUpperInvariant();
 
 
         var lastInitial =
-            string.IsNullOrWhiteSpace(profile.LastName)
-                ? string.Empty
-                : profile.LastName[..1].ToUpper();
+            names[^1][..1]
+                .ToUpperInvariant();
 
 
-        Initials = $"{firstInitial}{lastInitial}";
-
-
-        Position = profile.Position;
-
-
-        EmployeeNumber = profile.EmployeeNumber;
+        return
+            $"{firstInitial}{lastInitial}"; // (Microsoft, 2026)
     }
 }
+
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

@@ -1,13 +1,26 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using KoosMatliApp.Features.Teacher.Models;
 using KoosMatliApp.Features.Teacher.Services;
 
 namespace KoosMatliApp.Features.Teacher.ViewModels;
 
 public class AddScheduleViewModel : ObservableObject
 {
-    public ObservableCollection<string> EventTypeOptions { get; } =
+    private readonly TeacherApiService
+        _teacherApiService;
+
+
+    public AddScheduleViewModel(
+        TeacherApiService teacherApiService)
+    {
+        _teacherApiService =
+            teacherApiService;
+    } // (Microsoft, 2026)
+
+
+    public ObservableCollection<string>
+        EventTypeOptions
+    { get; } =
         new()
         {
             "Class",
@@ -17,7 +30,9 @@ public class AddScheduleViewModel : ObservableObject
         };
 
 
-    public ObservableCollection<string> GradeOptions { get; } =
+    public ObservableCollection<string>
+        GradeOptions
+    { get; } =
         new()
         {
             "Grade 2B",
@@ -29,35 +44,44 @@ public class AddScheduleViewModel : ObservableObject
         };
 
 
-    public ObservableCollection<string> SubjectOptions { get; } =
+    public ObservableCollection<string>
+        SubjectOptions
+    { get; } =
         new()
         {
             "Mathematics",
             "Life Skills",
             "Natural Science",
             "English Home Language"
-        };
+        }; // (Microsoft, 2026)
 
 
-    private string _title = string.Empty;
+    private string _title =
+        string.Empty;
 
     public string Title
     {
         get => _title;
-        set => SetProperty(ref _title, value);
+        set => SetProperty(
+            ref _title,
+            value);
     }
 
 
-    private string _description = string.Empty;
+    private string _description =
+        string.Empty;
 
     public string Description
     {
         get => _description;
-        set => SetProperty(ref _description, value);
+        set => SetProperty(
+            ref _description,
+            value);
     }
 
 
-    private string _eventType = "Class";
+    private string _eventType =
+        "Class";
 
     public string EventType
     {
@@ -65,11 +89,14 @@ public class AddScheduleViewModel : ObservableObject
 
         set
         {
-            if (SetProperty(ref _eventType, value))
+            if (SetProperty(
+                    ref _eventType,
+                    value))
             {
-                OnPropertyChanged(nameof(IsClass));
+                OnPropertyChanged(
+                    nameof(IsClass));
             }
-        }
+        } // (Microsoft, 2026)
     }
 
 
@@ -83,7 +110,9 @@ public class AddScheduleViewModel : ObservableObject
     public DateTime Date
     {
         get => _date;
-        set => SetProperty(ref _date, value);
+        set => SetProperty(
+            ref _date,
+            value);
     }
 
 
@@ -93,7 +122,9 @@ public class AddScheduleViewModel : ObservableObject
     public TimeSpan StartTime
     {
         get => _startTime;
-        set => SetProperty(ref _startTime, value);
+        set => SetProperty(
+            ref _startTime,
+            value);
     }
 
 
@@ -103,69 +134,102 @@ public class AddScheduleViewModel : ObservableObject
     public TimeSpan EndTime
     {
         get => _endTime;
-        set => SetProperty(ref _endTime, value);
+        set => SetProperty(
+            ref _endTime,
+            value);
     }
 
 
-    private string _grade = "Grade 5A";
+    private string _grade =
+        "Grade 5A";
 
     public string Grade
     {
         get => _grade;
-        set => SetProperty(ref _grade, value);
+        set => SetProperty(
+            ref _grade,
+            value);
     }
 
 
-    private string _subject = "Mathematics";
+    private string _subject =
+        "Mathematics";
 
     public string Subject
     {
         get => _subject;
-        set => SetProperty(ref _subject, value);
-    }
+        set => SetProperty(
+            ref _subject,
+            value);
+    } // (Microsoft, 2026)
 
 
-    private string _location = string.Empty;
+    private string _location =
+        string.Empty;
 
     public string Location
     {
         get => _location;
-        set => SetProperty(ref _location, value);
+        set => SetProperty(
+            ref _location,
+            value);
     }
 
 
-    public void SaveScheduleItem()
+    public string ErrorMessage { get; private set; } =
+        string.Empty;
+
+
+    public async Task<bool> SaveScheduleItemAsync()
     {
-        var item =
-            new TeacherScheduleItem
+        try
+        {
+            ErrorMessage =
+                string.Empty;
+
+
+            var response =
+                await _teacherApiService
+                    .CreateScheduleItemAsync(
+                        Title.Trim(),
+                        Description.Trim(),
+                        EventType,
+                        Date,
+                        StartTime,
+                        EndTime,
+                        IsClass
+                            ? Grade
+                            : string.Empty,
+                        IsClass
+                            ? Subject
+                            : string.Empty,
+                        Location.Trim());
+
+
+            if (response == null ||
+                !response.Success)
             {
-                Title = Title.Trim(),
+                ErrorMessage =
+                    response?.Message ??
+                    "Unable to add schedule item.";
 
-                Description = Description.Trim(),
-
-                EventType = EventType,
-
-                Date = Date,
-
-                StartTime = StartTime,
-
-                EndTime = EndTime,
-
-                Grade =
-                    IsClass
-                        ? Grade
-                        : string.Empty,
-
-                Subject =
-                    IsClass
-                        ? Subject
-                        : string.Empty,
-
-                Location = Location.Trim()
-            };
+                return false;
+            } // (Microsoft, 2026)
 
 
-        ScheduleService.AddScheduleItem(
-            item);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage =
+                ex.Message;
+
+            return false;
+        } // (Microsoft, 2026)
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

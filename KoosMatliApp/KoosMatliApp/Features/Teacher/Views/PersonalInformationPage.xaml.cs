@@ -1,29 +1,90 @@
+using Microsoft.Extensions.DependencyInjection;
 using KoosMatliApp.Features.Teacher.ViewModels;
 
 namespace KoosMatliApp.Features.Teacher.Views;
 
 public partial class PersonalInformationPage : ContentPage
 {
-    private readonly PersonalInformationViewModel _viewModel;
+    private PersonalInformationViewModel?
+        _viewModel;
 
 
     public PersonalInformationPage()
     {
         InitializeComponent();
 
+
+        HandlerChanged +=
+            OnHandlerChanged;
+    }
+
+
+    private void OnHandlerChanged(
+        object? sender,
+        EventArgs e)
+    {
+        ResolveViewModel();
+    } // (Microsoft, 2026)
+
+
+    private void ResolveViewModel()
+    {
+        if (_viewModel != null)
+        {
+            return;
+        }
+
+
+        var services =
+            Handler?
+                .MauiContext?
+                .Services;
+
+
+        if (services == null)
+        {
+            return;
+        }
+
+
         _viewModel =
-            new PersonalInformationViewModel();
+            services.GetRequiredService
+                <PersonalInformationViewModel>();
+
 
         BindingContext =
             _viewModel;
     }
 
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        _viewModel.LoadProfile();
+
+        ResolveViewModel();
+
+
+        if (_viewModel == null)
+        {
+            return;
+        } // (Microsoft, 2026)
+
+
+        var success =
+            await _viewModel
+                .LoadProfileAsync();
+
+
+        if (!success &&
+            !string.IsNullOrWhiteSpace(
+                _viewModel.ErrorMessage))
+        {
+            await DisplayAlert(
+                "Profile",
+                _viewModel.ErrorMessage,
+                "OK");
+        }
     }
 
 
@@ -31,7 +92,8 @@ public partial class PersonalInformationPage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(
+            "..");
     }
 
 
@@ -39,8 +101,19 @@ public partial class PersonalInformationPage : ContentPage
         object sender,
         EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(_viewModel.FirstName) ||
-            string.IsNullOrWhiteSpace(_viewModel.LastName))
+        ResolveViewModel();
+
+
+        if (_viewModel == null)
+        {
+            return;
+        } // (Microsoft, 2026)
+
+
+        if (string.IsNullOrWhiteSpace(
+                _viewModel.FirstName) ||
+            string.IsNullOrWhiteSpace(
+                _viewModel.LastName))
         {
             await DisplayAlert(
                 "Profile",
@@ -51,23 +124,31 @@ public partial class PersonalInformationPage : ContentPage
         }
 
 
-        if (string.IsNullOrWhiteSpace(_viewModel.Email))
+        var success =
+            await _viewModel
+                .SaveProfileAsync();
+
+
+        if (!success)
         {
             await DisplayAlert(
                 "Profile",
-                "Please enter your email address.",
+                _viewModel.ErrorMessage,
                 "OK");
 
             return;
         }
 
 
-        _viewModel.SaveProfile();
-
-
         await DisplayAlert(
             "Profile",
             "Your personal information has been updated.",
             "OK");
-    }
+    } // (Microsoft, 2026)
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+
+

@@ -6,31 +6,32 @@ namespace KoosMatliApp.Features.Teacher.ViewModels;
 
 public class LearnerDetailsViewModel : ObservableObject
 {
-    private LearnerItem? _selectedLearner;
+    private readonly TeacherApiService
+        _teacherApiService;
 
 
-    private string _grade =
-        string.Empty;
+    private LearnerItem?
+        _selectedLearner; // (Microsoft, 2026)
 
-    public string Grade
+
+    public LearnerDetailsViewModel(
+        TeacherApiService teacherApiService)
     {
-        get => _grade;
-        set => SetProperty(
-            ref _grade,
-            value);
+        _teacherApiService =
+            teacherApiService;
     }
 
 
-    private string _subject =
+    public string ClassId { get; private set; } =
         string.Empty;
 
-    public string Subject
-    {
-        get => _subject;
-        set => SetProperty(
-            ref _subject,
-            value);
-    }
+
+    public string Grade { get; private set; } =
+        string.Empty;
+
+
+    public string Subject { get; private set; } =
+        string.Empty;
 
 
     private string _firstName =
@@ -41,7 +42,7 @@ public class LearnerDetailsViewModel : ObservableObject
         get => _firstName;
         set => SetProperty(
             ref _firstName,
-            value);
+            value); // (Microsoft, 2026)
     }
 
 
@@ -69,27 +70,30 @@ public class LearnerDetailsViewModel : ObservableObject
     }
 
 
+    public string ErrorMessage { get; private set; } =
+        string.Empty;
+
+
     public void LoadLearner(
         string grade,
         string subject,
+        string classId,
         LearnerItem learner)
     {
-        Grade =
-            grade;
-
-        Subject =
-            subject;
+        Grade = grade;
+        Subject = subject;
+        ClassId = classId;
 
         _selectedLearner =
-            learner;
+            learner; // (Microsoft, 2026)
 
 
         var nameParts =
-            learner.FullName
-                .Split(
-                    ' ',
-                    2,
-                    StringSplitOptions.RemoveEmptyEntries);
+            learner.FullName.Split(
+                ' ',
+                2,
+                StringSplitOptions
+                    .RemoveEmptyEntries);
 
 
         FirstName =
@@ -109,34 +113,102 @@ public class LearnerDetailsViewModel : ObservableObject
     }
 
 
-    public void SaveChanges()
+    public async Task<bool>
+        SaveChangesAsync()
     {
-        if (_selectedLearner == null)
+        if (_selectedLearner == null ||
+            string.IsNullOrWhiteSpace(
+                _selectedLearner.Id))
         {
-            return;
+            ErrorMessage =
+                "This learner does not have a valid ID.";
+
+            return false; // (Microsoft, 2026)
         }
 
 
-        LearnerService.UpdateLearner(
-            Grade,
-            Subject,
-            _selectedLearner,
-            $"{FirstName.Trim()} {LastName.Trim()}",
-            StudentNumber.Trim());
+        try
+        {
+            var response =
+                await _teacherApiService
+                    .UpdateLearnerAsync(
+                        _selectedLearner.Id,
+                        FirstName.Trim(),
+                        LastName.Trim(),
+                        Grade,
+                        Grade,
+                        StudentNumber.Trim());
+
+
+            if (response == null ||
+                !response.Success)
+            {
+                ErrorMessage =
+                    response?.Message ??
+                    "Unable to update learner.";
+
+                return false;
+            }
+
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage =
+                ex.Message;
+
+            return false; // (Microsoft, 2026)
+        }
     }
 
 
-    public void DeleteLearner()
+    public async Task<bool>
+        DeleteLearnerAsync()
     {
-        if (_selectedLearner == null)
+        if (_selectedLearner == null ||
+            string.IsNullOrWhiteSpace(
+                _selectedLearner.Id))
         {
-            return;
+            ErrorMessage =
+                "This learner does not have a valid ID.";
+
+            return false;
         }
 
 
-        LearnerService.DeleteLearner(
-            Grade,
-            Subject,
-            _selectedLearner);
+        try
+        {
+            var response =
+                await _teacherApiService
+                    .DeleteLearnerAsync(
+                        _selectedLearner.Id);
+
+
+            if (response == null ||
+                !response.Success)
+            {
+                ErrorMessage =
+                    response?.Message ??
+                    "Unable to remove learner.";
+
+                return false; // (Microsoft, 2026)
+            }
+
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage =
+                ex.Message;
+
+            return false; // (Microsoft, 2026)
+        }
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

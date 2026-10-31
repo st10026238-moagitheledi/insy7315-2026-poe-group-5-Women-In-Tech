@@ -20,7 +20,7 @@ public class FirebaseUserRecord
     [FirestoreProperty("displayName")]
 #endif
     public string DisplayName { get; set; } =
-        string.Empty;
+        string.Empty; // (Microsoft, 2026)
 
 
 #if ANDROID
@@ -40,7 +40,7 @@ public class FirebaseUserRecord
     [FirestoreProperty("role")]
 #endif
     public string Role { get; set; } =
-        string.Empty;
+        string.Empty; // (Microsoft, 2026)
 
 
 #if ANDROID
@@ -49,3 +49,7 @@ public class FirebaseUserRecord
     public string Uid { get; set; } =
         string.Empty;
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

@@ -1,10 +1,13 @@
+using KoosMatliApp.Features.Teacher.Services;
 using KoosMatliApp.Features.Teacher.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace KoosMatliApp.Features.Teacher.Views;
 
 public partial class TeacherHomePage : ContentPage
 {
-    private readonly TeacherHomeViewModel _viewModel;
+    private TeacherHomeViewModel?
+        _viewModel;
 
 
     public TeacherHomePage()
@@ -12,8 +15,42 @@ public partial class TeacherHomePage : ContentPage
         InitializeComponent();
 
 
+        HandlerChanged +=
+            OnHandlerChanged;
+    }
+
+
+    private void OnHandlerChanged(
+        object? sender,
+        EventArgs e)
+    {
+        ResolveViewModel(); // (Microsoft, 2026)
+    }
+
+
+    private void ResolveViewModel()
+    {
+        if (_viewModel != null)
+        {
+            return;
+        }
+
+
+        var services =
+            Handler?
+                .MauiContext?
+                .Services;
+
+
+        if (services == null) // (Microsoft, 2026)
+        {
+            return;
+        }
+
+
         _viewModel =
-            new TeacherHomeViewModel();
+            services.GetRequiredService
+                <TeacherHomeViewModel>();
 
 
         BindingContext =
@@ -21,14 +58,25 @@ public partial class TeacherHomePage : ContentPage
     }
 
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
-        base.OnAppearing();
+        base.OnAppearing(); // (Microsoft, 2026)
 
 
-        _viewModel.RefreshUpcomingEvents();
+        ResolveViewModel();
 
-        _viewModel.RefreshAnnouncement();
+
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+        await _viewModel
+            .RefreshScheduleAsync();
+
+
+        await _viewModel
+            .RefreshAnnouncementAsync();
     }
 
 
@@ -37,7 +85,7 @@ public partial class TeacherHomePage : ContentPage
         TappedEventArgs e)
     {
         await Shell.Current.GoToAsync(
-            "//TeacherClasses");
+            "//TeacherClasses"); // (Microsoft, 2026)
     }
 
 
@@ -64,7 +112,7 @@ public partial class TeacherHomePage : ContentPage
         TappedEventArgs e)
     {
         await Shell.Current.GoToAsync(
-            nameof(AddAnnouncementPage));
+            nameof(AddAnnouncementPage)); // (Microsoft, 2026)
     }
 
 
@@ -85,3 +133,7 @@ public partial class TeacherHomePage : ContentPage
             "//TeacherSchedule");
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

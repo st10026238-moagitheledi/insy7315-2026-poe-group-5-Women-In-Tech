@@ -29,7 +29,7 @@ public class LocalizationManager : INotifyPropertyChanged
                        key,
                        _culture)
                    ?? key;
-        }
+        } // (Microsoft, 2026)
     }
 
 
@@ -48,7 +48,7 @@ public class LocalizationManager : INotifyPropertyChanged
 
         SetLanguage(
             selectedLanguage);
-    }
+    } // (Microsoft, 2026)
 
 
     public void SetLanguage(
@@ -107,6 +107,9 @@ public class LocalizationManager : INotifyPropertyChanged
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(
-                "Item[]"));
+                "Item[]")); // (Microsoft, 2026)
     }
 }
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

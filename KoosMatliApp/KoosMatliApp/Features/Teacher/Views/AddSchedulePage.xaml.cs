@@ -1,17 +1,56 @@
+using Microsoft.Extensions.DependencyInjection;
 using KoosMatliApp.Features.Teacher.ViewModels;
 
 namespace KoosMatliApp.Features.Teacher.Views;
 
 public partial class AddSchedulePage : ContentPage
 {
-    private readonly AddScheduleViewModel _viewModel;
+    private AddScheduleViewModel?
+        _viewModel;
+
 
     public AddSchedulePage()
     {
         InitializeComponent();
 
+
+        HandlerChanged +=
+            OnHandlerChanged; // (Microsoft, 2026)
+    }
+
+
+    private void OnHandlerChanged(
+        object? sender,
+        EventArgs e)
+    {
+        ResolveViewModel();
+    }
+
+
+    private void ResolveViewModel()
+    {
+        if (_viewModel != null)
+        {
+            return;
+        }
+
+
+        var services =
+            Handler?
+                .MauiContext?
+                .Services;
+
+
+        if (services == null)
+        {
+            return; // (Microsoft, 2026)
+        }
+
+
         _viewModel =
-            new AddScheduleViewModel();
+            services.GetRequiredService
+                <AddScheduleViewModel>();
+
 
         BindingContext =
             _viewModel;
@@ -22,7 +61,8 @@ public partial class AddSchedulePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(
+            "..");
     }
 
 
@@ -30,6 +70,15 @@ public partial class AddSchedulePage : ContentPage
         object sender,
         EventArgs e)
     {
+        ResolveViewModel();
+
+
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         if (string.IsNullOrWhiteSpace(
                 _viewModel.Title))
         {
@@ -39,7 +88,7 @@ public partial class AddSchedulePage : ContentPage
                 "OK");
 
             return;
-        }
+        } // (Microsoft, 2026)
 
 
         if (_viewModel.EndTime <=
@@ -66,7 +115,20 @@ public partial class AddSchedulePage : ContentPage
         }
 
 
-        _viewModel.SaveScheduleItem();
+        var success =
+            await _viewModel
+                .SaveScheduleItemAsync();
+
+
+        if (!success)
+        {
+            await DisplayAlert(
+                "Schedule",
+                _viewModel.ErrorMessage,
+                "OK");
+
+            return;
+        }
 
 
         await DisplayAlert(
@@ -75,6 +137,12 @@ public partial class AddSchedulePage : ContentPage
             "OK");
 
 
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(
+            ".."); // (Microsoft, 2026)
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

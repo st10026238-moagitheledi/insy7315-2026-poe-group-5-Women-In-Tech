@@ -7,7 +7,17 @@ namespace KoosMatliApp.Features.Teacher.ViewModels;
 
 public class AnnouncementDetailsViewModel : ObservableObject
 {
-    private ClassAnnouncementItem? _announcement;
+    private readonly TeacherApiService _teacherApiService;
+
+    private ClassAnnouncementItem? _announcement; // (Microsoft, 2026)
+
+
+    public AnnouncementDetailsViewModel(
+        TeacherApiService teacherApiService)
+    {
+        _teacherApiService =
+            teacherApiService;
+    }
 
 
     public ObservableCollection<string> AudienceOptions { get; } =
@@ -15,7 +25,7 @@ public class AnnouncementDetailsViewModel : ObservableObject
         {
             "All Classes",
             "Specific Class"
-        };
+        }; // (Microsoft, 2026)
 
 
     public ObservableCollection<string> GradeOptions { get; } =
@@ -37,7 +47,7 @@ public class AnnouncementDetailsViewModel : ObservableObject
             "Life Skills",
             "Natural Science",
             "English Home Language"
-        };
+        }; // (Microsoft, 2026)
 
 
     private string _title = string.Empty;
@@ -45,7 +55,9 @@ public class AnnouncementDetailsViewModel : ObservableObject
     public string Title
     {
         get => _title;
-        set => SetProperty(ref _title, value);
+        set => SetProperty(
+            ref _title,
+            value);
     }
 
 
@@ -54,7 +66,9 @@ public class AnnouncementDetailsViewModel : ObservableObject
     public string Message
     {
         get => _message;
-        set => SetProperty(ref _message, value);
+        set => SetProperty(
+            ref _message,
+            value);
     }
 
 
@@ -66,9 +80,12 @@ public class AnnouncementDetailsViewModel : ObservableObject
 
         set
         {
-            if (SetProperty(ref _audience, value))
+            if (SetProperty(
+                    ref _audience,
+                    value))
             {
-                OnPropertyChanged(nameof(IsSpecificClass));
+                OnPropertyChanged(
+                    nameof(IsSpecificClass));
             }
         }
     }
@@ -83,8 +100,10 @@ public class AnnouncementDetailsViewModel : ObservableObject
     public string Grade
     {
         get => _grade;
-        set => SetProperty(ref _grade, value);
-    }
+        set => SetProperty(
+            ref _grade,
+            value);
+    } // (Microsoft, 2026)
 
 
     private string _subject = "Mathematics";
@@ -92,85 +111,14 @@ public class AnnouncementDetailsViewModel : ObservableObject
     public string Subject
     {
         get => _subject;
-        set => SetProperty(ref _subject, value);
+        set => SetProperty(
+            ref _subject,
+            value);
     }
 
-
-    public void LoadAnnouncement(
-        ClassAnnouncementItem announcement)
-    {
-        _announcement =
-            announcement;
-
-
-        Title =
-            announcement.Title;
-
-        Message =
-            announcement.Message;
-
-        Grade =
-            string.IsNullOrWhiteSpace(
-                announcement.Grade)
-            ? "Grade 5A"
-            : announcement.Grade;
-
-        Subject =
-            string.IsNullOrWhiteSpace(
-                announcement.Subject)
-            ? "Mathematics"
-            : announcement.Subject;
-
-
-        Audience =
-            announcement.Audience == "All Classes"
-                ? "All Classes"
-                : "Specific Class";
-
-        EventDate =
-            announcement.EventDate;
-    }
-
-
-    public void SaveChanges()
-    {
-        if (_announcement == null)
-        {
-            return;
-        }
-
-
-        AnnouncementService.UpdateAnnouncement(
-            _announcement,
-            Title.Trim(),
-            Message.Trim(),
-            IsSpecificClass
-                ? Grade
-                : "All Classes",
-            IsSpecificClass
-                ? Grade
-                : string.Empty,
-            IsSpecificClass
-                ? Subject
-                : string.Empty,
-            EventDate);
-    }
-
-
-    public void DeleteAnnouncement()
-    {
-        if (_announcement == null)
-        {
-            return;
-        }
-
-
-        AnnouncementService.DeleteAnnouncement(
-            _announcement);
-    }
 
     private DateTime _eventDate =
-    DateTime.Today;
+        DateTime.Today;
 
     public DateTime EventDate
     {
@@ -179,4 +127,174 @@ public class AnnouncementDetailsViewModel : ObservableObject
             ref _eventDate,
             value);
     }
+
+
+    public string ErrorMessage { get; private set; } =
+        string.Empty;
+
+
+    public void LoadAnnouncement(
+        ClassAnnouncementItem announcement)
+    {
+        _announcement =
+            announcement; // (Microsoft, 2026)
+
+
+        Title =
+            announcement.Title;
+
+        Message =
+            announcement.Message;
+
+
+        Grade =
+            string.IsNullOrWhiteSpace(
+                announcement.Grade)
+                ? "Grade 5A"
+                : announcement.Grade;
+
+
+        Subject =
+            string.IsNullOrWhiteSpace(
+                announcement.Subject)
+                ? "Mathematics"
+                : announcement.Subject;
+
+
+        Audience =
+            announcement.Audience == "All Classes"
+                ? "All Classes"
+                : "Specific Class";
+
+
+        EventDate =
+            announcement.EventDate;
+    }
+
+
+    public async Task<bool>
+        SaveChangesAsync()
+    {
+        if (_announcement == null ||
+            string.IsNullOrWhiteSpace(
+                _announcement.Id))
+        {
+            ErrorMessage =
+                "This announcement does not have a valid ID.";
+
+            return false;
+        }
+
+
+        try
+        {
+            ErrorMessage =
+                string.Empty;
+
+
+            var audience =
+                IsSpecificClass
+                    ? Grade
+                    : "All Classes";
+
+
+            var grade =
+                IsSpecificClass
+                    ? Grade
+                    : string.Empty;
+
+
+            var subject =
+                IsSpecificClass
+                    ? Subject
+                    : string.Empty;
+
+
+            var response =
+                await _teacherApiService
+                    .UpdateAnnouncementAsync(
+                        _announcement.Id,
+                        Title.Trim(),
+                        Message.Trim(),
+                        audience,
+                        grade,
+                        subject,
+                        EventDate);
+
+
+            if (response == null ||
+                !response.Success)
+            {
+                ErrorMessage =
+                    response?.Message ??
+                    "Unable to update announcement."; // (Microsoft, 2026)
+
+                return false;
+            }
+
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage =
+                ex.Message;
+
+            return false;
+        }
+    }
+
+
+    public async Task<bool>
+        DeleteAnnouncementAsync()
+    {
+        if (_announcement == null ||
+            string.IsNullOrWhiteSpace(
+                _announcement.Id))
+        {
+            ErrorMessage =
+                "This announcement does not have a valid ID.";
+
+            return false;
+        }
+
+
+        try
+        {
+            ErrorMessage =
+                string.Empty;
+
+
+            var response =
+                await _teacherApiService
+                    .DeleteAnnouncementAsync(
+                        _announcement.Id);
+
+
+            if (response == null ||
+                !response.Success)
+            {
+                ErrorMessage =
+                    response?.Message ??
+                    "Unable to delete announcement.";
+
+                return false;
+            } // (Microsoft, 2026)
+
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage =
+                ex.Message;
+
+            return false;
+        }
+    }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

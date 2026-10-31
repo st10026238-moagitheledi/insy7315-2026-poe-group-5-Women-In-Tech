@@ -13,7 +13,7 @@ public partial class ChangePasswordPage : ContentPage
         TappedEventArgs e)
     {
         await Shell.Current.GoToAsync(
-            "..");
+            ".."); // (Microsoft, 2026)
     }
 
 
@@ -58,7 +58,7 @@ public partial class ChangePasswordPage : ContentPage
             await DisplayAlert(
                 "Password",
                 "Please complete all password fields.",
-                "OK");
+                "OK"); // (Microsoft, 2026)
 
             return;
         }
@@ -80,5 +80,10 @@ public partial class ChangePasswordPage : ContentPage
             "Password",
             "Password changes will be connected to Firebase Authentication.",
             "OK");
-    }
+    } // (Microsoft, 2026)
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

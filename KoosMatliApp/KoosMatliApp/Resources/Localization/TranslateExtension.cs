@@ -7,7 +7,7 @@ public class TranslateExtension :
     IMarkupExtension<BindingBase>
 {
     public string Key { get; set; } =
-        string.Empty;
+        string.Empty; // (Microsoft, 2026)
 
 
     public BindingBase ProvideValue(
@@ -24,6 +24,11 @@ public class TranslateExtension :
         IServiceProvider serviceProvider)
     {
         return ProvideValue(
-            serviceProvider);
+            serviceProvider); // (Microsoft, 2026)
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

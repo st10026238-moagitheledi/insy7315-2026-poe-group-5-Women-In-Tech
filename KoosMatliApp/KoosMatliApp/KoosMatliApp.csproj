@@ -92,6 +92,11 @@
 
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\values\strings.xml" />
+	</ItemGroup>
+
+
+	<ItemGroup>
 
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 
@@ -99,14 +104,6 @@
 
 		<!-- MVVM Toolkit -->
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-
-	</ItemGroup>
-
-
-	<ItemGroup>
-
-		<!-- Keep empty Teacher folders visible in Visual Studio -->
-		<Folder Include="Features\Teacher\Controls\" />
 
 	</ItemGroup>
 
@@ -149,77 +146,94 @@
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\AboutAppPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\AddAnnouncementPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\AddHomeworkPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\AddLearnerPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\AddSchedulePage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\AnnouncementDetailsPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\ChangePasswordPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\ClassDetailsPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\ClassesPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\HelpSupportPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\HomeworkPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\LanguageSettingsPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\LearnerDetailsPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\NotificationSettingsPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\PersonalInformationPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\ProfilePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\ScheduleDetailsPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\SchedulePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+
+		<MauiXaml Update="Features\Teacher\Views\TeacherHomePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
 		<MauiXaml Update="Features\Teacher\Views\TeacherSettingsPage.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
-		<MauiXaml Update="Features\Teacher\TeacherShell.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		<MauiXaml Update="Features\Teacher\Views\UpdatesPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="Features\Teacher\Controls\" />
 	</ItemGroup>
 
 </Project>

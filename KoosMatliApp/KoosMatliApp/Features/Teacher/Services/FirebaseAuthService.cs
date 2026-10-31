@@ -10,6 +10,17 @@ namespace KoosMatliApp.Features.Teacher.Services;
 
 public class FirebaseAuthService
 {
+    private readonly TeacherApiService _teacherApiService;
+
+
+    public FirebaseAuthService(
+        TeacherApiService teacherApiService)
+    {
+        _teacherApiService =
+            teacherApiService;
+    } // (Microsoft, 2026)
+
+
     public async Task<FirebaseLoginResult> SignInAsync(
         string email,
         string password)
@@ -30,11 +41,15 @@ public class FirebaseAuthService
 
         try
         {
-            // Sign in with Firebase Authentication
+            var cleanEmail =
+                email.Trim();
+
+
+            // Sign in with Firebase Authentication.
             await CrossFirebaseAuth.Current
                 .SignInWithEmailAndPasswordAsync(
-                    email.Trim(),
-                    password);
+                    cleanEmail,
+                    password); // (Microsoft, 2026)
 
 
             var currentUser =
@@ -56,16 +71,17 @@ public class FirebaseAuthService
                 currentUser.Uid;
 
 
-            // Read users/{UID} from Firestore
+            // Read users/{UID} from Firestore.
             var document =
                 await CrossFirebaseFirestore.Current
                     .GetCollection("users")
                     .GetDocument(userId)
-                    .GetDocumentSnapshotAsync<FirebaseUserRecord>();
+                    .GetDocumentSnapshotAsync
+                        <FirebaseUserRecord>();
 
 
             var userRecord =
-                document.Data;
+                document.Data; // (Microsoft, 2026)
 
 
             if (userRecord == null)
@@ -97,24 +113,63 @@ public class FirebaseAuthService
                 };
             }
 
+            if (string.Equals(
+                    userRecord.Role,
+                    "teacher",
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    await _teacherApiService
+                        .LoginAsync(
+                            cleanEmail,
+                            password);
+                }
+                catch (Exception apiException)
+                {
+                    await CrossFirebaseAuth.Current
+                        .SignOutAsync();
+
+
+                    _teacherApiService
+                        .ClearSession();
+
+
+                    return new FirebaseLoginResult
+                    {
+                        Success = false,
+                        Message =
+                            $"Teacher API login failed: {apiException.Message}"
+                    };
+                }
+            } // (Microsoft, 2026)
+
 
             return new FirebaseLoginResult
             {
                 Success = true,
                 Message =
                     "Login successful.",
+
                 Role =
                     userRecord.Role,
+
                 UserId =
                     userId,
+
                 DisplayName =
                     userRecord.DisplayName,
+
                 Email =
                     userRecord.Email
             };
         }
         catch (CrossPlatformFirebaseAuthException ex)
         {
+            _teacherApiService
+                .ClearSession();
+
+
             var firebaseMessage =
                 ex.NativeErrorMessage;
 
@@ -136,12 +191,16 @@ public class FirebaseAuthService
         }
         catch (Exception ex)
         {
+            _teacherApiService
+                .ClearSession();
+
+
             return new FirebaseLoginResult
             {
                 Success = false,
                 Message =
                     $"Login failed: {ex.Message}"
-            };
+            }; // (Microsoft, 2026)
         }
 
 #else
@@ -162,6 +221,10 @@ public class FirebaseAuthService
 
     public async Task SignOutAsync()
     {
+        _teacherApiService
+            .ClearSession();
+
+
 #if ANDROID
 
         await CrossFirebaseAuth.Current
@@ -172,5 +235,10 @@ public class FirebaseAuthService
         await Task.CompletedTask;
 
 #endif
-    }
+    } // (Microsoft, 2026)
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

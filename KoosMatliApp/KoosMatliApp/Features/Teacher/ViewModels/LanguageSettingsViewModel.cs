@@ -16,7 +16,7 @@ public class LanguageSettingsViewModel :
             "English",
             "Setswana",
             "Sepedi"
-        };
+        }; // (Microsoft, 2026)
 
 
     private string _selectedLanguage =
@@ -38,7 +38,7 @@ public class LanguageSettingsViewModel :
             TeacherSettingsService
                 .GetSettings()
                 .Language;
-    }
+    } // (Microsoft, 2026)
 
 
     public void SaveLanguage()
@@ -49,5 +49,10 @@ public class LanguageSettingsViewModel :
 
         LocalizationManager.Instance.SetLanguage(
             SelectedLanguage);
-    }
+    } // (Microsoft, 2026)
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

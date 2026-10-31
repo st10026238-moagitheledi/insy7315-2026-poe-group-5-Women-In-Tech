@@ -15,7 +15,7 @@ public partial class TeacherShell : Shell
 
         Routing.RegisterRoute(
             nameof(HomeworkPage),
-            typeof(HomeworkPage));
+            typeof(HomeworkPage)); // (Microsoft, 2026)
 
         Routing.RegisterRoute(
             nameof(AddHomeworkPage),
@@ -67,6 +67,10 @@ public partial class TeacherShell : Shell
 
         Routing.RegisterRoute(
             nameof(AboutAppPage),
-            typeof(AboutAppPage));
+            typeof(AboutAppPage)); // (Microsoft, 2026)
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

@@ -1,17 +1,19 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using KoosMatliApp.Features.Teacher.Models;
 using KoosMatliApp.Features.Teacher.Services;
 
 namespace KoosMatliApp.Features.Teacher.ViewModels;
 
 public class AddAnnouncementViewModel : ObservableObject
 {
+    private readonly TeacherApiService _teacherApiService;
+
+
     public ObservableCollection<string> AudienceOptions { get; } =
         new()
         {
             "All Classes",
-            "Specific Class"
+            "Specific Class" // (Microsoft, 2026)
         };
 
 
@@ -37,12 +39,22 @@ public class AddAnnouncementViewModel : ObservableObject
         };
 
 
+    public AddAnnouncementViewModel(
+        TeacherApiService teacherApiService)
+    {
+        _teacherApiService =
+            teacherApiService; // (Microsoft, 2026)
+    }
+
+
     private string _title = string.Empty;
 
     public string Title
     {
         get => _title;
-        set => SetProperty(ref _title, value);
+        set => SetProperty(
+            ref _title,
+            value);
     }
 
 
@@ -51,7 +63,9 @@ public class AddAnnouncementViewModel : ObservableObject
     public string Message
     {
         get => _message;
-        set => SetProperty(ref _message, value);
+        set => SetProperty(
+            ref _message,
+            value);
     }
 
 
@@ -63,9 +77,12 @@ public class AddAnnouncementViewModel : ObservableObject
 
         set
         {
-            if (SetProperty(ref _audience, value))
+            if (SetProperty(
+                    ref _audience,
+                    value))
             {
-                OnPropertyChanged(nameof(IsSpecificClass));
+                OnPropertyChanged(
+                    nameof(IsSpecificClass));
             }
         }
     }
@@ -80,7 +97,9 @@ public class AddAnnouncementViewModel : ObservableObject
     public string Grade
     {
         get => _grade;
-        set => SetProperty(ref _grade, value);
+        set => SetProperty(
+            ref _grade,
+            value); // (Microsoft, 2026)
     }
 
 
@@ -89,45 +108,15 @@ public class AddAnnouncementViewModel : ObservableObject
     public string Subject
     {
         get => _subject;
-        set => SetProperty(ref _subject, value);
+        set => SetProperty(
+            ref _subject,
+            value);
     }
 
-
-    public void SaveAnnouncement()
-    {
-        var announcement =
-            new ClassAnnouncementItem
-            {
-                Title = Title.Trim(),
-
-                Message = Message.Trim(),
-
-                Audience =
-                    IsSpecificClass
-                        ? Grade
-                        : "All Classes",
-
-                Grade =
-                    IsSpecificClass
-                        ? Grade
-                        : string.Empty,
-
-                Subject =
-                    IsSpecificClass
-                        ? Subject
-                        : string.Empty,
-
-                EventDate = EventDate
-            };
-
-
-        AnnouncementService.AddAnnouncement(
-            announcement);
-    }
 
     private DateTime _eventDate =
         DateTime.Today.AddDays(1);
-    
+
     public DateTime EventDate
     {
         get => _eventDate;
@@ -135,4 +124,74 @@ public class AddAnnouncementViewModel : ObservableObject
             ref _eventDate,
             value);
     }
+
+
+    public string ErrorMessage { get; private set; } =
+        string.Empty;
+
+
+    public async Task<bool>
+        SaveAnnouncementAsync()
+    {
+        try
+        {
+            ErrorMessage =
+                string.Empty;
+
+
+            var audience =
+                IsSpecificClass
+                    ? Grade
+                    : "All Classes";
+
+
+            var grade =
+                IsSpecificClass
+                    ? Grade
+                    : string.Empty;
+
+
+            var subject =
+                IsSpecificClass
+                    ? Subject // (Microsoft, 2026)
+                    : string.Empty;
+
+
+            var response =
+                await _teacherApiService
+                    .CreateAnnouncementAsync(
+                        Title.Trim(),
+                        Message.Trim(),
+                        audience,
+                        grade,
+                        subject,
+                        EventDate);
+
+
+            if (response == null ||
+                !response.Success)
+            {
+                ErrorMessage =
+                    response?.Message ??
+                    "Unable to publish announcement.";
+
+                return false;
+            }
+
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage =
+                ex.Message;
+
+            return false; // (Microsoft, 2026)
+        }
+    }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

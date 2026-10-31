@@ -1,53 +1,130 @@
+using Microsoft.Extensions.DependencyInjection;
 using KoosMatliApp.Features.Teacher.ViewModels;
-
 
 namespace KoosMatliApp.Features.Teacher.Views;
 
-public partial class HomeworkPage : ContentPage, IQueryAttributable
+public partial class HomeworkPage
+    : ContentPage, IQueryAttributable
 {
-    private readonly HomeworkViewModel _viewModel;
+    private HomeworkViewModel?
+        _viewModel;
+
+    private string _grade =
+        string.Empty;
+
+    private string _subject =
+        string.Empty; // (Microsoft, 2026)
+
 
     public HomeworkPage()
     {
         InitializeComponent();
 
-        _viewModel =
-            new HomeworkViewModel();
 
-        BindingContext = _viewModel;
+        HandlerChanged +=
+            OnHandlerChanged;
+    }
+
+
+    private void OnHandlerChanged(
+        object? sender,
+        EventArgs e)
+    {
+        ResolveViewModel();
+    } // (Microsoft, 2026)
+
+
+    private void ResolveViewModel()
+    {
+        if (_viewModel != null)
+        {
+            return;
+        }
+
+
+        var services =
+            Handler?
+                .MauiContext?
+                .Services;
+
+
+        if (services == null)
+        {
+            return;
+        }
+
+
+        _viewModel =
+            services.GetRequiredService
+                <HomeworkViewModel>();
+
+
+        BindingContext =
+            _viewModel;
+
+
+        _viewModel.LoadClassInformation(
+            _grade,
+            _subject);
     }
 
 
     public void ApplyQueryAttributes(
         IDictionary<string, object> query)
     {
-        var grade =
+        _grade =
             query.TryGetValue(
                 "Grade",
                 out var gradeValue)
-            ? gradeValue?.ToString() ?? string.Empty
-            : string.Empty;
+                ? gradeValue?.ToString() ??
+                    string.Empty
+                : string.Empty;
 
 
-        var subject =
+        _subject =
             query.TryGetValue(
                 "Subject",
                 out var subjectValue)
-            ? subjectValue?.ToString() ?? string.Empty
-            : string.Empty;
+                ? subjectValue?.ToString() ??
+                    string.Empty
+                : string.Empty; // (Microsoft, 2026)
 
 
-        _viewModel.LoadClassInformation(
-            grade,
-            subject);
+        _viewModel?
+            .LoadClassInformation(
+                _grade,
+                _subject);
     }
 
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        _viewModel.RefreshHomework();
+
+        ResolveViewModel();
+
+
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
+        var success =
+            await _viewModel
+                .RefreshHomeworkAsync();
+
+
+        if (!success &&
+            !string.IsNullOrWhiteSpace(
+                _viewModel.ErrorMessage))
+        {
+            await DisplayAlert(
+                "Homework",
+                _viewModel.ErrorMessage,
+                "OK");
+        } // (Microsoft, 2026)
     }
 
 
@@ -55,7 +132,8 @@ public partial class HomeworkPage : ContentPage, IQueryAttributable
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(
+            "..");
     }
 
 
@@ -63,6 +141,12 @@ public partial class HomeworkPage : ContentPage, IQueryAttributable
         object sender,
         EventArgs e)
     {
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         var parameters =
             new Dictionary<string, object>
             {
@@ -81,11 +165,12 @@ public partial class HomeworkPage : ContentPage, IQueryAttributable
         await Shell.Current.GoToAsync(
             nameof(AddHomeworkPage),
             parameters);
-    }
+    } // (Microsoft, 2026)
+
 
     private async void OnOpenAttachmentClicked(
-    object sender,
-    EventArgs e)
+        object sender,
+        EventArgs e)
     {
         if (sender is not Button button)
         {
@@ -103,11 +188,11 @@ public partial class HomeworkPage : ContentPage, IQueryAttributable
         {
             await DisplayAlert(
                 "No Attachment",
-                "There is no file attached to this homework.",
+                "This homework does not have a file stored on this device.",
                 "OK");
 
             return;
-        }
+        } // (Microsoft, 2026)
 
 
         if (!File.Exists(
@@ -138,6 +223,10 @@ public partial class HomeworkPage : ContentPage, IQueryAttributable
                 "Unable to Open File",
                 ex.Message,
                 "OK");
-        }
+        } // (Microsoft, 2026)
     }
 }
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

@@ -7,10 +7,24 @@ namespace KoosMatliApp.Features.Teacher.ViewModels;
 
 public class ScheduleDetailsViewModel : ObservableObject
 {
-    private TeacherScheduleItem? _scheduleItem;
+    private readonly TeacherApiService
+        _teacherApiService;
+
+    private TeacherScheduleItem?
+        _scheduleItem; // (Microsoft, 2026)
 
 
-    public ObservableCollection<string> EventTypeOptions { get; } =
+    public ScheduleDetailsViewModel(
+        TeacherApiService teacherApiService)
+    {
+        _teacherApiService =
+            teacherApiService;
+    }
+
+
+    public ObservableCollection<string>
+        EventTypeOptions
+    { get; } =
         new()
         {
             "Class",
@@ -20,7 +34,9 @@ public class ScheduleDetailsViewModel : ObservableObject
         };
 
 
-    public ObservableCollection<string> GradeOptions { get; } =
+    public ObservableCollection<string>
+        GradeOptions
+    { get; } =
         new()
         {
             "Grade 2B",
@@ -29,10 +45,12 @@ public class ScheduleDetailsViewModel : ObservableObject
             "Grade 5A",
             "Grade 6A",
             "Grade 7A"
-        };
+        }; // (Microsoft, 2026)
 
 
-    public ObservableCollection<string> SubjectOptions { get; } =
+    public ObservableCollection<string>
+        SubjectOptions
+    { get; } =
         new()
         {
             "Mathematics",
@@ -42,25 +60,32 @@ public class ScheduleDetailsViewModel : ObservableObject
         };
 
 
-    private string _title = string.Empty;
+    private string _title =
+        string.Empty;
 
     public string Title
     {
         get => _title;
-        set => SetProperty(ref _title, value);
-    }
+        set => SetProperty(
+            ref _title,
+            value);
+    } // (Microsoft, 2026)
 
 
-    private string _description = string.Empty;
+    private string _description =
+        string.Empty;
 
     public string Description
     {
         get => _description;
-        set => SetProperty(ref _description, value);
+        set => SetProperty(
+            ref _description,
+            value);
     }
 
 
-    private string _eventType = "Class";
+    private string _eventType =
+        "Class";
 
     public string EventType
     {
@@ -68,12 +93,15 @@ public class ScheduleDetailsViewModel : ObservableObject
 
         set
         {
-            if (SetProperty(ref _eventType, value))
+            if (SetProperty(
+                    ref _eventType,
+                    value))
             {
-                OnPropertyChanged(nameof(IsClass));
+                OnPropertyChanged(
+                    nameof(IsClass));
             }
         }
-    }
+    } // (Microsoft, 2026)
 
 
     public bool IsClass =>
@@ -86,7 +114,9 @@ public class ScheduleDetailsViewModel : ObservableObject
     public DateTime Date
     {
         get => _date;
-        set => SetProperty(ref _date, value);
+        set => SetProperty(
+            ref _date,
+            value);
     }
 
 
@@ -95,8 +125,10 @@ public class ScheduleDetailsViewModel : ObservableObject
     public TimeSpan StartTime
     {
         get => _startTime;
-        set => SetProperty(ref _startTime, value);
-    }
+        set => SetProperty(
+            ref _startTime,
+            value);
+    } // (Microsoft, 2026)
 
 
     private TimeSpan _endTime;
@@ -104,35 +136,50 @@ public class ScheduleDetailsViewModel : ObservableObject
     public TimeSpan EndTime
     {
         get => _endTime;
-        set => SetProperty(ref _endTime, value);
+        set => SetProperty(
+            ref _endTime,
+            value);
     }
 
 
-    private string _grade = "Grade 5A";
+    private string _grade =
+        "Grade 5A";
 
     public string Grade
     {
         get => _grade;
-        set => SetProperty(ref _grade, value);
-    }
+        set => SetProperty(
+            ref _grade,
+            value);
+    } // (Microsoft, 2026)
 
 
-    private string _subject = "Mathematics";
+    private string _subject =
+        "Mathematics";
 
     public string Subject
     {
         get => _subject;
-        set => SetProperty(ref _subject, value);
+        set => SetProperty(
+            ref _subject,
+            value);
     }
 
 
-    private string _location = string.Empty;
+    private string _location =
+        string.Empty;
 
     public string Location
     {
         get => _location;
-        set => SetProperty(ref _location, value);
+        set => SetProperty(
+            ref _location,
+            value);
     }
+
+
+    public string ErrorMessage { get; private set; } =
+        string.Empty; // (Microsoft, 2026)
 
 
     public void LoadScheduleItem(
@@ -160,55 +207,134 @@ public class ScheduleDetailsViewModel : ObservableObject
             item.EndTime;
 
         Grade =
-            string.IsNullOrWhiteSpace(item.Grade)
+            string.IsNullOrWhiteSpace(
+                item.Grade)
                 ? "Grade 5A"
                 : item.Grade;
 
         Subject =
-            string.IsNullOrWhiteSpace(item.Subject)
+            string.IsNullOrWhiteSpace(
+                item.Subject)
                 ? "Mathematics"
                 : item.Subject;
 
         Location =
             item.Location;
-    }
+    } // (Microsoft, 2026)
 
 
-    public void SaveChanges()
+    public async Task<bool> SaveChangesAsync()
     {
-        if (_scheduleItem == null)
+        if (_scheduleItem == null ||
+            string.IsNullOrWhiteSpace(
+                _scheduleItem.Id))
         {
-            return;
+            ErrorMessage =
+                "This schedule item does not have a valid ID.";
+
+            return false;
         }
 
 
-        ScheduleService.UpdateScheduleItem(
-            _scheduleItem,
-            Title.Trim(),
-            Description.Trim(),
-            EventType,
-            Date,
-            StartTime,
-            EndTime,
-            IsClass
-                ? Grade
-                : string.Empty,
-            IsClass
-                ? Subject
-                : string.Empty,
-            Location.Trim());
+        try
+        {
+            ErrorMessage =
+                string.Empty;
+
+
+            var response =
+                await _teacherApiService
+                    .UpdateScheduleItemAsync(
+                        _scheduleItem.Id,
+                        Title.Trim(),
+                        Description.Trim(),
+                        EventType,
+                        Date,
+                        StartTime,
+                        EndTime,
+                        IsClass
+                            ? Grade
+                            : string.Empty,
+                        IsClass
+                            ? Subject
+                            : string.Empty,
+                        Location.Trim()); // (Microsoft, 2026)
+
+
+            if (response == null ||
+                !response.Success)
+            {
+                ErrorMessage =
+                    response?.Message ??
+                    "Unable to update schedule item.";
+
+                return false;
+            }
+
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage =
+                ex.Message;
+
+            return false;
+        } // (Microsoft, 2026)
     }
 
 
-    public void DeleteScheduleItem()
+    public async Task<bool>
+        DeleteScheduleItemAsync()
     {
-        if (_scheduleItem == null)
+        if (_scheduleItem == null ||
+            string.IsNullOrWhiteSpace(
+                _scheduleItem.Id))
         {
-            return;
+            ErrorMessage =
+                "This schedule item does not have a valid ID.";
+
+            return false;
+        } // (Microsoft, 2026)
+
+
+        try
+        {
+            ErrorMessage =
+                string.Empty;
+
+
+            var response =
+                await _teacherApiService
+                    .DeleteScheduleItemAsync(
+                        _scheduleItem.Id);
+
+
+            if (response == null ||
+                !response.Success)
+            {
+                ErrorMessage =
+                    response?.Message ??
+                    "Unable to delete schedule item.";
+
+                return false;
+            }
+
+
+            return true;
         }
+        catch (Exception ex)
+        {
+            ErrorMessage =
+                ex.Message;
 
-
-        ScheduleService.DeleteScheduleItem(
-            _scheduleItem);
+            return false; // (Microsoft, 2026)
+        }
     }
 }
+
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

@@ -1,21 +1,71 @@
+using Microsoft.Extensions.DependencyInjection;
 using KoosMatliApp.Features.Teacher.Models;
 using KoosMatliApp.Features.Teacher.ViewModels;
 
 namespace KoosMatliApp.Features.Teacher.Views;
 
-public partial class ScheduleDetailsPage : ContentPage, IQueryAttributable
+public partial class ScheduleDetailsPage
+    : ContentPage, IQueryAttributable
 {
-    private readonly ScheduleDetailsViewModel _viewModel;
+    private ScheduleDetailsViewModel?
+        _viewModel;
+
+    private TeacherScheduleItem?
+        _scheduleItem;
+
 
     public ScheduleDetailsPage()
     {
         InitializeComponent();
 
+
+        HandlerChanged +=
+            OnHandlerChanged;
+    }
+
+
+    private void OnHandlerChanged(
+        object? sender,
+        EventArgs e)
+    {
+        ResolveViewModel();
+    } // (Microsoft, 2026)
+
+
+    private void ResolveViewModel()
+    {
+        if (_viewModel != null)
+        {
+            return;
+        }
+
+
+        var services =
+            Handler?
+                .MauiContext?
+                .Services;
+
+
+        if (services == null)
+        {
+            return;
+        }
+
+
         _viewModel =
-            new ScheduleDetailsViewModel();
+            services.GetRequiredService
+                <ScheduleDetailsViewModel>();
+
 
         BindingContext =
             _viewModel;
+
+
+        if (_scheduleItem != null)
+        {
+            _viewModel.LoadScheduleItem(
+                _scheduleItem);
+        } // (Microsoft, 2026)
     }
 
 
@@ -25,10 +75,16 @@ public partial class ScheduleDetailsPage : ContentPage, IQueryAttributable
         if (query.TryGetValue(
                 "ScheduleItem",
                 out var itemValue) &&
-            itemValue is TeacherScheduleItem item)
+            itemValue
+                is TeacherScheduleItem item)
         {
-            _viewModel.LoadScheduleItem(
-                item);
+            _scheduleItem =
+                item;
+
+
+            _viewModel?
+                .LoadScheduleItem(
+                    item);
         }
     }
 
@@ -37,7 +93,8 @@ public partial class ScheduleDetailsPage : ContentPage, IQueryAttributable
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(
+            "..");
     }
 
 
@@ -45,6 +102,15 @@ public partial class ScheduleDetailsPage : ContentPage, IQueryAttributable
         object sender,
         EventArgs e)
     {
+        ResolveViewModel();
+
+
+        if (_viewModel == null)
+        {
+            return;
+        } // (Microsoft, 2026)
+
+
         if (string.IsNullOrWhiteSpace(
                 _viewModel.Title))
         {
@@ -81,7 +147,20 @@ public partial class ScheduleDetailsPage : ContentPage, IQueryAttributable
         }
 
 
-        _viewModel.SaveChanges();
+        var success =
+            await _viewModel
+                .SaveChangesAsync();
+
+
+        if (!success)
+        {
+            await DisplayAlert(
+                "Schedule",
+                _viewModel.ErrorMessage,
+                "OK");
+
+            return;
+        } // (Microsoft, 2026)
 
 
         await DisplayAlert(
@@ -90,7 +169,8 @@ public partial class ScheduleDetailsPage : ContentPage, IQueryAttributable
             "OK");
 
 
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(
+            "..");
     }
 
 
@@ -98,6 +178,15 @@ public partial class ScheduleDetailsPage : ContentPage, IQueryAttributable
         object sender,
         EventArgs e)
     {
+        ResolveViewModel();
+
+
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         var confirmed =
             await DisplayAlert(
                 "Delete Schedule Item",
@@ -109,10 +198,23 @@ public partial class ScheduleDetailsPage : ContentPage, IQueryAttributable
         if (!confirmed)
         {
             return;
+        } // (Microsoft, 2026)
+
+
+        var success =
+            await _viewModel
+                .DeleteScheduleItemAsync();
+
+
+        if (!success)
+        {
+            await DisplayAlert(
+                "Schedule",
+                _viewModel.ErrorMessage,
+                "OK");
+
+            return;
         }
-
-
-        _viewModel.DeleteScheduleItem();
 
 
         await DisplayAlert(
@@ -121,6 +223,11 @@ public partial class ScheduleDetailsPage : ContentPage, IQueryAttributable
             "OK");
 
 
-        await Shell.Current.GoToAsync("..");
-    }
+        await Shell.Current.GoToAsync(
+            "..");
+    } // (Microsoft, 2026)
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

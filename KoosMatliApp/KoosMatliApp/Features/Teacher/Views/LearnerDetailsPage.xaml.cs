@@ -1,41 +1,115 @@
+using Microsoft.Extensions.DependencyInjection;
+
 using KoosMatliApp.Features.Teacher.Models;
 using KoosMatliApp.Features.Teacher.ViewModels;
 
 namespace KoosMatliApp.Features.Teacher.Views;
 
-public partial class LearnerDetailsPage : ContentPage, IQueryAttributable
+public partial class LearnerDetailsPage
+    : ContentPage, IQueryAttributable
 {
-    private readonly LearnerDetailsViewModel _viewModel;
+    private LearnerDetailsViewModel?
+        _viewModel;
+
+
+    private string _grade =
+        string.Empty; // (Microsoft, 2026)
+
+    private string _subject =
+        string.Empty;
+
+    private string _classId =
+        string.Empty;
+
+    private LearnerItem?
+        _learner;
+
 
     public LearnerDetailsPage()
     {
         InitializeComponent();
 
+        HandlerChanged +=
+            OnHandlerChanged;
+    }
+
+
+    private void OnHandlerChanged(
+        object? sender,
+        EventArgs e)
+    {
+        ResolveViewModel();
+    }
+
+
+    private void ResolveViewModel()
+    {
+        if (_viewModel != null)
+        {
+            return;
+        }
+
+
+        var services =
+            Handler?
+                .MauiContext?
+                .Services;
+
+
+        if (services == null)
+        {
+            return;
+        }
+
+
         _viewModel =
-            new LearnerDetailsViewModel();
+            services.GetRequiredService
+                <LearnerDetailsViewModel>();
+
 
         BindingContext =
             _viewModel;
-    }
+
+
+        if (_learner != null)
+        {
+            _viewModel.LoadLearner(
+                _grade,
+                _subject,
+                _classId,
+                _learner);
+        }
+    } // (Microsoft, 2026)
 
 
     public void ApplyQueryAttributes(
         IDictionary<string, object> query)
     {
-        var grade =
+        _grade =
             query.TryGetValue(
                 "Grade",
                 out var gradeValue)
-            ? gradeValue?.ToString() ?? string.Empty
-            : string.Empty;
+                ? gradeValue?.ToString() ??
+                    string.Empty
+                : string.Empty;
 
 
-        var subject =
+        _subject =
             query.TryGetValue(
                 "Subject",
                 out var subjectValue)
-            ? subjectValue?.ToString() ?? string.Empty
-            : string.Empty;
+                ? subjectValue?.ToString() ??
+                    string.Empty
+                : string.Empty;
+
+
+        _classId =
+            query.TryGetValue(
+                "ClassId",
+                out var classValue)
+                ? classValue?.ToString() ??
+                    string.Empty
+                : string.Empty;
 
 
         if (query.TryGetValue(
@@ -43,10 +117,16 @@ public partial class LearnerDetailsPage : ContentPage, IQueryAttributable
                 out var learnerValue) &&
             learnerValue is LearnerItem learner)
         {
-            _viewModel.LoadLearner(
-                grade,
-                subject,
-                learner);
+            _learner =
+                learner;
+
+
+            _viewModel?
+                .LoadLearner(
+                    _grade,
+                    _subject,
+                    _classId,
+                    learner);
         }
     }
 
@@ -55,7 +135,8 @@ public partial class LearnerDetailsPage : ContentPage, IQueryAttributable
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(
+            "..");
     }
 
 
@@ -63,6 +144,12 @@ public partial class LearnerDetailsPage : ContentPage, IQueryAttributable
         object sender,
         EventArgs e)
     {
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         if (string.IsNullOrWhiteSpace(
                 _viewModel.FirstName) ||
             string.IsNullOrWhiteSpace(
@@ -86,10 +173,23 @@ public partial class LearnerDetailsPage : ContentPage, IQueryAttributable
                 "OK");
 
             return;
+        } // (Microsoft, 2026)
+
+
+        var success =
+            await _viewModel
+                .SaveChangesAsync();
+
+
+        if (!success)
+        {
+            await DisplayAlert(
+                "Learner",
+                _viewModel.ErrorMessage,
+                "OK");
+
+            return;
         }
-
-
-        _viewModel.SaveChanges();
 
 
         await DisplayAlert(
@@ -98,7 +198,8 @@ public partial class LearnerDetailsPage : ContentPage, IQueryAttributable
             "OK");
 
 
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(
+            "..");
     }
 
 
@@ -106,6 +207,12 @@ public partial class LearnerDetailsPage : ContentPage, IQueryAttributable
         object sender,
         EventArgs e)
     {
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         var confirmed =
             await DisplayAlert(
                 "Delete Learner",
@@ -118,9 +225,22 @@ public partial class LearnerDetailsPage : ContentPage, IQueryAttributable
         {
             return;
         }
+        // (Microsoft, 2026)
+
+        var success =
+            await _viewModel
+                .DeleteLearnerAsync();
 
 
-        _viewModel.DeleteLearner();
+        if (!success)
+        {
+            await DisplayAlert(
+                "Learner",
+                _viewModel.ErrorMessage,
+                "OK");
+
+            return;
+        }
 
 
         await DisplayAlert(
@@ -129,6 +249,11 @@ public partial class LearnerDetailsPage : ContentPage, IQueryAttributable
             "OK");
 
 
-        await Shell.Current.GoToAsync("..");
-    }
+        await Shell.Current.GoToAsync(
+            "..");
+    } // (Microsoft, 2026)
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

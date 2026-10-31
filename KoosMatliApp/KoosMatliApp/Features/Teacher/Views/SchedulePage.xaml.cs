@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using KoosMatliApp.Features.Teacher.Models;
 using KoosMatliApp.Features.Teacher.ViewModels;
 
@@ -5,25 +6,86 @@ namespace KoosMatliApp.Features.Teacher.Views;
 
 public partial class SchedulePage : ContentPage
 {
-    private readonly ScheduleViewModel _viewModel;
+    private ScheduleViewModel?
+        _viewModel;
+
 
     public SchedulePage()
     {
         InitializeComponent();
 
+
+        HandlerChanged +=
+            OnHandlerChanged;
+    } // (Microsoft, 2026)
+
+
+    private void OnHandlerChanged(
+        object? sender,
+        EventArgs e)
+    {
+        ResolveViewModel();
+    }
+
+
+    private void ResolveViewModel()
+    {
+        if (_viewModel != null)
+        {
+            return;
+        }
+
+
+        var services =
+            Handler?
+                .MauiContext?
+                .Services;
+
+
+        if (services == null)
+        {
+            return;
+        } // (Microsoft, 2026)
+
+
         _viewModel =
-            new ScheduleViewModel();
+            services.GetRequiredService
+                <ScheduleViewModel>();
+
 
         BindingContext =
             _viewModel;
     }
 
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        _viewModel.RefreshSchedule();
+
+        ResolveViewModel();
+
+
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
+        var success =
+            await _viewModel
+                .RefreshScheduleAsync();
+
+
+        if (!success &&
+            !string.IsNullOrWhiteSpace(
+                _viewModel.ErrorMessage))
+        {
+            await DisplayAlert(
+                "Schedule",
+                _viewModel.ErrorMessage,
+                "OK");
+        } // (Microsoft, 2026)
     }
 
 
@@ -41,7 +103,8 @@ public partial class SchedulePage : ContentPage
         TappedEventArgs e)
     {
         if (sender is Border border &&
-            border.BindingContext is TeacherScheduleItem scheduleItem)
+            border.BindingContext
+                is TeacherScheduleItem scheduleItem)
         {
             var parameters =
                 new Dictionary<string, object>
@@ -56,6 +119,10 @@ public partial class SchedulePage : ContentPage
             await Shell.Current.GoToAsync(
                 nameof(ScheduleDetailsPage),
                 parameters);
-        }
+        } // (Microsoft, 2026)
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

@@ -14,7 +14,7 @@ public class TeacherSettingsViewModel : ObservableObject
             "English",
             "Setswana",
             "Sepedi"
-        };
+        }; // (Microsoft, 2026)
 
 
     private bool _notificationsEnabled;
@@ -47,7 +47,7 @@ public class TeacherSettingsViewModel : ObservableObject
         set => SetProperty(
             ref _announcementNotifications,
             value);
-    }
+    } // (Microsoft, 2026)
 
 
     private string _language =
@@ -85,7 +85,7 @@ public class TeacherSettingsViewModel : ObservableObject
 
         Language =
             settings.Language;
-    }
+    } // (Microsoft, 2026)
 
 
     public void SaveSettings()
@@ -99,4 +99,9 @@ public class TeacherSettingsViewModel : ObservableObject
         TeacherSettingsService.UpdateLanguage(
             Language);
     }
-}
+}// (Microsoft, 2026)
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

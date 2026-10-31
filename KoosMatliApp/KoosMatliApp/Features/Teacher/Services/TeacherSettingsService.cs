@@ -16,7 +16,7 @@ public static class TeacherSettingsService
                 Preferences.Default.Get(
                     LanguageKey,
                     "English")
-        };
+        }; // (Microsoft, 2026)
 
 
     public static TeacherSettings GetSettings()
@@ -28,7 +28,7 @@ public static class TeacherSettingsService
 
 
         return _settings;
-    }
+    } // (Microsoft, 2026)
 
 
     public static void UpdateNotifications(
@@ -53,6 +53,11 @@ public static class TeacherSettingsService
 
         Preferences.Default.Set(
             LanguageKey,
-            language);
+            language); // (Microsoft, 2026)
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

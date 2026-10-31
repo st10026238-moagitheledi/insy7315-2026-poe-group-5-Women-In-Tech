@@ -1,10 +1,13 @@
+using Microsoft.Extensions.DependencyInjection;
+using KoosMatliApp.Features.Teacher.Services;
 using KoosMatliApp.Features.Teacher.ViewModels;
 
 namespace KoosMatliApp.Features.Teacher.Views;
 
 public partial class ProfilePage : ContentPage
 {
-    private readonly ProfileHubViewModel _viewModel;
+    private ProfileHubViewModel?
+        _viewModel;
 
 
     public ProfilePage()
@@ -12,8 +15,42 @@ public partial class ProfilePage : ContentPage
         InitializeComponent();
 
 
+        HandlerChanged +=
+            OnHandlerChanged;
+    }
+
+
+    private void OnHandlerChanged(
+        object? sender,
+        EventArgs e)
+    {
+        ResolveViewModel();
+    }
+
+
+    private void ResolveViewModel()
+    {
+        if (_viewModel != null)
+        {
+            return;
+        }
+
+
+        var services =
+            Handler?
+                .MauiContext?
+                .Services;
+
+
+        if (services == null)
+        {
+            return; // (Microsoft, 2026)
+        }
+
+
         _viewModel =
-            new ProfileHubViewModel();
+            services.GetRequiredService
+                <ProfileHubViewModel>();
 
 
         BindingContext =
@@ -21,12 +58,34 @@ public partial class ProfilePage : ContentPage
     }
 
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
 
-        _viewModel.RefreshProfile();
+        ResolveViewModel();
+
+
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
+        var success =
+            await _viewModel
+                .RefreshProfileAsync();
+
+
+        if (!success &&
+            !string.IsNullOrWhiteSpace(
+                _viewModel.ErrorMessage))
+        {
+            await DisplayAlert(
+                "Profile",
+                _viewModel.ErrorMessage,
+                "OK");
+        }
     }
 
 
@@ -93,7 +152,7 @@ public partial class ProfilePage : ContentPage
                 "Log Out",
                 "Are you sure you want to log out?",
                 "Log Out",
-                "Cancel");
+                "Cancel"); // (Microsoft, 2026)
 
 
         if (!confirmed)
@@ -102,9 +161,32 @@ public partial class ProfilePage : ContentPage
         }
 
 
+        var services =
+            Handler?
+                .MauiContext?
+                .Services;
+
+
+        var authService =
+            services?
+                .GetService
+                    <FirebaseAuthService>();
+
+
+        if (authService != null)
+        {
+            await authService
+                .SignOutAsync();
+        }
+
+
         await DisplayAlert(
-            "Log Out",
-            "Firebase Authentication will handle the actual logout when the backend is connected.",
+            "Logged Out",
+            "You have been logged out successfully.",
             "OK");
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].

@@ -36,6 +36,7 @@
                     </Label.GestureRecognizers>
 
                 </Label>
+                <!-- (Microsoft, 2026) -->
 
                 <Label
                     Grid.Column="1"
@@ -82,9 +83,14 @@
                     TextColor="{StaticResource Gray500}" />
 
             </VerticalStackLayout>
+            <!-- (Microsoft, 2026) -->
 
         </Border>
 
     </VerticalStackLayout>
 
 </ContentPage>
+
+<!--Reference List:
+1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+-->

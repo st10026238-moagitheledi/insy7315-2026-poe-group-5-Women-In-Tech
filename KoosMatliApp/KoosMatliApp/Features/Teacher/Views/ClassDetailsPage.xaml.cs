@@ -1,37 +1,73 @@
-using KoosMatliApp.Features.Teacher.Models;
-using KoosMatliApp.Features.Teacher.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Storage;
+using KoosMatliApp.Features.Teacher.Models;
+using KoosMatliApp.Features.Teacher.ViewModels;
 
 namespace KoosMatliApp.Features.Teacher.Views;
 
-public partial class ClassDetailsPage : ContentPage, IQueryAttributable
+public partial class ClassDetailsPage
+    : ContentPage, IQueryAttributable
 {
-    private readonly ClassDetailsViewModel _viewModel;
+    private ClassDetailsViewModel?
+        _viewModel;
+
+    private TeacherClassItem?
+        _selectedClass;
+
 
     public ClassDetailsPage()
     {
         InitializeComponent();
 
-        _viewModel =
-            new ClassDetailsViewModel();
 
-        BindingContext =
-            _viewModel;
+        HandlerChanged +=
+            OnHandlerChanged;
     }
 
 
-    protected override void OnAppearing()
+    private void OnHandlerChanged(
+        object? sender,
+        EventArgs e)
     {
-        base.OnAppearing();
+        ResolveViewModel();
+    }
 
-        _viewModel.RefreshHomework();
 
-        _viewModel.RefreshLearners();
+    private void ResolveViewModel()
+    {
+        if (_viewModel != null)
+        {
+            return;
+        }
 
-        _viewModel.RefreshAnnouncements();
 
-        _viewModel.RefreshTimetable();
+        var services =
+            Handler?
+                .MauiContext?
+                .Services; // (Microsoft, 2026)
+
+
+        if (services == null)
+        {
+            return;
+        }
+
+
+        _viewModel =
+            services.GetRequiredService
+                <ClassDetailsViewModel>();
+
+
+        BindingContext =
+            _viewModel;
+
+
+        if (_selectedClass != null)
+        {
+            _viewModel.LoadClass(
+                _selectedClass);
+        }
     }
 
 
@@ -41,11 +77,66 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         if (query.TryGetValue(
                 "SelectedClass",
                 out var selectedClass) &&
-            selectedClass is TeacherClassItem classItem)
+            selectedClass
+                is TeacherClassItem classItem)
         {
-            _viewModel.LoadClass(
-                classItem);
+            _selectedClass =
+                classItem;
+
+
+            _viewModel?
+                .LoadClass(
+                    classItem);
         }
+    }
+
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+
+        ResolveViewModel();
+
+
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
+        await _viewModel
+            .RefreshHomeworkAsync();
+
+
+        await _viewModel
+            .RefreshAnnouncementsAsync();
+
+
+        await _viewModel
+            .RefreshTimetableAsync();
+
+
+        var learnerSuccess =
+            await _viewModel
+                .RefreshLearnersAsync();
+
+
+        if (!learnerSuccess &&
+            !string.IsNullOrWhiteSpace(
+                _viewModel.LearnerErrorMessage))
+        {
+            await DisplayAlert(
+                "Learners",
+                _viewModel.LearnerErrorMessage,
+                "OK");
+
+            return; // (Microsoft, 2026)
+        }
+
+
+        await _viewModel
+            .RefreshAttendanceAsync();
     }
 
 
@@ -71,6 +162,12 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         object sender,
         TappedEventArgs e)
     {
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         var parameters =
             new Dictionary<string, object>
             {
@@ -93,11 +190,12 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
 
 
     private async void OnResourceOpenClicked(
-    object sender,
-    EventArgs e)
+        object sender,
+        EventArgs e)
     {
         if (sender is not Button button ||
-            button.BindingContext is not ClassResourceItem resource)
+            button.BindingContext
+                is not ClassResourceItem resource)
         {
             return;
         }
@@ -142,7 +240,7 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
             await DisplayAlert(
                 "Unable to Open File",
                 ex.Message,
-                "OK");
+                "OK"); // (Microsoft, 2026)
         }
     }
 
@@ -151,11 +249,22 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         object sender,
         EventArgs e)
     {
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         if (sender is Button button &&
-            button.BindingContext is LearnerItem learner)
+            button.BindingContext
+                is LearnerItem learner)
         {
             learner.AttendanceStatus =
                 "Present";
+
+
+            _viewModel
+                .UpdateAttendanceSummary();
         }
     }
 
@@ -164,11 +273,22 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         object sender,
         EventArgs e)
     {
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         if (sender is Button button &&
-            button.BindingContext is LearnerItem learner)
+            button.BindingContext
+                is LearnerItem learner)
         {
             learner.AttendanceStatus =
                 "Absent";
+
+
+            _viewModel
+                .UpdateAttendanceSummary();
         }
     }
 
@@ -177,17 +297,45 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         object sender,
         EventArgs e)
     {
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
+        var success =
+            await _viewModel
+                .SaveAttendanceAsync();
+
+
+        if (!success)
+        {
+            await DisplayAlert(
+                "Attendance",
+                _viewModel.AttendanceErrorMessage,
+                "OK");
+
+            return;
+        }
+
+
         await DisplayAlert(
             "Attendance",
-            "Attendance has been recorded for this session.",
+            "Attendance has been recorded successfully.",
             "OK");
-    }
+    } // (Microsoft, 2026)
 
 
     private async void OnAddLearnerClicked(
         object sender,
         EventArgs e)
     {
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         var parameters =
             new Dictionary<string, object>
             {
@@ -199,6 +347,11 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
                 {
                     "Subject",
                     _viewModel.Subject
+                },
+
+                {
+                    "ClassId",
+                    _viewModel.ClassId
                 }
             };
 
@@ -213,8 +366,15 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
         object sender,
         TappedEventArgs e)
     {
+        if (_viewModel == null)
+        {
+            return;
+        }
+
+
         if (sender is Border border &&
-            border.BindingContext is LearnerItem learner)
+            border.BindingContext
+                is LearnerItem learner)
         {
             var parameters =
                 new Dictionary<string, object>
@@ -230,6 +390,11 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
                     },
 
                     {
+                        "ClassId",
+                        _viewModel.ClassId
+                    },
+
+                    {
                         "Learner",
                         learner
                     }
@@ -238,7 +403,7 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
 
             await Shell.Current.GoToAsync(
                 nameof(LearnerDetailsPage),
-                parameters);
+                parameters); // (Microsoft, 2026)
         }
     }
 
@@ -251,3 +416,8 @@ public partial class ClassDetailsPage : ContentPage, IQueryAttributable
             "//TeacherUpdates");
     }
 }
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+

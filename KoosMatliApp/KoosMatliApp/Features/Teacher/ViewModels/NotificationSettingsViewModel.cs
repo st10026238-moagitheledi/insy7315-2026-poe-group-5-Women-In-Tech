@@ -13,7 +13,7 @@ public class NotificationSettingsViewModel : ObservableObject
         set => SetProperty(
             ref _notificationsEnabled,
             value);
-    }
+    } // (Microsoft, 2026)
 
 
     private bool _homeworkNotifications;
@@ -35,7 +35,7 @@ public class NotificationSettingsViewModel : ObservableObject
         set => SetProperty(
             ref _announcementNotifications,
             value);
-    }
+    } // (Microsoft, 2026)
 
 
     public void LoadSettings()
@@ -61,5 +61,11 @@ public class NotificationSettingsViewModel : ObservableObject
             NotificationsEnabled,
             HomeworkNotifications,
             AnnouncementNotifications);
-    }
+    } // (Microsoft, 2026)
 }
+
+
+
+//Reference List:
+//1. Microsoft, 2026. Introduction to .NET MAUI. [online] Available at: https://learn.microsoft.com/en-us/dotnet/architecture/maui/introduction [Accessed 31 October 2026].
+
