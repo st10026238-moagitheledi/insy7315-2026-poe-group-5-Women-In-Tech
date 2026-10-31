@@ -1,0 +1,22 @@
+# Generated folders
+**/bin/
+**/obj/
+**/.vs/
+**/node_modules/
+
+# Personal settings
+*.user
+*.suo
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*service-account*.json
+*firebase-adminsdk*.json
+*.pfx
+*.pem
+*.key
+
+# Uploaded documents
+**/App_Data/uploads/
