@@ -1,6 +1,7 @@
 using KoosMatliApp.Services;
 using KoosMatliApp.Views.Parent;
 using Microsoft.Maui.Controls;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace KoosMatliApp.Views.Authentication;
 
@@ -109,12 +110,67 @@ public partial class LoginPage : ContentPage
 
                 case "admin":
                 case "administrator":
-                    await App.EnterAdminAsync(
-                        response.User.Uid,
-                        response.User.Email,
-                        _ => AuthService.Instance.GetSavedTokenAsync());
+                    {
+                        var services = App.Services
+                            ?? throw new InvalidOperationException(
+                                "Application services are unavailable.");
 
-                    break;
+                        var session =
+                            services.GetRequiredService<AdminSession>();
+
+                        var settings =
+                            services.GetRequiredService<SettingsService>();
+
+                        var api =
+                            services.GetRequiredService<IAdminApiService>();
+
+                        var token =
+                            await AuthService.Instance.GetSavedTokenAsync();
+
+                        if (string.IsNullOrWhiteSpace(token))
+                        {
+                            ShowMessage(
+                                "Login succeeded, but no saved token was found.");
+                            return;
+                        }
+
+                        session.Connect(
+                            response.User.Uid,
+                            response.User.Email,
+                            _ => AuthService.Instance.GetSavedTokenAsync());
+
+                        settings.Reset();
+
+                        try
+                        {
+                            var dashboard = await api.GetDashboardAsync();
+
+                            if (dashboard is null)
+                            {
+                                throw new InvalidOperationException(
+                                    "The API returned no administrator dashboard.");
+                            }
+
+                            await settings.LoadAsync();
+
+                            if (!session.IsConnected)
+                            {
+                                throw new InvalidOperationException(
+                                    "The administrator session was cleared during startup.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            session.Clear();
+                            settings.Reset();
+
+                            ShowMessage(ex.Message);
+                            return;
+                        }
+
+                        App.ShowShell();
+                        break;
+                    }
 
                 default:
                     ShowMessage(
