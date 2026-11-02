@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "446258560943",
+    "project_id": "koosmatliprimaryschoolsystem",
+    "storage_bucket": "koosmatliprimaryschoolsystem.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446258560943:android:dc870d879bebfb2250395a",
+        "android_client_info": {
+          "package_name": "com.companyname.koosmatliapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446258560943-o6pc66sbqctt25k1asg8vtho4g2mb7o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6UxaNcXOhO8j91L3ySDwx5NGxbgGoXWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446258560943-o6pc66sbqctt25k1asg8vtho4g2mb7o7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

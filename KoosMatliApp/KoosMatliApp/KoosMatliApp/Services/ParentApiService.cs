@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Headers;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Storage;
@@ -19,9 +19,7 @@ public class ParentApiService
 
     public ParentApiService()
     {
-        var baseUrl = DeviceInfo.Platform == DevicePlatform.Android
-            ? AndroidEmulatorBaseUrl
-            : WindowsBaseUrl;
+        var baseUrl = ApiEndpoint.BaseUrl;
 
         _httpClient = new HttpClient
         {

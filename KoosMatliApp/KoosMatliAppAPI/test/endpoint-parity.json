@@ -1,0 +1,138 @@
+[
+  {
+    "method": "GET",
+    "path": "/"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/applications"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/applications/:id"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/dashboard"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/documents"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/documents/:id"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/documents/:id/file"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/features/access"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/features/backup"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/features/profile"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/school/calendar"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/school/dates"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/school/details"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/staff"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/staff/:id"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/staff/classes"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/staff/subjects"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/users"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/users/:id"
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/users/role/:role"
+  },
+  {
+    "method": "GET",
+    "path": "/api/localization/languages"
+  },
+  {
+    "method": "GET",
+    "path": "/api/localization/resources"
+  },
+  {
+    "method": "GET",
+    "path": "/api/settings"
+  },
+  {
+    "method": "POST",
+    "path": "/api/account/password-reset"
+  },
+  {
+    "method": "POST",
+    "path": "/api/admin/documents"
+  },
+  {
+    "method": "POST",
+    "path": "/api/admin/features/revoke-sessions"
+  },
+  {
+    "method": "POST",
+    "path": "/api/admin/school/calendar"
+  },
+  {
+    "method": "POST",
+    "path": "/api/admin/school/dates"
+  },
+  {
+    "method": "POST",
+    "path": "/api/admin/users"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/admin/applications/:id/status"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/admin/features/access"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/admin/features/profile"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/admin/school/details"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/settings"
+  }
+]

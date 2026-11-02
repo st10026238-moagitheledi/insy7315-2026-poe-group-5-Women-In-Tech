@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.AddLearnerPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Add Learner"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="12,10,12,24"
+            Spacing="14">
+
+
+            <!-- Header -->
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Grid
+                    ColumnDefinitions="32,*"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Text="‹"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+
+                        <Label.GestureRecognizers>
+
+                            <TapGestureRecognizer
+                                Tapped="OnBackTapped" />
+
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Spacing="1"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="Add Learner"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource SunshineGold}" />
+
+                        <Label
+                            Text="{Binding Grade}"
+                            FontSize="9"
+                            TextColor="{StaticResource White}" />
+
+                        <Label
+                            Text="{Binding Subject}"
+                            FontSize="9"
+                            TextColor="{StaticResource White}" />
+
+                    </VerticalStackLayout>
+
+                </Grid>
+
+            </Border>
+
+
+            <Label
+                Text="Learner Details"
+                FontSize="15"
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryBlue}" />
+
+
+            <Border
+                BackgroundColor="{StaticResource White}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+
+
+                <VerticalStackLayout Spacing="14">
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="First Name"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Entry
+                            Text="{Binding FirstName}"
+                            Placeholder="Enter first name"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Last Name"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Entry
+                            Text="{Binding LastName}"
+                            Placeholder="Enter last name"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Student Number"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Entry
+                            Text="{Binding StudentNumber}"
+                            Placeholder="Enter student number"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Button
+                Text="Add Learner"
+                Clicked="OnAddLearnerClicked"
+                BackgroundColor="{StaticResource SunshineGold}"
+                TextColor="{StaticResource PrimaryBlue}"
+                FontAttributes="Bold"
+                FontSize="11"
+                HeightRequest="46"
+                CornerRadius="8" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.AnnouncementDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=AnnouncementDetails}"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="12,10,12,24"
+            Spacing="14">
+
+
+            <!-- Header -->
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Grid
+                    ColumnDefinitions="32,*"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Text="‹"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+
+                        <Label.GestureRecognizers>
+
+                            <TapGestureRecognizer
+                                Tapped="OnBackTapped" />
+
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+
+                    <Label
+                        Grid.Column="1"
+                        Text="{localization:Translate Key=AnnouncementDetails}"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+            </Border>
+
+
+            <Border
+                BackgroundColor="{StaticResource White}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+
+
+                <VerticalStackLayout Spacing="14">
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="{localization:Translate Key=Title}"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Entry
+                            Text="{Binding Title}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="{localization:Translate Key=Message}"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Editor
+                            Text="{Binding Message}"
+                            MinimumHeightRequest="120"
+                            AutoSize="TextChanges" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="{localization:Translate Key=EventDueDate}"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <DatePicker
+                            Date="{Binding EventDate}"
+                            FontSize="11"
+                            TextColor="{StaticResource Charcoal}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="{localization:Translate Key=Audience}"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Picker
+                            ItemsSource="{Binding AudienceOptions}"
+                            SelectedItem="{Binding Audience}" />
+
+                    </VerticalStackLayout>
+
+
+                    <VerticalStackLayout
+                        IsVisible="{Binding IsSpecificClass}"
+                        Spacing="12">
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label
+                                Text="{localization:Translate Key=Grade}"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Picker
+                                ItemsSource="{Binding GradeOptions}"
+                                SelectedItem="{Binding Grade}" />
+
+                        </VerticalStackLayout>
+
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label
+                                Text="{localization:Translate Key=Subject}"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Picker
+                                ItemsSource="{Binding SubjectOptions}"
+                                SelectedItem="{Binding Subject}" />
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Button
+                Text="{localization:Translate Key=SaveChanges}"
+                Clicked="OnSaveChangesClicked"
+                BackgroundColor="{StaticResource SunshineGold}"
+                TextColor="{StaticResource PrimaryBlue}"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                CornerRadius="8" />
+
+
+            <Button
+                Text="{localization:Translate Key=DeleteAnnouncement}"
+                Clicked="OnDeleteAnnouncementClicked"
+                BackgroundColor="{StaticResource White}"
+                TextColor="#B42318"
+                BorderColor="#B42318"
+                BorderWidth="1"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                CornerRadius="8" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

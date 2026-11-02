@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.AddCalendarEventPage"
+    Title="{DynamicResource T_04C4D06CD854}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+
+            <Label Text="{DynamicResource T_04C4D06CD854}"
+                   FontSize="26"
+                   FontAttributes="Bold" />
+
+            <Label Text="{DynamicResource T_8EC4602CE4A2}" />
+            <Entry x:Name="TitleEntry"
+                   Placeholder="{DynamicResource T_87031E353595}" />
+
+            <Label Text="{DynamicResource T_526E0087CC3F}" />
+            <Editor x:Name="DescriptionEditor"
+                    Placeholder="{DynamicResource T_E1E0B8248D4C}"
+                    AutoSize="TextChanges" />
+
+            <Label Text="{DynamicResource T_8169693101A4}" />
+            <DatePicker x:Name="StartDatePicker" />
+
+            <Label Text="{DynamicResource T_BABE9DDA8503}" />
+            <TimePicker x:Name="StartTimePicker" />
+
+            <Label Text="{DynamicResource T_14303AA0C4A0}" />
+            <DatePicker x:Name="EndDatePicker" />
+
+            <Label Text="{DynamicResource T_2E46006A5EEB}" />
+            <TimePicker x:Name="EndTimePicker" />
+
+            <Label x:Name="ErrorLabel"
+                   TextColor="Red"
+                   IsVisible="False" />
+
+            <Button x:Name="SaveButton"
+                    Text="{DynamicResource T_93ADF40D174B}"
+                    Clicked="SaveButton_Clicked" />
+
+            <Button Text="{DynamicResource T_19766ED6CCB2}"
+                    Clicked="CancelButton_Clicked"
+                    BackgroundColor="Gray" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

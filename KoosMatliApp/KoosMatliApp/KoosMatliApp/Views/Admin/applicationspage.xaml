@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.ApplicationsPage"
+    Title="{DynamicResource T_98E33B0F3104}">
+
+    <Grid Padding="20"
+          RowDefinitions="Auto,Auto,Auto,Auto,*"
+          RowSpacing="12">
+
+        <VerticalStackLayout Spacing="4">
+            <Label Text="{DynamicResource T_98E33B0F3104}"
+                   FontSize="28"
+                   FontAttributes="Bold" />
+
+            <Label Text="{DynamicResource T_54212DB90869}"
+                   TextColor="Gray" />
+        </VerticalStackLayout>
+
+        <SearchBar x:Name="SearchInput"
+                   Grid.Row="1"
+                   Placeholder="{DynamicResource T_1B93C5C528A4}"
+                   TextChanged="SearchChanged" />
+
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*,*"
+              RowDefinitions="Auto,Auto"
+              ColumnSpacing="8"
+              RowSpacing="8">
+
+            <Button x:Name="AllFilter"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="{DynamicResource T_A52ACE420F21}"
+                    CommandParameter="0"
+                    Clicked="StatusClicked" />
+
+            <Button x:Name="PendingFilter"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="{DynamicResource T_331551B0DE41}"
+                    CommandParameter="1"
+                    Clicked="StatusClicked" />
+
+            <Button x:Name="ApprovedFilter"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="{DynamicResource T_87B42E40C2A2}"
+                    CommandParameter="2"
+                    Clicked="StatusClicked" />
+
+            <Button x:Name="RejectedFilter"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{DynamicResource T_AEA4A04A8042}"
+                    CommandParameter="3"
+                    Clicked="StatusClicked" />
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="3" Spacing="4">
+            <Button x:Name="RefreshButton"
+                    Text="Refresh"
+                    Clicked="RefreshClicked"
+                    HorizontalOptions="Start" />
+
+            <ActivityIndicator x:Name="Loading"
+                               IsVisible="False" />
+
+            <Label x:Name="Feedback"
+                   TextColor="Red" />
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="4">
+            <VerticalStackLayout x:Name="ApplicationCards"
+                                 Spacing="12" />
+        </ScrollView>
+    </Grid>
+</ContentPage>

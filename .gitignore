@@ -1,0 +1,64 @@
+
+# Generated folders
+**/bin/
+**/obj/
+**/.vs/
+**/node_modules/
+
+# Personal settings
+*.user
+*.suo
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*service-account*.json
+*firebase-adminsdk*.json
+*.pfx
+*.pem
+*.key
+
+# Uploaded documents
+**/App_Data/uploads/
+
+# Visual Studio
+.vs/
+**/.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.cache
+*.v2
+*.vsidx
+
+# .NET build output
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Build artifacts
+artifacts/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Node / API
+node_modules/
+**/node_modules/
+.env
+**/.env
+*firebase-adminsdk*.json
+**/*firebase-adminsdk*.json
+
+# Logs
+*.log
+
+# OS junk
+Thumbs.db
+.DS_Store
+

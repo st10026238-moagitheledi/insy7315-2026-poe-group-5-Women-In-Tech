@@ -56,7 +56,11 @@ async function authenticate(req, res, next) {
             email: profile.email || decodedToken.email || null,
             displayName: profile.displayName || "",
             role: profile.role,
-            isActive: profile.isActive !== false
+            isActive: profile.isActive !== false,
+            admin: decodedToken.admin === true,
+            accessManaged: decodedToken.accessManaged === true,
+            permissions: Array.isArray(decodedToken.permissions) ? decodedToken.permissions : [],
+            auth_time: decodedToken.auth_time
         };
 
         return next();

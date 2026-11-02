@@ -1,6 +1,8 @@
 using KoosMatliApp.Services;
 using KoosMatliApp.Views.Parent;
+using KoosMatliApp.Features.Teacher.Views;
 using Microsoft.Maui.Controls;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace KoosMatliApp.Views.Authentication;
 
@@ -100,21 +102,103 @@ public partial class LoginPage : ContentPage
                     break;
 
                 case "teacher":
-                    await DisplayAlertAsync(
-                        "Teacher Login",
-                        "You have signed in successfully. The teacher landing page has not been connected yet.",
-                        "OK");
+                    {
+                        var services = App.Services
+                            ?? throw new InvalidOperationException(
+                                "Application services are unavailable.");
 
-                    break;
+                        var token =
+                            await AuthService.Instance.GetSavedTokenAsync();
+
+                        if (string.IsNullOrWhiteSpace(token))
+                        {
+                            ShowMessage(
+                                "Your login token is unavailable. Please sign in again.");
+
+                            return;
+                        }
+
+                        // Connect the teacher API to the signed-in user's token.
+                        services.GetRequiredService<
+                            KoosMatliApp.Features.Teacher.Services.TeacherApiService>()
+                            .SetAuthenticationToken(token);
+
+                        if (Window is not { } teacherWindow)
+                        {
+                            throw new InvalidOperationException(
+                                "The application window is unavailable.");
+                        }
+
+                        // Open the shell containing all five teacher navigation tabs.
+                        teacherWindow.Page =
+                            new KoosMatliApp.Features.Teacher.TeacherShell();
+
+                        break;
+                    }
 
                 case "admin":
                 case "administrator":
-                    await DisplayAlertAsync(
-                        "Administrator Login",
-                        "You have signed in successfully. The administrator landing page has not been connected yet.",
-                        "OK");
+                    {
+                        var services = App.Services
+                            ?? throw new InvalidOperationException(
+                                "Application services are unavailable.");
 
-                    break;
+                        var session =
+                            services.GetRequiredService<AdminSession>();
+
+                        var settings =
+                            services.GetRequiredService<SettingsService>();
+
+                        var api =
+                            services.GetRequiredService<IAdminApiService>();
+
+                        var token =
+                            await AuthService.Instance.GetSavedTokenAsync();
+
+                        if (string.IsNullOrWhiteSpace(token))
+                        {
+                            ShowMessage(
+                                "Login succeeded, but no saved token was found.");
+                            return;
+                        }
+
+                        session.Connect(
+                            response.User.Uid,
+                            response.User.Email,
+                            _ => AuthService.Instance.GetSavedTokenAsync());
+
+                        settings.Reset();
+
+                        try
+                        {
+                            var dashboard = await api.GetDashboardAsync();
+
+                            if (dashboard is null)
+                            {
+                                throw new InvalidOperationException(
+                                    "The API returned no administrator dashboard.");
+                            }
+
+                            await settings.LoadAsync();
+
+                            if (!session.IsConnected)
+                            {
+                                throw new InvalidOperationException(
+                                    "The administrator session was cleared during startup.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            session.Clear();
+                            settings.Reset();
+
+                            ShowMessage(ex.Message);
+                            return;
+                        }
+
+                        App.ShowShell();
+                        break;
+                    }
 
                 default:
                     ShowMessage(

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns:vm="clr-namespace:KoosMatliApp.ViewModels" xmlns:model="clr-namespace:KoosMatliApp.Models" x:DataType="vm:DocumentsViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.Documentspage"
+    Title="{DynamicResource T_B4E929D8BCFE}">
+
+    <Grid Padding="20"
+          RowDefinitions="Auto,Auto,Auto,*"
+          RowSpacing="12">
+
+        <!-- Header / Back Navigation -->
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="{DynamicResource T_ACEB696A04C1}"
+                    BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                    Command="{Binding BackCommand}" />
+
+            <Label Text="{DynamicResource T_1A29E2072068}"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <!-- Upload Button -->
+        <Label Grid.Row="1" Text="{DynamicResource T_CDB9BAB9845D}" />
+
+        <!-- Error Feedback Label -->
+        <Label Grid.Row="2"
+               Text="{Binding ErrorMessage}"
+               TextColor="Red"
+               IsVisible="{Binding HasError}" />
+
+        <!-- Documents Collection View -->
+        <CollectionView Grid.Row="3"
+                        ItemsSource="{Binding Documents}"
+                        SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Padding="20"
+                                     Spacing="8"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+                    <Label Text="{DynamicResource T_BD98B4E7A5EE}"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center" />
+
+                    <Label Text="{DynamicResource T_AB175DA44DFA}"
+                           TextColor="Gray"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:SchoolDocument">
+                    <Border Padding="15"
+                            Margin="0,5"
+                            Stroke="#DDDDDD"
+                            StrokeShape="RoundRectangle 10">
+
+                        <Grid ColumnDefinitions="Auto,*,Auto"
+                              ColumnSpacing="10">
+
+                            <!-- Document Icon / Placeholder -->
+                            <Label Text="📄"
+                                   FontSize="24"
+                                   VerticalOptions="Center" />
+
+                            <!-- Document Details -->
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Spacing="5">
+                                <Label Text="{Binding Title}"
+                                       FontAttributes="Bold"
+                                       FontSize="16" />
+
+                                <Label Text="{Binding FileName}"
+                                       FontSize="13" />
+
+                                <Label Text="{Binding Details}"
+                                       FontSize="12"
+                                       TextColor="Gray" />
+                            </VerticalStackLayout>
+
+                            <!-- View Action Button -->
+                            <Button Grid.Column="2"
+                                    Text="{DynamicResource T_DCC839A4015C}"
+                                    VerticalOptions="Center"
+                                    Clicked="ViewDocument_Clicked"
+                                    CommandParameter="{Binding}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,513 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <data name="T_6BE2D9FC1A68" xml:space="preserve">
+    <value>+ Tsenya modirisi yo montšha</value>
+  </data>
+  <data name="T_896503F29933" xml:space="preserve">
+    <value>Leina la sekolo le a tlhokega.</value>
+  </data>
+  <data name="T_2A1FAB4371E6" xml:space="preserve">
+    <value>TETLA LE TSHIRELETSEGO</value>
+  </data>
+  <data name="T_2D75B76B2DCF" xml:space="preserve">
+    <value>AKHAONTO</value>
+  </data>
+  <data name="T_D0F9BC7A3B01" xml:space="preserve">
+    <value>Ditlhophiso tsa akhaonto</value>
+  </data>
+  <data name="T_04C4D06CD854" xml:space="preserve">
+    <value>Tsenya tiragalo mo khalendareng</value>
+  </data>
+  <data name="T_8512BF96FFF6" xml:space="preserve">
+    <value>Tsenya modirisi yo montšha</value>
+  </data>
+  <data name="T_57D208BC0D04" xml:space="preserve">
+    <value>Tsenya tiragalo</value>
+  </data>
+  <data name="T_DD1BD303896B" xml:space="preserve">
+    <value>Tsenya letlha la sekolo</value>
+  </data>
+  <data name="T_56EF8F20955F" xml:space="preserve">
+    <value>Aterese</value>
+  </data>
+  <data name="T_C1C224B03CD9" xml:space="preserve">
+    <value>Motsamaisi</value>
+  </data>
+  <data name="T_66D1605446F4" xml:space="preserve">
+    <value>Kakaretso ya motsamaisi</value>
+  </data>
+  <data name="T_CB124FEC070C" xml:space="preserve">
+    <value>API e lekola tetla ya motsamaisi ka ditetla tsa Firebase tse di netefaditsweng.</value>
+  </data>
+  <data name="T_E7D3E769F3F5" xml:space="preserve">
+    <value>Motsamaisi</value>
+  </data>
+  <data name="T_5079416A24BA" xml:space="preserve">
+    <value>Dikopo tsa kamogelo di tla bonala fano.</value>
+  </data>
+  <data name="T_A52ACE420F21" xml:space="preserve">
+    <value>Tsotlhe</value>
+  </data>
+  <data name="T_B5EFD6AD6D8A" xml:space="preserve">
+    <value>Dintlha tsa kopo</value>
+  </data>
+  <data name="T_24A68D3C253A" xml:space="preserve">
+    <value>Nomoro ya kopo</value>
+  </data>
+  <data name="T_66C87D4BEF58" xml:space="preserve">
+    <value>Kopo ga e a bonwa.</value>
+  </data>
+  <data name="T_98E33B0F3104" xml:space="preserve">
+    <value>Dikopo</value>
+  </data>
+  <data name="T_4126FD415F2D" xml:space="preserve">
+    <value>Amogela kopo</value>
+  </data>
+  <data name="T_87B42E40C2A2" xml:space="preserve">
+    <value>E amogetswe</value>
+  </data>
+  <data name="T_89DD748442C1" xml:space="preserve">
+    <value>Dikopo</value>
+  </data>
+  <data name="T_5428D7FE5929" xml:space="preserve">
+    <value>Direkoto tsa ditiro</value>
+  </data>
+  <data name="T_F75A67CF14EF" xml:space="preserve">
+    <value>Khopi ya polokelo e rometswe</value>
+  </data>
+  <data name="T_8C344657A5C0" xml:space="preserve">
+    <value>Khopi ya polokelo e rometswe.</value>
+  </data>
+  <data name="T_56A5A9DCF8AD" xml:space="preserve">
+    <value>Khopi ya polokelo e netefaditswe</value>
+  </data>
+  <data name="T_6426FF468548" xml:space="preserve">
+    <value>Khopi e netefaditswe. Badirisi: {0}; dikopo: {1}; badiri: {2}.</value>
+  </data>
+  <data name="T_3334FEE2C77F" xml:space="preserve">
+    <value>Dikhopi tsa polokelo</value>
+  </data>
+  <data name="T_697535D31F3C" xml:space="preserve">
+    <value>Tiragalo ya khalendara e bolokilwe.</value>
+  </data>
+  <data name="T_19766ED6CCB2" xml:space="preserve">
+    <value>Khansela</value>
+  </data>
+  <data name="T_823DE70B6076" xml:space="preserve">
+    <value>Fetola maemo a kopo eno?</value>
+  </data>
+  <data name="T_D688D95B7103" xml:space="preserve">
+    <value>Tlhopha puo le tebego.</value>
+  </data>
+  <data name="T_03FDBACED0DF" xml:space="preserve">
+    <value>Tlhopha kopo pele.</value>
+  </data>
+  <data name="T_84637286C5B7" xml:space="preserve">
+    <value>Ditlelase</value>
+  </data>
+  <data name="T_83B12C2216EF" xml:space="preserve">
+    <value>Phimola</value>
+  </data>
+  <data name="T_31C4B51F11BF" xml:space="preserve">
+    <value>Phimola direkoto tsa sediriswa</value>
+  </data>
+  <data name="T_AF3238F87791" xml:space="preserve">
+    <value>Phimola direkoto tsa gago tsa ditiro mo sedirisweng seno?</value>
+  </data>
+  <data name="T_62813FBF49FC" xml:space="preserve">
+    <value>Tsenya aterese e e nepagetseng ya HTTPS API.</value>
+  </data>
+  <data name="T_EEBDD24A77D9" xml:space="preserve">
+    <value>Netefatsa</value>
+  </data>
+  <data name="T_19BA957D0AC0" xml:space="preserve">
+    <value>Netefatsa ditiro tse di tlhokang tlhokomelo</value>
+  </data>
+  <data name="T_31FBEF162594" xml:space="preserve">
+    <value>Tswelela</value>
+  </data>
+  <data name="T_20EE035DF599" xml:space="preserve">
+    <value>TSHEDIMOSETSO LE TEKOLO</value>
+  </data>
+  <data name="T_60ACC53F13A5" xml:space="preserve">
+    <value>Lefifi</value>
+  </data>
+  <data name="T_67B696468610" xml:space="preserve">
+    <value>Kakaretso</value>
+  </data>
+  <data name="T_526E0087CC3F" xml:space="preserve">
+    <value>Tlhaloso</value>
+  </data>
+  <data name="T_2B7F6A84DE91" xml:space="preserve">
+    <value>Leina le le bontshiwang</value>
+  </data>
+  <data name="T_CDB9BAB9845D" xml:space="preserve">
+    <value>Go tsenya ditokomane go tlhoka tirelo ya polokelo ya difaele.</value>
+  </data>
+  <data name="T_B4E929D8BCFE" xml:space="preserve">
+    <value>Ditokomane</value>
+  </data>
+  <data name="T_AB175DA44DFA" xml:space="preserve">
+    <value>Ditokomane tse di tswang mo API di tla bonala fano.</value>
+  </data>
+  <data name="T_464C4FFD019E" xml:space="preserve">
+    <value>Fetola</value>
+  </data>
+  <data name="T_F2488FD4EF4A" xml:space="preserve">
+    <value>Aterese ya imeile</value>
+  </data>
+  <data name="T_14303AA0C4A0" xml:space="preserve">
+    <value>Letlha la bokhutlo</value>
+  </data>
+  <data name="T_2E46006A5EEB" xml:space="preserve">
+    <value>Nako ya bokhutlo</value>
+  </data>
+  <data name="T_E1E0B8248D4C" xml:space="preserve">
+    <value>Tsenya dintlha tsa tiragalo</value>
+  </data>
+  <data name="T_05786ECBA692" xml:space="preserve">
+    <value>Tsenya leina</value>
+  </data>
+  <data name="T_DCE8CD1AC578" xml:space="preserve">
+    <value>Tsenya nomoro ya mogala</value>
+  </data>
+  <data name="T_B891C28467F5" xml:space="preserve">
+    <value>Tsenya sefane</value>
+  </data>
+  <data name="T_54A0E8C17EBB" xml:space="preserve">
+    <value>Phoso</value>
+  </data>
+  <data name="T_8EC4602CE4A2" xml:space="preserve">
+    <value>Setlhogo sa tiragalo</value>
+  </data>
+  <data name="T_0DB468AB78F2" xml:space="preserve">
+    <value>Romela khopi ya polokelo ya JSON</value>
+  </data>
+  <data name="T_BE1439996573" xml:space="preserve">
+    <value>Romela direkoto tsa sekolo kgotsa netefatsa faele e e rometsweng. Netefatso ga e busetse polokelo ya tshedimosetso.</value>
+  </data>
+  <data name="T_6A57122C5D03" xml:space="preserve">
+    <value>Romela direkoto tsa sekolo mo faeleng?</value>
+  </data>
+  <data name="T_702EF921ED1D" xml:space="preserve">
+    <value>Leina</value>
+  </data>
+  <data name="T_C628585531B7" xml:space="preserve">
+    <value>Mophato: {0}</value>
+  </data>
+  <data name="T_3A78695388B3" xml:space="preserve">
+    <value>Gae</value>
+  </data>
+  <data name="T_A4FE65264EF7" xml:space="preserve">
+    <value>Puo</value>
+  </data>
+  <data name="T_0815286C81C0" xml:space="preserve">
+    <value>Morutwana</value>
+  </data>
+  <data name="T_B8B5AE579B24" xml:space="preserve">
+    <value>Barutwana</value>
+  </data>
+  <data name="T_B74CFDE60DD2" xml:space="preserve">
+    <value>Barutwana: {0}</value>
+  </data>
+  <data name="T_DBCD5E7BB7A0" xml:space="preserve">
+    <value>Lesedi</value>
+  </data>
+  <data name="T_0227D5F623F0" xml:space="preserve">
+    <value>Laola akhaonto le ditlhophiso tsa tsamaiso ya sekolo.</value>
+  </data>
+  <data name="T_25CC9F7E00D4" xml:space="preserve">
+    <value>Tshwaya e le e e emetseng</value>
+  </data>
+  <data name="T_18FDD549B2ED" xml:space="preserve">
+    <value>E ntšha</value>
+  </data>
+  <data name="T_6E2BE99CC54C" xml:space="preserve">
+    <value>Dikopo tse dintšha</value>
+  </data>
+  <data name="T_AA570486B4D1" xml:space="preserve">
+    <value>Ga go na ditiro tse di rekotilweng.</value>
+  </data>
+  <data name="T_391838C0889A" xml:space="preserve">
+    <value>Ga go na dikopo tse di bonweng.</value>
+  </data>
+  <data name="T_204BEB801DEB" xml:space="preserve">
+    <value>Ga go na ditiragalo tsa khalendara.</value>
+  </data>
+  <data name="T_DC2B642B2BC8" xml:space="preserve">
+    <value>Ga go na ditlelase tse di abetsweng badiri.</value>
+  </data>
+  <data name="T_BD98B4E7A5EE" xml:space="preserve">
+    <value>Ga go na ditokomane tse di bonweng.</value>
+  </data>
+  <data name="T_E97A7247CEFC" xml:space="preserve">
+    <value>Ga go na URL ya faele.</value>
+  </data>
+  <data name="T_75EF12FF6078" xml:space="preserve">
+    <value>Ga go na matlha a sekolo.</value>
+  </data>
+  <data name="T_580C04FF57CD" xml:space="preserve">
+    <value>Ga go na dirutwa tse di abetsweng badiri.</value>
+  </data>
+  <data name="T_F1CDB4DDB7AE" xml:space="preserve">
+    <value>Ga go na barutabana ba ba bonweng.</value>
+  </data>
+  <data name="T_788011833A5A" xml:space="preserve">
+    <value>Dikitsiso</value>
+  </data>
+  <data name="T_565339BC4D33" xml:space="preserve">
+    <value>Go siame</value>
+  </data>
+  <data name="T_8DBF1826A8F1" xml:space="preserve">
+    <value>Go ka bulwa fela dilinki tsa HTTPS tsa ditokomane.</value>
+  </data>
+  <data name="T_C6A8117678D0" xml:space="preserve">
+    <value>DITLHOPHISO</value>
+  </data>
+  <data name="T_5F7953F7C9B6" xml:space="preserve">
+    <value>Motsadi</value>
+  </data>
+  <data name="T_C8B2999ED42D" xml:space="preserve">
+    <value>Batsadi</value>
+  </data>
+  <data name="T_331551B0DE41" xml:space="preserve">
+    <value>E emetse</value>
+  </data>
+  <data name="T_B5B56177F25C" xml:space="preserve">
+    <value>Dikopo tse di emetseng</value>
+  </data>
+  <data name="T_306F1BB20677" xml:space="preserve">
+    <value>Nomoro ya mogala</value>
+  </data>
+  <data name="T_E3DD46681019" xml:space="preserve">
+    <value>Tsweetswee tlatsa leina, sefane, seabe le imeile.</value>
+  </data>
+  <data name="T_3AABB2773E98" xml:space="preserve">
+    <value>Tsweetswee tsenya setlhogo sa letlha la sekolo.</value>
+  </data>
+  <data name="T_958E4CCF2953" xml:space="preserve">
+    <value>Tsweetswee tsenya aterese e e nepagetseng ya imeile.</value>
+  </data>
+  <data name="T_2E0E2AD4FD9E" xml:space="preserve">
+    <value>Tsweetswee tsenya setlhogo sa tiragalo.</value>
+  </data>
+  <data name="T_4F9AB9096B6C" xml:space="preserve">
+    <value>Maemo: {0}</value>
+  </data>
+  <data name="T_AFC19F1734C1" xml:space="preserve">
+    <value>Mogokgo</value>
+  </data>
+  <data name="T_0DB4C7311469" xml:space="preserve">
+    <value>Leina la mogokgo</value>
+  </data>
+  <data name="T_D696A35BDD18" xml:space="preserve">
+    <value>Porofaele</value>
+  </data>
+  <data name="T_2CC2B6F7F200" xml:space="preserve">
+    <value>Ditiro tsa bonako</value>
+  </data>
+  <data name="T_0E9161011702" xml:space="preserve">
+    <value>Ntšhafatsa</value>
+  </data>
+  <data name="T_210F2A76B0B3" xml:space="preserve">
+    <value>Gana kopo</value>
+  </data>
+  <data name="T_AEA4A04A8042" xml:space="preserve">
+    <value>E gannwe</value>
+  </data>
+  <data name="T_54212DB90869" xml:space="preserve">
+    <value>Sekaseka dikopo tsa kamogelo ya barutwana</value>
+  </data>
+  <data name="T_14736A2EB9F4" xml:space="preserve">
+    <value>Seabe</value>
+  </data>
+  <data name="T_1FA0387819C5" xml:space="preserve">
+    <value>Diabe le ditetla</value>
+  </data>
+  <data name="T_1509F561F241" xml:space="preserve">
+    <value>Boloka</value>
+  </data>
+  <data name="T_93ADF40D174B" xml:space="preserve">
+    <value>Boloka tiragalo</value>
+  </data>
+  <data name="T_96C2BBB5ED5B" xml:space="preserve">
+    <value>Boloka modirisi</value>
+  </data>
+  <data name="T_B5C120B316C2" xml:space="preserve">
+    <value>E bolokilwe</value>
+  </data>
+  <data name="T_6CD2E331855D" xml:space="preserve">
+    <value>Sekolo</value>
+  </data>
+  <data name="T_2A31515574F6" xml:space="preserve">
+    <value>Khalendara ya sekolo</value>
+  </data>
+  <data name="T_87EF078ACE17" xml:space="preserve">
+    <value>Matlha a sekolo</value>
+  </data>
+  <data name="T_13AFEF346B27" xml:space="preserve">
+    <value>Dintlha tsa sekolo</value>
+  </data>
+  <data name="T_1A29E2072068" xml:space="preserve">
+    <value>Ditokomane tsa sekolo</value>
+  </data>
+  <data name="T_B7D5E8DEF7AF" xml:space="preserve">
+    <value>Kakaretso ya sekolo</value>
+  </data>
+  <data name="T_617AD4E4A19A" xml:space="preserve">
+    <value>Dintlha tsa sekolo di bolokilwe.</value>
+  </data>
+  <data name="T_EB2CBD328CE2" xml:space="preserve">
+    <value>Leina la sekolo</value>
+  </data>
+  <data name="T_25C69A5E2D7A" xml:space="preserve">
+    <value>Diabe tsa porofaele ya sekolo ga di neye tetla ya motsamaisi. Motsamaisi yo o ikanyegang wa Firebase o tshwanetse go aba ditetla.</value>
+  </data>
+  <data name="T_1B93C5C528A4" xml:space="preserve">
+    <value>Batla dikopo...</value>
+  </data>
+  <data name="T_BEB0E209E98E" xml:space="preserve">
+    <value>Batla badirisi...</value>
+  </data>
+  <data name="T_8F6FB4EB7F42" xml:space="preserve">
+    <value>Tshireletsego</value>
+  </data>
+  <data name="T_977844FD4358" xml:space="preserve">
+    <value>Tlhopha seabe</value>
+  </data>
+  <data name="T_74A883A037BC" xml:space="preserve">
+    <value>Ditlhophiso</value>
+  </data>
+  <data name="T_5CB8B6077BD1" xml:space="preserve">
+    <value>Ditlhophiso di fetotswe</value>
+  </data>
+  <data name="T_681927E34B77" xml:space="preserve">
+    <value>Badiri</value>
+  </data>
+  <data name="T_22267A1DB540" xml:space="preserve">
+    <value>Badiri le dithulaganyo</value>
+  </data>
+  <data name="T_8169693101A4" xml:space="preserve">
+    <value>Letlha la tshimologo</value>
+  </data>
+  <data name="T_BABE9DDA8503" xml:space="preserve">
+    <value>Nako ya tshimologo</value>
+  </data>
+  <data name="T_920E413C7D41" xml:space="preserve">
+    <value>Maemo</value>
+  </data>
+  <data name="T_1A7529AB14FD" xml:space="preserve">
+    <value>Dirutwa</value>
+  </data>
+  <data name="T_C88A0B907419" xml:space="preserve">
+    <value>Katlego</value>
+  </data>
+  <data name="T_F762DA05F4D4" xml:space="preserve">
+    <value>Sefane</value>
+  </data>
+  <data name="T_6725E7BBCD28" xml:space="preserve">
+    <value>Tsamaiso</value>
+  </data>
+  <data name="T_1F87F883CC7E" xml:space="preserve">
+    <value>Ditlhophiso tsa tsamaiso</value>
+  </data>
+  <data name="T_5EEEE52EC1E5" xml:space="preserve">
+    <value>Morutabana</value>
+  </data>
+  <data name="T_DC2792F99079" xml:space="preserve">
+    <value>Morutabana: {0}</value>
+  </data>
+  <data name="T_33C512C6EEC1" xml:space="preserve">
+    <value>Barutabana</value>
+  </data>
+  <data name="T_0CA57C7C7D47" xml:space="preserve">
+    <value>API ga e a busa tiragalo e e bolokilweng.</value>
+  </data>
+  <data name="T_3CA6A1F68C1A" xml:space="preserve">
+    <value>API ga e a busa modirisi yo o bolokilweng.</value>
+  </data>
+  <data name="T_7132765A0A91" xml:space="preserve">
+    <value>Faele ya khopi ya polokelo e kgolo thata.</value>
+  </data>
+  <data name="T_69DBB6FC6C19" xml:space="preserve">
+    <value>Letlha le nako ya bokhutlo di tshwanetse go nna morago ga tshimologo.</value>
+  </data>
+  <data name="T_242A515FCB03" xml:space="preserve">
+    <value>Letlha la sekolo le bolokilwe.</value>
+  </data>
+  <data name="T_1133C5EB424B" xml:space="preserve">
+    <value>Seva ga e a kgona go wetsa kopo.</value>
+  </data>
+  <data name="T_BFF67F1D7335" xml:space="preserve">
+    <value>Seva ga e a busa rekoto e e bolokilweng.</value>
+  </data>
+  <data name="T_EFB52E7172B7" xml:space="preserve">
+    <value>Tebego</value>
+  </data>
+  <data name="T_060C44C8B5B3" xml:space="preserve">
+    <value>Tseno ke direkoto tsa ditiro tsa ditlhophiso tsa akhaonto ya gago mo sedirisweng seno.</value>
+  </data>
+  <data name="T_58CE982AFBD4" xml:space="preserve">
+    <value>Eno ga se khopi e e nepagetseng ya polokelo ya Koos Matli.</value>
+  </data>
+  <data name="T_4B0E9B991A33" xml:space="preserve">
+    <value>Seno se boloka tlhopho ya gago ya dikitsiso. Go romela dikitsiso go tlhoka tirelo ya dikitsiso.</value>
+  </data>
+  <data name="T_7E8CD2056DA7" xml:space="preserve">
+    <value>Setlhogo</value>
+  </data>
+  <data name="T_8ED120159ECA" xml:space="preserve">
+    <value>Kakaretso ya gompieno</value>
+  </data>
+  <data name="T_6B0CC904D081" xml:space="preserve">
+    <value>Badirisi</value>
+  </data>
+  <data name="T_6787D609C7D4" xml:space="preserve">
+    <value>Netefatsa faele ya khopi ya polokelo</value>
+  </data>
+  <data name="T_DCC839A4015C" xml:space="preserve">
+    <value>Leba</value>
+  </data>
+  <data name="T_1F48FE53A7E7" xml:space="preserve">
+    <value>Leba batsadi, barutabana le barutwana ba ba kwadisitsweng</value>
+  </data>
+  <data name="T_0A73DB6A4002" xml:space="preserve">
+    <value>Leba barutabana, ditlelase le dirutwa</value>
+  </data>
+  <data name="T_2A4438D038EC" xml:space="preserve">
+    <value>Ditlhophiso tsa gago di bolokilwe.</value>
+  </data>
+  <data name="T_87031E353595" xml:space="preserve">
+    <value>Sekai: Kopano ya batsadi</value>
+  </data>
+  <data name="T_40EE3794B4EE" xml:space="preserve">
+    <value>{0} o tsentswe ka katlego.</value>
+  </data>
+  <data name="T_3FE52A685736" xml:space="preserve">
+    <value>{0} — e tsentswe ka {1:d}</value>
+  </data>
+  <data name="T_ACEB696A04C1" xml:space="preserve">
+    <value>← Boela morago</value>
+  </data>
+  <data name="T_CD7AF8B9CC4F" xml:space="preserve">
+    <value>Leina la morutwana</value>
+  </data>
+  <data name="T_EB4C4E239122" xml:space="preserve">
+    <value>Letlha la botsalo</value>
+  </data>
+  <data name="T_249CD471DFDD" xml:space="preserve">
+    <value>Mophato o o kopiwang</value>
+  </data>
+  <data name="T_3AA8F6BACEA9" xml:space="preserve">
+    <value>Leina la motlhokomedi</value>
+  </data>
+  <data name="T_4420C1A686E2" xml:space="preserve">
+    <value>Imeile ya motlhokomedi</value>
+  </data>
+  <data name="T_BAC8586D9B07" xml:space="preserve">
+    <value>Mogala wa motlhokomedi</value>
+  </data>
+  <data name="T_D42FA569949B" xml:space="preserve">
+    <value>Golaganya modirisi yo o tseneng pele o bula tshedimosetso ya motsamaisi.</value>
+  </data>
+</root>

@@ -1,6 +1,6 @@
 const { db } = require("../config/firebase");
 
-// Convert Firestore documents into JSON-friendly objects.
+
 function documentsToArray(snapshot) {
     return snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -8,7 +8,7 @@ function documentsToArray(snapshot) {
     }));
 }
 
-// Return the signed-in parent's profile.
+
 async function getParentProfile(uid) {
     const parentDoc = await db.collection("users").doc(uid).get();
 

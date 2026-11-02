@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutApp" xml:space="preserve">
+    <value> Mabapi le App</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value> Akhaonto</value>
+  </data>
+  <data name="AllNotifications" xml:space="preserve">
+    <value>Ditsebišo Ka Moka</value>
+  </data>
+  <data name="AnnouncementNotifications" xml:space="preserve">
+    <value> Ditsebišo tša Dikitsiso</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value> Fetola Phasewete</value>
+  </data>
+  <data name="ChooseAppLanguage" xml:space="preserve">
+    <value> Kgetha Polelo ya App</value>
+  </data>
+  <data name="Classes" xml:space="preserve">
+    <value> Diklase</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value> Netefatša Phasewete e Mpsha</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Phasewete ya Bjale</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value> Lefapha</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value> Aterese ya Imeile</value>
+  </data>
+  <data name="EmployeeNumber" xml:space="preserve">
+    <value> Nomoro ya Mošomi</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value> Leina</value>
+  </data>
+  <data name="HelpSupport" xml:space="preserve">
+    <value> Thušo le Thekgo</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value> Gae</value>
+  </data>
+  <data name="HomeworkNotifications" xml:space="preserve">
+    <value> Ditsebišo tša Mošomo wa Gae</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value> Polelo</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value> Sefane</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value> Tšwa</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value> Phasewete e Mpsha</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value> Ditsebišo</value>
+  </data>
+  <data name="NotificationSettings" xml:space="preserve">
+    <value> Dipeakanyo tša Ditsebišo</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Tshedimošo ya Motho</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value> Nomoro ya Mogala</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value> Maemo</value>
+  </data>
+  <data name="Preferences" xml:space="preserve">
+    <value>Dikgetho</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value> Profaele</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Boloka Diphetogo</value>
+  </data>
+  <data name="SaveLanguage" xml:space="preserve">
+    <value> Boloka Polelo</value>
+  </data>
+  <data name="SaveSettings" xml:space="preserve">
+    <value> Boloka Dipeakanyo</value>
+  </data>
+  <data name="Schedule" xml:space="preserve">
+    <value> Lenaneo</value>
+  </data>
+  <data name="SchoolInformation" xml:space="preserve">
+    <value> Tshedimošo ya Sekolo</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value> Thekgo</value>
+  </data>
+  <data name="Teacher" xml:space="preserve">
+    <value> Morutiši</value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value> Dintlafatso</value>
+  </data>
+
+	<data name="GoodMorning" xml:space="preserve">
+    <value>Thobela,</value>
+  </data>
+	<data name="WhatsHappeningToday" xml:space="preserve">
+    <value>Se se diregago lehono</value>
+  </data>
+	<data name="TodaysClasses" xml:space="preserve">
+    <value>Diklase tša Lehono</value>
+  </data>
+	<data name="ViewAll" xml:space="preserve">
+    <value>Bona ka moka</value>
+  </data>
+	<data name="UpcomingEvents" xml:space="preserve">
+    <value>Ditiragalo tše di Tlago</value>
+  </data>
+	<data name="QuickActions" xml:space="preserve">
+    <value>Ditiro tša Kapejana</value>
+  </data>
+	<data name="TakeAttendance" xml:space="preserve">
+    <value>Swaya Bao ba Lego Gona</value>
+  </data>
+	<data name="CreateAnnouncement" xml:space="preserve">
+    <value>Hlama Tsebišo</value>
+  </data>
+	<data name="UploadHomework" xml:space="preserve">
+    <value>Tsenya Mošomo wa Gae</value>
+  </data>
+	<data name="ViewTimetable" xml:space="preserve">
+    <value>Bona Lenaneo</value>
+  </data>
+	<data name="MyClasses" xml:space="preserve">
+    <value>Diklase tša ka</value>
+  </data>
+	<data name="AllClasses" xml:space="preserve">
+    <value>Diklase ka Moka</value>
+  </data>
+	<data name="Learners" xml:space="preserve">
+    <value>Barutwana</value>
+  </data>
+	<data name="Overview" xml:space="preserve">
+    <value>Kakaretšo</value>
+  </data>
+	<data name="Resources" xml:space="preserve">
+    <value>Didirišwa</value>
+  </data>
+	<data name="Attendance" xml:space="preserve">
+    <value>Bao ba Lego Gona</value>
+  </data>
+	<data name="ClassTimetable" xml:space="preserve">
+    <value>Lenaneo la Klase</value>
+  </data>
+	<data name="ViewFullTimetable" xml:space="preserve">
+    <value>Bona lenaneo ka moka ›</value>
+  </data>
+	<data name="Homework" xml:space="preserve">
+    <value>Mošomo wa Gae</value>
+  </data>
+	<data name="ClassesSummary" xml:space="preserve">
+    <value>Kakaretšo ya Klase</value>
+  </data>
+	<data name="PresentToday" xml:space="preserve">
+    <value>Ba gona lehono</value>
+  </data>
+	<data name="AbsentToday" xml:space="preserve">
+    <value>Ba se gona lehono</value>
+  </data>
+	<data name="AverageAttendance" xml:space="preserve">
+    <value>Palogare ya go ba gona</value>
+  </data>
+	<data name="Announcements" xml:space="preserve">
+    <value>Ditsebišo</value>
+  </data>
+	<data name="AddLearner" xml:space="preserve">
+    <value>+ Tsenya Morutwana</value>
+  </data>
+	<data name="ClassResources" xml:space="preserve">
+    <value>Didirišwa tša Klase</value>
+  </data>
+	<data name="LearningMaterial" xml:space="preserve">
+    <value>Didirišwa tša go ithuta tša klase ye</value>
+  </data>
+	<data name="Open" xml:space="preserve">
+    <value>Bula</value>
+  </data>
+	<data name="AttendanceInstruction" xml:space="preserve">
+    <value>Swaya morutwana yo mongwe le yo mongwe gore o gona goba ga a gona.</value>
+  </data>
+	<data name="Present" xml:space="preserve">
+    <value>O gona</value>
+  </data>
+	<data name="Absent" xml:space="preserve">
+    <value>Ga a gona</value>
+  </data>
+	<data name="SaveAttendance" xml:space="preserve">
+    <value>Boloka Boemo</value>
+  </data>
+	<data name="ClassHomework" xml:space="preserve">
+    <value>Mošomo wa Gae wa Klase</value>
+  </data>
+	<data name="AddHomework" xml:space="preserve">
+    <value>+ Tsenya Mošomo wa Gae</value>
+  </data>
+	<data name="HomeworkDetails" xml:space="preserve">
+    <value>Dintlha tša Mošomo wa Gae</value>
+  </data>
+	<data name="Title" xml:space="preserve">
+    <value>Sehlogo</value>
+  </data>
+	<data name="Instructions" xml:space="preserve">
+    <value>Ditaelo</value>
+  </data>
+	<data name="DueDate" xml:space="preserve">
+    <value>Letšatši la Mafelelo</value>
+  </data>
+	<data name="Status" xml:space="preserve">
+    <value>Boemo</value>
+  </data>
+	<data name="Attachment" xml:space="preserve">
+    <value>Sephuthelwana</value>
+  </data>
+	<data name="ChooseFile" xml:space="preserve">
+    <value>Kgetha Faele</value>
+  </data>
+	<data name="SaveHomework" xml:space="preserve">
+    <value>Boloka Mošomo wa Gae</value>
+  </data>
+	<data name="ManageAnnouncements" xml:space="preserve">
+    <value>Laola ditsebišo tša barutwana ba gago</value>
+  </data>
+	<data name="Create" xml:space="preserve">
+    <value>+ Hlama</value>
+  </data>
+	<data name="AnnouncementDetails" xml:space="preserve">
+    <value>Dintlha tša Tsebišo</value>
+  </data>
+	<data name="Message" xml:space="preserve">
+    <value>Molaetša</value>
+  </data>
+	<data name="Audience" xml:space="preserve">
+    <value>Baamogedi</value>
+  </data>
+	<data name="SpecificClass" xml:space="preserve">
+    <value>Klase ye e Itšego</value>
+  </data>
+	<data name="Grade" xml:space="preserve">
+    <value>Mphato</value>
+  </data>
+	<data name="Subject" xml:space="preserve">
+    <value>Thuto</value>
+  </data>
+	<data name="EventDueDate" xml:space="preserve">
+    <value>Letšatši la Tiragalo / Mafelelo</value>
+  </data>
+	<data name="PublishAnnouncement" xml:space="preserve">
+    <value>Phatlalatša Tsebišo</value>
+  </data>
+	<data name="DeleteAnnouncement" xml:space="preserve">
+    <value>Phumola Tsebišo</value>
+  </data>
+	<data name="ScheduleSubtitle" xml:space="preserve">
+    <value>Diklase, dikopano le ditiragalo tša sekolo</value>
+  </data>
+	<data name="TodaysSchedule" xml:space="preserve">
+    <value>Lenaneo la Lehono</value>
+  </data>
+	<data name="Upcoming" xml:space="preserve">
+    <value>Tše di Tlago</value>
+  </data>
+	<data name="UpcomingClassesEvents" xml:space="preserve">
+    <value>Diklase le ditiragalo tše di tlago</value>
+  </data>
+	<data name="Add" xml:space="preserve">
+    <value>+ Tsenya</value>
+  </data>
+	<data name="AddSchedule" xml:space="preserve">
+    <value>Tsenya Lenaneo</value>
+  </data>
+	<data name="ScheduleDetails" xml:space="preserve">
+    <value>Dintlha tša Lenaneo</value>
+  </data>
+	<data name="Description" xml:space="preserve">
+    <value>Tlhaloso</value>
+  </data>
+	<data name="EventType" xml:space="preserve">
+    <value>Mohuta wa Tiragalo</value>
+  </data>
+	<data name="Date" xml:space="preserve">
+    <value>Letšatši</value>
+  </data>
+	<data name="StartTime" xml:space="preserve">
+    <value>Nako ya go Thoma</value>
+  </data>
+	<data name="EndTime" xml:space="preserve">
+    <value>Nako ya go Fela</value>
+  </data>
+	<data name="Location" xml:space="preserve">
+    <value>Lefelo</value>
+  </data>
+	<data name="AddToSchedule" xml:space="preserve">
+    <value>Tsenya Lenaneong</value>
+  </data>
+	<data name="DeleteScheduleItem" xml:space="preserve">
+    <value>Phumola go Lenaneo</value>
+  </data>
+	<data name="DueEvent" xml:space="preserve">
+    <value>Mafelelo / Tiragalo</value>
+  </data>
+	<data name="LanguageExplanation" xml:space="preserve">
+    <value>Polelo ye e kgethilwego e tla dirišwa mo app ya Morutiši.</value>
+  </data>
+</root>

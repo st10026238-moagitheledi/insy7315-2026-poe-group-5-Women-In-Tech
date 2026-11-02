@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="KoosMatliApp.Views.Admin.AddNewUserPage"
+    Title="{DynamicResource T_8512BF96FFF6}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+
+            <Label Text="{DynamicResource T_8512BF96FFF6}"
+                   FontSize="26"
+                   FontAttributes="Bold" />
+
+            <Label Text="{DynamicResource T_702EF921ED1D}" />
+            <Entry x:Name="FirstNameEntry"
+                   Placeholder="{DynamicResource T_05786ECBA692}" />
+
+            <Label Text="{DynamicResource T_F762DA05F4D4}" />
+            <Entry x:Name="LastNameEntry"
+                   Placeholder="{DynamicResource T_B891C28467F5}" />
+
+            <Label Text="{DynamicResource T_14736A2EB9F4}" />
+            <Picker x:Name="RolePicker" Title="{DynamicResource T_977844FD4358}"/>
+
+            <Label Text="{DynamicResource T_F2488FD4EF4A}" />
+            <Entry x:Name="EmailEntry"
+                   Placeholder="name@example.com"
+                   Keyboard="Email" />
+
+            <Label Text="{DynamicResource T_306F1BB20677}" />
+            <Entry x:Name="PhoneEntry"
+                   Placeholder="{DynamicResource T_DCE8CD1AC578}"
+                   Keyboard="Telephone" />
+
+            <Label x:Name="ErrorLabel"
+                   TextColor="Red"
+                   IsVisible="False" />
+
+            <Button x:Name="SaveButton"
+                    Text="{DynamicResource T_96C2BBB5ED5B}"
+                    Clicked="SaveButton_Clicked" />
+
+            <Button Text="{DynamicResource T_19766ED6CCB2}"
+                    BackgroundColor="Gray"
+                    Clicked="CancelButton_Clicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

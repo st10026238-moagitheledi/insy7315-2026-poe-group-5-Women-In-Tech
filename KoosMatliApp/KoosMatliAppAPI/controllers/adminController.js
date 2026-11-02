@@ -5,7 +5,7 @@ async function getDashboard(req, res) {
         const [usersSnapshot, applicationsSnapshot, announcementsSnapshot] =
             await Promise.all([
                 db.collection("users").get(),
-                db.collection("applications").get(),
+                db.collection("applications").get(), //(Google Cloud, 2026a).
                 db.collection("announcements").get()
             ]);
 
@@ -42,9 +42,6 @@ async function getDashboard(req, res) {
     }
 }
 
-// POST /api/admin/users
-// Admins can create teacher or admin accounts.
-// Public users cannot call this endpoint successfully.
 async function createStaffAccount(req, res) {
     let createdUser = null;
 
@@ -132,7 +129,7 @@ async function createStaffAccount(req, res) {
         try {
             await db.collection("users").doc(createdUser.uid).create(profile);
         } catch (error) {
-            await auth.deleteUser(createdUser.uid).catch((rollbackError) => {
+            await auth.deleteUser(createdUser.uid).catch((rollbackError) => { //(Firebase Documentation, 2026a)
                 console.error("Staff account rollback failed:", rollbackError.message);
             });
 
@@ -155,7 +152,7 @@ async function createStaffAccount(req, res) {
         console.error("Staff account creation error:", error.code || error.message);
 
         if (error.code === "auth/email-already-exists") {
-            return res.status(409).json({
+            return res.status(409).json({ //(Firebase Documentation, 2026b).
                 success: false,
                 message: "An account with this email already exists."
             });
@@ -189,3 +186,11 @@ module.exports = {
     getDashboard,
     createStaffAccount
 };
+/*Reference List
+
+Google Cloud, "Manage Data in Cloud Firestore," Firebase Documentation, 2026. [Online]. Available: https://firebase.google.com/docs/firestore/manage-data/add-data
+
+Firebase Documentation, "Manage Users in Firebase Auth Admin SDK," Google Cloud, 2026. [Online]. Available: https://firebase.google.com/docs/auth/admin/manage-users
+
+Node.js Foundation, "Asynchronous Control Flow and Promise Handling," Node.js API Reference, 2026. [Online]. Available: https://nodejs.org/en/docs/guides/dont-block-the-event-loop
+*/

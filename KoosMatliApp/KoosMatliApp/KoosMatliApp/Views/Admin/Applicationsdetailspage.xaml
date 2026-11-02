@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:KoosMatliApp.ViewModels"
+    x:Class="KoosMatliApp.Views.Admin.Applicationsdetailspage"
+    x:DataType="vm:ApplicationsDetailViewModel"
+    Title="{DynamicResource T_B5EFD6AD6D8A}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="{DynamicResource T_B5EFD6AD6D8A}"
+                   FontSize="28"
+                   FontAttributes="Bold" />
+
+            <Label Text="{DynamicResource T_24A68D3C253A}"
+                   TextColor="Gray" />
+
+            <Label Text="{Binding Application.ApplicationNumber}"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Label Text="{DynamicResource T_920E413C7D41}"
+                   TextColor="Gray" />
+
+            <Label
+                Text="{Binding Status, Converter={StaticResource LocalizeValue}}"
+                FontSize="16"
+                TextColor="Orange" />
+
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   TextColor="Red" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" />
+
+            <Label Text="{DynamicResource T_CD7AF8B9CC4F}"
+                   TextColor="Gray" />
+            <Label Text="{Binding LearnerFullName}" />
+
+            <Label Text="{DynamicResource T_EB4C4E239122}"
+                   TextColor="Gray" />
+            <Label Text="{Binding DateOfBirth, StringFormat='{0:d}'}" />
+
+            <Label Text="{DynamicResource T_249CD471DFDD}"
+                   TextColor="Gray" />
+            <Label Text="{Binding GradeApplyingFor}" />
+
+            <Label Text="{DynamicResource T_3AA8F6BACEA9}"
+                   TextColor="Gray" />
+            <Label Text="{Binding GuardianName}" />
+
+            <Label Text="{DynamicResource T_4420C1A686E2}"
+                   TextColor="Gray" />
+            <Label Text="{Binding GuardianEmail}" />
+
+            <Label Text="{DynamicResource T_BAC8586D9B07}"
+                   TextColor="Gray" />
+            <Label Text="{Binding GuardianPhone}" />
+
+            <Button Text="{DynamicResource T_4126FD415F2D}"
+                    Command="{Binding ApproveCommand}"
+                    IsVisible="{Binding CanDecide}"
+                    IsEnabled="{Binding IsNotBusy}" />
+
+            <Button Text="{DynamicResource T_210F2A76B0B3}"
+                    Command="{Binding RejectCommand}"
+                    IsVisible="{Binding CanDecide}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    BackgroundColor="Red" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

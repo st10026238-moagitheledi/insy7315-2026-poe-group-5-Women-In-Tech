@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.ClassesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localization="clr-namespace:KoosMatliApp.Resources.Localization"
+    Title="{localization:Translate Key=Classes}"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+
+        <Border
+            Grid.Row="0"
+            Margin="16,12,16,0"
+            Padding="12"
+            BackgroundColor="{StaticResource PrimaryBlue}"
+            StrokeThickness="0">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="12" />
+            </Border.StrokeShape>
+
+            <Grid
+                ColumnDefinitions="*,44"
+                ColumnSpacing="12">
+
+                <Label
+                    Grid.Column="0"
+                    Text="{localization:Translate Key=MyClasses}"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource SunshineGold}"
+                    VerticalTextAlignment="Center" />
+
+
+                <!-- Temporary Teacher Profile -->
+                <Border
+                    Grid.Column="1"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    BackgroundColor="{StaticResource SunshineGold}"
+                    StrokeThickness="0">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+
+                    <Label
+                        Text="JD"
+                        FontSize="12"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBlue}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+
+        <Grid
+            Grid.Row="1"
+            Margin="16,8,16,0"
+            ColumnDefinitions="*,*"
+            ColumnSpacing="0">
+
+            <!-- My Classes Tab -->
+            <VerticalStackLayout
+                Grid.Column="0"
+                Spacing="6">
+
+                <Button
+                    Text="{localization:Translate Key=MyClasses}"
+                    Command="{Binding ShowMyClassesCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource SunshineGold}"
+                    FontSize="13"
+                    Padding="4" />
+
+                <BoxView
+                    HeightRequest="2"
+                    BackgroundColor="{StaticResource SunshineGold}"
+                    IsVisible="{Binding IsMyClassesSelected}" />
+
+            </VerticalStackLayout>
+
+
+            <!-- All Classes Tab -->
+            <VerticalStackLayout
+                Grid.Column="1"
+                Spacing="6">
+
+                <Button
+                    Text="{localization:Translate Key=AllClasses}"
+                    Command="{Binding ShowAllClassesCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource PrimaryBlue}"
+                    FontSize="13"
+                    Padding="4" />
+
+                <BoxView
+                    HeightRequest="2"
+                    BackgroundColor="{StaticResource SunshineGold}"
+                    IsVisible="{Binding IsAllClassesSelected}" />
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+
+        <Grid
+            Grid.Row="2"
+            Margin="16,12,16,16">
+
+
+            <CollectionView
+                ItemsSource="{Binding MyClasses}"
+                IsVisible="{Binding IsMyClassesSelected}"
+                SelectionMode="None">
+
+                <CollectionView.ItemsLayout>
+
+                    <LinearItemsLayout
+                        Orientation="Vertical"
+                        ItemSpacing="10" />
+
+                </CollectionView.ItemsLayout>
+
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Border
+                            BackgroundColor="{StaticResource CardSurface}"
+                            Stroke="{StaticResource Gray200}"
+                            StrokeThickness="1"
+                            Padding="12">
+
+                            <!-- Makes the whole class card clickable -->
+                            <Border.GestureRecognizers>
+
+                                <TapGestureRecognizer
+                                    Tapped="OnClassTapped" />
+
+                            </Border.GestureRecognizers>
+
+
+                            <Border.StrokeShape>
+
+                                <RoundRectangle
+                                    CornerRadius="8" />
+
+                            </Border.StrokeShape>
+
+
+                            <Grid
+                                ColumnDefinitions="44,*,Auto"
+                                ColumnSpacing="12">
+
+
+                                <!-- Class Icon -->
+                                <Border
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    BackgroundColor="{StaticResource SkyBlue}"
+                                    StrokeThickness="0"
+                                    VerticalOptions="Start">
+
+                                    <Border.StrokeShape>
+
+                                        <RoundRectangle
+                                            CornerRadius="20" />
+
+                                    </Border.StrokeShape>
+
+                                    <Label
+                                        Text="C"
+                                        FontSize="14"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+
+                                </Border>
+
+
+                                <!-- Class Information -->
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="3">
+
+                                    <Label
+                                        Text="{Binding Grade}"
+                                        FontSize="13"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+
+                                    <HorizontalStackLayout
+                                        Spacing="4">
+
+                                        <Label
+                                            Text="{Binding LearnerCount}"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource Gray500}" />
+
+                                        <Label
+                                            Text="{localization:Translate Key=Learners}"
+                                            FontSize="10"
+                                            TextColor="{StaticResource Gray500}" />
+
+                                    </HorizontalStackLayout>
+
+
+                                    <BoxView
+                                        HeightRequest="1"
+                                        Margin="0,4"
+                                        BackgroundColor="{StaticResource Gray200}" />
+
+
+                                    <Label
+                                        Text="{Binding Subject}"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+
+                                    <Label
+                                        Text="{Binding Schedule}"
+                                        FontSize="9"
+                                        TextColor="{StaticResource Gray500}" />
+
+                                </VerticalStackLayout>
+
+
+                                <!-- Arrow -->
+                                <Label
+                                    Grid.Column="2"
+                                    Text="›"
+                                    FontSize="26"
+                                    TextColor="{StaticResource PrimaryBlue}"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+
+            <CollectionView
+                ItemsSource="{Binding AllClasses}"
+                IsVisible="{Binding IsAllClassesSelected}"
+                SelectionMode="None">
+
+                <CollectionView.ItemsLayout>
+
+                    <LinearItemsLayout
+                        Orientation="Vertical"
+                        ItemSpacing="10" />
+
+                </CollectionView.ItemsLayout>
+
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <!-- Clickable class card -->
+                        <Border
+                            BackgroundColor="{StaticResource CardSurface}"
+                            Stroke="{StaticResource Gray200}"
+                            StrokeThickness="1"
+                            Padding="12">
+
+                            <!-- Same navigation as My Classes -->
+                            <Border.GestureRecognizers>
+
+                                <TapGestureRecognizer
+                                    Tapped="OnClassTapped" />
+
+                            </Border.GestureRecognizers>
+
+
+                            <Border.StrokeShape>
+
+                                <RoundRectangle
+                                    CornerRadius="8" />
+
+                            </Border.StrokeShape>
+
+
+                            <Grid
+                                ColumnDefinitions="44,*,Auto"
+                                ColumnSpacing="12">
+
+
+                                <!-- Class Icon -->
+                                <Border
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    BackgroundColor="{StaticResource SkyBlue}"
+                                    StrokeThickness="0"
+                                    VerticalOptions="Start">
+
+                                    <Border.StrokeShape>
+
+                                        <RoundRectangle
+                                            CornerRadius="20" />
+
+                                    </Border.StrokeShape>
+
+                                    <Label
+                                        Text="C"
+                                        FontSize="14"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+
+                                </Border>
+
+
+                                <!-- Class Information -->
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="3">
+
+                                    <Label
+                                        Text="{Binding Grade}"
+                                        FontSize="13"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+
+                                    <HorizontalStackLayout
+                                        Spacing="4">
+
+                                        <Label
+                                            Text="{Binding LearnerCount}"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource Gray500}" />
+
+                                        <Label
+                                            Text="{localization:Translate Key=Learners}"
+                                            FontSize="10"
+                                            TextColor="{StaticResource Gray500}" />
+
+                                    </HorizontalStackLayout>
+
+
+                                    <BoxView
+                                        HeightRequest="1"
+                                        Margin="0,4"
+                                        BackgroundColor="{StaticResource Gray200}" />
+
+
+                                    <Label
+                                        Text="{Binding Subject}"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource PrimaryBlue}" />
+
+
+                                    <Label
+                                        Text="{Binding Schedule}"
+                                        FontSize="9"
+                                        TextColor="{StaticResource Gray500}" />
+
+                                </VerticalStackLayout>
+
+
+                                <!-- Arrow -->
+                                <Label
+                                    Grid.Column="2"
+                                    Text="›"
+                                    FontSize="26"
+                                    TextColor="{StaticResource PrimaryBlue}"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

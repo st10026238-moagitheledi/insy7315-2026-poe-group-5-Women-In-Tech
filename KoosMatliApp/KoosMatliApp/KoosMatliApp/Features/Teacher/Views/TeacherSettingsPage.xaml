@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="KoosMatliApp.Features.Teacher.Views.TeacherSettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Settings"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="12,10,12,24"
+            Spacing="14">
+
+
+            <!-- Header -->
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Grid
+                    ColumnDefinitions="32,*"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Text="‹"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+
+                        <Label.GestureRecognizers>
+
+                            <TapGestureRecognizer
+                                Tapped="OnBackTapped" />
+
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+
+                    <Label
+                        Grid.Column="1"
+                        Text="Settings"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource SunshineGold}"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+            </Border>
+
+
+            <Label
+                Text="Notifications"
+                FontSize="15"
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryBlue}" />
+
+
+            <Border
+                BackgroundColor="{StaticResource CardSurface}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+
+
+                <VerticalStackLayout Spacing="16">
+
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <VerticalStackLayout Spacing="2">
+
+                            <Label
+                                Text="Notifications"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Label
+                                Text="Enable teacher notifications"
+                                FontSize="8"
+                                TextColor="{StaticResource Gray500}" />
+
+                        </VerticalStackLayout>
+
+                        <Switch
+                            Grid.Column="1"
+                            IsToggled="{Binding NotificationsEnabled}" />
+
+                    </Grid>
+
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <VerticalStackLayout Spacing="2">
+
+                            <Label
+                                Text="Homework Notifications"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Label
+                                Text="Receive homework-related notifications"
+                                FontSize="8"
+                                TextColor="{StaticResource Gray500}" />
+
+                        </VerticalStackLayout>
+
+                        <Switch
+                            Grid.Column="1"
+                            IsToggled="{Binding HomeworkNotifications}" />
+
+                    </Grid>
+
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <VerticalStackLayout Spacing="2">
+
+                            <Label
+                                Text="Announcement Notifications"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryBlue}" />
+
+                            <Label
+                                Text="Receive announcement notifications"
+                                FontSize="8"
+                                TextColor="{StaticResource Gray500}" />
+
+                        </VerticalStackLayout>
+
+                        <Switch
+                            Grid.Column="1"
+                            IsToggled="{Binding AnnouncementNotifications}" />
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Label
+                Text="Language"
+                FontSize="15"
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryBlue}" />
+
+
+            <Border
+                BackgroundColor="{StaticResource CardSurface}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                Padding="12">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label
+                        Text="App Language"
+                        FontSize="11"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryBlue}" />
+
+                    <Label
+                        Text="Choose the language used throughout the app."
+                        FontSize="8"
+                        TextColor="{StaticResource Gray500}" />
+
+                    <Picker
+                        ItemsSource="{Binding LanguageOptions}"
+                        SelectedItem="{Binding Language}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <Button
+                Text="Save Settings"
+                Clicked="OnSaveSettingsClicked"
+                BackgroundColor="{StaticResource SunshineGold}"
+                TextColor="{StaticResource PrimaryBlue}"
+                FontAttributes="Bold"
+                HeightRequest="46"
+                CornerRadius="8" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

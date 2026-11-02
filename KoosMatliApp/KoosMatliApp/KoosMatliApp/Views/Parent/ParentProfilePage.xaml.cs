@@ -157,10 +157,7 @@ public partial class ParentProfilePage : ContentPage
 
         try
         {
-            SecureStorage.Remove("auth_token");
-
-            // Navigate to the login page registered in your app.
-            await Shell.Current.GoToAsync("//LoginPage");
+            KoosMatliApp.App.ShowLogin();
         }
         catch (Exception ex)
         {

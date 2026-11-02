@@ -1,3 +1,13 @@
 node_modules/
 .env
-koosmatliprimaryschoolsystem-firebase-adminsdk-fbsvc-60df4d9328.json
+.env.*
+!.env.example
+App_Data/
+*.log
+*.pfx
+*.pem
+*.key
+*service-account*.json
+*firebase-adminsdk*.json
+coverage/
+.DS_Store
