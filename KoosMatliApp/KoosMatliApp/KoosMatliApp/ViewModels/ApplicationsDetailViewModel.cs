@@ -17,11 +17,11 @@ public class ApplicationsDetailViewModel : BaseViewModel
             _application = value;
 
             OnPropertyChanged(nameof(Application));
-            OnPropertyChanged(nameof(CanDecide));
+            OnPropertyChanged(nameof(CanDecide)); //(Microsoft Learn, 2026a).
             OnPropertyChanged(nameof(LearnerFullName));
             OnPropertyChanged(nameof(Status));
             OnPropertyChanged(nameof(GradeApplyingFor));
-            OnPropertyChanged(nameof(DateOfBirth));
+            OnPropertyChanged(nameof(DateOfBirth)); //(Microsoft Learn, 2026a).
             OnPropertyChanged(nameof(GuardianName));
             OnPropertyChanged(nameof(GuardianEmail));
             OnPropertyChanged(nameof(GuardianPhone));
@@ -55,7 +55,7 @@ public class ApplicationsDetailViewModel : BaseViewModel
 
     public ICommand ApproveCommand { get; }
     public ICommand RejectCommand { get; }
-    public ICommand PendingCommand { get; }
+    public ICommand PendingCommand { get; } //(Microsoft Learn, 2026b).
     public ICommand BackCommand { get; }
 
     public ApplicationsDetailViewModel(IAdminApiService api)
@@ -117,7 +117,7 @@ public class ApplicationsDetailViewModel : BaseViewModel
 
         try
         {
-            bool confirmed = await Shell.Current.DisplayAlertAsync(
+            bool confirmed = await Shell.Current.DisplayAlertAsync( //(Microsoft Learn, 2026b).
                 L.T("Confirm"),
                 L.T("Change this application status?"),
                 L.T("Continue"),
@@ -146,5 +146,14 @@ public class ApplicationsDetailViewModel : BaseViewModel
     }
 
     private async Task GoBackAsync() =>
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(".."); //(Microsoft Learn, 2026c).
 }
+
+/*Reference List
+ 
+Microsoft Corporation, "Model-View-ViewModel (MVVM) in .NET MAUI: Property Change Notifications," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/mvvm
+
+Microsoft Corporation, "Commanding in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/commanding
+
+Microsoft Corporation, "Shell Navigation in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation
+ */

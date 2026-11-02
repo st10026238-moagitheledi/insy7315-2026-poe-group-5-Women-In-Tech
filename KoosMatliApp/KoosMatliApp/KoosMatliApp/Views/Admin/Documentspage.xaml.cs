@@ -32,25 +32,25 @@ public partial class Documentspage : ContentPage
 
         _upload.Clicked += async (_, _) => await RunAsync(async () =>
         {
-            var file = await FilePicker.Default.PickAsync(
+            var file = await FilePicker.Default.PickAsync( //(Microsoft Learn, 2026b).
                 new PickOptions
                 {
                     PickerTitle =
-                        "Choose PDF, DOCX, TXT, PNG or JPG (up to 10 MB)"
+                        "Choose PDF, DOCX, TXT, PNG or JPG (up to 10 MB)" //(Microsoft Learn, 2026b).
                 });
 
             if (file is null)
                 return;
 
-            await _client.UploadAsync(file);
+            await _client.UploadAsync(file); //(Microsoft Learn, 2026b).
             await LoadAsync();
         });
 
         _refresh.Clicked += async (_, _) => await RunAsync(LoadAsync);
 
-        Content = new ScrollView
+        Content = new ScrollView //(Microsoft Learn, 2026a).
         {
-            Content = new VerticalStackLayout
+            Content = new VerticalStackLayout //(Microsoft Learn, 2026a).
             {
                 Padding = 20,
                 Spacing = 16,
@@ -149,3 +149,12 @@ public partial class Documentspage : ContentPage
     // Retained for the existing compiled XAML file.
     private void ViewDocument_Clicked(object sender, EventArgs e) { }
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "Creating .NET MAUI Pages in C#," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/
+
+ Microsoft Corporation, "File Picker in .NET MAUI Essentials," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/file-picker
+
+ Microsoft Corporation, "Asynchronous Programming Patterns in .NET MAUI Apps," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/async
+ */

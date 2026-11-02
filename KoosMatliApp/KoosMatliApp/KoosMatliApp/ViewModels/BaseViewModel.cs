@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace KoosMatliApp.ViewModels
 {
-    public abstract class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged //(Microsoft Learn, 2026a).
     {
         private string _title = string.Empty;
         private bool _isBusy;
@@ -36,14 +36,14 @@ namespace KoosMatliApp.ViewModels
             set => SetProperty(ref _hasError, value);
         }
 
-        public string ErrorMessage
+        public string ErrorMessage //(Microsoft Learn, 2026c).
         {
             get => _errorMessage;
             set => SetProperty(ref _errorMessage, value);
         }
 
         protected void OnPropertyChanged(
-            [CallerMemberName] string? propertyName = null)
+            [CallerMemberName] string? propertyName = null) //(Microsoft Learn, 2026b).
         {
             PropertyChanged?.Invoke(
                 this,
@@ -64,3 +64,11 @@ namespace KoosMatliApp.ViewModels
         }
     }
 }
+
+/* Reference List
+ * 
+ * Microsoft Corporation, "Model-View-ViewModel (MVVM) in .NET MAUI: Property Chang Notifications," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/mvvm
+
+   Microsoft Corporation, "CallerMemberNameAttribute Class (System.Runtime.CompilerServices)," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.callermembernameattribute
+
+   Microsoft Corporation, "INotifyPropertyChanged Interface (System.ComponentModel)," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged*/

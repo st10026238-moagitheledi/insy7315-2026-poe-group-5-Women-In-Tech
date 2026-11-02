@@ -14,17 +14,17 @@ public partial class App : Application
     {
         KoosMatliApp.Resources.Localization.LocalizationManager.Instance.Initialize();
         InitializeComponent();
-        L.SetCulture(Preferences.Default.Get("KoosMatli.Language", "en-ZA"));
+        L.SetCulture(Preferences.Default.Get("KoosMatli.Language", "en-ZA")); //(Microsoft Learn, 2026c).
     }
 
-    protected override Window CreateWindow(IActivationState? activationState) =>
+    protected override Window CreateWindow(IActivationState? activationState) => //(Microsoft Learn, 2026a).
         new Window(new NavigationPage(new KoosMatliApp.Views.Authentication.SplashPage()));
 
     public static void ShowLogin()
     {
         ClearAdminSession();
         AuthService.Instance.Logout();
-        Services?.GetRequiredService<KoosMatliApp.Features.Teacher.Services.TeacherApiService>().ClearSession();
+        Services?.GetRequiredService<KoosMatliApp.Features.Teacher.Services.TeacherApiService>().ClearSession(); //(Microsoft Learn, 2026b).
         if (Current is { } app)
         {
             app.UserAppTheme = AppTheme.Unspecified;
@@ -61,7 +61,7 @@ public partial class App : Application
             // Load the user's saved language, theme and preferences.
             await settings.LoadAsync();
 
-            await MainThread.InvokeOnMainThreadAsync(ShowShell);
+            await MainThread.InvokeOnMainThreadAsync(ShowShell); //(Microsoft Learn, 2026d).
         }
         catch (Exception ex)
         {
@@ -105,3 +105,13 @@ public partial class App : Application
             window.Page = new AdminShell();
     }
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "App and Window Lifecycle in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/app-lifecycle
+ Microsoft Corporation, "Dependency Injection in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/dependency-injection
+
+ Microsoft Corporation, "Preferences in .NET MAUI Essentials," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/preferences
+
+ Microsoft Corporation, "MainThread in .NET MAUI Essentials," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/appmodel/main-thread
+ */

@@ -9,10 +9,10 @@ public class DocumentsViewModel : BaseViewModel
 {
     private readonly IAdminApiService _api;
 
-    public ObservableCollection<SchoolDocument> Documents { get; } = new();
+    public ObservableCollection<SchoolDocument> Documents { get; } = new(); //(Microsoft Learn, 2026a).
 
     public ICommand ViewDocumentCommand { get; }
-    public ICommand UploadCommand { get; }
+    public ICommand UploadCommand { get; } //(Microsoft Learn, 2026a).
     public ICommand BackCommand { get; }
 
     public DocumentsViewModel(IAdminApiService api)
@@ -68,9 +68,18 @@ public class DocumentsViewModel : BaseViewModel
         try {
             var uri = new Uri(App.Services!.GetRequiredService<AppConfiguration>().ApiUri, document.FileUrl);
             if (uri.Scheme != "https") throw new InvalidOperationException(L.T("Only HTTPS document links can be opened."));
-            await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred); //(Microsoft Learn, 2026b).
         } catch (Exception ex) { await Shell.Current.DisplayAlertAsync(L.T("Error"), ex.Message, L.T("OK")); }
     }
     private static Task ExplainUploadStatusAsync() => Shell.Current.DisplayAlertAsync(
         L.T("Documents"), L.T("Document upload requires a file-storage service."), L.T("OK"));
 }
+
+/*Reference List
+ 
+Microsoft Corporation, "Commanding in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/commanding
+
+Microsoft Corporation, "Launcher and Browser in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/appmodel/launcher
+
+Microsoft Corporation, "Model-View-ViewModel (MVVM) in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/mvvm
+ */

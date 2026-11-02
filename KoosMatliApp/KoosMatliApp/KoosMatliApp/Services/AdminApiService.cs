@@ -8,12 +8,12 @@ namespace KoosMatliApp.Services;
 
 public class AdminApiService : IAdminApiService
 {
-    private readonly HttpClient _http;
+    private readonly HttpClient _http; //(Microsoft Learn, 2026a).
     private readonly AdminSession _session;
 
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
-        PropertyNameCaseInsensitive = true
+        PropertyNameCaseInsensitive = true //(Microsoft Learn, 2026c).
     };
 
     public AdminApiService(HttpClient http, AdminSession session)
@@ -34,7 +34,7 @@ public class AdminApiService : IAdminApiService
 
         try
         {
-            using var json = JsonDocument.Parse(body);
+            using var json = JsonDocument.Parse(body); //(Microsoft Learn, 2026b).
             var value = json.RootElement;
 
             if (value.ValueKind == JsonValueKind.String)

@@ -4,18 +4,14 @@ using System.Net.Http.Json;
 
 namespace KoosMatliApp.Services;
 
-public sealed class ApiRequestHandler(AdminSession session)
-    : DelegatingHandler
+public sealed class ApiRequestHandler(AdminSession session)  : DelegatingHandler //(Microsoft Learn, 2026a).
 {
     public static TimeSpan RequestTimeout { get; set; } =
         TimeSpan.FromSeconds(90);
 
-    protected override async Task<HttpResponseMessage> SendAsync(
-        HttpRequestMessage request,
-        CancellationToken cancellationToken)
+    protected override async Task<HttpResponseMessage> SendAsync( HttpRequestMessage request, CancellationToken cancellationToken) //(Microsoft Learn, 2026b).
     {
-        using var budget =
-            CancellationTokenSource.CreateLinkedTokenSource(
+        using var budget = CancellationTokenSource.CreateLinkedTokenSource(
                 cancellationToken);
 
         budget.CancelAfter(RequestTimeout);
@@ -35,7 +31,7 @@ public sealed class ApiRequestHandler(AdminSession session)
             }
 
             request.Headers.Authorization =
-                new AuthenticationHeaderValue("Bearer", token);
+                new AuthenticationHeaderValue("Bearer", token); //(Microsoft Learn, 2026c; Microsoft Learn, 2026d).
 
             request.Headers.Accept.ParseAdd("application/json");
             request.Headers.AcceptLanguage.Clear();
@@ -45,7 +41,7 @@ public sealed class ApiRequestHandler(AdminSession session)
 
             try
             {
-                await response.Content.LoadIntoBufferAsync(budget.Token);
+                await response.Content.LoadIntoBufferAsync(budget.Token); //(Microsoft Learn, 2026e).
             }
             catch
             {
@@ -58,7 +54,7 @@ public sealed class ApiRequestHandler(AdminSession session)
 
             return response;
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) //(Microsoft Learn, 2026f).
             when (!cancellationToken.IsCancellationRequested)
         {
             return Error(
@@ -86,3 +82,17 @@ public sealed class ApiRequestHandler(AdminSession session)
             Content = JsonContent.Create(new { message })
         };
 }
+/*Reference List
+ 
+Microsoft Corporation, "Make HTTP Requests Using IHttpClientFactory in .NET: Message Handlers," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/core/extensions/httpclient-factory#message-handlers
+
+Microsoft Corporation, "Cancel Managed Threads in .NET: Linked Cancellation Tokens," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/standard/threading/how-to-listen-for-cancellation-requests-that-have-linked-tokens
+
+Microsoft Corporation, "AuthenticationHeaderValue Class (System.Net.Http.Headers)," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/api/system.net.http.headers.authenticationheadervalue
+
+Microsoft Corporation, "Globalize and Localize .NET Applications," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/core/extensions/localization
+
+Microsoft Corporation, "HttpContent Class (System.Net.Http)," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent
+
+Microsoft Corporation, "Handle Transient Faults in .NET HTTP Applications," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications-use-http-client-retries
+ */

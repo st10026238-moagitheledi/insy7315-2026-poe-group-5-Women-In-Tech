@@ -9,11 +9,11 @@ public partial class AdminDashboardPage : ContentPage
         InitializeComponent();
 
         BindingContext = App.Services?
-          .GetService(typeof(AdminDashboardViewModel))
+          .GetService(typeof(AdminDashboardViewModel)) //(Microsoft Learn, 2026a).
           as AdminDashboardViewModel;
 
         var btnDetails = FindByName("btnSchoolDetails") as Button;
-        var btnDates = FindByName("btnSchoolDates") as Button;
+        var btnDates = FindByName("btnSchoolDates") as Button; //(Microsoft Learn, 2026a).
         var btnCalendar = FindByName("btnSchoolCalendar") as Button;
         var btnDocs = FindByName("btnDocuments") as Button;
 
@@ -26,7 +26,7 @@ public partial class AdminDashboardPage : ContentPage
         if (btnDates != null)
         {
             btnDates.Clicked += async (s, e) =>
-              await Shell.Current.GoToAsync("schooldates");
+              await Shell.Current.GoToAsync("schooldates"); //(Microsoft Learn, 2026b).
         }
 
         if (btnCalendar != null)
@@ -42,7 +42,7 @@ public partial class AdminDashboardPage : ContentPage
         }
     }
 
-    protected override async void OnAppearing()
+    protected override async void OnAppearing() //(Microsoft Learn, 2026c).
     {
         base.OnAppearing();
 
@@ -52,3 +52,11 @@ public partial class AdminDashboardPage : ContentPage
         }
     }
 }
+
+/*Reference List
+ Microsoft Corporation, "Dependency Injection in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/dependency-injection
+
+ Microsoft Corporation, "Shell Navigation in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation
+
+ Microsoft Corporation, "Page Lifecycle in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/app-lifecycle
+ */

@@ -5,7 +5,7 @@ namespace KoosMatliApp.Views.Admin;
 
 public sealed class UserDetailsPage : ContentPage
 {
-    private bool _closing;
+    private bool _closing; //(Microsoft Learn, 2026b).
 
     public UserDetailsPage(User user)
     {
@@ -83,14 +83,14 @@ public sealed class UserDetailsPage : ContentPage
                     Padding = 20,
                     StrokeShape = new RoundRectangle
                     {
-                        CornerRadius = 12
+                        CornerRadius = 12 //(Microsoft Learn, 2026d).
                     },
                     Content = details
                 }
             }
         };
 
-        var layout = new Grid
+        var layout = new Grid //(Microsoft Learn, 2026a).
         {
             RowDefinitions =
             {
@@ -128,8 +128,19 @@ public sealed class UserDetailsPage : ContentPage
         string english, string setswana, string sepedi) =>
         L.Culture.Name switch
         {
-            "tn-ZA" => setswana,
+            "tn-ZA" => setswana, //(Microsoft Learn, 2026c).
             "nso-ZA" => sepedi,
             _ => english
         };
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "Creating .NET MAUI Pages in C#," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/
+
+ Microsoft Corporation, "Navigation in .NET MAUI: Modal Navigation," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation#modal-pages
+
+ Microsoft Corporation, "Globalize and Localize .NET MAUI Apps," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/core/extensions/localization
+
+ Microsoft Corporation, "Border Control and Shapes in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/border
+ */

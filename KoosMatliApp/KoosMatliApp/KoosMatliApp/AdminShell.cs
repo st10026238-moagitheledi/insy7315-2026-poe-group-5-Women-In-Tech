@@ -82,7 +82,7 @@ public partial class AdminShell : Shell
     }
 
     private sealed class PageFactory(
-        Func<ContentPage> create) : RouteFactory
+        Func<ContentPage> create) : RouteFactory //(Microsoft Learn, 2026a).
     {
         public override Element GetOrCreate() => create();
 
@@ -228,7 +228,7 @@ public partial class AdminShell : Shell
 
             cell.Add(new Microsoft.Maui.Controls.Shapes.Path
             {
-                Data = (Geometry)new PathGeometryConverter()
+                Data = (Geometry)new PathGeometryConverter() //(Microsoft Learn, 2026a).
                     .ConvertFromInvariantString(IconPath(route))!,
                 Stroke = new SolidColorBrush(color),
                 StrokeThickness = 1.8,
@@ -338,7 +338,7 @@ public partial class AdminShell : Shell
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine(ex.ToString());
+            System.Diagnostics.Debug.WriteLine(ex.ToString()); //(Microsoft Learn, 2026b).
 
             // Avoid awaiting a modal dialog after native navigation fails.
             try
@@ -357,7 +357,7 @@ public partial class AdminShell : Shell
         }
         finally
         {
-            shell._navigating = false;
+            shell._navigating = false; //(Microsoft Learn, 2026c).
         }
     }
 
@@ -370,3 +370,12 @@ public partial class AdminShell : Shell
             ? shell.GoToAsync(BackRoute(shell.CurrentPage))
             : Task.CompletedTask;
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "Custom Route Registration and Factories in .NET MAUI Shell," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation
+
+ Microsoft Corporation, "ConditionalWeakTable Class (System.Runtime.CompilerServices)," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.conditionalweaktable-2
+
+ Microsoft Corporation, "Shell Navigation and Lifecycle in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation
+ */

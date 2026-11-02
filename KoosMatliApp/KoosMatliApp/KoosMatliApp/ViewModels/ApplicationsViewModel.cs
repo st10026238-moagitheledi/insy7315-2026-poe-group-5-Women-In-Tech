@@ -39,7 +39,7 @@ public class ApplicationsViewModel : BaseViewModel
     public ICommand FilterRejectedCommand { get; }
     public ICommand DetailCommand { get; }
 
-    public IReadOnlyList<AdmissionApplication> FilteredApplications
+    public IReadOnlyList<AdmissionApplication> FilteredApplications //(Microsoft Learn, 2026a).
     {
         get
         {
@@ -56,7 +56,7 @@ public class ApplicationsViewModel : BaseViewModel
                     a.Status.Equals("Pending", StringComparison.OrdinalIgnoreCase) ||
                     a.Status.Equals("New", StringComparison.OrdinalIgnoreCase));
             }
-            else if (_filterApproved)
+            else if (_filterApproved) //(Microsoft Learn, 2026a).
             {
                 query = query.Where(a =>
                     a.Status.Equals("Approved", StringComparison.OrdinalIgnoreCase));
@@ -88,7 +88,7 @@ public class ApplicationsViewModel : BaseViewModel
         RefreshCommand = new Command(async () => await LoadAsync());
         FilterAllCommand = new Command(() => SetFilter(""));
         FilterNewCommand = new Command(() => SetFilter("New"));
-        FilterPendingCommand = new Command(() => SetFilter("Pending"));
+        FilterPendingCommand = new Command(() => SetFilter("Pending")); //(Microsoft Learn, 2026b).
         FilterApprovedCommand = new Command(() => SetFilter("Approved"));
         FilterRejectedCommand = new Command(() => SetFilter("Rejected"));
 
@@ -193,6 +193,15 @@ public class ApplicationsViewModel : BaseViewModel
         if (app is null)
             return;
 
-        await Shell.Current.GoToAsync($"applicationdetail?id={app.Id}");
+        await Shell.Current.GoToAsync($"applicationdetail?id={app.Id}"); //(Microsoft Learn, 2026c).
     }
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "Language Integrated Query (LINQ) Overview," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/
+
+ Microsoft Corporation, "Commanding in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/commanding
+
+ Microsoft Corporation, "Shell Navigation Pass Data in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation
+ */

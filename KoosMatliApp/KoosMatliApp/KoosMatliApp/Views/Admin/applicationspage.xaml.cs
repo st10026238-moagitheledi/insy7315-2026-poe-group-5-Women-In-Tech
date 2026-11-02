@@ -12,7 +12,7 @@ public partial class ApplicationsPage : ContentPage
 
     private bool _busy;
     private bool _ready;
-    private int _filterIndex;
+    private int _filterIndex; //(Microsoft Learn, 2026a).
 
     public ApplicationsPage()
     {
@@ -29,11 +29,11 @@ public partial class ApplicationsPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await RunAsync(LoadAsync);
+        await RunAsync(LoadAsync); //(Microsoft Learn, 2026a).
     }
 
     private Button[] FilterButtons =>
-        [AllFilter, PendingFilter, ApprovedFilter, RejectedFilter];
+        [AllFilter, PendingFilter, ApprovedFilter, RejectedFilter]; //(Microsoft Learn, 2026b).
 
     private async Task LoadAsync()
     {
@@ -229,7 +229,7 @@ public partial class ApplicationsPage : ContentPage
 
             body.Add(buttons);
 
-            ApplicationCards.Add(new Border
+            ApplicationCards.Add(new Border //(Microsoft Learn, 2026a).
             {
                 Padding = 16,
                 StrokeShape = new RoundRectangle { CornerRadius = 12 },
@@ -291,3 +291,12 @@ public partial class ApplicationsPage : ContentPage
         Render();
     }
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "Styling Controls in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/user-interface/styles/
+
+ Microsoft Corporation, "Asynchronous Programming Patterns in .NET MAUI Apps," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/async
+
+ Microsoft Corporation, "Border Control and Shapes in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/border
+ */

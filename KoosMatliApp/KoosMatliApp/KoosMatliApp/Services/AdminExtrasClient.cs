@@ -137,7 +137,7 @@ public sealed class AdminExtrasClient(HttpClient http)
                 "The file must be 10 MB or smaller.");
         }
 
-        using var form = new MultipartFormDataContent();
+        using var form = new MultipartFormDataContent(); //(Microsoft Learn, 2026a).
 
         form.Add(new StreamContent(input), "file", file.FileName);
 
@@ -160,14 +160,14 @@ public sealed class AdminExtrasClient(HttpClient http)
         await AdminApiService.EnsureSuccessAsync(response);
 
         var path = Path.Combine(
-            FileSystem.CacheDirectory,
+            FileSystem.CacheDirectory, //(Microsoft Learn, 2026b).
             Guid.NewGuid().ToString("N") + "_" +
             Path.GetFileName(document.FileName));
 
         await using (var output = File.Create(path))
             await response.Content.CopyToAsync(output);
 
-        await Launcher.Default.OpenAsync(new OpenFileRequest
+        await Launcher.Default.OpenAsync(new OpenFileRequest //(Microsoft Learn, 2026b).
         {
             File = new ReadOnlyFile(path)
         });
@@ -246,7 +246,7 @@ public static class AdminText
         Words.TryGetValue(text, out var value)
             ? L.Culture.Name switch
             {
-                "tn-ZA" => value.Tn,
+                "tn-ZA" => value.Tn, //(Microsoft Learn, 2026c).
                 "nso-ZA" => value.Nso,
                 _ => text
             }
@@ -281,3 +281,12 @@ public static class AdminText
         return L.T(module) + " — " + operation;
     }
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "Make HTTP Requests Using IHttpClientFactory in .NET: Sending Form Data," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/working-with-web-requests
+
+ Microsoft Corporation, "File System Helpers and Launcher in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/file-system
+
+ Microsoft Corporation, "Globalize and Localize .NET Applications," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/core/extensions/localization
+ */

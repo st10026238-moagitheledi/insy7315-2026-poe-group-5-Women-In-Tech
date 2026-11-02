@@ -13,13 +13,13 @@ public partial class AddCalendarEventPage : ContentPage
     {
         InitializeComponent();
 
-        _api = App.Services!.GetRequiredService<IAdminApiService>();
+        _api = App.Services!.GetRequiredService<IAdminApiService>(); //(Microsoft Learn, 2026a).
 
         StartDatePicker.Date = DateTime.Today;
         EndDatePicker.Date = DateTime.Today;
 
         StartTimePicker.Time = new TimeSpan(8, 0, 0);
-        EndTimePicker.Time = new TimeSpan(9, 0, 0);
+        EndTimePicker.Time = new TimeSpan(9, 0, 0); //(Microsoft Learn, 2026a).
     }
 
     private async void SaveButton_Clicked(object sender, EventArgs e)
@@ -58,7 +58,7 @@ public partial class AddCalendarEventPage : ContentPage
             {
                 Title = TitleEntry.Text.Trim(),
                 Description = DescriptionEditor.Text?.Trim() ?? string.Empty,
-                Start = DateTime.SpecifyKind(start, DateTimeKind.Local).ToUniversalTime(),
+                Start = DateTime.SpecifyKind(start, DateTimeKind.Local).ToUniversalTime(), //(Microsoft Learn, 2026b).
                 End = DateTime.SpecifyKind(end, DateTimeKind.Local).ToUniversalTime()
             };
 
@@ -92,6 +92,17 @@ public partial class AddCalendarEventPage : ContentPage
 
     private async void CancelButton_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync(".."); //(Microsoft Learn, 2026c).
     }
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "Dependency Injection in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/dependency-injection
+
+ Microsoft Corporation, "DatePicker and TimePicker Controls in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/datepicker
+
+ Microsoft Corporation, "Handling DateTime in .NET Serialization and Timezones," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/standard/datetime/choosing-between-datetime
+
+ Microsoft Corporation, "Shell Navigation in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation
+ */

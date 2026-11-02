@@ -6,10 +6,10 @@ using Microsoft.Maui.Controls;
 
 namespace KoosMatliApp.Views.Admin;
 
-public abstract class SettingsPage : ContentPage
+public abstract class SettingsPage : ContentPage //(Microsoft Learn, 2026a).
 {
     protected readonly SettingsService Settings =
-        App.Services!.GetRequiredService<SettingsService>();
+        App.Services!.GetRequiredService<SettingsService>(); //(Microsoft Learn, 2026b).
 
     protected readonly AdminSession Auth =
         App.Services!.GetRequiredService<AdminSession>();
@@ -465,7 +465,7 @@ public sealed class RolesPermissionsPage : SettingsPage
                 _role.SelectedItem is not Choice choice)
                 return;
 
-            if (user.IsOwner || user.Uid == Auth.Uid)
+            if (user.IsOwner || user.Uid == Auth.Uid) //(Microsoft Learn, 2026c).
             {
                 Status.Text = AdminText.T(
                     "You cannot change owner access or your own access here.");
@@ -572,7 +572,7 @@ public sealed class BackupRestorePage : SettingsPage
 
             var path = await Client.ExportAsync();
 
-            await Share.Default.RequestAsync(new ShareFileRequest
+            await Share.Default.RequestAsync(new ShareFileRequest //(Microsoft Learn, 2026c).
             {
                 Title = L.T("Export JSON backup"),
                 File = new ShareFile(path)
@@ -632,3 +632,14 @@ public sealed class AuditLogsPage : SettingsPage
         }
     }
 }
+
+/*Reference List
+ 
+ 
+ Microsoft Corporation, "Creating Custom Pages in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/
+
+ Microsoft Corporation, "Preferences in .NET MAUI Essentials," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/preferences
+
+ Microsoft Corporation, "Share Data in .NET MAUI Essentials," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/appmodel/share
+
+ Microsoft Corporation, "Asynchronous Programming Patterns in .NET MAUI Apps," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/async*/

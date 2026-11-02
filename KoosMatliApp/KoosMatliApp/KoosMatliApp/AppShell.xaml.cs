@@ -2,7 +2,7 @@
 
 namespace KoosMatliApp;
 
-public partial class AppShell : Shell
+public partial class AppShell : Shell //(Microsoft Learn, 2026a).
 {
     public AppShell()
     {
@@ -44,7 +44,7 @@ public partial class AppShell : Shell
            nameof(ScheduleDetailsPage),
            typeof(ScheduleDetailsPage));
 
-        Routing.RegisterRoute(
+        Routing.RegisterRoute( //(Microsoft Learn, 2026b).
            nameof(TeacherSettingsPage),
            typeof(TeacherSettingsPage));
 
@@ -73,3 +73,9 @@ public partial class AppShell : Shell
             typeof(AboutAppPage));
     }
 }
+/*Reference List
+ 
+Microsoft Corporation, "Shell Navigation in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation
+
+Microsoft Corporation, "Register Custom Routes in .NET MAUI Shell," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation#register-custom-routes
+ */

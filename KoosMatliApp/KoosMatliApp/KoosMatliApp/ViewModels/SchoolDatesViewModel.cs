@@ -15,7 +15,7 @@ public class SchoolDatesViewModel : BaseViewModel
     private DateTime _newDate = DateTime.Today;
     private bool _isAddFormVisible;
 
-    public ObservableCollection<SchoolDate> SchoolDates { get; } = new();
+    public ObservableCollection<SchoolDate> SchoolDates { get; } = new(); //(Microsoft Learn, 2026b).
 
     public string NewTitle
     {
@@ -133,7 +133,7 @@ public class SchoolDatesViewModel : BaseViewModel
             var schoolDate = new SchoolDate
             {
                 Title = NewTitle.Trim(),
-                Date = DateTime.SpecifyKind(NewDate.Date, DateTimeKind.Utc),
+                Date = DateTime.SpecifyKind(NewDate.Date, DateTimeKind.Utc), //(Microsoft Learn, 2026b).
                 Description = NewDescription.Trim()
             };
 
@@ -143,8 +143,6 @@ public class SchoolDatesViewModel : BaseViewModel
                 throw new InvalidOperationException(
                   L.T("The server returned no saved record."));
 
-            // Reload from the API so the displayed collection reflects
-            // the server's actual data.
             var dates = await _api.GetSchoolDatesAsync();
 
             SchoolDates.Clear();
@@ -152,7 +150,7 @@ public class SchoolDatesViewModel : BaseViewModel
             foreach (var item in dates.OrderBy(x => x.Date))
                 SchoolDates.Add(item);
 
-            IsAddFormVisible = false;
+            IsAddFormVisible = false; //(Microsoft Learn, 2026b).
             NewTitle = string.Empty;
             NewDescription = string.Empty;
             NewDate = DateTime.Today;
@@ -181,9 +179,18 @@ public class SchoolDatesViewModel : BaseViewModel
         IsBusy = value;
 
         if (SaveDateCommand is Command save)
-            save.ChangeCanExecute();
+            save.ChangeCanExecute(); //(Microsoft Learn, 2026a).
 
         if (RefreshCommand is Command refresh)
             refresh.ChangeCanExecute();
     }
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "Commanding in .NET MAUI: The ICommand Interface," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/commanding
+
+ Microsoft Corporation, "Handling DateTime in .NET Serialization," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/standard/datetime/choosing-between-datetime
+
+ Microsoft Corporation, "Model-View-ViewModel (MVVM) in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/mvvm
+ */

@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using KoosMatliApp.Models;
 using KoosMatliApp.Services;
 
-namespace KoosMatliApp.ViewModels;
+namespace KoosMatliApp.ViewModels; //(Microsoft Learn, 2026a).
 
 public class UsersViewModel : BaseViewModel
 {
@@ -11,7 +11,7 @@ public class UsersViewModel : BaseViewModel
     private string _searchText = string.Empty;
     private string? _selectedRole;
 
-    public ObservableCollection<User> Users { get; } = new();
+    public ObservableCollection<User> Users { get; } = new(); //(Microsoft Learn, 2026b).
 
     public string SearchText
     {
@@ -19,7 +19,7 @@ public class UsersViewModel : BaseViewModel
         set
         {
             if (SetProperty(ref _searchText, value))
-                ApplyFilters();
+                ApplyFilters(); // (Microsoft Learn, 2026b).
         }
     }
 
@@ -33,7 +33,7 @@ public class UsersViewModel : BaseViewModel
 
     public async Task InitializeAsync()
     {
-        if (IsBusy) return;
+        if (IsBusy) return; //(Microsoft Learn, 2026c).
 
         IsBusy = true;
         HasError = false;
@@ -43,7 +43,7 @@ public class UsersViewModel : BaseViewModel
         {
             var list = await _api.GetUsersAsync();
 
-            _allUsers.Clear();
+            _allUsers.Clear(); //(Microsoft Learn, 2026b).
             _allUsers.AddRange(list);
 
             ApplyFilters();
@@ -85,3 +85,14 @@ public class UsersViewModel : BaseViewModel
         OnPropertyChanged(nameof(FilteredUsers));
     }
 }
+
+/*Reference List
+ 
+ Microsoft Corporation, "Model-View-ViewModel (MVVM) in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/mvvm
+
+ Microsoft Corporation, "ObservableCollection Class (System.Collections.ObjectModel)," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1
+
+ Microsoft Corporation, "Language Integrated Query (LINQ) Overview," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/
+
+ Microsoft Corporation, "Asynchronous Programming Patterns in .NET MAUI Apps," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/async
+ */

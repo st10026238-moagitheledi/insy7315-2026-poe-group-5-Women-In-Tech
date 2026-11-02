@@ -6,7 +6,7 @@ using KoosMatliApp.Services;
 
 namespace KoosMatliApp.ViewModels;
 
-public class SchoolDetailsViewModel : BaseViewModel
+public class SchoolDetailsViewModel : BaseViewModel //(Microsoft Learn, 2026a).
 {
     private readonly IAdminApiService _api;
     private readonly AdminSession _session;
@@ -95,13 +95,13 @@ public class SchoolDetailsViewModel : BaseViewModel
             await LoadAsync();
         });
 
-        AddEventCommand = new Command(
+        AddEventCommand = new Command( //(Microsoft Learn, 2026a).
             async () => await AddEventAsync());
 
         BackCommand = new Command(
         async () => await AdminShell.GoBackAsync());
     }
-    private bool CheckSession()
+    private bool CheckSession() //(Microsoft Learn, 2026a).
     {
         if (_session.IsConnected)
             return true;
@@ -122,7 +122,7 @@ public class SchoolDetailsViewModel : BaseViewModel
         PrincipalName = value?.PrincipalName ?? "";
     }
 
-    public async Task LoadAsync()
+    public async Task LoadAsync() //(Microsoft Learn, 2026c).
     {
         IsEditing = true;
 
@@ -150,7 +150,7 @@ public class SchoolDetailsViewModel : BaseViewModel
         }
     }
 
-    public async Task SaveAsync()
+    public async Task SaveAsync() //(Microsoft Learn, 2026c).
     {
         if (IsBusy || !CheckSession())
             return;
@@ -224,7 +224,7 @@ public class SchoolDetailsViewModel : BaseViewModel
 
             Events.Clear();
 
-            foreach (var value in values.OrderBy(x => x.Start))
+            foreach (var value in values.OrderBy(x => x.Start)) //(Microsoft Learn, 2026c).
                 Events.Add(value);
         }
         catch (Exception ex)
@@ -238,3 +238,13 @@ public class SchoolDetailsViewModel : BaseViewModel
         }
     }
 }
+
+/*
+ Reference List
+
+ Microsoft Corporation, "Model-View-ViewModel (MVVM) in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/mvvm
+
+ Microsoft Corporation, "Commanding in .NET MAUI," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/xaml/fundamentals/commanding
+
+ Microsoft Corporation, "Asynchronous Programming Patterns in .NET MAUI Apps," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/async
+ */
