@@ -1,5 +1,6 @@
 using KoosMatliApp.Services;
 using KoosMatliApp.Views.Parent;
+using KoosMatliApp.Features.Teacher.Views;
 using Microsoft.Maui.Controls;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -101,10 +102,8 @@ public partial class LoginPage : ContentPage
                     break;
 
                 case "teacher":
-                    await DisplayAlertAsync(
-                        "Teacher Login",
-                        "You have signed in successfully. The teacher landing page has not been connected yet.",
-                        "OK");
+                    await Navigation.PushAsync(
+                       new TeacherHomePage());
 
                     break;
 

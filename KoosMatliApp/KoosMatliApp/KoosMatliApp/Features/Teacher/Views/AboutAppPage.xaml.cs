@@ -12,7 +12,7 @@ public partial class AboutAppPage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(".."); // (Microsoft, 2026)
+        await Navigation.PopAsync(); // (Microsoft, 2026)
     }
 }
 

@@ -12,7 +12,7 @@ public partial class HelpSupportPage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Navigation.PopAsync();
     } // (Microsoft, 2026)
 }
 

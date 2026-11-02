@@ -135,8 +135,7 @@ public partial class LearnerDetailsPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "..");
+        await Navigation.PopAsync();
     }
 
 

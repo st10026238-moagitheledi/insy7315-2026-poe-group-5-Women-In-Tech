@@ -92,8 +92,7 @@ public partial class PersonalInformationPage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "..");
+        await Navigation.PopAsync();
     }
 
 

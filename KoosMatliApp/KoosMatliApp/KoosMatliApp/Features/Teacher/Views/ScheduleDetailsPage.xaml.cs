@@ -93,8 +93,7 @@ public partial class ScheduleDetailsPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "..");
+        await Navigation.PopAsync(); 
     }
 
 

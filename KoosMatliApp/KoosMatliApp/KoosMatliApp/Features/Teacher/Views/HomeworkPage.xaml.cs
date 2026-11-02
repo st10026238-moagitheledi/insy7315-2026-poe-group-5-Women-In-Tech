@@ -132,8 +132,7 @@ public partial class HomeworkPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "..");
+        await Navigation.PopAsync();
     }
 
 

@@ -60,8 +60,7 @@ public partial class AddAnnouncementPage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "..");
+        await Navigation.PopAsync();
     }
 
 

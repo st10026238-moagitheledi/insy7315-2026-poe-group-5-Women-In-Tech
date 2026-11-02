@@ -1,10 +1,10 @@
 'use strict';
-const schemas = {
+const schemas = { //(Microsoft Learn, 2026a).
   applications: { id: 0, applicationNumber: '', learnerFirstName: '', learnerLastName: '', dateOfBirth: '0001-01-01T00:00:00Z', gradeApplyingFor: '', guardianName: '', guardianEmail: '', guardianPhone: '', dateSubmitted: '0001-01-01T00:00:00Z', status: 'New' },
   staffMembers: { id: 0, firstName: '', lastName: '', email: '', position: '', subjects: [], classes: [] },
   schoolClasses: { id: 0, className: '', grade: '', teacherName: '', learnerCount: 0 },
   subjects: { id: 0, name: '', grade: '', teacherNames: [] },
-  schoolDates: { id: 0, title: '', date: '0001-01-01T00:00:00Z', description: '' },
+  schoolDates: { id: 0, title: '', date: '0001-01-01T00:00:00Z', description: '' }, //(MDN Web Docs, 2026).
   schoolDetails: { id: 0, schoolName: '', address: '', phoneNumber: '', email: '', principalName: '' },
   calendarEvents: { id: 0, title: '', start: '0001-01-01T00:00:00Z', end: null, description: '' },
   schoolDocuments: { id: 0, title: '', fileName: '', fileUrl: '', uploadedDate: '0001-01-01T00:00:00Z', category: '' },
@@ -29,7 +29,7 @@ function readUser(id, fields) {
   const role = ['Admin', 'Teacher', 'Parent', 'Learner'].find(r => r.toLowerCase() === text(fields, 'role').toLowerCase()) || '';
   return { id: numericId(id), firstName, lastName, email: text(fields, 'email'), phoneNumber: text(fields, 'phoneNumber'), role, fullName: `${firstName} ${lastName}` };
 }
-function readRecord(collection, id, fields) {
+function readRecord(collection, id, fields) { //(MDN Web Docs, 2026).
   if (collection === 'users') return readUser(id, fields);
   const result = {};
   for (const [key, fallback] of Object.entries(schemas[collection] || {})) {
@@ -77,3 +77,10 @@ function eventFields(record) {
   return { Id: record.id, Title: record.title, Description: record.description, Date: new Date(`${local.slice(0, 10)}T00:00:00+02:00`), Time: local.slice(11, 16) + (endLocal ? ` - ${endLocal.slice(11, 16)}` : ''), Start: date(record.start), End: end, Category: 'General', Location: 'Koos Matli Primary School', IsPublished: true };
 }
 module.exports = { schemas, value, text, date, numericId, readUser, readRecord, writeRecord, mergeLearners, readEvent, eventFields };
+
+/*Reference List
+
+Microsoft Corporation, "Data Serialization and Deserialization in .NET," Microsoft Learn, 2026. [Online]. Available: https://learn.microsoft.com/en-us/dotnet/standard/serialization/
+
+MDN Web Docs, "Date - JavaScript | MDN," Mozilla Developer Network, 2026. [Online]. Available: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+*/

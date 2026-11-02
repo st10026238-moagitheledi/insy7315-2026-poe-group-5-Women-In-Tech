@@ -45,7 +45,7 @@ async function linkChildToParent(req, res) {
 
         const parent = parentSnapshot.data();
 
-        if (parent.role !== "parent" || parent.isActive === false) {
+        if (parent.role !== "parent" || parent.isActive === false) { //(Firebase Documentation, 2026).
             return res.status(400).json({
                 success: false,
                 message: "The selected account is not an active parent account."
@@ -64,12 +64,12 @@ async function linkChildToParent(req, res) {
                 typeof className === "string" ? className.trim() : "",
             admissionNumber: admissionNumber.trim(),
             isActive: true,
-            createdAt: FieldValue.serverTimestamp(),
+            createdAt: FieldValue.serverTimestamp(), //(Google Cloud, 2026b).
             createdBy: req.user.uid
         };
 
         // Create the learner and link them to the verified parent.
-        const batch = db.batch();
+        const batch = db.batch(); //(Google Cloud, 2026a).
 
         batch.set(learnerRef, learnerData);
 
@@ -106,3 +106,12 @@ async function linkChildToParent(req, res) {
 module.exports = {
     linkChildToParent
 };
+
+/*Reference List
+
+Google Cloud, "Perform Batched Writes in Cloud Firestore," Firebase Documentation, 2026. [Online]. Available: https://firebase.google.com/docs/firestore/manage-data/transactions#batched-writes
+
+Firebase Documentation, "Manage Users and Security in Cloud Firestore," Google Cloud, 2026. [Online]. Available: https://firebase.google.com/docs/firestore/security/rules-structure
+
+Google Cloud, "Manage Data in Cloud Firestore (Server Timestamps)," Firebase Documentation, 2026. [Online]. Available: https://firebase.google.com/docs/firestore/manage-data/add-data#server_timestamps
+*/

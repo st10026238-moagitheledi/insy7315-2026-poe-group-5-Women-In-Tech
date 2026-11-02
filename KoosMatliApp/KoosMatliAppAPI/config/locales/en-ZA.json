@@ -13,7 +13,7 @@
   "Cancel": "Cancel",
   "Theme": "Theme",
   "Notifications": "Notifications",
-  "Dashboard": "Dashboard",
+  "Dashboard": "Dashboard", 
   "Applications": "Applications",
   "Staff": "Staff",
   "Documents": "Documents",
@@ -38,3 +38,4 @@
   "The event end must be after its start.": "The event end must be after its start.",
   "A status is required.": "A status is required."
 }
+

@@ -92,8 +92,7 @@ public partial class AnnouncementDetailsPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "..");
+        await Navigation.PopAsync();
     }
 
 

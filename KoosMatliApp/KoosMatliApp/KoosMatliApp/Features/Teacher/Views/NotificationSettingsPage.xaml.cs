@@ -31,7 +31,7 @@ public partial class NotificationSettingsPage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Navigation.PopAsync();
     } // (Microsoft, 2026)
 
 

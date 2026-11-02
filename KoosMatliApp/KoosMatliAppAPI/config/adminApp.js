@@ -15,12 +15,12 @@ const adminRoutes = require('../routes/schoolAdminRoutes');
 const featuresRoutes = require('../routes/featuresRoutes');
 const documentRoutes = require('../routes/documentsRoutes');
 function createApp({ auth, db, store = new Store(db), config, fetchImpl = fetch, logger = console }) {
-  const dependencies = { auth, db, store, config, fetchImpl, uploadDir: config.uploadDir };
+  const dependencies = { auth, db, store, config, fetchImpl, uploadDir: config.uploadDir }; //(Node.js Foundation, 2026a).
   const app = express();
   app.disable('x-powered-by');
-  app.use(helmet());
+  app.use(helmet()); //(Open Web Application Security Project [OWASP], 2026).
   app.use(localization);
-  app.use(cors({ origin: config.allowedOrigins || [], exposedHeaders: ['Content-Language'] }));
+  app.use(cors({ origin: config.allowedOrigins || [], exposedHeaders: ['Content-Language'] })); //(ExpressJS, 2026a).
   app.use(express.json({ limit: '1mb' }));
   app.use((req, res, next) => { req.traceId = randomUUID(); next(); });
 
@@ -39,3 +39,9 @@ function createApp({ auth, db, store = new Store(db), config, fetchImpl = fetch,
 }
 
 module.exports = { createApp };
+
+/*Reference List
+Express Application Factory & Dependency Injection: (Node.js Foundation, 2026a).
+
+Secure API Middleware & Helmet Hardening: (Open Worldwide Application Security Project, 2026).
+*/

@@ -32,8 +32,8 @@ class Store {
   async add(collection, record, uniqueValue) {
     const original = collection; if (collection === 'calendarEvents') collection = 'events';
     const counter = this.db.collection('_metadata').doc(`counter_${collection}`);
-    const unique = uniqueValue == null ? null : this.db.collection('_unique').doc(`${collection}_${createHash('sha256').update(uniqueValue.toUpperCase()).digest('hex').toUpperCase()}`);
-    await this.db.runTransaction(async tx => {
+    const unique = uniqueValue == null ? null : this.db.collection('_unique').doc(`${collection}_${createHash('sha256').update(uniqueValue.toUpperCase()).digest('hex').toUpperCase()}`); //(Node.js Foundation, 2026a).
+    await this.db.runTransaction(async tx => { //(Google Cloud, 2026a).
       const snap = await tx.get(counter); let id = snap.exists ? Number(snap.data().value) : 0;
       if (!Number.isSafeInteger(id) || id < 0) throw new Error('Invalid collection counter');
       if (unique && (await tx.get(unique)).exists) throw new DuplicateProfileError();
@@ -56,3 +56,10 @@ class Store {
   }
 }
 module.exports = { Store, DuplicateProfileError };
+
+/*Reference List
+
+Google Cloud, "Transactions and Batched Writes in Cloud Firestore," Firebase Documentation, 2026. [Online]. Available: https://firebase.google.com/docs/firestore/manage-data/transactions
+
+Node.js Foundation, "Crypto Module Documentation (node:crypto)," Node.js API Reference, 2026. [Online]. Available: https://nodejs.org/api/crypto.html
+*/

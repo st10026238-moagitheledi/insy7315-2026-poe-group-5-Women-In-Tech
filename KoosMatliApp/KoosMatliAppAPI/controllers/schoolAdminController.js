@@ -6,7 +6,7 @@ const { bad, recordOr404, emailValid } = require('./responseHelpers');
 function createAdminController(store) {
 
   const getDashboard = async (req, res) => {
-    const [users, staff, apps] = await Promise.all([store.schoolUsers(), store.all('staffMembers'), store.all('applications')]);
+    const [users, staff, apps] = await Promise.all([store.schoolUsers(), store.all('staffMembers'), store.all('applications')]); //(Node.js Foundation, 2026a).
     const teachers = new Set([
       ...users.filter(u => u.role === 'Teacher').map(u => u.email?.trim().toLowerCase() || `user:${u.id}`),
       ...staff.filter(s => s.position?.toLowerCase() === 'teacher').map(s => s.email?.trim().toLowerCase() || `staff:${s.id}`)
@@ -28,7 +28,7 @@ function createAdminController(store) {
     if ((await store.schoolUsers()).some(u => u.email.toLowerCase() === email.toLowerCase())) return bad(res, req, 'A user with this email already exists.', 409);
     const user = { id: 0, firstName, lastName, email, phoneNumber: text(req.body, 'phoneNumber'), role, fullName: `${firstName} ${lastName}` };
     try { await store.add('users', user, email); }
-    catch (e) { if (e instanceof DuplicateProfileError) return bad(res, req, 'A user with this email already exists.', 409); throw e; }
+    catch (e) { if (e instanceof DuplicateProfileError) return bad(res, req, 'A user with this email already exists.', 409); throw e; } //(Node.js Foundation, 2026b).
     res.location(`/api/admin/users/${user.id}`).status(201).json(user);
   };
   const getApplications = async (req, res) => res.json(await store.all('applications'));
@@ -53,7 +53,7 @@ function createAdminController(store) {
   const getSchoolDates = async (req, res) => res.json((await store.all('schoolDates')).sort((a, b) => a.date.localeCompare(b.date)));
   const addSchoolDate = async (req, res) => {
     if (!text(req.body, 'title')) return bad(res, req, 'A title is required.');
-    const d = date(value(req.body, 'date')); if (!d || d.getUTCFullYear() < 2) return bad(res, req, 'A valid date is required.');
+    const d = date(value(req.body, 'date')); if (!d || d.getUTCFullYear() < 2) return bad(res, req, 'A valid date is required.'); //(MDN Web Docs, 2026).
     const record = { id: 0, title: text(req.body, 'title'), date: d.toISOString(), description: text(req.body, 'description') };
     await store.add('schoolDates', record); res.location(`/api/admin/school/dates?id=${record.id}`).status(201).json(record);
   };
@@ -70,3 +70,12 @@ function createAdminController(store) {
   return { getDashboard, getUsers, getUsersByRole, getUser, createUser, getApplications, getApplication, updateApplicationStatus, getStaff, getClasses, getSubjects, getStaffMember, getSchoolDetails, updateSchoolDetails, getSchoolDates, addSchoolDate, getCalendarEvents, addCalendarEvent };
 }
 module.exports = createAdminController;
+
+/*Reference List
+
+Node.js Foundation, "Asynchronous Operations and Promises in Node.js," Node.js API Reference, 2026. [Online]. Available: https://nodejs.org/en/docs/guides/dont-block-the-event-loop
+
+Node.js Foundation, "Error Handling Strategies in Node.js Applications," Node.js Guides, 2026. [Online]. Available: https://nodejs.org/en/docs/guides/error-handling-in-nodejs
+
+MDN Web Docs, "Date Arithmetic and Comparison in JavaScript," Mozilla Developer Network, 2026. [Online]. Available: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+*/

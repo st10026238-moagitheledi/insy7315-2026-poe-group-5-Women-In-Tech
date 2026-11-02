@@ -84,8 +84,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "//TeacherClasses"); // (Microsoft, 2026)
+        await Navigation.PushAsync(
+            new ClassDetailsPage()); // (Microsoft, 2026)
     }
 
 
@@ -93,8 +93,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "//TeacherSchedule");
+        await Navigation.PushAsync(
+            new ScheduleDetailsPage());
     }
 
 
@@ -102,8 +102,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "//TeacherClasses");
+        await Navigation.PushAsync(
+            new ClassDetailsPage());
     }
 
 
@@ -111,8 +111,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            nameof(AddAnnouncementPage)); // (Microsoft, 2026)
+        await Navigation.PushAsync(
+            new AddAnnouncementPage()); // (Microsoft, 2026)
     }
 
 
@@ -120,8 +120,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "//TeacherClasses");
+        await Navigation.PushAsync(
+            new ClassDetailsPage());
     }
 
 
@@ -129,8 +129,8 @@ public partial class TeacherHomePage : ContentPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "//TeacherSchedule");
+        await Navigation.PushAsync(
+            new ScheduleDetailsPage()); 
     }
 }
 

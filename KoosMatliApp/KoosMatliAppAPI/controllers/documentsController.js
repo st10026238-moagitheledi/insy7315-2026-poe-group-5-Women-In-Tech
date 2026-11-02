@@ -26,7 +26,7 @@ function isDocx(buffer) {
 async function validFile(buffer, extension) {
   if (!buffer.length) return false;
   switch (extension) {
-    case '.pdf': return buffer.subarray(0, 5).equals(Buffer.from('%PDF-'));
+    case '.pdf': return buffer.subarray(0, 5).equals(Buffer.from('%PDF-')); //(OWASP Foundation, 2026a).
     case '.png': return buffer.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
     case '.jpg': case '.jpeg': return buffer.subarray(0, 3).equals(Buffer.from([255, 216, 255]));
     case '.docx': return isDocx(buffer);
@@ -37,7 +37,7 @@ async function validFile(buffer, extension) {
 
 function createDocumentsController({ db, store, uploadDir }) {
 
-  const getDocuments = async (req, res) => res.json(await store.all('schoolDocuments'));
+  const getDocuments = async (req, res) => res.json(await store.all('schoolDocuments')); //(OWASP Foundation, 2026a).
   const getDocument = async (req, res) => recordOr404(req, res, await store.get('schoolDocuments', req.params.id));
   const uploadDocument = async (req, res) => {
     const file = req.file, name = file && path.posix.basename(file.originalname.replaceAll('\\', '/'));
@@ -49,7 +49,7 @@ function createDocumentsController({ db, store, uploadDir }) {
     let item, complete = false;
     try {
       await fs.writeFile(destination, file.buffer, { flag: 'wx' });
-      item = { id: 0, title: title?.trim() || path.basename(name, extension), fileName: name, category: 'General', uploadedDate: new Date().toISOString(), fileUrl: '' };
+      item = { id: 0, title: title?.trim() || path.basename(name, extension), fileName: name, category: 'General', uploadedDate: new Date().toISOString(), fileUrl: '' }; //(Node.js Foundation, 2026a).
       await store.add('schoolDocuments', item);
       item.fileUrl = `/api/admin/documents/${item.id}/file`;
       await db.collection('schoolDocumentFiles').doc(String(item.id)).set({ StoredName: storedName, ContentType: types[extension] });
@@ -57,7 +57,7 @@ function createDocumentsController({ db, store, uploadDir }) {
       res.location(`/api/admin/documents/${item.id}`).status(201).json(item);
     } finally {
       if (!complete) {
-        await fs.rm(destination, { force: true });
+        await fs.rm(destination, { force: true }); //(Node.js Foundation, 2026a).
         if (item?.id) {
           await db.collection('schoolDocuments').doc(String(item.id)).delete();
           await db.collection('schoolDocumentFiles').doc(String(item.id)).delete();
@@ -79,3 +79,11 @@ function createDocumentsController({ db, store, uploadDir }) {
 }
 module.exports = createDocumentsController;
 module.exports.validFile = validFile;
+
+/*Reference List
+Open Web Application Security Project (OWASP), "Unrestricted File Upload," OWASP Vulnerability Knowledge Base, 2026. [Online]. Available: https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload
+
+Node.js Foundation, "File System Module Utilities (node:fs)," Node.js API Reference, 2026. [Online]. Available: https://nodejs.org/api/fs.html
+
+OpenXML Developer Community, "Structure of a WordprocessingML Document," Microsoft Open Specifications, 2026. [Online]. Available: https://learn.microsoft.com/en-us/openspecs/office_standards/ms-docx/
+*/

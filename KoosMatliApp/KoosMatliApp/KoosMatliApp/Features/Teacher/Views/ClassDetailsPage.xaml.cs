@@ -144,8 +144,7 @@ public partial class ClassDetailsPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "..");
+        await Navigation.PopAsync(); 
     }
 
 
@@ -153,8 +152,8 @@ public partial class ClassDetailsPage
         object sender,
         TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync(
-            "//TeacherSchedule");
+        await Navigation.PushAsync(
+            new ScheduleDetailsPage());
     }
 
 
