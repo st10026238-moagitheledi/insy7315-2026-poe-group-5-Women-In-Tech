@@ -8,6 +8,89 @@ function documentsToArray(snapshot) {
     }));
 }
 
+// Convert Firestore Timestamp values into ISO strings for JSON responses.
+function serializeValue(value) {
+    if (value == null) return value;
+
+    if (value instanceof Date) {
+        return value.toISOString();
+    }
+
+    if (
+        typeof value.toDate === "function" &&
+        typeof value.toMillis === "function"
+    ) {
+        return value.toDate().toISOString();
+    }
+
+    if (Array.isArray(value)) {
+        return value.map(serializeValue);
+    }
+
+    if (typeof value === "object") {
+        const result = {};
+
+        for (const [key, item] of Object.entries(value)) {
+            result[key] = serializeValue(item);
+        }
+
+        return result;
+    }
+
+    return value;
+}
+
+// Return a consistent learner profile.
+function serializeChild(id, data = {}) {
+    return serializeValue({
+        id,
+        firstName: data.firstName || "",
+        lastName: data.lastName || "",
+        fullName:
+            data.fullName ||
+            [data.firstName, data.lastName]
+                .filter(Boolean)
+                .join(" "),
+        grade: data.grade || data.gradeName || "",
+        className:
+            data.className ||
+            data.classroom ||
+            data.classCode ||
+            "",
+        admissionNumber:
+            data.admissionNumber ||
+            data.learnerNumber ||
+            data.studentNumber ||
+            "",
+        dateOfBirth: data.dateOfBirth || data.dob || "",
+        gender: data.gender || data.sex || "",
+        learnerContactNumber: data.learnerContactNumber || "",
+        learnerEmail: data.learnerEmail || "",
+        address: data.address || "",
+        parentName: data.parentName || "",
+        parentContactNumber:
+            data.parentContactNumber ||
+            data.parentPhoneNumber ||
+            "",
+        parentEmail: data.parentEmail || "",
+        guardianName: data.guardianName || "",
+        guardianContactNumber:
+            data.guardianContactNumber ||
+            data.guardianPhoneNumber ||
+            "",
+        guardianEmail: data.guardianEmail || "",
+        emergencyContactName: data.emergencyContactName || "",
+        emergencyContactNumber: data.emergencyContactNumber || "",
+        medicalInformation: data.medicalInformation || "",
+        allergies: data.allergies || "",
+        status: data.status || data.learnerStatus ||
+            (data.isActive === false ? "Inactive" : "Active"),
+        isActive: data.isActive !== false,
+        createdAt: data.createdAt || null,
+        linkedAt: data.linkedAt || null
+    });
+}
+
 // Return the signed-in parent's profile.
 async function getParentProfile(uid) {
     const parentDoc = await db.collection("users").doc(uid).get();
@@ -32,10 +115,7 @@ async function getLinkedChild(parentUid, childId) {
         return null;
     }
 
-    return {
-        id: childDoc.id,
-        ...childDoc.data()
-    };
+    return serializeChild(childDoc.id, childDoc.data());
 }
 
 // Return published announcements, newest first.
@@ -48,11 +128,30 @@ async function getPublishedAnnouncements(limit = 50) {
             item.status !== "draft"
         )
         .sort((a, b) => {
-            const dateA = new Date(a.createdAt || a.date || 0).getTime();
-            const dateB = new Date(b.createdAt || b.date || 0).getTime();
+            const dateA = toDate(a.createdAt || a.date)?.getTime() || 0;
+            const dateB = toDate(b.createdAt || b.date)?.getTime() || 0;
             return dateB - dateA;
         })
-        .slice(0, limit);
+        .slice(0, limit)
+        .map((item) => serializeValue(item));
+}
+
+// Convert common date values to JavaScript Date.
+function toDate(value) {
+    if (!value) return null;
+
+    if (value instanceof Date) return value;
+
+    if (typeof value.toDate === "function") {
+        return value.toDate();
+    }
+
+    if (typeof value === "object" && value.seconds != null) {
+        return new Date(value.seconds * 1000);
+    }
+
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
 }
 
 // Return upcoming school events.
@@ -67,18 +166,18 @@ async function getUpcomingEvents(limit = 50) {
                 return false;
             }
 
-            if (!item.date) {
-                return true;
-            }
+            if (!item.date) return true;
 
-            const eventDate = new Date(item.date);
-            return !Number.isNaN(eventDate.getTime()) &&
-                eventDate >= today;
+            const eventDate = toDate(item.date);
+
+            return eventDate && eventDate >= today;
         })
         .sort((a, b) =>
-            new Date(a.date || 0) - new Date(b.date || 0)
+            (toDate(a.date)?.getTime() || 0) -
+            (toDate(b.date)?.getTime() || 0)
         )
-        .slice(0, limit);
+        .slice(0, limit)
+        .map((item) => serializeValue(item));
 }
 
 // 1. PARENT DASHBOARD
@@ -108,21 +207,20 @@ async function getDashboard(req, res) {
             success: true,
             parent: {
                 uid: req.user.uid,
-                displayName: parent.displayName || req.user.displayName,
-                email: parent.email || req.user.email,
+                displayName: parent.displayName || req.user.displayName || "",
+                email: parent.email || req.user.email || "",
                 role: req.user.role
             },
-            children: documentsToArray(childrenSnapshot),
+            children: childrenSnapshot.docs.map((doc) =>
+                serializeChild(doc.id, doc.data())
+            ),
             announcements,
             upcomingEvents: events
         });
     } catch (error) {
-        console.error("Parent dashboard error:", error.message);
+        console.error("Parent dashboard error:", error);
 
-        return res.status(500).json({
-            success: false,
-            message: "Unable to retrieve the parent dashboard."
-        });
+        return serverError(res, "Unable to retrieve the parent dashboard.");
     }
 }
 
@@ -135,12 +233,18 @@ async function getChildren(req, res) {
             .collection("children")
             .get();
 
+        const children = snapshot.docs.map((doc) =>
+            serializeChild(doc.id, doc.data())
+        );
+
         return res.json({
             success: true,
-            children: documentsToArray(snapshot)
+            count: children.length,
+            children
         });
     } catch (error) {
-        console.error("Get children error:", error.message);
+        console.error("Get children error:", error);
+
         return serverError(res, "Unable to retrieve your children.");
     }
 }
@@ -155,7 +259,8 @@ async function getAnnouncements(req, res) {
             announcements
         });
     } catch (error) {
-        console.error("Announcements error:", error.message);
+        console.error("Announcements error:", error);
+
         return serverError(res, "Unable to retrieve announcements.");
     }
 }
@@ -199,10 +304,10 @@ async function getTimetable(req, res) {
         return res.json({
             success: true,
             child,
-            timetables: documentsToArray(snapshot)
+            timetables: documentsToArray(snapshot).map(serializeValue)
         });
     } catch (error) {
-        console.error("Timetable error:", error.message);
+        console.error("Timetable error:", error);
         return serverError(res, "Unable to retrieve the timetable.");
     }
 }
@@ -221,10 +326,10 @@ async function getHomework(req, res) {
         return res.json({
             success: true,
             child,
-            homework: documentsToArray(snapshot)
+            homework: documentsToArray(snapshot).map(serializeValue)
         });
     } catch (error) {
-        console.error("Homework error:", error.message);
+        console.error("Homework error:", error);
         return serverError(res, "Unable to retrieve homework.");
     }
 }
@@ -239,7 +344,7 @@ async function getEvents(req, res) {
             events
         });
     } catch (error) {
-        console.error("Events error:", error.message);
+        console.error("Events error:", error);
         return serverError(res, "Unable to retrieve school events.");
     }
 }
@@ -258,10 +363,10 @@ async function getAcademicInformation(req, res) {
         return res.json({
             success: true,
             child,
-            academicRecords: documentsToArray(snapshot)
+            academicRecords: documentsToArray(snapshot).map(serializeValue)
         });
     } catch (error) {
-        console.error("Academic information error:", error.message);
+        console.error("Academic information error:", error);
         return serverError(res, "Unable to retrieve academic information.");
     }
 }
@@ -281,14 +386,17 @@ async function getFees(req, res) {
             success: true,
             child,
             feeAccount: accountDoc.exists
-                ? { id: accountDoc.id, ...accountDoc.data() }
+                ? serializeValue({
+                    id: accountDoc.id,
+                    ...accountDoc.data()
+                })
                 : null,
             message: accountDoc.exists
                 ? "Fee account retrieved."
                 : "No fee account has been created for this learner yet."
         });
     } catch (error) {
-        console.error("School fees error:", error.message);
+        console.error("School fees error:", error);
         return serverError(res, "Unable to retrieve school fees.");
     }
 }
@@ -305,9 +413,10 @@ async function getFeeTransactions(req, res) {
 
         const transactions = documentsToArray(snapshot)
             .sort((a, b) =>
-                new Date(b.paymentDate || b.createdAt || 0) -
-                new Date(a.paymentDate || a.createdAt || 0)
-            );
+                (toDate(b.paymentDate || b.createdAt)?.getTime() || 0) -
+                (toDate(a.paymentDate || a.createdAt)?.getTime() || 0)
+            )
+            .map(serializeValue);
 
         return res.json({
             success: true,
@@ -315,7 +424,7 @@ async function getFeeTransactions(req, res) {
             transactions
         });
     } catch (error) {
-        console.error("Fee transactions error:", error.message);
+        console.error("Fee transactions error:", error);
         return serverError(res, "Unable to retrieve payment history.");
     }
 }
@@ -337,20 +446,24 @@ async function getFeeStatement(req, res) {
 
         const transactions = documentsToArray(snapshot)
             .sort((a, b) =>
-                new Date(b.paymentDate || b.createdAt || 0) -
-                new Date(a.paymentDate || a.createdAt || 0)
-            );
+                (toDate(b.paymentDate || b.createdAt)?.getTime() || 0) -
+                (toDate(a.paymentDate || a.createdAt)?.getTime() || 0)
+            )
+            .map(serializeValue);
 
         return res.json({
             success: true,
             child,
             feeAccount: accountDoc.exists
-                ? { id: accountDoc.id, ...accountDoc.data() }
+                ? serializeValue({
+                    id: accountDoc.id,
+                    ...accountDoc.data()
+                })
                 : null,
             transactions
         });
     } catch (error) {
-        console.error("Fee statement error:", error.message);
+        console.error("Fee statement error:", error);
         return serverError(res, "Unable to retrieve the fee statement.");
     }
 }
@@ -378,7 +491,7 @@ async function getProfile(req, res) {
             }
         });
     } catch (error) {
-        console.error("Parent profile error:", error.message);
+        console.error("Parent profile error:", error);
         return serverError(res, "Unable to retrieve your profile.");
     }
 }
@@ -395,7 +508,6 @@ async function updateProfile(req, res) {
             });
         }
 
-        // Only allow these fields to be edited by the parent.
         const updates = {};
 
         if (typeof req.body.displayName === "string") {
@@ -447,7 +559,7 @@ async function updateProfile(req, res) {
             }
         });
     } catch (error) {
-        console.error("Update parent profile error:", error.message);
+        console.error("Update parent profile error:", error);
         return serverError(res, "Unable to update your profile.");
     }
 }

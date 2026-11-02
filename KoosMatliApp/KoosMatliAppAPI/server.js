@@ -76,6 +76,7 @@ app.use("/api/teacher", teacherRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/school-data", schoolDataRoutes);
 
+
 // Unknown endpoint handler.
 app.use((req, res) => {
     res.status(404).json({

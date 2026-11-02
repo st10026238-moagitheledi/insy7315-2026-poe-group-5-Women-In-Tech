@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Koos Matli Primary School - API Test</title>
+    <title>Koos Matli Primary School - API Testing Portal</title>
 
     <style>
         :root {
@@ -16,14 +15,16 @@
             --border: #CBD5E1;
             --success: #167044;
             --error: #B42318;
+            --danger-bg: #FEE2E2;
+            --danger: #B42318;
         }
 
         * { box-sizing: border-box; }
 
         body {
             font-family: Arial, sans-serif;
-            max-width: 650px;
-            margin: 35px auto;
+            max-width: 900px;
+            margin: 30px auto;
             padding: 20px;
             background: var(--background);
             color: var(--navy);
@@ -36,7 +37,7 @@
         }
 
         h2 { font-size: 20px; margin-top: 0; }
-        h3 { font-size: 16px; }
+        h3 { font-size: 16px; margin-bottom: 4px; }
 
         .school-mark {
             width: 58px;
@@ -88,59 +89,86 @@
             border-radius: 12px;
             box-shadow: 0 4px 14px rgba(16, 43, 92, 0.08);
             margin-bottom: 18px;
+            min-width: 0;
         }
 
         label {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
         }
 
-        input, select {
+        input, select, textarea {
             width: 100%;
             padding: 12px;
-            font-size: 15px;
+            font-size: 14px;
             border: 1px solid var(--border);
             border-radius: 6px;
             background: white;
             color: var(--navy);
+            font-family: inherit;
         }
 
-        input:focus, select:focus {
+        textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        input:focus, select:focus, textarea:focus {
             outline: 2px solid #9CB5FF;
             border-color: var(--blue);
         }
 
-        button { padding: 12px; font-size: 15px; }
-
-        .submit-button {
-            width: 100%;
-            background: var(--blue);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 8px;
+        button {
+            padding: 12px;
+            font-size: 14px;
+            font-family: inherit;
         }
 
-        .submit-button:disabled {
+        button:disabled {
             opacity: 0.6;
             cursor: wait;
         }
 
-        .secondary-button {
+        .submit-button,
+        .secondary-button,
+        .danger-button,
+        .refresh-button {
             width: 100%;
-            background: #E2EAFF;
-            color: var(--navy);
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
+        }
+
+        .submit-button {
+            background: var(--blue);
+            color: white;
+            margin-top: 8px;
+        }
+
+        .secondary-button {
+            background: #E2EAFF;
+            color: var(--navy);
         }
 
         .gold-button {
             background: var(--gold);
             color: var(--navy);
+        }
+
+        .danger-button {
+            background: var(--danger-bg);
+            color: var(--danger);
+            border: 1px solid #FCA5A5;
+        }
+
+        .danger-button:hover:not(:disabled) {
+            background: #FECACA;
+        }
+
+        .refresh-button {
+            background: var(--navy);
+            color: white;
         }
 
         .hidden { display: none !important; }
@@ -159,7 +187,7 @@
         pre {
             white-space: pre-wrap;
             overflow-wrap: anywhere;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.5;
         }
 
@@ -174,14 +202,8 @@
 
         .section-description {
             color: var(--muted);
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.6;
-        }
-
-        .profile-details {
-            white-space: pre-line;
-            line-height: 1.7;
-            overflow-wrap: anywhere;
         }
 
         .role-label {
@@ -195,19 +217,152 @@
             font-weight: bold;
         }
 
+        .section-heading {
+            background: #F0F4FF;
+            border-left: 4px solid var(--gold);
+            padding: 11px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .section-heading h3 {
+            margin: 0;
+            color: var(--navy);
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .field.full-width { grid-column: 1 / -1; }
+
+        .required-note {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        /* Linked child cards */
+        .children-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .child-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 17px;
+            background: #FFFFFF;
+            min-width: 0;
+        }
+
+        .child-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .child-card h3 {
+            color: var(--navy);
+            font-size: 17px;
+            margin: 0 0 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .child-subtitle {
+            color: var(--muted);
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .child-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .detail-item {
+            min-width: 0;
+            padding: 10px;
+            border-radius: 6px;
+            background: #F5F8FF;
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        .child-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .child-actions button { flex: 1; }
+
+        .empty-state {
+            padding: 24px;
+            text-align: center;
+            background: #F5F8FF;
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .small-status {
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
         .divider {
             border: none;
             border-top: 1px solid #E2E8F0;
             margin: 8px 0;
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 520px) {
             body {
                 margin: 10px auto;
-                padding: 14px;
+                padding: 12px;
             }
 
-            form, .card { padding: 18px; }
+            form, .card { padding: 17px; }
+
+            .field-grid,
+            .child-details {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full-width { grid-column: auto; }
+
+            h1 { font-size: 23px; }
+
+            .child-card-header { flex-direction: column; }
+
+            .child-actions { flex-direction: column; }
         }
     </style>
 </head>
@@ -233,93 +388,76 @@
     <form id="loginForm">
         <h2>Welcome Back</h2>
 
-        <label for="loginEmail">Email address</label>
-        <input
-            id="loginEmail"
-            type="email"
-            autocomplete="username"
-            required
-            placeholder="Enter your email"
-        >
+        <div class="field">
+            <label for="loginEmail">Email address</label>
+            <input id="loginEmail" type="email"
+                   autocomplete="username" required
+                   placeholder="Enter your email">
+        </div>
 
-        <label for="loginPassword">Password</label>
-        <input
-            id="loginPassword"
-            type="password"
-            autocomplete="current-password"
-            required
-            placeholder="Enter your password"
-        >
+        <div class="field">
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" type="password"
+                   autocomplete="current-password" required
+                   placeholder="Enter your password">
+        </div>
 
         <button type="submit" class="submit-button" id="loginButton">
             Sign In
         </button>
     </form>
 
-    <!-- REGISTER ALL ROLES -->
+    <!-- REGISTER ACCOUNT -->
     <form id="registrationForm" class="hidden">
         <h2>Create an Account</h2>
 
         <p class="section-description">
-            Create a parent, teacher or admin account for testing the school
-            system. The selected role will be saved to the user's Firestore
-            profile.
+            Create a test parent account for the school system.
         </p>
 
-        <label for="registerRole">Account type</label>
-        <select id="registerRole" required>
-            <option value="parent">Parent</option>
-            <option value="teacher">Teacher</option>
-            <option value="admin">Admin</option>
-        </select>
+        <div class="field">
+            <label for="registerRole">Account type</label>
+            <select id="registerRole" required>
+                <option value="parent">Parent</option>
+            </select>
+        </div>
 
-        <label for="displayName">Full name</label>
-        <input
-            id="displayName"
-            type="text"
-            autocomplete="name"
-            required
-            maxlength="100"
-            placeholder="Enter your full name"
-        >
+        <div class="field">
+            <label for="displayName">Full name</label>
+            <input id="displayName" type="text"
+                   autocomplete="name" required maxlength="100"
+                   placeholder="Enter your full name">
+        </div>
 
-        <label for="registerEmail">Email address</label>
-        <input
-            id="registerEmail"
-            type="email"
-            autocomplete="email"
-            required
-            placeholder="Enter your email"
-        >
+        <div class="field">
+            <label for="registerEmail">Email address</label>
+            <input id="registerEmail" type="email"
+                   autocomplete="email" required
+                   placeholder="Enter your email">
+        </div>
 
-        <label for="registerPassword">Password</label>
-        <input
-            id="registerPassword"
-            type="password"
-            autocomplete="new-password"
-            minlength="8"
-            required
-            placeholder="At least 8 characters"
-        >
+        <div class="field">
+            <label for="registerPassword">Password</label>
+            <input id="registerPassword" type="password"
+                   autocomplete="new-password" minlength="8"
+                   required placeholder="At least 8 characters">
+        </div>
 
-        <label for="confirmPassword">Confirm password</label>
-        <input
-            id="confirmPassword"
-            type="password"
-            autocomplete="new-password"
-            minlength="8"
-            required
-            placeholder="Re-enter your password"
-        >
+        <div class="field">
+            <label for="confirmPassword">Confirm password</label>
+            <input id="confirmPassword" type="password"
+                   autocomplete="new-password" minlength="8"
+                   required placeholder="Re-enter your password">
+        </div>
 
         <button type="submit" class="submit-button" id="registerButton">
-            Create Account
+            Create Parent Account
         </button>
 
         <p class="note">
-            Testing mode: all three roles are available for registration.
-            Do not expose this unrestricted registration page to the public
-            in production.
+            Public registration creates parent accounts only.
+            Teacher and admin accounts should be provisioned securely
+            by authorized school administrators.
         </p>
     </form>
 
@@ -329,79 +467,253 @@
 
         <span class="role-label" id="roleLabel">USER</span>
 
-        <p class="profile-details" id="profileDetails"></p>
+        <pre id="profileDetails"></pre>
 
         <button type="button" class="submit-button" id="testProfileButton">
             Test My Profile API
         </button>
 
-        <button type="button" class="secondary-button" id="loadChildrenButton">
+        <button type="button" class="secondary-button"
+                id="loadChildrenButton">
             Load My Linked Children
         </button>
 
         <button type="button" class="secondary-button" id="logoutButton">
             Sign Out
         </button>
-
-        <p class="note">
-            Signing out clears the token from this page. It does not delete
-            your Firebase account or revoke the token at Firebase.
-        </p>
     </section>
 
-    <!-- ADMIN TOOLS -->
+    <!-- ADMIN LEARNER CREATION -->
     <section id="adminSection" class="hidden">
         <form id="linkChildForm">
-            <h2>Admin Tools: Link a Learner</h2>
+            <h2>Admin Tools: Create a Test Learner</h2>
 
             <p class="section-description">
-                Link a learner to an existing parent account. Enter the
-                parent's Firebase UID and the learner's school details.
-                Only use this after the school has verified the relationship.
+                Create a learner record and link it to an existing parent.
+                Use fictional test information.
             </p>
 
-            <label for="parentUid">Parent Firebase UID</label>
-            <input id="parentUid" type="text" required
-                   placeholder="Paste the parent's UID">
+            <p class="required-note">
+                Fields marked * are required. Other fields are optional.
+            </p>
 
-            <hr class="divider">
+            <div class="section-heading">
+                <h3>1. Parent Account</h3>
+            </div>
 
-            <label for="childFirstName">Learner first name</label>
-            <input id="childFirstName" type="text" required maxlength="100"
-                   placeholder="Enter learner's first name">
+            <div class="field">
+                <label for="parentUid">Parent Firebase UID *</label>
+                <input id="parentUid" type="text" required
+                       placeholder="Paste the parent's Firebase UID">
+            </div>
 
-            <label for="childLastName">Learner surname</label>
-            <input id="childLastName" type="text" required maxlength="100"
-                   placeholder="Enter learner's surname">
+            <div class="section-heading">
+                <h3>2. Learner Details</h3>
+            </div>
 
-            <label for="childGrade">Grade</label>
-            <input id="childGrade" type="text" required
-                   placeholder="e.g. Grade 4">
+            <div class="field-grid">
+                <div class="field">
+                    <label for="childFirstName">First name *</label>
+                    <input id="childFirstName" type="text" required
+                           maxlength="100" placeholder="e.g. Thabo">
+                </div>
 
-            <label for="childClass">Class (optional)</label>
-            <input id="childClass" type="text" placeholder="e.g. 4A">
+                <div class="field">
+                    <label for="childLastName">Surname *</label>
+                    <input id="childLastName" type="text" required
+                           maxlength="100" placeholder="e.g. Mokoena">
+                </div>
 
-            <label for="admissionNumber">Admission number</label>
-            <input id="admissionNumber" type="text" required
-                   placeholder="e.g. KM001">
+                <div class="field">
+                    <label for="childGrade">Grade *</label>
+                    <select id="childGrade" required>
+                        <option value="">Select grade</option>
+                        <option value="Grade R">Grade R</option>
+                        <option value="Grade 1">Grade 1</option>
+                        <option value="Grade 2">Grade 2</option>
+                        <option value="Grade 3">Grade 3</option>
+                        <option value="Grade 4">Grade 4</option>
+                        <option value="Grade 5">Grade 5</option>
+                        <option value="Grade 6">Grade 6</option>
+                        <option value="Grade 7">Grade 7</option>
+                    </select>
+                </div>
 
-            <button type="submit" class="submit-button gold-button"
+                <div class="field">
+                    <label for="childClass">Class</label>
+                    <input id="childClass" type="text" placeholder="e.g. 4A">
+                </div>
+
+                <div class="field">
+                    <label for="admissionNumber">Admission number *</label>
+                    <input id="admissionNumber" type="text" required
+                           placeholder="e.g. KM-TEST-001">
+                </div>
+
+                <div class="field">
+                    <label for="childStatus">Status</label>
+                    <select id="childStatus">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="childDateOfBirth">Date of birth</label>
+                    <input id="childDateOfBirth" type="date">
+                </div>
+
+                <div class="field">
+                    <label for="childGender">Gender</label>
+                    <select id="childGender">
+                        <option value="">Not specified</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="learnerContactNumber">Learner phone</label>
+                    <input id="learnerContactNumber" type="tel"
+                           placeholder="Optional">
+                </div>
+
+                <div class="field">
+                    <label for="learnerEmail">Learner email</label>
+                    <input id="learnerEmail" type="email"
+                           placeholder="Optional">
+                </div>
+
+                <div class="field full-width">
+                    <label for="learnerAddress">Residential address</label>
+                    <textarea id="learnerAddress"
+                              placeholder="Enter fictional test address"></textarea>
+                </div>
+            </div>
+
+            <div class="section-heading">
+                <h3>3. Parent Details</h3>
+            </div>
+
+            <div class="field-grid">
+                <div class="field">
+                    <label for="parentName">Parent full name</label>
+                    <input id="parentName" type="text"
+                           placeholder="Parent's full name">
+                </div>
+
+                <div class="field">
+                    <label for="parentContactNumber">Parent phone</label>
+                    <input id="parentContactNumber" type="tel"
+                           placeholder="e.g. 0712345678">
+                </div>
+
+                <div class="field full-width">
+                    <label for="parentEmail">Parent email</label>
+                    <input id="parentEmail" type="email"
+                           placeholder="parent@example.com">
+                </div>
+            </div>
+
+            <div class="section-heading">
+                <h3>4. Guardian Details</h3>
+            </div>
+
+            <div class="field-grid">
+                <div class="field">
+                    <label for="guardianName">Guardian full name</label>
+                    <input id="guardianName" type="text" placeholder="Optional">
+                </div>
+
+                <div class="field">
+                    <label for="guardianContactNumber">Guardian phone</label>
+                    <input id="guardianContactNumber" type="tel"
+                           placeholder="Optional">
+                </div>
+
+                <div class="field full-width">
+                    <label for="guardianEmail">Guardian email</label>
+                    <input id="guardianEmail" type="email"
+                           placeholder="Optional">
+                </div>
+            </div>
+
+            <div class="section-heading">
+                <h3>5. Emergency Contact</h3>
+            </div>
+
+            <div class="field-grid">
+                <div class="field">
+                    <label for="emergencyContactName">Contact name</label>
+                    <input id="emergencyContactName" type="text"
+                           placeholder="Emergency contact name">
+                </div>
+
+                <div class="field">
+                    <label for="emergencyContactNumber">Contact phone</label>
+                    <input id="emergencyContactNumber" type="tel"
+                           placeholder="Emergency contact number">
+                </div>
+            </div>
+
+            <div class="section-heading">
+                <h3>6. Additional Information</h3>
+            </div>
+
+            <div class="field">
+                <label for="medicalInformation">Medical information</label>
+                <textarea id="medicalInformation"
+                          placeholder="Use fictional test information only."></textarea>
+            </div>
+
+            <div class="field">
+                <label for="allergies">Allergies</label>
+                <textarea id="allergies"
+                          placeholder="Use fictional test information only."></textarea>
+            </div>
+
+            <button type="submit"
+                    class="submit-button gold-button"
                     id="linkChildButton">
-                Link Learner to Parent
+                Create Learner and Link to Parent
+            </button>
+
+            <button type="button"
+                    class="secondary-button"
+                    id="resetChildFormButton">
+                Clear Learner Form
             </button>
 
             <p class="note">
-                The API must enforce admin authorization. Hiding this section
-                in the browser is not a security control.
+                The API must verify the administrator's role, confirm that
+                the parent exists and has the parent role, and prevent
+                duplicate admission numbers.
             </p>
         </form>
     </section>
 
-    <!-- PARENT CHILDREN RESULTS -->
+    <!-- LINKED CHILDREN -->
     <section id="childrenCard" class="card hidden">
         <h2>Linked Children</h2>
-        <p id="childrenSummary" class="section-description"></p>
-        <pre id="childrenResult"></pre>
+
+        <p id="childrenSummary" class="section-description">
+            Load children to see their details.
+        </p>
+
+        <button type="button" class="refresh-button" id="refreshChildrenButton">
+            Refresh Children
+        </button>
+
+        <div id="childrenList" class="children-list"></div>
+
+        <hr class="divider">
+
+        <details>
+            <summary>View raw API response</summary>
+            <pre id="childrenResult"></pre>
+        </details>
     </section>
 
     <!-- API RESPONSE -->
@@ -420,7 +732,6 @@
 
         const loginTab = document.getElementById("loginTab");
         const registerTab = document.getElementById("registerTab");
-
         const loginForm = document.getElementById("loginForm");
         const registrationForm = document.getElementById("registrationForm");
 
@@ -431,6 +742,7 @@
         const adminSection = document.getElementById("adminSection");
         const childrenCard = document.getElementById("childrenCard");
         const childrenSummary = document.getElementById("childrenSummary");
+        const childrenList = document.getElementById("childrenList");
         const childrenResult = document.getElementById("childrenResult");
 
         const authTabs = document.getElementById("authTabs");
@@ -443,6 +755,7 @@
 
         let idToken = null;
         let currentUser = null;
+        let lastLoadedParentUid = null;
 
         function showResponse(message, data, isError = false) {
             statusMessage.textContent = message;
@@ -485,7 +798,7 @@
             }
 
             return {
-                "Authorization": `Bearer ${idToken}`,
+                Authorization: `Bearer ${idToken}`,
                 "Content-Type": "application/json"
             };
         }
@@ -506,13 +819,12 @@
             authTabs.classList.add("hidden");
             profileCard.classList.remove("hidden");
 
-            // Interface convenience only; the API must enforce permissions.
             adminSection.classList.toggle("hidden", user.role !== "admin");
             childrenCard.classList.add("hidden");
         }
 
-        // REGISTER PARENT, TEACHER OR ADMIN
-        registrationForm.addEventListener("submit", async (event) => {
+        // REGISTER PARENT ACCOUNT
+        registrationForm.addEventListener("submit", async event => {
             event.preventDefault();
 
             const password =
@@ -533,27 +845,18 @@
             registerButton.textContent = "Creating Account...";
 
             const requestBody = {
-                displayName:
-                    document.getElementById("displayName").value.trim(),
-                email:
-                    document.getElementById("registerEmail").value.trim(),
+                displayName: document.getElementById("displayName").value.trim(),
+                email: document.getElementById("registerEmail").value.trim(),
                 password,
-                role: document.getElementById("registerRole").value
+                role: "parent"
             };
-
-            showResponse(
-                `Registering ${requestBody.role} account...`,
-                ""
-            );
 
             try {
                 const { response, data } = await sendRequest(
                     `${AUTH_URL}/register-parent`,
                     {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(requestBody)
                     }
                 );
@@ -565,69 +868,53 @@
                 );
 
                 if (response.ok && data.success !== false) {
-                    const registeredEmail = requestBody.email;
+                    document.getElementById("loginEmail").value =
+                        requestBody.email;
 
                     registrationForm.reset();
-                    document.getElementById("loginEmail").value =
-                        registeredEmail;
-                    document.getElementById("loginPassword").value = "";
-
                     setAuthTab("login");
 
-                    showResponse(
-                        `${requestBody.role.charAt(0).toUpperCase() + requestBody.role.slice(1)} registered successfully.`,
-                        {
-                            ...data,
-                            nextStep: "Sign in using the email and password you registered with."
-                        }
-                    );
+                    showResponse("Registration request completed.", {
+                        response: data,
+                        nextStep: "Sign in using the registered credentials."
+                    });
                 }
             } catch (error) {
                 showResponse(
                     "Could not connect to the API.",
-                    `${error.message}\nCheck the server, API URL and CORS settings.`,
+                    `${error.message}\nCheck the API URL and CORS settings.`,
                     true
                 );
             } finally {
                 registerButton.disabled = false;
-                registerButton.textContent = "Create Account";
+                registerButton.textContent = "Create Parent Account";
             }
         });
 
         // SIGN IN
-        loginForm.addEventListener("submit", async (event) => {
+        loginForm.addEventListener("submit", async event => {
             event.preventDefault();
 
             loginButton.disabled = true;
             loginButton.textContent = "Signing in...";
-            showResponse("Signing in...", "");
-
-            const requestBody = {
-                email: document.getElementById("loginEmail").value.trim(),
-                password: document.getElementById("loginPassword").value
-            };
 
             try {
                 const { response, data } = await sendRequest(
                     `${AUTH_URL}/login`,
                     {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(requestBody)
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            email: document.getElementById("loginEmail").value.trim(),
+                            password: document.getElementById("loginPassword").value
+                        })
                     }
                 );
 
                 if (!response.ok || data.success === false) {
                     idToken = null;
                     currentUser = null;
-
-                    showResponse(
-                        `Sign in failed — HTTP ${response.status}`,
-                        data,
-                        true
-                    );
+                    showResponse(`Sign in failed — HTTP ${response.status}`, data, true);
                     return;
                 }
 
@@ -636,36 +923,29 @@
                 if (!receivedToken || !data.user) {
                     idToken = null;
 
-                    showResponse(
-                        "Sign-in response is incomplete.",
-                        {
-                            message: "Expected a token and a user object.",
-                            receivedResponse: data
-                        },
-                        true
-                    );
+                    showResponse("Sign-in response is incomplete.", {
+                        message: "Expected a token and a user object.",
+                        receivedResponse: data
+                    }, true);
                     return;
                 }
 
                 idToken = receivedToken;
                 showSignedInUser(data.user);
 
-                showResponse(
-                    `Sign in successful — HTTP ${response.status}`,
-                    {
-                        success: data.success,
-                        message: data.message,
-                        user: data.user,
-                        tokenReceived: true
-                    }
-                );
+                showResponse(`Sign in successful — HTTP ${response.status}`, {
+                    success: data.success,
+                    message: data.message,
+                    user: data.user,
+                    tokenReceived: true
+                });
             } catch (error) {
                 idToken = null;
                 currentUser = null;
 
                 showResponse(
                     "Could not connect to the API.",
-                    `${error.message}\nCheck the server, API URL and CORS settings.`,
+                    `${error.message}\nCheck the API URL and CORS settings.`,
                     true
                 );
             } finally {
@@ -674,18 +954,13 @@
             }
         });
 
-        // TEST /api/auth/me
+        // TEST PROFILE
         document.getElementById("testProfileButton")
             .addEventListener("click", async () => {
-                showResponse("Testing authenticated profile...", "");
-
                 try {
                     const { response, data } = await sendRequest(
                         `${AUTH_URL}/me`,
-                        {
-                            method: "GET",
-                            headers: getAuthHeaders()
-                        }
+                        { method: "GET", headers: getAuthHeaders() }
                     );
 
                     showResponse(
@@ -698,60 +973,170 @@
                 }
             });
 
-        // LOAD CHILDREN FOR A PARENT
-        document.getElementById("loadChildrenButton")
-            .addEventListener("click", async () => {
-                if (!currentUser || currentUser.role !== "parent") {
-                    showResponse(
-                        "Parent account required.",
-                        "Sign in with a parent account to load linked children.",
-                        true
-                    );
-                    return;
+        // Safely get displayable values from a child object.
+        function getChildValue(child, keys, fallback = "Not provided") {
+            for (const key of keys) {
+                const value = child?.[key];
+
+                if (value !== undefined && value !== null && value !== "") {
+                    return String(value);
+                }
+            }
+
+            return fallback;
+        }
+
+        function addDetail(container, label, value) {
+            const item = document.createElement("div");
+            item.className = "detail-item";
+
+            const title = document.createElement("span");
+            title.className = "detail-label";
+            title.textContent = label;
+
+            const content = document.createElement("span");
+            content.className = "detail-value";
+            content.textContent = value;
+
+            item.append(title, content);
+            container.appendChild(item);
+        }
+
+        function getChildId(child) {
+            // Supports common response shapes. Confirm which field your
+            // parent controller returns if the Delete button says no ID.
+            return child.id ||
+                child.childId ||
+                child.learnerId ||
+                child.documentId ||
+                child.uid ||
+                null;
+        }
+
+        function renderChildren(children) {
+            childrenList.replaceChildren();
+            childrenSummary.textContent =
+                `${children.length} linked learner(s) found.`;
+
+            if (children.length === 0) {
+                const empty = document.createElement("div");
+                empty.className = "empty-state";
+                empty.textContent =
+                    "No linked children were found for this parent account.";
+                childrenList.appendChild(empty);
+                return;
+            }
+
+            children.forEach(child => {
+                const card = document.createElement("article");
+                card.className = "child-card";
+
+                const header = document.createElement("div");
+                header.className = "child-card-header";
+
+                const heading = document.createElement("div");
+                const name = document.createElement("h3");
+
+                name.textContent = getChildValue(
+                    child,
+                    ["fullName", "name"],
+                    `${getChildValue(child, ["firstName"], "")} ${getChildValue(child, ["lastName"], "")}`.trim() || "Unnamed learner"
+                );
+
+                const subtitle = document.createElement("div");
+                subtitle.className = "child-subtitle";
+                subtitle.textContent =
+                    `Learner ID: ${getChildId(child) || "Not returned by API"}`;
+
+                heading.append(name, subtitle);
+                header.appendChild(heading);
+                card.appendChild(header);
+
+                const details = document.createElement("div");
+                details.className = "child-details";
+
+                addDetail(details, "Grade", getChildValue(child, ["grade"]));
+                addDetail(details, "Class", getChildValue(child, ["className", "class"]));
+                addDetail(details, "Admission number", getChildValue(child, ["admissionNumber"]));
+                addDetail(details, "Date of birth", getChildValue(child, ["dateOfBirth"]));
+                addDetail(details, "Gender", getChildValue(child, ["gender"]));
+                addDetail(details, "Status", getChildValue(child, ["status", "isActive"]));
+
+                card.appendChild(details);
+
+                const actions = document.createElement("div");
+                actions.className = "child-actions";
+
+                const deleteButton = document.createElement("button");
+                deleteButton.type = "button";
+                deleteButton.className = "danger-button";
+                deleteButton.textContent = "Delete Linked Child";
+
+                const childId = getChildId(child);
+
+                if (!childId) {
+                    deleteButton.disabled = true;
+                    deleteButton.title =
+                        "The API response does not include a child document ID.";
+                } else {
+                    deleteButton.addEventListener("click", () => {
+                        deleteLinkedChild(childId, name.textContent);
+                    });
                 }
 
-                showResponse("Loading linked children...", "");
-
-                try {
-                    const { response, data } = await sendRequest(
-                        `${PARENT_URL}/children`,
-                        {
-                            method: "GET",
-                            headers: getAuthHeaders()
-                        }
-                    );
-
-                    showResponse(
-                        `GET /api/parent/children — HTTP ${response.status}`,
-                        data,
-                        !response.ok
-                    );
-
-                    if (response.ok) {
-                        childrenCard.classList.remove("hidden");
-
-                        const children = Array.isArray(data.children)
-                            ? data.children
-                            : [];
-
-                        childrenSummary.textContent =
-                            `${children.length} linked learner(s) found.`;
-
-                        childrenResult.textContent =
-                            JSON.stringify(children, null, 2);
-                    }
-                } catch (error) {
-                    showResponse(
-                        "Could not load children.",
-                        `${error.message}\nCheck that GET /api/parent/children exists.`,
-                        true
-                    );
-                }
+                actions.appendChild(deleteButton);
+                card.appendChild(actions);
+                childrenList.appendChild(card);
             });
+        }
 
-        // ADMIN: LINK LEARNER TO PARENT
+        // Load children for the signed-in parent.
+        async function loadMyChildren() {
+            if (!currentUser || currentUser.role !== "parent") {
+                showResponse(
+                    "Parent account required.",
+                    "Sign in with a parent account to load linked children.",
+                    true
+                );
+                return;
+            }
+
+            try {
+                const { response, data } = await sendRequest(
+                    `${PARENT_URL}/children`,
+                    { method: "GET", headers: getAuthHeaders() }
+                );
+
+                showResponse(
+                    `GET /api/parent/children — HTTP ${response.status}`,
+                    data,
+                    !response.ok
+                );
+
+                if (!response.ok) return;
+
+                childrenCard.classList.remove("hidden");
+
+                const children = Array.isArray(data.children)
+                    ? data.children
+                    : [];
+
+                childrenResult.textContent = JSON.stringify(children, null, 2);
+                renderChildren(children);
+            } catch (error) {
+                showResponse("Could not load children.", error.message, true);
+            }
+        }
+
+        document.getElementById("loadChildrenButton")
+            .addEventListener("click", loadMyChildren);
+
+        document.getElementById("refreshChildrenButton")
+            .addEventListener("click", loadMyChildren);
+
+        // ADMIN: CREATE A LEARNER AND LINK TO PARENT
         document.getElementById("linkChildForm")
-            .addEventListener("submit", async (event) => {
+            .addEventListener("submit", async event => {
                 event.preventDefault();
 
                 if (!currentUser || currentUser.role !== "admin") {
@@ -767,71 +1152,157 @@
                     document.getElementById("parentUid").value.trim();
 
                 const requestBody = {
-                    firstName:
-                        document.getElementById("childFirstName").value.trim(),
-                    lastName:
-                        document.getElementById("childLastName").value.trim(),
-                    grade:
-                        document.getElementById("childGrade").value.trim(),
-                    className:
-                        document.getElementById("childClass").value.trim(),
-                    admissionNumber:
-                        document.getElementById("admissionNumber").value.trim()
+                    firstName: document.getElementById("childFirstName").value.trim(),
+                    lastName: document.getElementById("childLastName").value.trim(),
+                    grade: document.getElementById("childGrade").value.trim(),
+                    className: document.getElementById("childClass").value.trim(),
+                    admissionNumber: document.getElementById("admissionNumber").value.trim(),
+                    status: document.getElementById("childStatus").value,
+                    dateOfBirth: document.getElementById("childDateOfBirth").value,
+                    gender: document.getElementById("childGender").value,
+                    learnerContactNumber: document.getElementById("learnerContactNumber").value.trim(),
+                    learnerEmail: document.getElementById("learnerEmail").value.trim(),
+                    address: document.getElementById("learnerAddress").value.trim(),
+                    parentName: document.getElementById("parentName").value.trim(),
+                    parentContactNumber: document.getElementById("parentContactNumber").value.trim(),
+                    parentEmail: document.getElementById("parentEmail").value.trim(),
+                    guardianName: document.getElementById("guardianName").value.trim(),
+                    guardianContactNumber: document.getElementById("guardianContactNumber").value.trim(),
+                    guardianEmail: document.getElementById("guardianEmail").value.trim(),
+                    emergencyContactName: document.getElementById("emergencyContactName").value.trim(),
+                    emergencyContactNumber: document.getElementById("emergencyContactNumber").value.trim(),
+                    medicalInformation: document.getElementById("medicalInformation").value.trim(),
+                    allergies: document.getElementById("allergies").value.trim()
                 };
 
-                const confirmed = window.confirm(
-                    "Have you verified that this parent is authorized to access this learner's information?"
-                );
+                for (const key of Object.keys(requestBody)) {
+                    if (
+                        typeof requestBody[key] === "string" &&
+                        requestBody[key].trim() === "" &&
+                        !["firstName", "lastName", "grade", "admissionNumber"].includes(key)
+                    ) {
+                        delete requestBody[key];
+                    }
+                }
 
-                if (!confirmed) {
-                    showResponse(
-                        "Linking cancelled.",
-                        "Verify the parent–learner relationship before continuing."
-                    );
+                if (!window.confirm(
+                    "Have you verified that this parent is authorized to access this learner's information?"
+                )) {
+                    showResponse("Creation cancelled.", "Verify the parent–learner relationship first.");
                     return;
                 }
 
                 linkChildButton.disabled = true;
-                linkChildButton.textContent = "Linking Learner...";
-
-                showResponse("Creating learner record and parent link...", "");
+                linkChildButton.textContent = "Creating Learner...";
 
                 try {
-                    const { response, data } = await sendRequest(
-                        `${SCHOOL_DATA_URL}/parents/${encodeURIComponent(parentUid)}/children`,
-                        {
-                            method: "POST",
-                            headers: getAuthHeaders(),
-                            body: JSON.stringify(requestBody)
-                        }
-                    );
+                    const endpoint =
+                        `${SCHOOL_DATA_URL}/parents/${encodeURIComponent(parentUid)}/children`;
+
+                    const { response, data } = await sendRequest(endpoint, {
+                        method: "POST",
+                        headers: getAuthHeaders(),
+                        body: JSON.stringify(requestBody)
+                    });
 
                     showResponse(
                         `POST /api/school-data/parents/:parentUid/children — HTTP ${response.status}`,
-                        data,
-                        !response.ok
+                        { requestSent: requestBody, response: data },
+                        !response.ok || data.success === false
                     );
 
-                    if (response.ok) {
+                    if (response.ok && data.success !== false) {
                         document.getElementById("linkChildForm").reset();
                     }
                 } catch (error) {
                     showResponse(
-                        "Could not link learner.",
-                        `${error.message}\nCheck the API route, server and CORS settings.`,
+                        "Could not create learner.",
+                        `${error.message}\nCheck the route, server and CORS settings.`,
                         true
                     );
                 } finally {
                     linkChildButton.disabled = false;
-                    linkChildButton.textContent = "Link Learner to Parent";
+                    linkChildButton.textContent = "Create Learner and Link to Parent";
                 }
             });
 
-        // SIGN OUT OF THE TEST PAGE
+        document.getElementById("resetChildFormButton")
+            .addEventListener("click", () => {
+                document.getElementById("linkChildForm").reset();
+            });
+
+        // ADMIN: UNLINK CHILD FROM A PARENT
+        async function deleteLinkedChild(childId, childName) {
+            if (!currentUser || currentUser.role !== "admin") {
+                showResponse(
+                    "Admin access required.",
+                    "Only an authorized administrator can unlink a child.",
+                    true
+                );
+                return;
+            }
+
+            const parentUid =
+                document.getElementById("parentUid").value.trim();
+
+            if (!parentUid) {
+                showResponse(
+                    "Parent UID required.",
+                    "Enter the parent's Firebase UID in the Admin Tools form before deleting a link.",
+                    true
+                );
+                return;
+            }
+
+            const confirmed = window.confirm(
+                `Are you sure you want to unlink ${childName} from this parent?\n\n` +
+                "This should remove only the parent-child link, not the learner's main school record."
+            );
+
+            if (!confirmed) return;
+
+            try {
+                const endpoint =
+                    `${SCHOOL_DATA_URL}/parents/${encodeURIComponent(parentUid)}` +
+                    `/children/${encodeURIComponent(childId)}`;
+
+                const { response, data } = await sendRequest(endpoint, {
+                    method: "DELETE",
+                    headers: getAuthHeaders()
+                });
+
+                showResponse(
+                    `DELETE /api/school-data/parents/:parentUid/children/:childId — HTTP ${response.status}`,
+                    data,
+                    !response.ok || data.success === false
+                );
+
+                if (response.ok && data.success !== false) {
+                    // Reload the parent's list after successful unlinking.
+                    // This works when the currently signed-in user is the
+                    // parent whose children are being displayed.
+                    if (currentUser.role === "parent") {
+                        await loadMyChildren();
+                    } else {
+                        childrenSummary.textContent =
+                            "The link was deleted. Sign in as the relevant parent and reload their children to verify.";
+                    }
+                }
+            } catch (error) {
+                showResponse(
+                    "Could not unlink child.",
+                    `${error.message}\nCheck the DELETE route and API server.`,
+                    true
+                );
+            }
+        }
+
+        // SIGN OUT
         document.getElementById("logoutButton")
             .addEventListener("click", () => {
                 idToken = null;
                 currentUser = null;
+                lastLoadedParentUid = null;
 
                 loginForm.reset();
                 registrationForm.reset();
