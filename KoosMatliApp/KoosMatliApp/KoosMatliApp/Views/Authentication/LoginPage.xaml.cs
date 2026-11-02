@@ -102,10 +102,39 @@ public partial class LoginPage : ContentPage
                     break;
 
                 case "teacher":
-                    await Navigation.PushAsync(
-                       new TeacherHomePage());
+                    {
+                        var services = App.Services
+                            ?? throw new InvalidOperationException(
+                                "Application services are unavailable.");
 
-                    break;
+                        var token =
+                            await AuthService.Instance.GetSavedTokenAsync();
+
+                        if (string.IsNullOrWhiteSpace(token))
+                        {
+                            ShowMessage(
+                                "Your login token is unavailable. Please sign in again.");
+
+                            return;
+                        }
+
+                        // Connect the teacher API to the signed-in user's token.
+                        services.GetRequiredService<
+                            KoosMatliApp.Features.Teacher.Services.TeacherApiService>()
+                            .SetAuthenticationToken(token);
+
+                        if (Window is not { } teacherWindow)
+                        {
+                            throw new InvalidOperationException(
+                                "The application window is unavailable.");
+                        }
+
+                        // Open the shell containing all five teacher navigation tabs.
+                        teacherWindow.Page =
+                            new KoosMatliApp.Features.Teacher.TeacherShell();
+
+                        break;
+                    }
 
                 case "admin":
                 case "administrator":
