@@ -167,7 +167,7 @@ The website is intended to:
 
 ## 📱 6. Mobile Application Overview
 
-The mobile application provides a role-based experience for parents, teachers and administrators.
+The mobile application provides a role-based experience for parents, teachers and administrators. (found in dev_app branch)
 
 ### 🌍 Language Selection
 
