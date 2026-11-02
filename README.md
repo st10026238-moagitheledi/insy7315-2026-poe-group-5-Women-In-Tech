@@ -171,13 +171,11 @@ The mobile application provides a role-based experience for parents, teachers an
 
 ### 🌍 Language Selection
 
-The application supports five language options:
+The application supports three language options:
 
 - English
 - Sepedi
 - Setswana
-- isiZulu
-- Sesotho
 
 Users can select their preferred language and access language preferences through the application's settings.
 
