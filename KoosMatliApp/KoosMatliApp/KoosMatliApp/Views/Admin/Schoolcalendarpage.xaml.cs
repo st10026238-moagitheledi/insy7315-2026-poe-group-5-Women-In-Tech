@@ -1,14 +1,18 @@
 using KoosMatliApp.ViewModels;
 namespace KoosMatliApp.Views.Admin;
+
 public partial class Schoolcalendarpage : ContentPage
 {
-    public Schoolcalendarpage() { InitializeComponent(); 
+    public Schoolcalendarpage()
+    {
+        InitializeComponent();
         BindingContext = App.Services!.GetRequiredService<SchoolDetailsViewModel>();
     } //(Microsoft Learn, 2026a).
     protected override async void OnAppearing()
     { //(Microsoft Learn, 2026a).
-        base.OnAppearing(); await ((SchoolDetailsViewModel)BindingContext).LoadCalendarEventsAsync();//(Microsoft Learn, 2026b). }
-    }
+        base.OnAppearing(); await ((SchoolDetailsViewModel)BindingContext).LoadCalendarEventsAsync();
+    } //(Microsoft Learn, 2026b).
+}
 
 /*Reference List
  

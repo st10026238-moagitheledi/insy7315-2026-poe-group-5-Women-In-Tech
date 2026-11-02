@@ -1,15 +1,17 @@
 using KoosMatliApp.ViewModels;
 namespace KoosMatliApp.Views.Admin;
+
 public partial class Schooldetailspage : ContentPage
 {
-    public Schooldetailspage() 
-    { 
+    public Schooldetailspage()
+    {
         InitializeComponent();
         BindingContext = App.Services!.GetRequiredService<SchoolDetailsViewModel>();
     } //(Microsoft Learn, 2026b).
     protected override async void OnAppearing() //(Microsoft Learn, 2026a).
-    { base.OnAppearing(); await ((SchoolDetailsViewModel)BindingContext).LoadAsync();//(Microsoft Learn, 2026c). }
-    }
+    { base.OnAppearing(); await ((SchoolDetailsViewModel)BindingContext).LoadAsync(); }
+} //(Microsoft Learn, 2026c).
+
 
 /*Reference List
  
