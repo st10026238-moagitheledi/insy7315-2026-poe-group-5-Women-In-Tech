@@ -144,46 +144,47 @@ public partial class ProfilePage : ContentPage
 
 
     private async void OnLogoutClicked(
-        object sender,
-        EventArgs e)
+    object sender,
+    EventArgs e)
     {
         var confirmed =
-            await DisplayAlert(
+            await DisplayAlertAsync(
                 "Log Out",
                 "Are you sure you want to log out?",
                 "Log Out",
                 "Cancel"); // (Microsoft, 2026)
-
 
         if (!confirmed)
         {
             return;
         }
 
-
-        var services =
-            Handler?
-                .MauiContext?
-                .Services;
-
-
-        var authService =
-            services?
-                .GetService
-                    <FirebaseAuthService>();
-
-
-        if (authService != null)
+        try
         {
-            await authService
-                .SignOutAsync();
+            var services =
+                Handler?
+                    .MauiContext?
+                    .Services;
+
+            var authService =
+                services?
+                    .GetService<FirebaseAuthService>();
+
+            if (authService != null)
+            {
+                await authService.SignOutAsync();
+            }
         }
-
-
-        await DisplayAlert(
-            "Logged Out",
-            "You have been logged out successfully.",
-            "OK");
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(
+                $"Firebase sign-out error: {ex}");
+        }
+        finally
+        {
+            // Clear the shared session and return to login.
+            KoosMatliApp.App.ShowLogin();
+        }
     }
 }
 
