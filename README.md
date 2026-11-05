@@ -3,12 +3,20 @@
 ### *Thuto ke Lesedi – Education is Light*
 
 <p align="center">
-  <strong>A centralised digital platform connecting Koos Matli Primary School, parents, teachers and administrators.</strong>
+<strong>A centralised digital platform connecting Koos Matli Primary School, parents, teachers and administrators.</strong>
 </p>
 
 <p align="center">
-  📱 .NET MAUI &nbsp; | &nbsp; ⚙️ Node.js &nbsp; | &nbsp; ☁️ Firebase
+📱 .NET MAUI &nbsp; | &nbsp; ⚙️ Node.js &nbsp; | &nbsp; ☁️ Firebase
 </p>
+
+---
+
+## ⚠️ Important Notice to the Marker
+
+Unfortunately, the application cannot be deployed at this stage because we are still finalising changes requested by our client. For this reason, the application remains in the **testing and demonstration phase** and has not yet moved into production deployment. We intend to deploy the system in the future once the client is satisfied with the outstanding changes and approves the final version.
+
+The current build is therefore provided for assessment, testing and demonstration purposes only.
 
 ---
 
@@ -167,7 +175,7 @@ The website is intended to:
 
 ## 📱 6. Mobile Application Overview
 
-The mobile application provides a role-based experience for parents, teachers and administrators. (found in dev_app branch)
+The mobile application provides a role-based experience for parents, teachers and administrators. The application is available in the `dev_app` branch.
 
 ### 🌍 Language Selection
 
@@ -282,21 +290,21 @@ The mobile application follows a client-server architecture.
 The general communication flow is:
 
 ```text
-             👤 USER
-                |
-                v
-       📱 .NET MAUI APPLICATION
-          (C# and XAML)
-                |
-                | HTTP API Requests
-                v
-          ⚙️ NODE.JS API
-       (Backend and Business Logic)
-                |
-                | Firebase Integration
-                v
-           🔥 FIREBASE
-       (Cloud Data and Services)
+           👤 USER
+              |
+              v
+     📱 .NET MAUI APPLICATION
+        (C# and XAML)
+              |
+              | HTTP API Requests
+              v
+        ⚙️ NODE.JS API
+     (Backend and Business Logic)
+              |
+              | Firebase Integration
+              v
+         🔥 FIREBASE
+     (Cloud Data and Services)
 ```
 
 ### Architecture Explanation
@@ -570,7 +578,7 @@ The system should be tested to ensure that its main functionality, API communica
 
 ### Current Stage: Testing and Demonstration
 
-The current version is intended for development, testing and demonstration purposes.
+The current version is intended for development, testing and demonstration purposes. Deployment is pending while the project team finalises the outstanding changes with the client. The system will move to production deployment only once the client is satisfied with the changes and approves the final version.
 
 The system is run locally using the development environments:
 
@@ -597,7 +605,7 @@ The intended deployment process includes:
 9. Perform final security, usability and compatibility testing.
 10. Provide the school with the necessary documentation and user guidance.
 
-The final production environment will not require users to open Visual Studio Code or Visual Studio to use the application.
+The intended production environment will not require users to open Visual Studio Code or Visual Studio to use the application.
 
 ---
 
@@ -609,15 +617,15 @@ GitHub is used to manage the project's source code and support collaboration bet
 
 ```text
 main
- │
- ├── development
- │     │
- │     ├── feature/website
- │     ├── feature/mobile-app
- │     ├── feature/backend-api
- │     └── feature/admin
- │
- └── release
+&#x20;│
+&#x20;├── development
+&#x20;│     │
+&#x20;│     ├── feature/website
+&#x20;│     ├── feature/mobile-app
+&#x20;│     ├── feature/backend-api
+&#x20;│     └── feature/admin
+&#x20;│
+&#x20;└── release
 ```
 
 ### Development Practices
@@ -687,15 +695,28 @@ A formal handover should include the source code, deployment instructions, confi
 
 ---
 
-## 🎥 18. Demonstration Video
+## 🎥 18. Demonstration Videos and Access Details
 
-Watch the demonstration of the Koos Matli Primary School Management System:
+The following videos provide demonstrations of the mobile application and website:
 
-▶️ **[Watch the System Demonstration Video](<INSERT_DEMONSTRATION_VIDEO_LINK_HERE>)**
+- 📱 **Mobile Application Demonstration:** [Watch the App Demonstration](https://youtu.be/Yk728COzKCY)
+- 🌐 **Website Demonstration:** [Watch the Website Demonstration](https://youtu.be/H__yAlGE8Gg)
 
-The demonstration video showcases the system's main interfaces and explains the functionality available to parents, teachers and administrators.
+The videos showcase the system interfaces and provide an overview of the functionality available through the website and the Parent, Teacher and Administrator sections of the mobile application.
 
-> Replace the placeholder above with the final video URL before publishing the README.
+### 🔑 Demonstration Login Details
+
+Use the following test accounts to access the relevant roles in the mobile application:
+
+| User Role | Email Address | Password |
+|---|---|---|
+| 👨‍👩‍👧 Parent | `parent1@test.com` | `12345678` |
+| 👩‍🏫 Teacher | `teacher3@test.com` | `TestTeacher123!` |
+| 🛡️ Administrator | `test@email.com` | `testing123` |
+
+**Important:** These credentials are supplied strictly for testing and assessment demonstrations. They should not be used for real school operations or to access real learner information. Do not reuse these passwords in a production environment.
+
+---
 
 ---
 
@@ -717,11 +738,11 @@ This project was developed collaboratively as part of the Work-Integrated Learni
 <details>
 <summary><strong>Current development status</strong></summary>
 
-The project is currently maintained in a testing and demonstration phase.
+The project is currently maintained in a testing and demonstration phase because changes with the client are still being finalised. The application has not yet been deployed. Future deployment will take place once the client is satisfied with the changes and approves the final version.
 
 The website, backend API and .NET MAUI application form part of the overall solution. The current demonstration setup requires the backend API to be started locally before launching the mobile application.
 
-The final deployment phase will focus on production hosting, final testing, application packaging and making the mobile application available for download.
+The future deployment phase will begin after the client is satisfied with the outstanding changes and approves the final version. It will focus on production hosting, final testing, application packaging and making the mobile application available for download.
 
 </details>
 
@@ -747,9 +768,9 @@ This project represents our collective effort to apply software development prin
 ---
 
 <p align="center">
-  🏫 <strong>Koos Matli Primary School Management System</strong>
-  <br>
-  <em>Thuto ke Lesedi – Education is Light.</em>
-  <br><br>
-  Built with ❤️ by the project team.
+🏫 <strong>Koos Matli Primary School Management System</strong>
+<br>
+<em>Thuto ke Lesedi – Education is Light.</em>
+<br><br>
+Built with ❤️ by the project team.
 </p>
